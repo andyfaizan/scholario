@@ -29,24 +29,4 @@ router.post('/login', function (req, res) {
   });
 });
 
-router.post('/signup', function (req, res) {
-  var user = new User({
-    email: req.body.email,
-    username: req.body.username,
-  });
-  user.updatePassword(req.body.password).then(function () {
-    return user.save();
-  }).then(function (user) {
-    return res.json({
-      err: ''
-    });
-  }).catch(function (err) {
-    console.log(err);
-    return res.json({
-      err: err.message,
-    });
-  });
-
-});
-
 module.exports = router;

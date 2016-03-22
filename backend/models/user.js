@@ -5,10 +5,11 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   name: { type: String, default: '' },
-  email: { type: String, default: '' },
+  email: { type: String, required: true, default: '' },
   username: { type: String, default: '' },
-  password: { type: String, default: ''},
+  password: { type: String, required: true, default: ''},
   salt: { type: String, default: ''},
+  registerDate: { type: Date, default: Date.now },
 });
 
 UserSchema.methods.updatePassword = function (password) {

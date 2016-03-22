@@ -51,9 +51,9 @@ app.use('/api', apiRouter);
 
 // Routes
 const authRouter = require('./routes/auth');
-const profileRouter = require('./routes/profile');
+const userRouter = require('./routes/user');
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/profile', profileRouter);
+apiRouter.use('/user', userRouter);
 
 // Test api
 apiRouter.get('/test', function (req, res) {
