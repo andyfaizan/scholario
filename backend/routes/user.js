@@ -2,7 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-var _ = require('lodash');
+const _ = require('lodash');
+const crypto = require('crypto');
+const mailer = require('../mailer');
 const User = mongoose.model('User');
 
 var router = express.Router();
@@ -35,6 +37,23 @@ router.post('/', function (req, res) {
     username: req.body.username,
   });
   user.updatePassword(req.body.password).then(function () {
+    return crypto.randomBytes(48);
+  }).then(function (buffer) {
+    var verificationCode = buffer.toString('hex');
+    user.verificationCode = verificationCode;
+    user.vcCreated = Date.now();
+    var verificationURL = `http://scholario.de/email-verification/${verificationCode}`;
+    var mailOpts = {
+      from: '"Scholario" <noreply@scholario.de>',
+      to: user.email,
+      subject: 'Verification code',
+      text: verificationURL,
+    };
+    /*mailer.transporter.sendMail(mailOpts).catch(function (err) {*/
+      //console.log(err);
+    /*});*/
+    console.log(verificationURL);
+
     return user.save();
   }).then(function (user) {
     return res.json({
@@ -46,7 +65,6 @@ router.post('/', function (req, res) {
       err: err.message,
     });
   });
-
 });
 
 router.put('/', passport.authenticate('jwt', {session: false}), function (req, res) {

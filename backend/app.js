@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const moment = require('moment');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
@@ -54,6 +55,29 @@ const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/user', userRouter);
+
+// Email verification
+app.get('/email-verification/:code', function (req, res) {
+  if (!req.params.code) {
+    return res.json({
+      err: 'Verification code was not provided.',
+    });
+  }
+  User.findOne({ verificationCode: req.params.code }).then(function (user) {
+    var timeDiff = moment.duration(moment().diff(moment(user.vcCreated))).asHours();
+    if (!user || user.verified || timeDiff > 24) {
+      return res.json({
+        err: 'Validation code is not valid.',
+      });
+    }
+    user.verificationCode = '';
+    user.verified = true;
+    user.save();
+    return res.json({
+      err: '',
+    });
+  });
+});
 
 // Test api
 apiRouter.get('/test', function (req, res) {
