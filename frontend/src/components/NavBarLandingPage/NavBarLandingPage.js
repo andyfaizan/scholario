@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import IconButton from 'material-ui/lib/icon-button'
 import ActionHome from 'material-ui/lib/svg-icons/action/home'
+import ModalComponent from '../../components/ModalComponent/ModalComponent'
 
 injectTapEventPlugin()
 
@@ -39,6 +40,7 @@ export class NavBarLandingPage extends React.Component {
     }
     return (
       <div><AppBar iconElementLeft={<IconButton><ActionHome /></IconButton>} title={<span style={styles.title}>Scholario</span>} iconElementRight={<div><FlatButton label='Home' style={styles.buttonStyle} /><FlatButton label='Blog' style={styles.buttonStyle} /><FlatButton label='Lehrer' style={styles.buttonStyle} /><FlatButton label='Student' style={styles.buttonStyle} /><FlatButton label='EinLoggen' style={styles.loginButton} /></div>} />
+        <ModalComponent />
       </div>
 
     )

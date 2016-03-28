@@ -2,15 +2,21 @@ import React from 'react'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
-import Slider from 'material-ui/lib/slider'
-
-type Props = {
-
-};
+import LoginFields from '../../components/LoginFields/LoginFields'
 
 export class ModalComponent extends React.Component {
-  props: Props;
-
+  constructor (props) {
+    super(props)
+    this.state = {
+      open: true
+    }
+  }
+  handleClose = () => {
+    this.setState({open: false})
+  };
+  handleOpen = () => {
+    this.setState({open: true})
+  };
   render () {
     const styles = {
       headline: {
@@ -34,7 +40,7 @@ export class ModalComponent extends React.Component {
       padding: 1,
       marginBottom: 0,
       marginTop: 0,
-      width: '100%',
+      width: '30%',
       margin: '0 auto'
     }
     const customContentStyleFour = {
@@ -48,14 +54,9 @@ export class ModalComponent extends React.Component {
       <Tabs>
         <Tab label='Item One' >
           <div>
-            <h2 style={styles.headline}>Tab One</h2>
             <p>
-            This is an example tab.
+              <LoginFields />
             </p>
-            <p>
-            You can put any sort of HTML or react component in here. It even keeps the component state!
-            </p>
-            <Slider name='slider0' defaultValue={0.5} />
           </div>
         </Tab>
         <Tab label='Item Two' >
@@ -73,8 +74,8 @@ export class ModalComponent extends React.Component {
         <Dialog
           actions={actions}
           modal={0}
-          open={1}
-          onRequestClose={0}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
           actionsContainerStyle={customContentStyle}
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
