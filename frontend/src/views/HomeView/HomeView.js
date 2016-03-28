@@ -5,6 +5,7 @@ import { increment, doubleAsync } from '../../redux/modules/counter'
 import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss'
 import NavBarLandingPage from '../../components/NavBarLandingPage/NavBarLandingPage'
+import ModalComponent from '../../components/ModalComponent/ModalComponent'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
@@ -31,7 +32,7 @@ export class HomeView extends React.Component<void, Props, void> {
 
   render () {
     return (
-      <div className='container text-center'>
+      <div className='col-md-1" text-center'>
         <div className='row'>
           <div className='col-xs-2 col-xs-offset-5'>
             <img className={classes.duck}
@@ -53,6 +54,7 @@ export class HomeView extends React.Component<void, Props, void> {
           Double (Async)
         </button>
         <NavBarLandingPage />
+        <ModalComponent />
 
       </div>
     )

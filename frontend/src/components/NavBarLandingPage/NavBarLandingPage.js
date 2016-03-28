@@ -17,7 +17,13 @@ export class NavBarLandingPage extends React.Component {
     const styles = {
       title: {
         cursor: 'pointer',
-        marginLeft: '-480'
+        marginLeft: 650 - screen.width
+      },
+      buttonStyle: {
+        backgroundColor: 'transparent',
+        marginTop: '7',
+        fontWeight: 'bold',
+        color: 'white'
       },
       loginButton: {
         backgroundColor: 'transparent',
@@ -28,17 +34,11 @@ export class NavBarLandingPage extends React.Component {
         borderStyle: 'solid',
         borderColor: 'white',
         borderRadius: '10',
-        borderWidth: '1'  
+        borderWidth: '1.5'
       }
     }
-    var buttonStyle = {
-      backgroundColor: 'transparent',
-      marginTop: '7',
-      fontWeight: 'bold',
-      color: 'white'
-    }
     return (
-      <div><AppBar iconElementLeft={<IconButton><ActionHome /></IconButton>} title={<span style={styles.title}>Scholario</span>} iconElementRight={<div><FlatButton label='Home' style={buttonStyle} /><FlatButton label='Blog' style={buttonStyle} /><FlatButton label='Lehrer' style={buttonStyle} /><FlatButton label='Student' style={buttonStyle} /><FlatButton label='EinLoggen' style={styles.loginButton} /></div>} />
+      <div><AppBar iconElementLeft={<IconButton><ActionHome /></IconButton>} title={<span style={styles.title}>Scholario</span>} iconElementRight={<div><FlatButton label='Home' style={styles.buttonStyle} /><FlatButton label='Blog' style={styles.buttonStyle} /><FlatButton label='Lehrer' style={styles.buttonStyle} /><FlatButton label='Student' style={styles.buttonStyle} /><FlatButton label='EinLoggen' style={styles.loginButton} /></div>} />
       </div>
 
     )
