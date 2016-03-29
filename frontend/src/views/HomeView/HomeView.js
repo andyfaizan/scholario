@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
 import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss'
+import NavBarLandingPage from '../../components/NavBarLandingPage/NavBarLandingPage'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
@@ -30,7 +31,7 @@ export class HomeView extends React.Component<void, Props, void> {
 
   render () {
     return (
-      <div className='container text-center'>
+      <div className='col-md-1" text-center'>
         <div className='row'>
           <div className='col-xs-2 col-xs-offset-5'>
             <img className={classes.duck}
@@ -51,6 +52,8 @@ export class HomeView extends React.Component<void, Props, void> {
         <button className='btn btn-default' onClick={this.props.doubleAsync}>
           Double (Async)
         </button>
+        <NavBarLandingPage />
+
       </div>
     )
   }
