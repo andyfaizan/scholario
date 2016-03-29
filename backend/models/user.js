@@ -4,6 +4,10 @@ const validator = require('validator');
 
 const Schema = mongoose.Schema;
 
+const opts = {
+  discriminatorKey: 'role',
+};
+
 const UserSchema = new Schema({
   name: { type: String, default: '' },
   email: { type: String, required: true, unique: true, index: true, default: '' },
@@ -14,7 +18,14 @@ const UserSchema = new Schema({
   verified: { type: Boolean, default: false },
   verificationCode: { type: String, index: true, default: '' },
   vcCreated: { type: Date },
-});
+  //courses: [{ type: ObjectId, ref: 'Course'}], // Duplicate with course.participants
+}, opts);
+
+const StudentSchema = new Schema({
+}, opts);
+
+const ProfSchema = new Schema({
+}, opts);
 
 // Indices
 
@@ -51,3 +62,5 @@ UserSchema.path('email').validate(function (email) {
 }, 'Email is not valid.');
 
 mongoose.model('User', UserSchema);
+const Student = User.discriminator('Student', StudentSchema);
+const Prof = User.discriminator('Prof', ProfSchema);

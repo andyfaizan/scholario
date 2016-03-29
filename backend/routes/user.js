@@ -32,10 +32,14 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
 });
 
 router.post('/', function (req, res) {
-  var user = new User({
-    email: req.body.email,
-    username: req.body.username,
-  });
+  var user;
+  if (req.body.role === 'student') {
+    user = new Student({
+      email: req.body.email,
+      username: req.body.username,
+    });
+  }
+
   user.updatePassword(req.body.password).then(function () {
     return crypto.randomBytes(48);
   }).then(function (buffer) {
