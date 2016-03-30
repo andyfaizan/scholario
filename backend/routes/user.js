@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const _ = require('lodash');
 const crypto = require('crypto');
+const logger = require('../logger');
 const mailer = require('../mailer');
 const User = mongoose.model('User');
+const Student = mongoose.model('Student');
+const Prof = mongoose.model('Prof');
 
 var router = express.Router();
 
@@ -38,6 +41,11 @@ router.post('/', function (req, res) {
       email: req.body.email,
       username: req.body.username,
     });
+  } else if (req.body.role === 'prof') {
+    user = new Prof({
+      email: req.body.email,
+      name: req.body.name,
+    });
   }
 
   user.updatePassword(req.body.password).then(function () {
@@ -56,7 +64,7 @@ router.post('/', function (req, res) {
     /*mailer.transporter.sendMail(mailOpts).catch(function (err) {*/
       //console.log(err);
     /*});*/
-    console.log(verificationURL);
+    logger.debug(verificationURL);
 
     return user.save();
   }).then(function (user) {

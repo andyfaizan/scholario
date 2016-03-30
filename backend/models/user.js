@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const logger = require('../logger');
 
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const opts = {
   discriminatorKey: 'role',
@@ -22,13 +24,16 @@ const UserSchema = new Schema({
 }, opts);
 
 const StudentSchema = new Schema({
+  university: { type: ObjectId, ref: 'University'},
 }, opts);
 
 const ProfSchema = new Schema({
+  university: { type: ObjectId, ref: 'University'},
 }, opts);
 
 // Indices
 
+// Instance methods
 UserSchema.methods.updatePassword = function (password) {
   return new Promise((resolve, reject) => {
     if (!password) return reject(Error('Password empty'));
@@ -57,10 +62,13 @@ UserSchema.methods.authenticate = function (password) {
   });
 };
 
+// Virtuals
+
+// Validations
 UserSchema.path('email').validate(function (email) {
   return validator.isEmail(email);
 }, 'Email is not valid.');
 
-mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 const Student = User.discriminator('Student', StudentSchema);
 const Prof = User.discriminator('Prof', ProfSchema);

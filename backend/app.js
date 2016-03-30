@@ -32,12 +32,20 @@ fs.readdirSync(models)
 
 // Passport JWT
 const User = mongoose.model('User');
+const Student = mongoose.model('Student');
+const Prof = mongoose.model('Prof');
 var opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),
   secretOrKey: config.secret
 };
 passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
-  User.findOne({email: jwtPayload.sub}).then(function (user) {
+  var findP;
+  if (jwtPayload.role === 'Student') {
+    findP = Student.findOne({ email: jwtPayload.sub });
+  } else if (jwtPayload.role === 'Prof') {
+    findP = Prof.findOne({ email: jwtPayload.sub });
+  }
+  findP.then(function (user) {
     if (user) return done(null, user);
     return done(null, false);
   }).catch(function (err) {
@@ -53,8 +61,14 @@ app.use('/api', apiRouter);
 // Routes
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const courseRouter = require('./routes/course');
+const questionRouter = require('./routes/question');
+const studentRouter = require('./routes/student');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/user', userRouter);
+apiRouter.use('/course', courseRouter);
+apiRouter.use('/question', questionRouter);
+apiRouter.use('/student', studentRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
