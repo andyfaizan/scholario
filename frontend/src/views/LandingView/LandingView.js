@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBarLandingPage from '../../components/NavBarLandingPage/NavBarLandingPage'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/lib/divider'
 import Paper from 'material-ui/lib/paper'
@@ -25,12 +26,9 @@ export class LandingView extends React.Component {
         <div className={classes.container}>
           <Paper style={style} zDepth={3} circle={1} />
         </div>
+        <Divider />
         <div className={classes.footer}>
-          <div className={classes.mainfoot}>
-            <Divider />
-          </div>
-          <div className={classes.endNote}>
-          </div>
+          <FooterLanding />
         </div>
       </div>
     )

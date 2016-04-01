@@ -15,7 +15,7 @@ export default (store) => (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={HomeView} />
     <Route component={Dashboard}>
-        <Route path='landing' component={LandingView} />
+      <Route path='landing' component={LandingView} />
     </Route>
   </Route>
 )
