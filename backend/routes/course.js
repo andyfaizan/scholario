@@ -14,6 +14,15 @@ var router = express.Router();
 
 
 router.get('/:cid', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   Course.findOne({ _id: req.params.cid }).populate('prof university').then(function (course) {
     if (!course) {
       return res.json({
@@ -33,6 +42,15 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
 });
 
 router.get('/:cid/questions', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   Course.findOne({ _id: req.params.cid }).then(function (course) {
     if (!course) {
       return res.json({
@@ -58,6 +76,15 @@ router.get('/:cid/questions', passport.authenticate('jwt', {session: false}), fu
 router.get('/:cid/follow',
            passport.authenticate('jwt', {session: false}),
            utils.hasPermission('Student'), function (req, res) {
+  req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   Course.findOne({ _id: req.params.cid }).then(function (course) {
     if (!course) {
       return res.json({
@@ -74,6 +101,15 @@ router.get('/:cid/follow',
 
 router.post('/', passport.authenticate('jwt', {session: false}),
             utils.hasPermission('Prof'), function (req, res) {
+  req.checkBody('name', 'Invalid name').notEmpty().isAlphanumeric();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   var course = new Course({
     name: req.body.name,
     prof: req.user,
