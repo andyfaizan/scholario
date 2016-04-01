@@ -10,6 +10,16 @@ var router = express.Router();
 
 
 router.post('/login', function (req, res) {
+  req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+  req.checkBody('password', 'Invalid password').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   var findP = User.findOne({ 'email': req.body.email });
   var authP = findP.then(function (user) {
     return user.authenticate(req.body.password);
@@ -20,21 +30,32 @@ router.post('/login', function (req, res) {
       expresInMinutes: 1440
     });
     return res.json({
-      err: '',
+      err: [],
       token: token,
     });
   }).catch(function (err) {
     return res.json({
-      err: err.message
+      err: [{
+        'msg': err.message,
+      }]
     });
   });
 });
 
 router.post('/forgot-password', function (req, res) {
+  req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   User.findOne({ 'email': req.body.email }).then(function (user) {
     if (!user) {
       return res.json({
-        err: 'Email is wrong.',
+        err: [{'msg': 'Email is wrong.'}],
       });
     }
 
@@ -59,6 +80,16 @@ router.post('/forgot-password', function (req, res) {
 });
 
 router.post('/reset-password', function (req, res) {
+  req.checkBody('code', 'Invalid code').isLength({min: 48, max: 48});
+  req.checkBody('password', 'Invalid password').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   if (!req.body.code) {
     return res.json({
       err: 'Verification code was not provided.',
