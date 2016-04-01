@@ -135,6 +135,7 @@
     "postcss-loader": "^0.8.0",
     "react-addons-test-utils": "^0.14.0",
     "react-bootstrap": "^0.28.4",
+    "react-conditional-render": "^1.0.5",
     "react-tap-event-plugin": "^0.2.2",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.2",

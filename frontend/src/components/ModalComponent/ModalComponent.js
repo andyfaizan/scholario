@@ -2,7 +2,6 @@ import React from 'react'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
-import LoginFields from '../../components/LoginFields/LoginFields'
 
 export class ModalComponent extends React.Component {
   constructor (props) {
@@ -55,7 +54,6 @@ export class ModalComponent extends React.Component {
         <Tab label='Item One' >
           <div>
             <p>
-              <LoginFields />
             </p>
           </div>
         </Tab>
@@ -73,7 +71,7 @@ export class ModalComponent extends React.Component {
       <div>
         <Dialog
           actions={actions}
-          modal={0}
+          modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
           actionsContainerStyle={customContentStyle}

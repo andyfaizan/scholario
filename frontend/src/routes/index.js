@@ -7,10 +7,15 @@ import { Route, IndexRoute } from 'react-router'
 // very easy to navigate to files regardless of how deeply nested
 // your current file is.
 import CoreLayout from 'layouts/CoreLayout/CoreLayout'
+import Dashboard from 'layouts/DashboardLayout/DashboardLayout'
 import HomeView from 'views/HomeView/HomeView'
+import LandingView from 'views/LandingView/LandingView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={HomeView} />
+    <Route component={Dashboard}>
+        <Route path='landing' component={LandingView} />
+    </Route>
   </Route>
 )
