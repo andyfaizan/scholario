@@ -10,7 +10,7 @@ var router = express.Router();
 
 
 router.post('/login', function (req, res) {
-  var findP = User.findOne({'email': req.body.email});
+  var findP = User.findOne({ 'email': req.body.email });
   var authP = findP.then(function (user) {
     return user.authenticate(req.body.password);
   });
@@ -28,6 +28,63 @@ router.post('/login', function (req, res) {
       err: err.message
     });
   });
+});
+
+router.post('/forgot-password', function (req, res) {
+  User.findOne({ 'email': req.body.email }).then(function (user) {
+    if (!user) {
+      return res.json({
+        err: 'Email is wrong.',
+      });
+    }
+
+    var buffer = crypto.randomBytes(48);
+    var verificationCode = buffer.toString('hex');
+    user.verificationCode = verificationCode;
+    user.vcCreated = Date.now();
+    var verificationURL = `http://scholario.de/forgot-password/${verificationCode}`;
+    var mailOpts = {
+      from: '"Scholario" <noreply@scholario.de>',
+      to: user.email,
+      subject: 'Restart password',
+      text: verificationURL,
+    };
+    /*mailer.transporter.sendMail(mailOpts).catch(function (err) {*/
+      //console.log(err);
+    /*});*/
+    logger.debug(verificationURL);
+
+    return user.save();
+  });
+});
+
+router.post('/reset-password', function (req, res) {
+  if (!req.body.code) {
+    return res.json({
+      err: 'Verification code was not provided.',
+    });
+  }
+
+  User.findOne({ verificationCode: req.params.code }).then(function (user) {
+    var timeDiff = moment.duration(moment().diff(moment(user.vcCreated))).asHours();
+    if (!user || user.verified || timeDiff > 24) {
+      return res.json({
+        err: 'Code is not valid.',
+      });
+    }
+    user.verificationCode = '';
+    user.updatePassword(req.body.password).then(function () {
+      user.save();
+      return res.json({
+        err: '',
+      });
+    }).catch(function (err) {
+      return res.json({
+        err: err.message,
+      });
+    });;
+  });
+
 });
 
 module.exports = router;
