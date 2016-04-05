@@ -1,16 +1,19 @@
 import React from 'react'
+import DashboardToolBar from '../../components/DashBoardToolBar/DashBoardToolBar'
 
 type Props = {
 
 };
-export class Dashboard extends React.Component {
+export class DashboardView extends React.Component {
   props: Props;
 
   render () {
     return (
-      <div></div>
+      <div>
+        <DashboardToolBar />
+      </div>
     )
   }
 }
 
-export default Dashboard
+export default DashboardView

@@ -1,4 +1,5 @@
 module.exports = {
+  urlPrefix: '/',
   secret: 'verySecret',
   dbURI: 'mongodb://localhost/scholario',
   smtpConfig: {

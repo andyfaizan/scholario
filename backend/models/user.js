@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   verificationCode: { type: String, index: true, default: '' },
   vcCreated: { type: Date },
   //courses: [{ type: ObjectId, ref: 'Course'}], // Duplicate with course.participants
-  friends: [{ type: ObjectId, ref: 'User' }],
+  following: [{ type: ObjectId, ref: 'User' }],
 }, opts);
 
 const StudentSchema = new Schema({
