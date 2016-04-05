@@ -2,6 +2,7 @@ import React from 'react'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
+import LoginFields from '../../components/LoginFields/LoginFields'
 
 export class ModalComponent extends React.Component {
   constructor (props) {
@@ -50,17 +51,17 @@ export class ModalComponent extends React.Component {
       margin: 0
     }
     const tabItemContainerStyle = {
-      backgroundColor: '#68BA8C'
+      backgroundColor: '#c5d5cb',
+      fontWeight: 'bold'
     }
     const inkBarStyle = {
-      backgroundColor: '#1A3B29'
+      backgroundColor: '#9fa8a3'
     }
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
           <div>
-            <p>
-            </p>
+            <LoginFields />
           </div>
         </Tab>
         <Tab label='Sign In' >

@@ -39,7 +39,7 @@ export class NavBarLandingPage extends React.Component {
       loginButton: {
         backgroundColor: 'transparent',
         marginTop: '7',
-        color: 'green',
+        color: '#9fa8a3',
         border: 'true',
         borderStyle: 'solid',
         borderColor: 'grey',
