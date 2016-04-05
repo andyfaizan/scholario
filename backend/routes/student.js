@@ -33,6 +33,26 @@ router.get('/', passport.authenticate('jwt', {session: false}),
         username: req.user.username,
         courses: data,
       });
+    });       
+});
+
+router.get('/friends', passport.authenticate('jwt', {session: false}),
+					 utils.hasPermission('Student'), function (req, res) {
+  User
+    .findOne({ _id: req.user._id })
+    .populate('friends')
+    exec()
+    .then (function (user) {
+      var data = [];
+      for(var i = 0; i < user.friends.length; i++) {
+        data.push({
+          id: user.friends[i]._id,
+          name: user.friends[i].name,
+        });
+      }
+      return res.json({
+        friends: data,
+      });
     });
 });
 
