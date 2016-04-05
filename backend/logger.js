@@ -12,7 +12,7 @@ var logger = new (winston.Logger)({
     }),
     new (winston.transports.File)({
       name: 'info-log',
-      filename: 'logs/info.log',
+      filename: 'log/info.log',
       level: 'info'
     }),
     new (winston.transports.Console)({

@@ -10,6 +10,7 @@ const utils = require('../utils');
 const User = mongoose.model('User');
 const Course = mongoose.model('Course');
 const Question = mongoose.model('Question');
+const Material = mongoose.model('Material');
 
 var router = express.Router();
 
@@ -97,6 +98,44 @@ router.get('/:cid/follow',
     course.save();
     return res.json({
       err: '',
+    });
+  });
+});
+
+router.get('/:cid/materials', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
+  Material.find({ course: req.params.cid }).populate('owner').then(function (materials) {
+    if (!materials) {
+      return res.status(404).json({
+        err: [{msg: 'Materials not found'}],
+      });
+    }
+    var data = [];
+    for (var i = 0; i < materials.length; i++) {
+      data.push({
+        id: materials[i].id,
+        name: materials[i].name,
+        createdBy: {
+          id: materials[i].owner.id,
+          name: materials[i].owner.name,
+        },
+      });
+    }
+    return res.json({
+      'materials': data,
+    });
+  }).catch(function (err) {
+    logger.error(err.message);
+    return res.status(500).json({
+      err: [{msg: 'Sorry, there was an error, please try again'}],
     });
   });
 });

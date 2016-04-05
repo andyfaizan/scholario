@@ -59,7 +59,7 @@ passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
 
 // Bootstrap routes
 var apiRouter = express.Router();
-app.use('/api', apiRouter);
+app.use(config.urlPrefix, apiRouter);
 
 // Routes
 const authRouter = require('./routes/auth');
