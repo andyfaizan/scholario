@@ -49,15 +49,21 @@ export class ModalComponent extends React.Component {
       width: '100%',
       margin: 0
     }
+    const tabItemContainerStyle = {
+      backgroundColor: '#68BA8C'
+    }
+    const inkBarStyle = {
+      backgroundColor: '#1A3B29'
+    }
     const actions = [
-      <Tabs>
-        <Tab label='Item One' >
+      <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
+        <Tab label='Login' >
           <div>
             <p>
             </p>
           </div>
         </Tab>
-        <Tab label='Item Two' >
+        <Tab label='Sign In' >
           <div>
             <h2 style={styles.headline}>Tab Two</h2>
             <p>

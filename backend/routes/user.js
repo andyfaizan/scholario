@@ -28,12 +28,38 @@ router.get('/:username', passport.authenticate('jwt', {session: false}), functio
   });
 });
 
-router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
-  return res.json({
-    username: req.user.username,
+//================new==================
+router.get('/:username/follow', passport.authenticate('jwt', {session: false}), function (req, res) {
+  User.findOne({ username: req.param.username }).then(function (user) {
+    if (!user) throw(Error('User not found'));
+    req.user.friends.push(user._id);
+    req.user.save();
+    return res.json({
+      err: [],
+    });
+  }).catch(function (err) {
+    return res.json({
+      err: [{'msg': err.message}],
+    });
   });
 });
 
+/*router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+  user.friends.findOne({ username: req.params.username }).then(function (user) {
+    if (!user.friends) throw(Error('No friends'));
+    return res.json({
+      user.friends
+
+router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+  for(var i = 0; i < user.friends.length; i++)
+    if( user.friends[i]._id == req.param.username.
+return res.json({
+    username: req.user.username,
+  });
+});
+*/
+
+//================new end==============
 router.post('/', function (req, res) {
   req.checkBody('email', 'Invalid email').notEmpty().isEmail();
   req.checkBody('role', 'Invalid role').isIn(['student', 'prof']);
