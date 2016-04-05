@@ -61,6 +61,17 @@ return res.json({
 
 //================new end==============
 router.post('/', function (req, res) {
+  req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+  req.checkBody('role', 'Invalid role').isIn(['student', 'prof']);
+  req.checkBody('password', 'Invalid password').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
   var user;
   if (req.body.role === 'student') {
     user = new Student({

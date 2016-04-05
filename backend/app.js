@@ -4,6 +4,7 @@ const join = require('path').join;
 const express = require('express');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -22,6 +23,7 @@ const models = join(__dirname, 'models');
 var app = express();
 app.use(helmet());
 app.use(bodyParser.json());
+app.use(expressValidator());
 app.use(morgan('dev'));
 app.use(passport.initialize());
 
@@ -72,11 +74,15 @@ apiRouter.use('/student', studentRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
-  if (!req.params.code) {
+  req.checkParams('code', 'Invalid code').isLength({min: 48, max: 48});
+
+  var errors = req.validationErrors();
+  if (errors) {
     return res.json({
-      err: 'Verification code was not provided.',
+      'err': errors
     });
   }
+
   User.findOne({ verificationCode: req.params.code }).then(function (user) {
     var timeDiff = moment.duration(moment().diff(moment(user.vcCreated))).asHours();
     if (!user || user.verified || timeDiff > 24) {
