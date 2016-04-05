@@ -3,6 +3,7 @@ import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
 import LoginFields from '../../components/LoginFields/LoginFields'
+import SignupFields from '../../components/SignupFields/SignupFields'
 
 export class ModalComponent extends React.Component {
   constructor (props) {
@@ -51,11 +52,11 @@ export class ModalComponent extends React.Component {
       margin: 0
     }
     const tabItemContainerStyle = {
-      backgroundColor: '#c5d5cb',
+      backgroundColor: '#16a085',
       fontWeight: 'bold'
     }
     const inkBarStyle = {
-      backgroundColor: '#9fa8a3'
+      backgroundColor: '#fff'
     }
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
@@ -66,10 +67,7 @@ export class ModalComponent extends React.Component {
         </Tab>
         <Tab label='Sign In' >
           <div>
-            <h2 style={styles.headline}>Tab Two</h2>
-            <p>
-            This is another example tab.
-            </p>
+            <SignupFields />
           </div>
         </Tab>
       </Tabs>

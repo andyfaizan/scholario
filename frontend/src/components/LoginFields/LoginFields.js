@@ -36,10 +36,8 @@ export class LoginFields extends React.Component {
     return (
       <div>
         <div className={classes.loginContainer}>
-          <div align='center'>
-            <TextField hintText='abc@hotmail.com' floatingLabelStyle={styles.floatingLabelStyle} floatingLabelText='Email or Username' underlineFocusStyle={styles.focusStyle} />
-            <br/>
-          </div>
+          <TextField hintText='abc@hotmail.com' floatingLabelStyle={styles.floatingLabelStyle} floatingLabelText='Email or Username' underlineFocusStyle={styles.focusStyle} />
+          <br/>
           <TextField floatingLabelText='Password' type='password' floatingLabelStyle={styles.floatingLabelStyle} underlineFocusStyle={styles.focusStyle} />
           <br/>
           <br/>
