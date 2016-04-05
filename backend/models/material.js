@@ -6,13 +6,14 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 const MaterialSchema = new Schema({
-  name: { type: String, default: '' },
+  name: { type: String, required: true, default: '' },
   root: { type: String, default: '' },
   owner: { type: ObjectId, ref: 'User' },
-  course: { type: ObjectId, ref: 'Course' },
+  course: { type: ObjectId, required: true, ref: 'Course' },
   createDate: { type: Date, default: Date.now },
   modifiedDate: { type: Date },
 });
 
+MaterialSchema.index({ name: 1, course: 1 }, { unique: true });
 
 mongoose.model('Material', MaterialSchema);

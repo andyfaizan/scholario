@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -103,6 +105,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
             utils.hasPermission('Prof'), function (req, res) {
   req.checkBody('name', 'Invalid name').notEmpty().isAlphanumeric();
 
+
   var errors = req.validationErrors();
   if (errors) {
     return res.json({
@@ -117,8 +120,19 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   });
   course.save();
 
-  return res.json({
-    err: '',
+  var materialsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', course.id);
+  logger.debug(materialsRoot);
+  fs.mkdir(materialsRoot, 0755, function (err, dir) {
+    if (err) {
+      return res.json({
+        err: [{'msg': err.message}],
+      });
+    }
+    course.materialsRoot = materialsRoot;
+    course.save();
+    return res.json({
+      err: [],
+    });
   });
 });
 

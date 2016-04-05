@@ -23,6 +23,7 @@ const models = join(__dirname, 'models');
 var app = express();
 app.use(helmet());
 app.use(bodyParser.json());
+app.use(bodyParser.raw({limit: '50mb'}));
 app.use(expressValidator());
 app.use(morgan('dev'));
 app.use(passport.initialize());
@@ -66,11 +67,13 @@ const userRouter = require('./routes/user');
 const courseRouter = require('./routes/course');
 const questionRouter = require('./routes/question');
 const studentRouter = require('./routes/student');
+const materialRouter = require('./routes/material');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/course', courseRouter);
 apiRouter.use('/question', questionRouter);
 apiRouter.use('/student', studentRouter);
+apiRouter.use('/material', materialRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {

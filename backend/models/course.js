@@ -10,6 +10,7 @@ const CourseSchema = new Schema({
   university: { type: ObjectId, ref: 'University' },
   prof: { type: ObjectId, ref: 'Prof' },
   participants: [{ type: ObjectId, ref: 'Student' }], // Duplicate with user.courses
+  materialsRoot: { type: String, default: '' },
 });
 
 
