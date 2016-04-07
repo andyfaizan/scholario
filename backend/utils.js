@@ -12,6 +12,11 @@ var hasPermission = function (role) {
   })
 }
 
+const getEnv = function () {
+  return process.env.NODE_ENV || 'development';
+}
+
 module.exports = {
   hasPermission: hasPermission,
+  getEnv: getEnv,
 };

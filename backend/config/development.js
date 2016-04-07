@@ -1,14 +1,13 @@
 module.exports = {
-  urlPrefix: '/',
   secret: 'verySecret',
   dbURI: 'mongodb://localhost/scholario',
   smtpConfig: {
-    host: 'mail.scholario.de',
-    port: 465,
+    host: 'scholario.de',
+    port: 25,
     secure: false,
     auth: {
-      user: 'irquvfea10',
-      pass: 'Abc123!'
+      user: 'noreply',
+      pass: ''
     }
   },
 };

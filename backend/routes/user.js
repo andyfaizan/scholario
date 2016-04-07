@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const _ = require('lodash');
 const crypto = require('crypto');
+
+const utils = require('../utils');
 const logger = require('../logger');
 const mailer = require('../mailer');
 const User = mongoose.model('User');
@@ -81,10 +83,14 @@ router.post('/', function (req, res) {
       subject: 'Verification code',
       text: verificationURL,
     };
-    /*mailer.transporter.sendMail(mailOpts).catch(function (err) {*/
-      //console.log(err);
-    /*});*/
-    logger.debug(verificationURL);
+
+    if (utils.getEnv() === 'production') {
+      mailer.transporter.sendMail(mailOpts).catch(function (err) {
+        logger.error(err);
+      });
+    } else if (utils.getEnv() === 'development') {
+      logger.debug(verificationURL);
+    }
 
     return user.save();
   }).then(function (user) {
