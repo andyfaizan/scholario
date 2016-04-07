@@ -11,24 +11,6 @@ type Props = {
 };
 
 export class ModalComponent extends React.Component<void, Props, void> {
-  // constructor (props) {
-  //   super(props)
-  //   this.state = {
-  //     open: true
-  //   }
-  // }
-  // handleClose = () => {
-  //   this.setState({open: false})
-  // };
-  // handleOpen = () => {
-  //   this.setState({open: true})
-  // };
-
-  static propTypes = {
-    modal: PropTypes.bool.isRequired,
-    show: PropTypes.func.isRequired
-  };
-
   render () {
     const styles = {
       headline: {

@@ -13,12 +13,7 @@ type Props = {
   show: Function
 };
 
-export class NavBarLandingPage extends React.Component<void, Props, void> {
-  static propTypes = {
-    modal: PropTypes.bool.isRequired,
-    show: PropTypes.func.isRequired
-  };
-  
+export class NavBarLandingPage extends React.Component<void, Props, void> {  
   render () {
     const styles = {
       title: {
