@@ -3,12 +3,9 @@ import { connect } from 'react-redux'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
-<<<<<<< HEAD
 import LoginFields from '../../components/LoginFields/LoginFields'
 import SignupFields from '../../components/SignupFields/SignupFields'
-=======
 import {show} from '../../redux/modules/modal'
->>>>>>> 230493054df7d9ae1f51cf26e3096e1776752363
 
 export class ModalComponent extends React.Component {
   propTypes = {
