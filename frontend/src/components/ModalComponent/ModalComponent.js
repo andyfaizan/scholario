@@ -1,21 +1,34 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
+import {show} from '../../redux/modules/modal'
 
-export class ModalComponent extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      open: true
-    }
-  }
-  handleClose = () => {
-    this.setState({open: false})
+type Props = {
+  modal: bool,
+  show: Function
+};
+
+export class ModalComponent extends React.Component<void, Props, void> {
+  // constructor (props) {
+  //   super(props)
+  //   this.state = {
+  //     open: true
+  //   }
+  // }
+  // handleClose = () => {
+  //   this.setState({open: false})
+  // };
+  // handleOpen = () => {
+  //   this.setState({open: true})
+  // };
+
+  static propTypes = {
+    modal: PropTypes.bool.isRequired,
+    show: PropTypes.func.isRequired
   };
-  handleOpen = () => {
-    this.setState({open: true})
-  };
+
   render () {
     const styles = {
       headline: {
@@ -78,8 +91,8 @@ export class ModalComponent extends React.Component {
         <Dialog
           actions={actions}
           modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
+          open={this.props.modal}
+          onRequestClose={this.props.show}
           actionsContainerStyle={customContentStyle}
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
@@ -90,5 +103,9 @@ export class ModalComponent extends React.Component {
   }
 }
 
-export default ModalComponent
-
+const mapStateToProps = (state) => ({
+  modal: state.modal
+})
+export default connect((mapStateToProps), {
+  show: () => show(false)
+})(ModalComponent)
