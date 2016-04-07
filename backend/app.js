@@ -13,7 +13,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 // Own modules
-const config = require('./config');
+const config = require('./config/config');
 
 const port = process.env.PORT || 3000;
 const models = join(__dirname, 'models');

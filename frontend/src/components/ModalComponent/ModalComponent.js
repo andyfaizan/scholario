@@ -1,22 +1,19 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
+<<<<<<< HEAD
 import LoginFields from '../../components/LoginFields/LoginFields'
 import SignupFields from '../../components/SignupFields/SignupFields'
+=======
+import {show} from '../../redux/modules/modal'
+>>>>>>> 230493054df7d9ae1f51cf26e3096e1776752363
 
 export class ModalComponent extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      open: true
-    }
-  }
-  handleClose = () => {
-    this.setState({open: false})
-  };
-  handleOpen = () => {
-    this.setState({open: true})
+  propTypes = {
+    modal: PropTypes.bool.isRequired,
+    show: PropTypes.func.isRequired
   };
   render () {
     const styles = {
@@ -77,8 +74,8 @@ export class ModalComponent extends React.Component {
         <Dialog
           actions={actions}
           modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
+          open={this.props.modal}
+          onRequestClose={this.props.show}
           actionsContainerStyle={customContentStyle}
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
@@ -89,5 +86,9 @@ export class ModalComponent extends React.Component {
   }
 }
 
-export default ModalComponent
-
+const mapStateToProps = (state) => ({
+  modal: state.modal
+})
+export default connect((mapStateToProps), {
+  show: () => show(false)
+})(ModalComponent)
