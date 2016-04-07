@@ -5,12 +5,11 @@ import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
 import {show} from '../../redux/modules/modal'
 
-type Props = {
-  modal: bool,
-  show: Function
-};
-
-export class ModalComponent extends React.Component<void, Props, void> {
+export class ModalComponent extends React.Component {
+  propTypes = {
+    modal: PropTypes.bool.isRequired,
+    show: PropTypes.func.isRequired
+  };
   render () {
     const styles = {
       headline: {

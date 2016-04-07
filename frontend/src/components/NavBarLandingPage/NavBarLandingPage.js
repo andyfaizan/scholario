@@ -8,12 +8,13 @@ import {show} from '../../redux/modules/modal'
 
 injectTapEventPlugin()
 
-type Props = {
-  modal: bool,
-  show: Function
-};
+export class NavBarLandingPage extends React.Component {
 
-export class NavBarLandingPage extends React.Component<void, Props, void> {  
+  propTypes = {
+    modal: PropTypes.bool.isRequired,
+    show: PropTypes.func.isRequired
+  };
+
   render () {
     const styles = {
       title: {
