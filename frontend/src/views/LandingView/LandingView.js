@@ -9,7 +9,7 @@ type Props = {
 
 };
 export class LandingView extends React.Component {
-  props: Props;
+
   render () {
     const style = {
       height: '100',
@@ -24,7 +24,7 @@ export class LandingView extends React.Component {
           <NavBarLandingPage />
         </div>
         <div className={classes.container}>
-          <Paper style={style} zDepth={3} circle={1} />
+          <Paper style={style} zDepth={3} circle={true} />
         </div>
         <Divider />
         <div className={classes.footer}>

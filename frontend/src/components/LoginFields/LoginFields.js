@@ -2,12 +2,23 @@ import React from 'react'
 import TextField from 'material-ui/lib/text-field'
 import classes from './LoginFields.scss'
 import RaisedButton from 'material-ui/lib/raised-button'
+var request = require('superagent');
 
 type Props = {
 
 };
 export class LoginFields extends React.Component {
   props: Props;
+
+  sendRequest = () => {
+    request
+  .post('http://api.scholario.de/user')
+  .send({ email: 'abc@ss.com', password: 'cat', role: 'student' }) // role can be 'prof'
+  .end(function(err, res){
+    // Calling the end function will send the request
+    console.log("Error is : " + err);
+  });
+  }
 
   render () {
     const styles = {
@@ -44,7 +55,8 @@ export class LoginFields extends React.Component {
           <a className={classes.forgotLink}>Forgot your password ? </a>
           <br/>
           <br/>
-          <RaisedButton label='Login' primary={0} backgroundColor='#9fa8a3' fullWidth={1} labelStyle={styles.labelStyle} />
+          <RaisedButton label='Login' primary={false} backgroundColor='#9fa8a3' fullWidth={false} labelStyle={styles.labelStyle} 
+            onClick = {this.sendRequest.bind(this)}/>
           <br/>
           <br/>
           <br/>
