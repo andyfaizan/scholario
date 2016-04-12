@@ -8,7 +8,7 @@ import SignupFields from '../../components/SignupFields/SignupFields'
 import {show} from '../../redux/modules/modal'
 
 export class ModalComponent extends React.Component {
-  propTypes = {
+  static propTypes = {
     modal: PropTypes.bool.isRequired,
     show: PropTypes.func.isRequired
   };
@@ -50,7 +50,7 @@ export class ModalComponent extends React.Component {
       fontWeight: 'bold'
     }
     const inkBarStyle = {
-      backgroundColor: '#fff'
+      backgroundColor: '#eee111' //temporary color
     }
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
@@ -59,7 +59,7 @@ export class ModalComponent extends React.Component {
             <LoginFields />
           </div>
         </Tab>
-        <Tab label='Sign In' >
+        <Tab label='Sign Up' >
           <div>
             <SignupFields />
           </div>

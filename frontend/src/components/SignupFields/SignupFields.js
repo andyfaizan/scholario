@@ -83,7 +83,7 @@ export class SignupFields extends React.Component {
           </SelectField>
           <br/>
           <br/>
-          <RaisedButton label='SignIn' primary={0} backgroundColor='#9fa8a3' fullWidth={1} labelStyle={styles.labelStyle} />
+          <RaisedButton label='Signup' primary={false} backgroundColor='#9fa8a3' fullWidth={true} labelStyle={styles.labelStyle} />
           <br/>
           <br/>
           <br/>

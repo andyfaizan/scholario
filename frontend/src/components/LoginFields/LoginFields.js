@@ -4,21 +4,25 @@ import classes from './LoginFields.scss'
 import RaisedButton from 'material-ui/lib/raised-button'
 var request = require('superagent');
 
-type Props = {
-
-};
 export class LoginFields extends React.Component {
-  props: Props;
 
   sendRequest = () => {
-    request
-  .post('http://api.scholario.de/user')
-  .send({ email: 'abc@ss.com', password: 'cat', role: 'student' }) // role can be 'prof'
-  .end(function(err, res){
-    // Calling the end function will send the request
-    console.log("Error is : " + err);
-  });
+  //   request
+  // .post('http://api.scholario.de/user')
+  // .send({ email: this.props.email, password: this.props.password, role: 'student' }) // role can be 'prof'
+  // .end(function(err, res){
+  //   // Calling the end function will send the request
+    // console.log("Error is : " + err);
   }
+
+  // validateEmail () {
+  //   //TODO Regex Solution not final
+  //   // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
+  //   var value = this.props.email;
+  //   console.log("Inside RegisterPage validateEmail(). Value is : " + value);
+  //   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return (re.test(value));
+  // };
 
   render () {
     const styles = {
@@ -47,15 +51,25 @@ export class LoginFields extends React.Component {
     return (
       <div>
         <div className={classes.loginContainer}>
-          <TextField hintText='abc@hotmail.com' floatingLabelStyle={styles.floatingLabelStyle} floatingLabelText='Email or Username' underlineFocusStyle={styles.focusStyle} />
+          <TextField 
+            hintText='abc@hotmail.com' 
+            floatingLabelStyle={styles.floatingLabelStyle} 
+            floatingLabelText='Email or Username' 
+            underlineFocusStyle={styles.focusStyle}
+            />
           <br/>
-          <TextField floatingLabelText='Password' type='password' floatingLabelStyle={styles.floatingLabelStyle} underlineFocusStyle={styles.focusStyle} />
+          <TextField 
+            floatingLabelText='Password' 
+            type='password' 
+            floatingLabelStyle={styles.floatingLabelStyle} 
+            underlineFocusStyle={styles.focusStyle}
+            />
           <br/>
           <br/>
           <a className={classes.forgotLink}>Forgot your password ? </a>
           <br/>
           <br/>
-          <RaisedButton label='Login' primary={false} backgroundColor='#9fa8a3' fullWidth={false} labelStyle={styles.labelStyle} 
+          <RaisedButton label='Login' primary={false} backgroundColor='#9fa8a3' fullWidth={true} labelStyle={styles.labelStyle} 
             onClick = {this.sendRequest.bind(this)}/>
           <br/>
           <br/>
