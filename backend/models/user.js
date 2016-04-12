@@ -11,7 +11,9 @@ const opts = {
 };
 
 const UserSchema = new Schema({
-  name: { type: String, default: '' },
+  firstname: { type: String, default: ''},
+  lastname: { type: String, default: ''},
+  //name: { type: String, default: '' },
   email: { type: String, required: true, unique: true, index: true, default: '' },
   username: { type: String, default: '' },
   password: { type: String, required: true, default: ''},

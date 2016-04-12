@@ -73,11 +73,11 @@ const questionRouter = require('./routes/question');
 const studentRouter = require('./routes/student');
 const materialRouter = require('./routes/material');
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/user', userRouter);
-apiRouter.use('/course', courseRouter);
-apiRouter.use('/question', questionRouter);
-apiRouter.use('/student', studentRouter);
-apiRouter.use('/material', materialRouter);
+apiRouter.use('/users', userRouter);
+apiRouter.use('/courses', courseRouter);
+apiRouter.use('/questions', questionRouter);
+apiRouter.use('/students', studentRouter);
+apiRouter.use('/materials', materialRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
