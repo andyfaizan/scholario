@@ -9,6 +9,31 @@ const User = mongoose.model('User');
 var router = express.Router();
 
 
+/**
+ * @api {post} /auth/login Login and get authorization token
+ * @apiName Login
+ * @apiGroup Auth
+ *
+ * @apiParam {String} email Email of the user
+ * @apiParam {String} password Password
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "err": [],
+ *       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJleGFtcGxlLW1hbnRoZXlAdW5pLWJvbm4uZGUiLCJyb2xlIjoiUHJvZiIsImlhdCI6MTQ1OTM0NDIyNX0.6bMvvdk5oubefR_ou5SVvzcDf6H7p1_xfkdt53Lra2c"
+ *     }
+ *
+ * @apiError UserNotFound The email was not found
+ * @apiError ValidationError There were problems with the input
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "err": [{ "msg": "User was not found" }]
+ *     }
+ *
+ */
 router.post('/login', function (req, res) {
   req.checkBody('email', 'Invalid email').notEmpty().isEmail();
   req.checkBody('password', 'Invalid password').notEmpty();
