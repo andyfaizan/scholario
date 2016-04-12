@@ -3,6 +3,7 @@ const fs = require('fs');
 const join = require('path').join;
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const morgan = require('morgan');
@@ -22,6 +23,7 @@ const models = join(__dirname, 'models');
 // Init
 var app = express();
 app.use(helmet());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.raw({limit: '50mb'}));
 app.use(expressValidator());
@@ -58,6 +60,8 @@ passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
 
 
 // Bootstrap routes
+app.options('*', cors());
+
 var apiRouter = express.Router();
 app.use(config.urlPrefix, apiRouter);
 
