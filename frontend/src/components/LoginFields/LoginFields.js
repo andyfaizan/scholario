@@ -21,15 +21,6 @@ export class LoginFields extends React.Component {
   })
 }
 
-  // validateEmail () {
-  //   //TODO Regex Solution not final
-  //   // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-  //   var value = this.props.email;
-  //   console.log("Inside RegisterPage validateEmail(). Value is : " + value);
-  //   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //   return (re.test(value));
-  // };
-
   render () {
     const styles = {
       errorStyle:
