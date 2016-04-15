@@ -19,23 +19,23 @@ export class NavBarLandingPage extends React.Component {
     const styles = {
       title: {
         cursor: 'pointer',
-        color: 'grey',
-        fontWeight: 'lighter',
-        fontFamily: 'cursive',
+        color: 'white',
+        fontWeight: 'bold',
         fontSize: '35px'
       },
       navBarStyle: {
-        backgroundColor: 'white'
+        backgroundColor: '#1abc9c'
       },
       buttonStyle: {
         backgroundColor: 'transparent',
         marginTop: '7',
-        color: 'grey50'
+        color: 'white'
       },
       loginButton: {
-        backgroundColor: 'transparent',
+        backgroundColor: '#eee111',
         marginTop: '7',
-        color: '#9fa8a3',
+        fontWeight: 'bold',
+        color: 'white',
         border: 'true',
         borderStyle: 'solid',
         borderColor: 'grey',
