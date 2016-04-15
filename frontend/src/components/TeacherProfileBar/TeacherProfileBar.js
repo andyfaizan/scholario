@@ -6,6 +6,7 @@ import CardMedia from 'material-ui/lib/card/card-media'
 import CardTitle from 'material-ui/lib/card/card-title'
 import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
+import Divider from 'material-ui/lib/divider'
 
 type Props = {
 
@@ -24,6 +25,7 @@ export class TeacherProfileBar extends React.Component {
       actAsExpander={true}
       showExpandableButton={true}
     ></CardHeader>
+    <Divider />
     <CardText expandable={true}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.

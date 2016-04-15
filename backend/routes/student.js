@@ -56,5 +56,25 @@ router.get('/following', passport.authenticate('jwt', {session: false}),
     });
 });
 
+router.get('/follower', passport.authenticate('jwt', {session: false}),
+           utils.hasPermission('Student'), function (req, res) {
+  User
+    .find({ following: { $in: [ req.user._id ] } })
+    .populate() 
+    .exec()
+    .then(function (user) {
+      var data = []
+      for (var i = 0; i < user.length; i++) {
+        data.push({
+          id: user[i]._id,
+          name: user[i].name,
+        });
+      }
+      return res.json({
+        follower: data,
+      });
+    });
+});
+
 
 module.exports = router;

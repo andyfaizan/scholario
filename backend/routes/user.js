@@ -30,11 +30,11 @@ router.get('/:username', passport.authenticate('jwt', {session: false}), functio
   });
 });
 
-router.get('/:uid/follow', passport.authenticate('jwt', {session: false}), function (req, res) {
+/*router.get('/:uid/follow', passport.authenticate('jwt', {session: false}), function (req, res) {
   User.findOne({ _id: req.user._id }).then(function (user) {
     if (!user) throw(Error('User not found'));
     req.user.following.push(req.params.uid);
-    req.user.save();
+    req.user.save();    
     return res.json({
       err: [],
     });
@@ -44,6 +44,43 @@ router.get('/:uid/follow', passport.authenticate('jwt', {session: false}), funct
     });
   });
 });
+*/
+//==========upgreat_follow_to_follow&unfollow=================
+router.get('/:uid/follow', passport.authenticate('jwt', {session: false}), function (req, res) {
+  User.findOne({ _id: req.user._id }).then(function (user) {
+    if (!user) throw(Error('User not found'));
+    if (req.user.following.indexOf(req.params.uid) === -1) {
+      req.user.following.push(req.params.uid);
+      req.user.save();
+    }
+    return res.json({
+      err: [],
+    });
+  }).catch(function (err) {
+    return res.json({
+      err: [{'msg': err.message}],
+    });
+  });
+});
+
+router.get('/:uid/unfollow', passport.authenticate('jwt', {session: false}), function (req, res) {
+  User.findOne({ _id: req.user._id }).then(function (user) {
+    if (!user) throw(Error('User not found'));
+    if (req.user.following.indexOf(req.params.uid) != -1) {
+      req.user.following.pull(req.params.uid);
+      req.user.save();
+    }
+    return res.json({
+      err: [],
+    });
+  }).catch(function (err) {
+    return res.json({
+      err: [{'msg': err.message}],
+    });
+  });
+});
+
+//==========upgreat_end=======================================
 
 /**
  * @api {post} /users Create new user

@@ -33,6 +33,9 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "morgan": "^1.7.0"
+    "mocha": "^2.4.5",
+    "morgan": "^1.7.0",
+    "should": "^8.3.0",
+    "supertest": "^1.2.0"
   }
 }

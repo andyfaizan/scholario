@@ -6,6 +6,7 @@ import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDa
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import classes from './DashboardView.scss'
 
 type Props = {
 
@@ -14,7 +15,7 @@ export class DashboardView extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={classes.dashboardRoot} >
         <DashboardToolBar />
         <TeacherProfileBar />
         <br/>

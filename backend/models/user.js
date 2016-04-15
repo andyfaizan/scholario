@@ -27,11 +27,13 @@ const UserSchema = new Schema({
 }, opts);
 
 const StudentSchema = new Schema({
-  university: { type: ObjectId, ref: 'University'},
+  university: { type: ObjectId, ref: 'University' },
+  program: { type: ObjectId, ref: 'Program' },
 }, opts);
 
 const ProfSchema = new Schema({
-  university: { type: ObjectId, ref: 'University'},
+  universities: [{ type: ObjectId, ref: 'University' }],
+  programs: [{ type: ObjectId, ref: 'Program' }],
 }, opts);
 
 // Indices
