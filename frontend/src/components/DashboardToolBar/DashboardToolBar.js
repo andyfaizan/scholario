@@ -16,15 +16,15 @@ type Props = {
 
 };
 export class DashboardToolBar extends React.Component {
-  props: Props;
 
   render () {
-    const styles = {
+    
+const styles = {
       iconStyle: {
         marginTop: '4',
       },
       titleStyle: {
-        color: 'black'
+        color: 'white'
       },
       toolbarStyle: {
         backgroundColor: '#1abc9c',
@@ -37,9 +37,10 @@ export class DashboardToolBar extends React.Component {
         backgroundColor:'white'
       }
     }
+
     return (
       <div>
-        <Toolbar style={styles.toolbarStyle}>
+         <Toolbar style={styles.toolbarStyle}>
           <ToolbarGroup float='Right'>
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
@@ -51,7 +52,8 @@ export class DashboardToolBar extends React.Component {
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>
             <ToolbarSeparator style={styles.separator} />
-            <IconMenu style={styles.iconStyle} iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
+            <IconMenu style={styles.iconStyle} 
+            iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
                 <MenuItem primaryText="User Settings" />
                 <MenuItem primaryText="Feed Settings" />
              </IconMenu>
@@ -59,8 +61,11 @@ export class DashboardToolBar extends React.Component {
         </Toolbar>
       </div>
     )
-  }
+  
+  
 }
+}
+
 
 export default DashboardToolBar
 

@@ -28,23 +28,23 @@ export class LoginFields extends React.Component {
     const styles = {
       errorStyle:
       {
-        backgroundColor: '#9fa8a3'
+        backgroundColor: '#e74c3c'
       },
       underlineStyle:
       {
-        borderColor: '#e3e0cf'
+        borderColor: '#f1c40f'
       },
       focusStyle:
       {
-        borderColor: '#e3e0cf'
+        borderColor: '#f1c40f'
       },
       floatingLabelStyle:
       {
-        color: '#9fa8a3'
+        color: '#27ae60'
       },
       labelStyle:
       {
-        color: '#fff',
+        color: 'white',
         fontWeight: 'bold'
       }
     }
@@ -69,7 +69,7 @@ export class LoginFields extends React.Component {
           <a className={classes.forgotLink}>Forgot your password ? </a>
           <br/>
           <br/>
-          <RaisedButton label='Login' primary={false} backgroundColor='#9fa8a3' fullWidth={true} labelStyle={styles.labelStyle} 
+          <RaisedButton label='Login' primary={false} backgroundColor='#f1c40f' fullWidth={true} labelStyle={styles.labelStyle} 
             onClick = {this.sendRequest.bind(this)}/>
           <br/>
           <br/>

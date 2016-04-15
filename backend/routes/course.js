@@ -119,15 +119,48 @@ router.get('/:cid/follow',
         err: [{msg: 'CourseNotFound'}],
       });
     }
-    course.participants.push(req.user._id);
-    course.save();
+
+    if (req.course.participants.indexOf(req.user._id) === -1)      // proof is the != korrekt?
+      req.course.participants.push(req.user._id);
+      req.course.save();
+      return res.json({
+        err: [],
+      });
+    }).catch(function (err) {
     return res.json({
-      err: [],
+      err: [{'msg': err.message}],
     });
-  }).catch(function (err) {
-    logger.error(err);
-    return res.status(500).json({
-      err: [{msg: 'InternalError'}],
+  });
+});
+    
+
+
+router.get('/:cid/unfollow', passport.authenticate('jwt', {session: false}), utils.hasPermission('Student'), function (req, res) {
+  req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
+  Course.findOne({ _id: req.params.cid }).then(function (course) {
+    if (!course) {
+      return res.json({
+        err: 'Course not found.',
+      });
+    }
+
+    if (req.course.participants.indexOf(req.user._id) != -1)      // proof is the == korrekt?
+      req.course.participants.pull(req.user._id);
+      req.course.save();
+      return res.json({
+        err: [],
+      });
+    }).catch(function (err) {
+    return res.json({
+      err: [{'msg': err.message}],
     });
   });
 });
