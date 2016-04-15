@@ -7,13 +7,19 @@ var request = require('superagent');
 export class LoginFields extends React.Component {
 
   sendRequest = () => {
-  //   request
-  // .post('http://api.scholario.de/user')
-  // .send({ email: this.props.email, password: this.props.password, role: 'student' }) // role can be 'prof'
-  // .end(function(err, res){
-  //   // Calling the end function will send the request
-    // console.log("Error is : " + err);
-  }
+    request
+  .post('https://api.scholario.de/auth/login')
+  .send({ email: 'andy@scholario.de', password: 'abcd' })
+  .end(function(err, res){
+    // Calling the end function will send the request
+    console.log("Error is : " + err);
+    if(res.ok){
+      console.log(res.body);
+    } else{
+      console.log("Response not ok");
+    }
+  })
+}
 
   // validateEmail () {
   //   //TODO Regex Solution not final
