@@ -11,6 +11,8 @@ const User = mongoose.model('User');
 const Course = mongoose.model('Course');
 const Question = mongoose.model('Question');
 const Material = mongoose.model('Material');
+const University = mongoose.model('University');
+const Program = mongoose.model('Program');
 
 var router = express.Router();
 
@@ -176,6 +178,9 @@ router.get('/:cid/materials', passport.authenticate('jwt', {session: false}), fu
  * @apiGroup Course
  *
  * @apiParam {String} name Name of the course
+ * @apiParam {String} university ID of the university
+ * @apiParam {String} [programID] ID of the program, for existing programs
+ * @apiParam {String} [programName] Name of the program, for new programs
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 201 OK
@@ -184,6 +189,10 @@ router.get('/:cid/materials', passport.authenticate('jwt', {session: false}), fu
  *     }
  *
  * @apiError (400) InvalidName Name was not valid
+ * @apiError (400) InvalidUniversity University ID was not valid
+ * @apiError (400) InvalidProgram Program ID or name was not valid, or none were provided
+ * @apiError (404) UniversityNotFound University not found
+ * @apiError (404) ProgramNotFound Program not found
  * @apiError (500) InternalError Internal error
  *
  *
@@ -200,8 +209,20 @@ router.get('/:cid/materials', passport.authenticate('jwt', {session: false}), fu
  */
 router.post('/', passport.authenticate('jwt', {session: false}),
             utils.hasPermission('Prof'), function (req, res) {
-  req.checkBody('name', 'InvalidName').notEmpty().isAlphanumeric();
+  req.checkBody('name', 'InvalidName').notEmpty().isAscii();
+  req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
 
+  if (typeof req.body.programID === 'undefined' &&
+      typeof req.body.programName === 'undefined') {
+    return res.status(400).json({
+      err: [{ msg: 'InvalidProgram' }],
+    });
+  }
+  if (typeof req.body.programID != 'undefined') {
+    req.checkBody('programID', 'InvalidProgram').isMongoId();
+  } else if (typeof req.body.programName != 'undefined') {
+    req.checkBody('programName', 'InvalidProgram').isAlphanumeric();
+  }
 
   var errors = req.validationErrors();
   if (errors) {
@@ -210,26 +231,65 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     });
   }
 
-  var course = new Course({
-    name: req.body.name,
-    prof: req.user,
-    university: req.user.university,
-  });
-  course.save();
-
-  var materialsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', course.id);
-  logger.debug(materialsRoot);
-  fs.mkdir(materialsRoot, 0755, function (err, dir) {
-    if (err) {
-      logger.error(err.message);
-      return res.status(500).json({
-        err: [{msg: 'InternalError'}],
+  University.findOne({ _id: req.body.university }).then(function (university) {
+    if (!university) {
+      return res.status(404).json({
+        err: [{ msg: 'UniversityNotFound' }],
       });
     }
-    course.materialsRoot = materialsRoot;
+    if (typeof req.body.programID != 'undefined') {
+      return Program.findOne({ _id: req.body.programID });
+    } else if (typeof req.body.programName != 'undefined') {
+      var program = new Program({
+        name: req.body.programName,
+        university: university._id,
+      });
+      return program.save();
+    }
+  }).then(function (program) {
+    if (!program) {
+      return res.status(404).json({
+        err: [{ msg: 'ProgramNotFound' }],
+      });
+    }
+    var changed = false;
+    if (req.user.universities.indexOf(req.body.university) === -1) {
+      req.user.universities.push(req.body.university);
+      changed = true;
+    }
+    if (req.user.programs.indexOf(program._id) === -1) {
+      req.user.programs.push(program._id);
+      changed = true;
+    }
+    if (changed) req.user.save();
+
+    var course = new Course({
+      name: req.body.name,
+      prof: req.user,
+      university: req.body.university,
+      program: program._id,
+    });
     course.save();
-    return res.json({
-      err: [],
+
+    var materialsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', course.id);
+    logger.debug(materialsRoot);
+    fs.mkdir(materialsRoot, 0755, function (err, dir) {
+      if (err) {
+        logger.error(err.message);
+        return res.status(500).json({
+          err: [{msg: 'InternalError'}],
+        });
+      }
+      course.materialsRoot = materialsRoot;
+      course.save();
+      return res.json({
+        err: [],
+      });
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'Internal Error' }],
     });
   });
 });
