@@ -75,9 +75,9 @@ router.get('/:cid/questions', passport.authenticate('jwt', {session: false}), fu
   });
 });
 
-router.get('/:cid/follow',
-           passport.authenticate('jwt', {session: false}),
-           utils.hasPermission('Student'), function (req, res) {
+// we have to upgreat the course/following part, to make sure there is no double following in the course.
+
+router.get('/:cid/follow', passport.authenticate('jwt', {session: false}), utils.hasPermission('Student'), function (req, res) {
   req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
@@ -93,13 +93,53 @@ router.get('/:cid/follow',
         err: 'Course not found.',
       });
     }
-    course.participants.push(req.user._id);
-    course.save();
+
+    if (req.course.participants.indexOf(req.user._id) === -1)      // proof is the != korrekt?
+      req.course.participants.push(req.user._id);
+      req.course.save();
+      return res.json({
+        err: [],
+      });
+    }).catch(function (err) {
     return res.json({
-      err: '',
+      err: [{'msg': err.message}],
     });
   });
 });
+    
+
+
+router.get('/:cid/unfollow', passport.authenticate('jwt', {session: false}), utils.hasPermission('Student'), function (req, res) {
+  req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
+  Course.findOne({ _id: req.params.cid }).then(function (course) {
+    if (!course) {
+      return res.json({
+        err: 'Course not found.',
+      });
+    }
+
+    if (req.course.participants.indexOf(req.user._id) != -1)      // proof is the == korrekt?
+      req.course.participants.pull(req.user._id);
+      req.course.save();
+      return res.json({
+        err: [],
+      });
+    }).catch(function (err) {
+    return res.json({
+      err: [{'msg': err.message}],
+    });
+  });
+});
+
+//==============
 
 router.post('/', passport.authenticate('jwt', {session: false}),
             utils.hasPermission('Prof'), function (req, res) {
