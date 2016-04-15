@@ -10,12 +10,14 @@ import CoreLayout from 'layouts/CoreLayout/CoreLayout'
 import Dashboard from 'layouts/DashboardLayout/DashboardLayout'
 import HomeView from 'views/HomeView/HomeView'
 import LandingView from 'views/LandingView/LandingView'
+import DashboardView from 'views/DashboardView/DashboardView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
     <IndexRoute component={HomeView} />
     <Route component={Dashboard}>
       <Route path='landing' component={LandingView} />
+      <Route path='dashboard' component={DashboardView} />
     </Route>
   </Route>
 )

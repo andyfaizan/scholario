@@ -1,20 +1,16 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
+import LoginFields from '../../components/LoginFields/LoginFields'
+import SignupFields from '../../components/SignupFields/SignupFields'
+import {show} from '../../redux/modules/modal'
 
 export class ModalComponent extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      open: true
-    }
-  }
-  handleClose = () => {
-    this.setState({open: false})
-  };
-  handleOpen = () => {
-    this.setState({open: true})
+  static propTypes = {
+    modal: PropTypes.bool.isRequired,
+    show: PropTypes.func.isRequired
   };
   render () {
     const styles = {
@@ -50,25 +46,23 @@ export class ModalComponent extends React.Component {
       margin: 0
     }
     const tabItemContainerStyle = {
-      backgroundColor: '#68BA8C'
+      backgroundColor: '#1abc9c',
+      fontWeight: 'bold',
     }
     const inkBarStyle = {
-      backgroundColor: '#1A3B29'
+      backgroundColor: 'yellow' //temporary color
     }
+    
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
           <div>
-            <p>
-            </p>
+            <LoginFields />
           </div>
         </Tab>
-        <Tab label='Sign In' >
+        <Tab label='Sign Up' >
           <div>
-            <h2 style={styles.headline}>Tab Two</h2>
-            <p>
-            This is another example tab.
-            </p>
+            <SignupFields />
           </div>
         </Tab>
       </Tabs>
@@ -78,8 +72,8 @@ export class ModalComponent extends React.Component {
         <Dialog
           actions={actions}
           modal={false}
-          open={this.state.open}
-          onRequestClose={this.handleClose}
+          open={this.props.modal}
+          onRequestClose={this.props.show}
           actionsContainerStyle={customContentStyle}
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
@@ -90,5 +84,9 @@ export class ModalComponent extends React.Component {
   }
 }
 
-export default ModalComponent
-
+const mapStateToProps = (state) => ({
+  modal: state.modal
+})
+export default connect((mapStateToProps), {
+  show: () => show(false)
+})(ModalComponent)

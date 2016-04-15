@@ -3,6 +3,7 @@ const fs = require('fs');
 const join = require('path').join;
 const express = require('express');
 const helmet = require('helmet');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const morgan = require('morgan');
@@ -13,7 +14,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 // Own modules
-const config = require('./config');
+const config = require('./config/config');
 
 const port = process.env.PORT || 3000;
 const models = join(__dirname, 'models');
@@ -22,6 +23,7 @@ const models = join(__dirname, 'models');
 // Init
 var app = express();
 app.use(helmet());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.raw({limit: '50mb'}));
 app.use(expressValidator());
@@ -58,8 +60,10 @@ passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
 
 
 // Bootstrap routes
+app.options('*', cors());
+
 var apiRouter = express.Router();
-app.use('/api', apiRouter);
+app.use(config.urlPrefix, apiRouter);
 
 // Routes
 const authRouter = require('./routes/auth');
@@ -69,11 +73,11 @@ const questionRouter = require('./routes/question');
 const studentRouter = require('./routes/student');
 const materialRouter = require('./routes/material');
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/user', userRouter);
-apiRouter.use('/course', courseRouter);
-apiRouter.use('/question', questionRouter);
-apiRouter.use('/student', studentRouter);
-apiRouter.use('/material', materialRouter);
+apiRouter.use('/users', userRouter);
+apiRouter.use('/courses', courseRouter);
+apiRouter.use('/questions', questionRouter);
+apiRouter.use('/students', studentRouter);
+apiRouter.use('/materials', materialRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {

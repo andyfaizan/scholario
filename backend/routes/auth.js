@@ -2,26 +2,70 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
-const config = require('../config');
+const config = require('../config/config');
 const logger = require('../logger');
 const User = mongoose.model('User');
 
 var router = express.Router();
 
 
+
+/**
+ * @api {post} /auth/login Login and get auth token
+ * @apiVersion 0.1.0
+ * @apiPermission none
+ * @apiName Login
+ * @apiGroup Auth
+ *
+ * @apiParam {String} email Email of the user
+ * @apiParam {String} password Password
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "err": [],
+ *       "token": "eyJ0eXAiOiJKV1QiLCJ..."
+ *     }
+ *
+ * @apiError (404) UserNotFound The email was not found
+ * @apiError (400) InvalidEmail Email was not valid
+ * @apiError (400) InvalidPassword Password was not valid
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "err": [{ "msg": "User was not found" }]
+ *     }
+ *
+ * @apiErrorExample Error-Response:
+ *     HTTP/1.1 400 Bad Request
+ *     {
+ *       "err": [{
+ *         "param": "email",
+ *         "msg": "InvalidEmail",
+ *         "value": "myEmail@"
+ *       }]
+ *     }
+ *
+ */
 router.post('/login', function (req, res) {
-  req.checkBody('email', 'Invalid email').notEmpty().isEmail();
-  req.checkBody('password', 'Invalid password').notEmpty();
+  req.checkBody('email', 'InvalidEmail').notEmpty().isEmail();
+  req.checkBody('password', 'InvalidPassword').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
 
   var findP = User.findOne({ 'email': req.body.email });
   var authP = findP.then(function (user) {
+    if (!user) {
+      return res.status(404).json({
+        err: [{msg: 'UserNotFound'}],
+      });
+    }
     return user.authenticate(req.body.password);
   });
   Promise.all([findP, authP]).then(function (values) {
