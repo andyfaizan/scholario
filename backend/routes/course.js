@@ -47,10 +47,10 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
 });
 
 /**
- * @api {get} /courses Search for a course
+ * @api {get} /courses Search for courses
  * @apiVersion 0.1.0
  * @apiPermission student, prof
- * @apiName SearchCourse
+ * @apiName GetCourse
  * @apiGroup Course
  *
  * @apiParam {String} q Query

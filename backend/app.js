@@ -72,12 +72,16 @@ const courseRouter = require('./routes/course');
 const questionRouter = require('./routes/question');
 const studentRouter = require('./routes/student');
 const materialRouter = require('./routes/material');
+const universityRouter = require('./routes/university');
+const programRouter = require('./routes/program');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/users', userRouter);
 apiRouter.use('/courses', courseRouter);
 apiRouter.use('/questions', questionRouter);
 apiRouter.use('/students', studentRouter);
 apiRouter.use('/materials', materialRouter);
+apiRouter.use('/universities', universityRouter);
+apiRouter.use('/programs', programRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
