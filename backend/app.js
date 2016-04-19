@@ -85,11 +85,11 @@ apiRouter.use('/programs', programRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
-  req.checkParams('code', 'Invalid code').isLength({min: 48, max: 48});
+  req.checkParams('code', 'InvalidCode').isLength({min: 96, max: 96});
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
@@ -104,8 +104,8 @@ app.get('/email-verification/:code', function (req, res) {
     user.verificationCode = '';
     user.verified = true;
     user.save();
-    return res.json({
-      err: '',
+    return res.status(200).json({
+      err: [],
     });
   });
 });
