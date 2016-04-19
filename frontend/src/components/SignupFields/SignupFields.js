@@ -16,23 +16,19 @@ export const fields = [ 'firstname', 'lastname', 'role', 'email' , 'password' ]
 const validate = (values) => {
   const errors = {}
   if (!values.email) {
-    errors.email = 'Required'
+    errors.email = 'Erforderlich'
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address'
+    errors.email = 'Ungültige Email Addresse'
   }
   if (!values.password) {
-    errors.password = 'Required'
+    errors.password = 'Erforderlich'
   } else if (values.password.length < 8) {
     errors.password = 'Mindestens 8 zeichnen'
   }
   if (!values.firstname) {
-    errors.firstname = 'Required'
-  } else if (values.firstname.length < 1) {
     errors.firstname = 'Geben Sie Ihr Vorname ein'
   }
   if (!values.lastname) {
-    errors.lastname = 'Required'
-  } else if (values.lastname.length < 1) {
     errors.lastname = 'Geben Sie Ihr Nachname ein'
   }
   return errors
