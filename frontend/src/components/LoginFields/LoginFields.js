@@ -25,26 +25,27 @@ const validate = (values) => {
 export class LoginFields extends React.Component {
 
   static propTypes = {
-  fields: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired
-  // resetForm: PropTypes.func.isRequired,te
-  // submitting: PropTypes.bool.isRequired
-}
+    fields: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired
+    // resetForm: PropTypes.func.isRequired,te
+    // submitting: PropTypes.bool.isRequired
+  }
 
-  sendRequest = (data) => {
-    request
-  .post('https://api.scholario.de/auth/login')
-  .send({ email: data.email, password: data.password })
-  .end(function(err, res){
-    // Calling the end function will send the request
-    console.log("Data is : " + data.email + " " + data.password);
-    if(res.ok){
-      console.log("Response body : " + res.text);
-    } else{
-      console.log("Response not ok. Error is : " + err);
-    }
-  })
-}
+    sendRequest = (data) => {
+      request
+    .post('https://api.scholario.de/auth/login')
+    .send({ email: data.email, password: data.password })
+    .end(function(err, res){
+      // Calling the end function will send the request
+      console.log("Data is : " + data.email + " " + data.password);
+      if(res.ok){
+        console.log("Status : " + res.status);
+        console.log("Response body : " + res.text);
+      } else{
+        console.log("Response not ok. Error is : " + err);
+      }
+    })
+  }
 
   render () {
     const styles = {
