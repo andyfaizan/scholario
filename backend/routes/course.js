@@ -120,9 +120,9 @@ router.get('/:cid/follow',
       });
     }
 
-    if (req.course.participants.indexOf(req.user._id) === -1)      // proof is the != korrekt?
-      req.course.participants.push(req.user._id);
-      req.course.save();
+    if (course.participants.indexOf(req.user._id) === -1)      // proof is the != korrekt?
+      course.participants.push(req.user._id);
+      course.save();
       return res.json({
         err: [],
       });
@@ -152,9 +152,9 @@ router.get('/:cid/unfollow', passport.authenticate('jwt', {session: false}), uti
       });
     }
 
-    if (req.course.participants.indexOf(req.user._id) != -1)      // proof is the == korrekt?
-      req.course.participants.pull(req.user._id);
-      req.course.save();
+    if (course.participants.indexOf(req.user._id) != -1)      // proof is the == korrekt?
+      course.participants.pull(req.user._id);
+      course.save();
       return res.json({
         err: [],
       });
