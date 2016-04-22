@@ -7,6 +7,7 @@ import CardTitle from 'material-ui/lib/card/card-title'
 import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
+import CourseCard from '../../components/CourseCard/CourseCard'
 
 type Props = {
 
@@ -21,10 +22,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
         <CardTitle title="Courses" />
           <Divider />
           <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+              <CourseCard />
           </CardText>
        </Card>
       </div>
