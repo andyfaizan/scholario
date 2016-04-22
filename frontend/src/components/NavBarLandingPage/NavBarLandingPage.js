@@ -4,7 +4,7 @@ import AppBar from 'material-ui/lib/app-bar'
 import FlatButton from 'material-ui/lib/flat-button'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import ModalComponent from '../../components/ModalComponent/ModalComponent'
-import {show} from '../../redux/modules/modal'
+import {show} from '../../redux/modules/Modal'
 
 injectTapEventPlugin()
 
