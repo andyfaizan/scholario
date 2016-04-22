@@ -129,7 +129,7 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-webpack-with-fast-source-maps": "^1.9.2",
-    "material-ui": "^0.15.0-alpha.2",
+    "material-ui": "0.15.0-alpha.2",
     "mocha": "^2.2.5",
     "muicss": "^0.5.0",
     "node-sass": "^3.3.3",
