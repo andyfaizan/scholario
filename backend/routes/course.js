@@ -46,6 +46,86 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
   });
 });
 
+/**
+ * @api {get} /courses Search for courses
+ * @apiVersion 0.1.0
+ * @apiPermission student, prof
+ * @apiName GetCourse
+ * @apiGroup Course
+ *
+ * @apiParam {String} q Query
+ *
+ * @apiError (400) InvalidQuery Query was not valid
+ * @apiError (500) InternalError Internal error
+ *
+ * @apiSuccess {Object[]} courses List of courses
+ * @apiSuccess {String} courses.id Course ID
+ * @apiSuccess {String} courses.name Course name
+ * @apiSuccess {Object} courses.prof Course professor
+ * @apiSuccess {String} courses.prof.id Prof ID
+ * @apiSuccess {String} courses.prof.name Prof name
+ * @apiSuccess {Object} courses.university Course university
+ * @apiSuccess {String} courses.university.id Uni ID
+ * @apiSuccess {String} courses.university.name Uni name
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "err": [],
+ *       "courses": [
+ *         {
+ *           "id": "5710de30b610a6fd51c63407",
+ *           "name": "Intelligent Information Systems",
+ *           "university": {
+ *             "id": "56fbd94a9b05608e04ab47fd",
+ *             "name": "Uni Bonn"
+ *           },
+ *           "prof": {
+ *             "id": "56fbce8be4656b9269ffb6e8"
+ *           }
+ *         }
+ *       ]
+ *     }
+ *
+ */
+router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  Course.find({ name: { $regex: req.query.q, $options: 'i' } }).populate('prof university').exec().then(function (courses) {
+    var data = [];
+    for (var i = 0; i < courses.length; i++) {
+      data.push({
+        id: courses[i]._id,
+        name: courses[i].name,
+        university: {
+          id: courses[i].university.id,
+          name: courses[i].university.name,
+        },
+        prof: {
+          id: courses[i].prof.id,
+          name: courses[i].prof.name,
+        },
+      });
+      return res.status(200).json({
+        err: [],
+        courses: data
+      });
+    }
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
 router.get('/:cid/questions', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
 
@@ -132,8 +212,6 @@ router.get('/:cid/follow',
     });
   });
 });
-    
-
 
 router.get('/:cid/unfollow', passport.authenticate('jwt', {session: false}), utils.hasPermission('Student'), function (req, res) {
   req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
