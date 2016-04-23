@@ -5,12 +5,14 @@ import FlatButton from 'material-ui/lib/flat-button'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import ModalComponent from '../../components/ModalComponent/ModalComponent'
 import {show} from '../../redux/modules/Modal'
+import {LOGIN_MODAL as login_modal} from '../../redux/modules/Modal'
+import ModalRoot from '../../containers/ModalRoot'
 
 injectTapEventPlugin()
 
 export class NavBarLandingPage extends React.Component {
 
-  propTypes = {
+  static propTypes = {
     modal: PropTypes.bool.isRequired,
     show: PropTypes.func.isRequired
   };
@@ -56,7 +58,7 @@ export class NavBarLandingPage extends React.Component {
                             <FlatButton label='Lehrer' style={styles.buttonStyle} />
                             <FlatButton label='Student' style={styles.buttonStyle} />
                             <FlatButton label='EinLoggen' style={styles.loginButton} onClick={this.props.show} />
-                            {this.props.modal ? <ModalComponent /> : null}
+                            {this.props.modal.visible ? <ModalRoot {...login_modal} /> : null}
                           </div>} />
     </div>
 
@@ -68,5 +70,5 @@ const mapStateToProps = (state) => ({
   modal: state.modal
 })
 export default connect((mapStateToProps), {
-  show: () => show(true)
+  show: () => show(login_modal)
 })(NavBarLandingPage)

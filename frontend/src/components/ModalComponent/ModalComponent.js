@@ -5,13 +5,14 @@ import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
 import LoginFields from '../../components/LoginFields/LoginFields'
 import SignupFields from '../../components/SignupFields/SignupFields'
-import {show} from '../../redux/modules/Modal'
+import {hide} from '../../redux/modules/Modal'
 
 export class ModalComponent extends React.Component {
   static propTypes = {
     modal: PropTypes.bool.isRequired,
-    show: PropTypes.func.isRequired
-  };
+    hide: PropTypes.func.isRequired
+  }
+
   render () {
     const styles = {
       headline: {
@@ -72,8 +73,8 @@ export class ModalComponent extends React.Component {
         <Dialog
           actions={actions}
           modal={false}
-          open={this.props.modal}
-          onRequestClose={this.props.show}
+          open={this.props.modal.visible}
+          onRequestClose={this.props.hide}
           actionsContainerStyle={customContentStyle}
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
@@ -88,5 +89,5 @@ const mapStateToProps = (state) => ({
   modal: state.modal
 })
 export default connect((mapStateToProps), {
-  show: () => show(false)
+  hide: () => hide('LOGIN_MODAL')
 })(ModalComponent)
