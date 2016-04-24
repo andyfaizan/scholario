@@ -1,36 +1,54 @@
-/* @flow */
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const MODAL_SHOW = 'MODAL_SHOW'
+export const MODAL_HIDE = 'MODAL_HIDE'
+export const LOGIN_MODAL = 'LOGIN_MODAL'
+export const CREATE_COURSE_MODAL = 'CREATE_COURSE_MODAL'
+
+
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function show (value: bool = true): Action {
+export function show (modal) {
   return {
     type: MODAL_SHOW,
-    payload: value
+    visible: true,
+    modalType: modal
+  }
+}
+
+export function hide (modal) {
+  return {
+    type: MODAL_HIDE,
+    visible: false,
+    modalType: modal
   }
 }
 
 export const actions = {
-  show
+  show,
+  hide
+}
+
+const initialState = {
+  visible: false,
+  modalType: null
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [MODAL_SHOW]: (state: bool, action: {payload: bool}): bool => action.payload
+  [MODAL_SHOW]: (state, action) => ({visible : action.visible, modalType : action.modalType}),
+  [MODAL_HIDE]: (state, action) => initialState
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = false
-export default function modalReducer (state: bool = initialState, action: Action): bool {
+export default function modalReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
-
   return handler ? handler(state, action) : state
 }
