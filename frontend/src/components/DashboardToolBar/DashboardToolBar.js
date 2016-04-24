@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Toolbar from 'material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
@@ -10,16 +11,20 @@ import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
+import {show, CREATE_COURSE_MODAL as course_modal} from '../../redux/modules/Modal'
+import ModalRoot from '../../containers/ModalRoot'
 
 
 type Props = {
-
+  modal : Boolean,
+  show : Function
 };
 export class DashboardToolBar extends React.Component {
+  props : Props;
 
   render () {
-    
-const styles = {
+
+  const styles = {
       iconStyle: {
         marginTop: '4',
       },
@@ -45,14 +50,15 @@ const styles = {
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float="left">
-            <FlatButton style={styles.buttonStyle} label="Courses">
+            <FlatButton style={styles.buttonStyle} label="Courses" onClick={this.props.show}>
             </FlatButton>
+            {this.props.modal.visible ? <ModalRoot {...course_modal} /> : null}
             <FlatButton style={styles.buttonStyle} label="Connects">
             </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>
             <ToolbarSeparator style={styles.separator} />
-            <IconMenu style={styles.iconStyle} 
+            <IconMenu style={styles.iconStyle}
             iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
                 <MenuItem primaryText="User Settings" />
                 <MenuItem primaryText="Feed Settings" />
@@ -61,11 +67,14 @@ const styles = {
         </Toolbar>
       </div>
     )
-  
-  
+
+
 }
 }
 
-
-export default DashboardToolBar
-
+const mapStateToProps = (state) => ({
+  modal: state.modal
+})
+export default connect((mapStateToProps), {
+  show: () => show(course_modal)
+})(DashboardToolBar)
