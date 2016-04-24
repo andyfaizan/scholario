@@ -29,21 +29,12 @@ const validate = (values) => {
   return errors
 }
 
+// Alternative way of defining props
 type Props = {
-  handleSubmit: Function,
-  fields: Object,
-  create: Function
+  fields: Object
 }
 export class CreateCourse extends React.Component {
   props: Props;
-
-  constructor(props) {
-    super(props);
-  }
-
-  defaultProps = {
-    fields: {},
-  }
 
   render() {
     const styles = {
@@ -77,11 +68,10 @@ export class CreateCourse extends React.Component {
     const uniLabel = 'Uni'
     const infoLabel = 'Information'
 
-    const { fields: { course, teacher, assistant, subject, uni, info }, handleSubmit } = this.props
+    const { fields: { course, teacher, assistant, subject, uni, info } } = this.props
 
     return (
       <div>
-      <form onSubmit={this.props.create}>
         <div className={classes.createCourseContainer} fullWidth={true}>
           {/* TODO extract presentational TextField component
           */}
@@ -149,7 +139,6 @@ export class CreateCourse extends React.Component {
           <br/>
           <br/>
         </div>
-      </form>
     </div>
     )
   }
