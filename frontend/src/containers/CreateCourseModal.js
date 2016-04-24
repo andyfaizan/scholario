@@ -21,12 +21,12 @@ export class CreateCourseModal extends React.Component {
   }
 
   create = () => {
-    this.props.hide()
-    console.log('Created course')
+    console.log('Creat course called')
     this.refs.myForm.submit()  // will return a promise
   }
 
   onSubmit = () => {
+    this.props.hide()
     console.log('onSubmit called')
   }
 
@@ -51,7 +51,7 @@ export class CreateCourseModal extends React.Component {
         primary={false}
         backgroundColor='#f1c40f'
         labelStyle={labelStyle}
-        onClick={this.create}/>
+        onTouchTap={this.create}/>
     ];
 
     return (
