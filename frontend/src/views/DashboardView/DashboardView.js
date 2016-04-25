@@ -1,5 +1,5 @@
 import React from 'react'
-import DashboardToolBar from '../../components/DashboardToolBar/DashboardToolBar'
+import DashboardToolBar from '../../containers/DashboardToolBar'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import CreateCourseModal from './CreateCourseModal'
-import ModalComponent from '../components/ModalComponent/ModalComponent'
+import ModalComponent from './ModalComponent'
 
 /*
 Idea for the Modal hierarchy has been taken from this StackOverflow post:
