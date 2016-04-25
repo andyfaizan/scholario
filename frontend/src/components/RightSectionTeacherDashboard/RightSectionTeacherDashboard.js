@@ -6,6 +6,8 @@ import CardMedia from 'material-ui/lib/card/card-media'
 import CardTitle from 'material-ui/lib/card/card-title'
 import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
+import List from 'material-ui/lib/lists/list'
+import ListItem from 'material-ui/lib/lists/list-item'
 
 type Props = {
 
@@ -18,10 +20,13 @@ export class RightSectionTeacherDashboard extends React.Component {
       <div>
         <Card>
           <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+            
+             <List>
+                <ListItem primaryText="Inbox"  />
+                <ListItem primaryText="Starred" />
+     
+             </List>
+                            
           </CardText>
        </Card>
       </div>

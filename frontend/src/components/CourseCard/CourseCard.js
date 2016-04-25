@@ -15,8 +15,8 @@ export class CourseCard extends React.Component {
   render () {
 
 	const style = {
-	  height: 200,
-	  width: 200,
+	  height: 100,
+	  width: 100,
 	  margin: 20,
 	  textAlign: 'center',
 	  display: 'inline-block',
@@ -58,8 +58,8 @@ export class CourseCard extends React.Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={2} children={nodePaper} />
-                <Paper style={style} zDepth={2} children={nodePaper} />
+        <Paper style={style} zDepth={1} children={nodePaper} />
+                <Paper style={style} zDepth={1} children={nodePaper} />
                 
 				<h1>adsada</h1>
       </div>
