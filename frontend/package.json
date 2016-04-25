@@ -78,6 +78,7 @@
     "react-router": "^2.0.0",
     "react-router-redux": "^4.0.1",
     "react-search-bar": "^1.1.4",
+    "react-selectize": "^2.0.1",
     "redux": "^3.0.0",
     "redux-thunk": "^2.0.0",
     "request": "^2.70.0"
@@ -140,6 +141,7 @@
     "react-addons-test-utils": "^0.14.0",
     "react-bootstrap": "^0.28.5",
     "react-conditional-render": "^1.0.5",
+    "react-search": "^1.0.9",
     "react-tap-event-plugin": "^0.2.2",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.2",
