@@ -14,6 +14,7 @@ export class CourseCard extends React.Component {
 
   render () {
 
+  	//inline styling variables for certain components ...
 	const style = {
 	  height: 200,
 	  width: 200,
@@ -35,7 +36,7 @@ export class CourseCard extends React.Component {
   		align: 'right'
 	};
 
-
+	//variables 
 	var titleCourse = <p></p> ;
 	var universityCourse = <p></p> ;
 	var teacherCourse = <p>Sina</p> ;
@@ -58,10 +59,7 @@ export class CourseCard extends React.Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={2} children={nodePaper} />
-                <Paper style={style} zDepth={2} children={nodePaper} />
-                
-				<h1>adsada</h1>
+        <Paper style={style} zDepth={2} children={nodePaper} />                
       </div>
     )
   }
