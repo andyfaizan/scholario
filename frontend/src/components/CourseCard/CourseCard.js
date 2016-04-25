@@ -22,7 +22,7 @@ export class CourseCard extends React.Component {
 	  display: 'inline-block',
 	};
 
-	var divStyle = {
+	const divStyle = {
 		textAlign: 'left',
 
 	};
@@ -38,7 +38,7 @@ export class CourseCard extends React.Component {
 
 	var titleCourse = <p></p> ;
 	var universityCourse = <p></p> ;
-	var teacherCourse = <p>rohan</p> ;
+	var teacherCourse = <p>Sina</p> ;
 	var deleteCourseButton = <div style={divStyleDelete}><IconButton tooltip="Font Icon"> <ActionHome /> </IconButton></div> ;
 	var heading = <div style={divStyle}><h3>{teacherCourse}</h3>  <Divider /> </div>;
 

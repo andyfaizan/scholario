@@ -8,9 +8,6 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
 
-type Props = {
-
-};
 export class DashboardView extends React.Component {
 
   render () {
