@@ -9,7 +9,6 @@ import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
 import ActionHome from 'material-ui/lib/svg-icons/action/home'
-import AutoComplete from 'material-ui/lib/auto-complete'
 
 export class TeacherProfileBar extends React.Component {
 
