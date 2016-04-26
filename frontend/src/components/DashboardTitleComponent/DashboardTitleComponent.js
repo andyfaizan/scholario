@@ -40,7 +40,7 @@ export class DashboardTitleComponent extends React.Component {
       	      <h1>{this.props.title}</h1>
       	      </div>
       	      <div className={classes.divSearchField}>
-		   	  <AutoComplete
+		   	  <AutoComplete 
               floatingLabelText= {floatingLabelTextState}
               filter={AutoComplete.caseInsensitiveFilter}
               dataSource={filterDataSource}
