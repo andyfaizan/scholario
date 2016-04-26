@@ -7,6 +7,7 @@ import CardTitle from 'material-ui/lib/card/card-title'
 import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
+import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
 import AddCourseComponent from '../../components/AddCourseComponent/AddCourseComponent'
 import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
@@ -40,6 +41,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
       <div>
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
           <AddCourseComponent />
+          <FriendsDisplayComponent fullName="Sina Mah." universityName="RWTH Aachen" discipline="Social Science"/>
           <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications="2"/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications="2"/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications="2"/>

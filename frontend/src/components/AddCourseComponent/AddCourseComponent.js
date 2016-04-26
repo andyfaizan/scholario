@@ -12,9 +12,8 @@ export class AddCourseComponent extends React.Component {
   render () {
 
   	const addCourseCompStyle = {
-
 	  float: 'left',
-	  height: 200,
+	  height: 220,
 	  width: 170,
 	  margin: 8.5,
 	  alignItem:'center'
@@ -32,7 +31,7 @@ export class AddCourseComponent extends React.Component {
 	const noteStyle ={
 	  width: 70,
 	  height: 70 
-	}
+	};
 
     const actionsCourse = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={noteStyle} /></IconButton></div> ;
 	
