@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import classes from './LoginFields.scss'
-import RaisedButton from 'material-ui/lib/raised-button'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
 
-var request = require('superagent');
 export const fields = [ 'email' , 'password' ]
 
 const validate = (values) => {
@@ -27,26 +25,7 @@ export class LoginFields extends React.Component {
 
   static propTypes = {
     fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired
     // resetForm: PropTypes.func.isRequired,te
-  }
-
-    sendRequest = (data) => {
-
-      request
-    .post('https://api.scholario.de/auth/login')
-    .send({ email: data.email, password: data.password })
-    .end(function(err, res){
-      // Calling the end function will send the request
-      console.log("Data is : " + data.email + " " + data.password);
-      if(res.ok){
-        console.log("Status : " + res.status);
-        console.log("Response body : " + res.text);
-      } else{
-        console.log("Response not ok. Error is : " + err);
-      }
-    })
   }
 
   render () {
@@ -66,19 +45,13 @@ export class LoginFields extends React.Component {
       floatingLabelStyle:
       {
         color: '#27ae60'
-      },
-      labelStyle:
-      {
-        color: 'white',
-        fontWeight: 'bold'
       }
     }
 
-    const { fields: { email, password }, handleSubmit, submitting } = this.props
+    const { fields: { email, password } } = this.props
 
     return (
       <div>
-        <form onSubmit={handleSubmit}>
           <div className={classes.loginContainer}>
             <TextField
               {...email}
@@ -101,22 +74,7 @@ export class LoginFields extends React.Component {
             <br/>
             <a className={classes.forgotLink}>Forgot your password ? </a>
             <br/>
-            <br/>
-            <RaisedButton
-              // TODO disabled={submitting}
-              type='submit'
-              label='Login'
-              primary={false}
-              backgroundColor='#f1c40f'
-              fullWidth={true}
-              labelStyle={styles.labelStyle}
-              disabled={submitting}
-              />
-            <br/>
-            <br/>
-            <br/>
           </div>
-        </form>
       </div>
     )
   }

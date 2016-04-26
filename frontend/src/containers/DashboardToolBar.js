@@ -11,8 +11,8 @@ import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
-import {show, CREATE_COURSE_MODAL as course_modal} from '../../redux/modules/modal'
-import ModalRoot from '../../containers/ModalRoot'
+import {show, CREATE_COURSE_MODAL as course_modal} from '../redux/modules/modal'
+import ModalRoot from './ModalRoot'
 
 
 type Props = {

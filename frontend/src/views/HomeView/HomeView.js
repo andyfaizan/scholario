@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { increment, doubleAsync } from '../../redux/modules/counter'
 import DuckImage from './Duck.jpg'
 import classes from './HomeView.scss'
-import NavBarLandingPage from '../../components/NavBarLandingPage/NavBarLandingPage'
+import NavBarLandingPage from '../../containers/NavBarLandingPage'
 
 // We can use Flow (http://flowtype.org/) to type our component's props
 // and state. For convenience we've included both regular propTypes and
