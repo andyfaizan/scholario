@@ -4,8 +4,9 @@ import Dialog from 'material-ui/lib/dialog'
 import Tabs from 'material-ui/lib/tabs/tabs'
 import Tab from 'material-ui/lib/tabs/tab'
 import LoginFields from '../../components/LoginFields/LoginFields'
+import Login from '../../containers/Login'
 import SignupFields from '../../components/SignupFields/SignupFields'
-import {hide} from '../../redux/modules/Modal'
+import {hide} from '../../redux/modules/modal'
 
 export class ModalComponent extends React.Component {
   static propTypes = {
@@ -58,7 +59,7 @@ export class ModalComponent extends React.Component {
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
           <div>
-            <LoginFields />
+            <Login />
           </div>
         </Tab>
         <Tab label='Sign Up' >
