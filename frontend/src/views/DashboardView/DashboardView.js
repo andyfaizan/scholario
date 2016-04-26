@@ -14,7 +14,7 @@ export class DashboardView extends React.Component {
     return (
       <div className={classes.dashboardRoot} >
         <DashboardToolBar />
-        <TeacherProfileBar />
+        <TeacherProfileBar firstNameUser="Prof. Jan" lastNameUser="Brochers" universityName="RWTH Aachen" programeName="Media Informatics" />
         <br/>
         <Grid className='container-fluid'>
           <Row >
