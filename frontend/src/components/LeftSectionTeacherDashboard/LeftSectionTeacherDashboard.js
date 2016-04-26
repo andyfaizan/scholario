@@ -37,6 +37,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
       'White',
     ];
 
+    var rows = 3;
+
     return (
       <div>
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
