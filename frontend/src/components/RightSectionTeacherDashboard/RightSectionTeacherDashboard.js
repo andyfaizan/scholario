@@ -2,12 +2,9 @@ import React from 'react'
 import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
 import List from 'material-ui/lib/lists/list'
-<<<<<<< HEAD
 import ListItem from 'material-ui/lib/lists/list-item'
-=======
 import Divider from 'material-ui/lib/divider'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
->>>>>>> front
 
 type Props = {
 
@@ -20,15 +17,6 @@ export class RightSectionTeacherDashboard extends React.Component {
       <div>
         <Card>
           <CardText>
-<<<<<<< HEAD
-            
-             <List>
-                <ListItem primaryText="Inbox"  />
-                <ListItem primaryText="Starred" />
-     
-             </List>
-                            
-=======
             <List subheader="Popular Questions" insetSubheader={false}>
               <Divider />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
@@ -41,7 +29,6 @@ export class RightSectionTeacherDashboard extends React.Component {
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
             </List>
->>>>>>> front
           </CardText>
        </Card>
       </div>

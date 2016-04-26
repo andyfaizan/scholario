@@ -25,18 +25,11 @@ export class CourseCard extends React.Component {
 
   	//inline styling variables for certain components ...
 	const style = {
-<<<<<<< HEAD
-	  height: 100,
-	  width: 100,
-	  margin: 20,
-	  textAlign: 'center',
-	  display: 'inline-block',
-=======
+
 	  float: 'left',
 	  height: 170,
 	  width: 170,
 	  margin: 8.5
->>>>>>> front
 	};
 
 	const divStyle = {
@@ -53,7 +46,7 @@ export class CourseCard extends React.Component {
 	};
 
 	//variables for displaying Child Node
-	var deleteCourseButton = <div style={divStyleDelete}><IconButton tooltip="Delete Course"> <ActionHome /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView /> </IconButton></div> ;
+	var actionsCourse = <div style={divStyleDelete}><IconButton tooltip="Delete Course"> <ActionHome /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView /> </IconButton></div> ;
 	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1>  <Divider /> </div>;
 	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><Divider /></div> ;
 
@@ -61,21 +54,13 @@ export class CourseCard extends React.Component {
       
       heading,
 	  container,
-      deleteCourseButton
+      actionsCourse
       
       ];
 
     return (
       <div>
-<<<<<<< HEAD
-        <Paper style={style} zDepth={1} children={nodePaper} />
-                <Paper style={style} zDepth={1} children={nodePaper} />
-                
-				<h1>adsada</h1>
-=======
         <Paper style={style} zDepth={1} children={nodePaper}  />   
-
->>>>>>> front
       </div>
     )
   }
