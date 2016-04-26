@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './CourseView.scss'
-import DashboardToolBar from '../../components/DashboardToolBar/DashboardToolBar'
+import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
