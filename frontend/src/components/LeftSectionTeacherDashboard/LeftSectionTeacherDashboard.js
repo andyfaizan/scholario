@@ -38,14 +38,14 @@ export class LeftSectionTeacherDashboard extends React.Component {
     return (
       <div>
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
-          <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Juli" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="Aachen" courseTeacher="Rey Becker" courseUrl=""/>      
+          <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Juli" courseUrl="" notifications="2"/>
+          <CourseCard titleCourse="Physics" universityCourse="Aachen" courseTeacher="Rey Becker" courseUrl="" notifications="2"/>      
       </div>
     )
   }

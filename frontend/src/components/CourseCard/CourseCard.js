@@ -6,12 +6,15 @@ import IconButton from 'material-ui/lib/icon-button'
 import ActionHome from 'material-ui/lib/svg-icons/action/delete'
 import PageView from 'material-ui/lib/svg-icons/action/pageview'
 import FlatButton from 'material-ui/lib/flat-button'
+import Badge from 'material-ui/lib/badge'
+import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 
 type Props = {
 
 	titleCourse: string,
 	universityCourse: string,
 	courseTeacher: string,
+	notifications:number,
 	courseUrl: string
 };
 export class CourseCard extends React.Component {
@@ -19,6 +22,7 @@ export class CourseCard extends React.Component {
     titleCourse: PropTypes.string.isRequired,
     universityCourse: PropTypes.string.isRequired,
     courseTeacher: PropTypes.string.isRequired,
+    notifications: PropTypes.number,
     courseUrl: PropTypes.string.isRequired
   };
   render () {
@@ -27,7 +31,7 @@ export class CourseCard extends React.Component {
 	const style = {
 
 	  float: 'left',
-	  height: 170,
+	  height: 200,
 	  width: 170,
 	  margin: 8.5
 	};
@@ -46,9 +50,9 @@ export class CourseCard extends React.Component {
 	};
 
 	//variables for displaying Child Node
-	var actionsCourse = <div style={divStyleDelete}><IconButton tooltip="Delete Course"> <ActionHome /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView /> </IconButton></div> ;
+	var actionsCourse = <div style={divStyleDelete}><Badge badgeContent={this.props.notifications} primary={true}><NotificationsIcon /></Badge><IconButton tooltip="Delete Course"> <ActionHome /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView /> </IconButton></div> ;
 	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1>  <Divider /> </div>;
-	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><Divider /></div> ;
+	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><Divider /><br/></div> ;
 
 	const nodePaper = [
       
