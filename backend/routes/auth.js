@@ -80,6 +80,7 @@ router.post('/login', function (req, res) {
         id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
+        role: user.role.toLowerCase(),
       },
     });
   }).catch(function (err) {
