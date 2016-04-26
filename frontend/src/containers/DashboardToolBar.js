@@ -46,7 +46,7 @@ export class DashboardToolBar extends React.Component {
     return (
       <div>
          <Toolbar style={styles.toolbarStyle}>
-          <ToolbarGroup float='Right'>
+          <ToolbarGroup float="Right">
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float="left">
