@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import TextField from 'material-ui/lib/text-field'
 import classes from './LoginFields.scss'
 import { reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
 
 export const fields = [ 'email' , 'password' ]
 
@@ -25,7 +26,6 @@ export class LoginFields extends React.Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
     // resetForm: PropTypes.func.isRequired,te
-    // submitting: PropTypes.bool.isRequired
   }
 
   render () {

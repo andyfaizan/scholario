@@ -75,7 +75,13 @@ router.post('/login', function (req, res) {
     });
     return res.json({
       err: [],
-      token: token,
+      user: {
+        token: token,
+        id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        role: user.role.toLowerCase(),
+      },
     });
   }).catch(function (err) {
     return res.json({

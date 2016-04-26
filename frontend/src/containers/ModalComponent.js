@@ -7,7 +7,7 @@ import Tab from 'material-ui/lib/tabs/tab'
 import RaisedButton from 'material-ui/lib/raised-button'
 import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
-import {hide} from '../redux/modules/Modal'
+import {hide} from '../redux/modules/modal'
 
 var request = require('superagent');
 var self;
