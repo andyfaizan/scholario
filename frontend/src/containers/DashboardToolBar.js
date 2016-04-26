@@ -46,10 +46,10 @@ export class DashboardToolBar extends React.Component {
     return (
       <div>
          <Toolbar style={styles.toolbarStyle}>
-          <ToolbarGroup float="Right">
+          <ToolbarGroup float='right'>
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
-          <ToolbarGroup float="left">
+          <ToolbarGroup float='left'>
             <FlatButton style={styles.buttonStyle} label="Courses" onClick={this.props.show}>
             </FlatButton>
             {this.props.modal.visible ? <ModalRoot {...course_modal} /> : null}
