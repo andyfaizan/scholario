@@ -19,15 +19,15 @@ export class RightSectionTeacherDashboard extends React.Component {
           <CardText>
             <List subheader="Popular Questions" insetSubheader={false}>
               <Divider />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>
             <Divider />
             <List subheader="Recent Questions" insetSubheader={false}>
               <Divider />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014" numberOfVotes="" questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>
           </CardText>
        </Card>
