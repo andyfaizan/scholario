@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import CourseCard from '../../components/CourseCard/CourseCard'
+import AddCourseComponent from '../../components/AddCourseComponent/AddCourseComponent'
 import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -38,6 +39,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
     return (
       <div>
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
+          <AddCourseComponent />
           <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications="2"/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications="2"/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications="2"/>
