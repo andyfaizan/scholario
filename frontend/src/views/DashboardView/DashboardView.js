@@ -16,8 +16,8 @@ export class DashboardView extends React.Component {
         <DashboardToolBar />
         <TeacherProfileBar />
         <br/>
-        <Grid>
-          <Row className='displayCourses'>
+        <Grid className='container-fluid'>
+          <Row >
             <Col xs={20} md={8}>
               <LeftSectionTeacherDashboard />
             </Col>

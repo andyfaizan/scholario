@@ -8,6 +8,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import CourseCard from '../../components/CourseCard/CourseCard'
+import CourseSmartItem from '../../components/CourseSmartItem/CourseSmartItem'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
@@ -36,7 +37,6 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     return (
       <div>
-       <Card>
           <Grid>
             <Row>
             <Col  md={4}>
@@ -52,10 +52,17 @@ export class LeftSectionTeacherDashboard extends React.Component {
             </Row>
           </Grid>
           <Divider />
-          <CardText>
-              <CourseCard />
-          </CardText>
-       </Card>
+        
+          <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Juli" courseUrl=""/>
+          <CourseCard titleCourse="Physics" universityCourse="Aachen" courseTeacher="Rey Becker" courseUrl=""/>
+
+             
       </div>
     )
   }
