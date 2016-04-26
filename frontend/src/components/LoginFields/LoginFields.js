@@ -3,6 +3,7 @@ import TextField from 'material-ui/lib/text-field'
 import classes from './LoginFields.scss'
 import RaisedButton from 'material-ui/lib/raised-button'
 import { reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
 
 var request = require('superagent');
 export const fields = [ 'email' , 'password' ]
@@ -26,12 +27,13 @@ export class LoginFields extends React.Component {
 
   static propTypes = {
     fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired
     // resetForm: PropTypes.func.isRequired,te
-    // submitting: PropTypes.bool.isRequired
   }
 
     sendRequest = (data) => {
+
       request
     .post('https://api.scholario.de/auth/login')
     .send({ email: data.email, password: data.password })
@@ -72,11 +74,11 @@ export class LoginFields extends React.Component {
       }
     }
 
-    const { fields: { email, password }, handleSubmit } = this.props
+    const { fields: { email, password }, handleSubmit, submitting } = this.props
 
     return (
       <div>
-        <form onSubmit={handleSubmit(this.sendRequest.bind(this))}>
+        <form onSubmit={handleSubmit}>
           <div className={classes.loginContainer}>
             <TextField
               {...email}
@@ -108,6 +110,7 @@ export class LoginFields extends React.Component {
               backgroundColor='#f1c40f'
               fullWidth={true}
               labelStyle={styles.labelStyle}
+              disabled={submitting}
               />
             <br/>
             <br/>
