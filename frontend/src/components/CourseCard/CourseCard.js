@@ -1,67 +1,70 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Paper from 'material-ui/lib/paper'
 import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
 import IconButton from 'material-ui/lib/icon-button'
 import ActionHome from 'material-ui/lib/svg-icons/action/delete'
+import PageView from 'material-ui/lib/svg-icons/action/pageview'
 import FlatButton from 'material-ui/lib/flat-button'
+import Badge from 'material-ui/lib/badge'
+import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 
 type Props = {
 
+	titleCourse: string,
+	universityCourse: string,
+	courseTeacher: string,
+	notifications:number,
+	courseUrl: string
 };
 export class CourseCard extends React.Component {
-  props: Props;
-
+ static propTypes = {
+    titleCourse: PropTypes.string.isRequired,
+    universityCourse: PropTypes.string.isRequired,
+    courseTeacher: PropTypes.string.isRequired,
+    notifications: PropTypes.number,
+    courseUrl: PropTypes.string.isRequired
+  };
   render () {
 
+  	//inline styling variables for certain components ...
 	const style = {
+
+	  float: 'left',
 	  height: 200,
-	  width: 200,
-	  margin: 20,
-	  textAlign: 'center',
-	  display: 'inline-block',
+	  width: 170,
+	  margin: 8.5
 	};
 
-	var divStyle = {
-		textAlign: 'left',
+	const divStyle = {
+		textAlign: 'center'
 
 	};
 
 	const iconStyles = {
-  		marginRight: 24,
+  		marginRight: 24
 	};
 
 	const divStyleDelete = {
-  		align: 'right'
+		float:'right'
 	};
 
-
-	var titleCourse = <p></p> ;
-	var universityCourse = <p></p> ;
-	var teacherCourse = <p>rohan</p> ;
-	var deleteCourseButton = <div style={divStyleDelete}><IconButton tooltip="Font Icon"> <ActionHome /> </IconButton></div> ;
-	var heading = <div style={divStyle}><h3>{teacherCourse}</h3>  <Divider /> </div>;
-
+	//variables for displaying Child Node
+	var actionsCourse = <div style={divStyleDelete}><Badge badgeContent={this.props.notifications} primary={true}><NotificationsIcon /></Badge><IconButton tooltip="Delete Course"> <ActionHome /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView /> </IconButton></div> ;
+	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1>  <Divider /> </div>;
+	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><Divider /><br/></div> ;
 
 	const nodePaper = [
       
       heading,
-
-
-      <FlatButton
-        label="Cancel"
-        secondary={true}
-        onTouchTap={this.handleClose}
-      />
+	  container,
+      actionsCourse
       
       ];
 
     return (
       <div>
-        <Paper style={style} zDepth={2} children={nodePaper} />
-                <Paper style={style} zDepth={2} children={nodePaper} />
-                
-				<h1>adsada</h1>
+        <Paper style={style} zDepth={1} children={nodePaper}  />   
       </div>
     )
   }
