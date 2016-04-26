@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Card from 'material-ui/lib/card/card'
 import CardActions from 'material-ui/lib/card/card-actions'
 import CardHeader from 'material-ui/lib/card/card-header'
@@ -10,8 +10,35 @@ import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
 import ActionHome from 'material-ui/lib/svg-icons/action/home'
 
-export class TeacherProfileBar extends React.Component {
+type Props = {
 
+  firstNameUser: string,
+  lastNameUser: string,
+  universityName: string,
+  programmeName:number,
+  imageUrl: string,
+  shortInformation: string,
+  facebookUrl: string,
+  twitterUrl: string,
+  instagramUrl: string,
+  mediumUrl: string,
+  filterArray: array
+};
+
+export class TeacherProfileBar extends React.Component {
+  static propTypes = {
+      firstNameUser: PropTypes.string.isRequired,
+      lastNameUser: PropTypes.string.isRequired,
+      universityName: PropTypes.string.isRequired,
+      programeName: PropTypes.string.isRequired,
+      imageUrl: PropTypes.string,
+      shortInformation: PropTypes.string,
+      facebookUrl: PropTypes.string,
+      twitterUrl: PropTypes.string,
+      instagramUrl: PropTypes.string,
+      mediumUrl: PropTypes.string,
+      filterArray: PropTypes.array
+    };
 
   render () {
 
