@@ -8,6 +8,8 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
 import {hide} from '../redux/modules/modal'
+import { browserHistory } from 'react-router'
+import { requestLogin } from '../redux/modules/user'
 
 var request = require('superagent');
 var self;
@@ -16,6 +18,10 @@ export class ModalComponent extends React.Component {
   static propTypes = {
     modal: PropTypes.bool.isRequired,
     hide: PropTypes.func.isRequired
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object
   }
 
   constructor(props) {
@@ -38,22 +44,26 @@ export class ModalComponent extends React.Component {
   }
 
   sendRequest = (data) => {
-    request
-  .post('https://api.scholario.de/auth/login')
-  .send({ email: data.email, password: data.password })
-  .end(function(err, res){
-    // Calling the end function will send the request
-    console.log("Data is : " + data.email + " " + data.password);
-    if(res.ok){
-      self.hideError()
-      self.props.hide()
-      console.log("Status : " + res.status);
-      console.log("Response body : " + res.text);
-    } else{
-      self.showError()
-      console.log("Response not ok. Error is : " + err);
-    }
-  })
+    this.props.onSubmit(data)
+    this.context.router.push('/dashboard')
+    this.props.hide()
+    //browserHistory.push('/dashboard')
+/*    request*/
+  //.post('https://api.scholario.de/auth/login')
+  //.send({ email: data.email, password: data.password })
+  //.end(function(err, res){
+    //// Calling the end function will send the request
+    //console.log("Data is : " + data.email + " " + data.password);
+    //if(res.ok){
+      //self.hideError()
+      //self.props.hide()
+      //console.log("Status : " + res.status);
+      //console.log("Response body : " + res.text);
+    //} else{
+      //self.showError()
+      //console.log("Response not ok. Error is : " + err);
+    //}
+  /*})*/
 }
 
   render () {
@@ -166,6 +176,17 @@ export class ModalComponent extends React.Component {
 const mapStateToProps = (state) => ({
   modal: state.modal
 })
-export default connect((mapStateToProps), {
-  hide: () => hide('LOGIN_MODAL')
-})(ModalComponent)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    hide: () => dispatch(hide('LOGIN_MODAL')),
+    onSubmit: values => {
+      dispatch(requestLogin(values.email, values.password))
+    },
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ModalComponent)
