@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import CourseCard from '../../components/CourseCard/CourseCard'
-import CourseSmartItem from '../../components/CourseSmartItem/CourseSmartItem'
+import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
@@ -37,22 +37,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     return (
       <div>
-          <Grid>
-            <Row>
-            <Col  md={4}>
-              <h2>Courses</h2>
-            </Col>
-            <Col md={4}>
-              <AutoComplete
-              floatingLabelText= {floatingLabelTextState}
-              filter={AutoComplete.caseInsensitiveFilter}
-              dataSource={filterDataSource}
-              />
-            </Col>
-            </Row>
-          </Grid>
-          <Divider />
-        
+          <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
           <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl=""/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl=""/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl=""/>
@@ -60,9 +45,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
           <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl=""/>
           <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl=""/>
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Juli" courseUrl=""/>
-          <CourseCard titleCourse="Physics" universityCourse="Aachen" courseTeacher="Rey Becker" courseUrl=""/>
-
-             
+          <CourseCard titleCourse="Physics" universityCourse="Aachen" courseTeacher="Rey Becker" courseUrl=""/>      
       </div>
     )
   }
