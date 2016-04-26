@@ -15,7 +15,7 @@ export class QuestionItem extends React.Component {
     questionStatement: PropTypes.string.isRequired,
     datePosted: PropTypes.string.isRequired,
     numberOfVotes: PropTypes.number,
-    questionURL: PropTypes.string.isRequired
+    questionURL: PropTypes.string
   };
 
   render () { 
