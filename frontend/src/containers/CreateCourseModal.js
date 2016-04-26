@@ -38,9 +38,6 @@ export class CreateCourseModal extends React.Component {
     }
 
     const actions = [
-      <div>
-        <CreateCourseForm ref="myForm" onSubmit={this.onSubmit}/>
-      </div>,
       <FlatButton
         label="Cancel"
         secondary={true}
@@ -60,7 +57,9 @@ export class CreateCourseModal extends React.Component {
           title={title}
           actions={actions}
           modal={true}
-          open={this.props.modal.visible}>
+          open={this.props.modal.visible}
+          autoScrollBodyContent={true}>
+            <CreateCourseForm ref="myForm" onSubmit={this.onSubmit}/>
         </Dialog>
       </div>
     )
