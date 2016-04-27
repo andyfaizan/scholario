@@ -1,4 +1,6 @@
+import { normalize } from 'normalizr'
 var request = require('superagent');
+import { userSchema } from '../schemas'
 
 // ------------------------------------
 // Constants
@@ -18,11 +20,12 @@ export function loginRequest() {
   }
 }
 
-export function loginOk(user) {
-  console.log(user)
+export function loginOk(user, data) {
+  console.log(data)
   return {
     type: LOGIN_OK,
-    payload: user
+    response: data,
+    user,
   }
 }
 
@@ -45,7 +48,9 @@ export function requestLogin(email, password) {
               if (err || !res.ok) {
                 dispatch(loginErr(res.body.err))
               } else {
-                dispatch(loginOk(res.body.user))
+                var response = normalize(res.body.user, userSchema)
+                dispatch(loginOk({ token: res.body.user.token, _id: res.body.user._id },
+                                 response))
               }
             });
   }
@@ -78,7 +83,7 @@ const initialState = {
 export default function loginReducer(state=initialState, action) {
   switch (action.type) {
     case LOGIN_OK:
-      return action.payload
+      return action.user
     default:
       return state
   }

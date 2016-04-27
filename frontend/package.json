@@ -71,6 +71,8 @@
     "koa-convert": "^1.2.0",
     "koa-proxy": "^0.5.0",
     "koa-static": "^2.0.0",
+    "lodash": "^4.11.1",
+    "normalizr": "^2.0.1",
     "react": "^0.14.0",
     "react-bootstrap-grid": "^1.0.0",
     "react-dom": "^0.14.0",
