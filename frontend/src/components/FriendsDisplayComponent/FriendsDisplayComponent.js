@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Paper from 'material-ui/lib/paper'
 import Delete from 'material-ui/lib/svg-icons/action/delete'
-import Person from 'material-ui/lib/svg-icons/social/person'
+import Friend from 'material-ui/lib/svg-icons/social/person'
 import PageView from 'material-ui/lib/svg-icons/action/pageview'
 import IconButton from 'material-ui/lib/icon-button'
 import Divider from 'material-ui/lib/divider'
@@ -31,7 +31,7 @@ export class FriendsDisplayComponent extends React.Component {
 	  margin: 8.5
 	};
 
-	const divStyleActions = {
+	const divActionStyles = {
 		float:'right'
 	};
 
@@ -49,9 +49,9 @@ export class FriendsDisplayComponent extends React.Component {
 	};
 
 	const header = <div><h3>{this.props.fullName}</h3><h5>{this.props.universityName}</h5><h6>{this.props.discipline}</h6></div>;
-	const actionsCourse = <div style={divStyleActions}><IconButton tooltip="unfollow friend"> <Delete /> </IconButton><IconButton tooltip="friends Profile"> <PageView /> </IconButton></div> ;
+	const actionsCourse = <div style={divActionStyles}><IconButton tooltip="unfollow friend"> <Delete /> </IconButton><IconButton tooltip="friends Profile"> <PageView /> </IconButton></div> ;
 	const separator = <div><Divider /></div> ;
-	const container = <div><IconButton style={friendsButtonStyle}> <Person style={noteFriendsStyle} /></IconButton></div> ;
+	const container = <div><IconButton style={friendsButtonStyle}> <Friend style={noteFriendsStyle} /></IconButton></div> ;
 
 	const nodeFriendsComp = [
       

@@ -53,7 +53,7 @@ export class CourseCard extends React.Component {
 	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1> <Divider /> </div>;
 	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
 
-	const nodePaper = [
+	const nodePaperCourse = [
       
       heading,
 	  container,
@@ -63,7 +63,7 @@ export class CourseCard extends React.Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={1} children={nodePaper}  />   
+        <Paper style={style} zDepth={1} children={nodePaperCourse}  />   
       </div>
     )
   }
