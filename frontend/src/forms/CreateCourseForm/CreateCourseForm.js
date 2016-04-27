@@ -2,8 +2,10 @@ import React from 'react'
 import { reduxForm } from 'redux-form'
 import classes from './CreateCourseForm.scss'
 import TextField from 'material-ui/lib/text-field'
+import SelectField from 'material-ui/lib/select-field'
+import MenuItem from 'material-ui/lib/menus/menu-item'
 
-export const fields = ['course', 'teacher', 'assistant',
+export const fields = ['course', 'teacher', 'assistant', 'semester',
 'subject', 'uni', 'info']
 
 const validate = (values) => {
@@ -33,8 +35,14 @@ const validate = (values) => {
 type Props = {
   fields: Object
 }
+
 export class CreateCourse extends React.Component {
   props: Props;
+
+  // TODO this doesn't work. Replace with state
+  handleChange = (event, index, value) => {
+    this.refs.sem.value = value
+  }
 
   render() {
     const styles = {
@@ -68,7 +76,18 @@ export class CreateCourse extends React.Component {
     const uniLabel = 'Uni'
     const infoLabel = 'Information'
 
-    const { fields: { course, teacher, assistant, subject, uni, info } } = this.props
+    const { fields: { course, teacher, assistant, semester, subject, uni, info }, handleChange } = this.props
+
+    const menuItems = [];
+        for (let i = 0; i < 8; i++) {
+          menuItems.push(
+            <MenuItem
+              key={i}
+              value={i + 1}
+              primaryText={`Semester ${i + 1}`}
+            />
+          );
+        }
 
     return (
       <div>
@@ -114,6 +133,17 @@ export class CreateCourse extends React.Component {
             underlineFocusStyle={styles.focusStyle}
             fullWidth={true}
             />
+          <br/>
+          <SelectField
+            {...semester}
+            ref="sem"
+            value=""
+            floatingLabelText="Semester"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            fullWidth={true}
+            onChange={this.handleChange.bind(this)}>
+            {menuItems}
+          </SelectField>
           <br/>
           <TextField
             {...uni}

@@ -6,7 +6,11 @@ import {hide} from '../redux/modules/modal'
 import Dialog from 'material-ui/lib/dialog'
 import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
+import Avatar from 'material-ui/lib/avatar'
 import CreateCourseForm from '../forms/CreateCourseForm/CreateCourseForm'
+import Grid from 'react-bootstrap/lib/Grid'
+import Row from 'react-bootstrap/lib/Row'
+import Col from 'react-bootstrap/lib/Col'
 
 export class CreateCourseModal extends React.Component {
   static propTypes = {
@@ -36,6 +40,9 @@ export class CreateCourseModal extends React.Component {
       color: 'white',
       fontWeight: 'bold'
     }
+    const avatarStyle = {
+      marginLeft: '50%'
+    }
 
     const actions = [
       <FlatButton
@@ -59,7 +66,14 @@ export class CreateCourseModal extends React.Component {
           modal={true}
           open={this.props.modal.visible}
           autoScrollBodyContent={true}>
-            <CreateCourseForm ref="myForm" onSubmit={this.onSubmit}/>
+          <Row>
+            <Col md={1}>
+              <Avatar src="http://lorempixel.com/100/100/nature/" style={avatarStyle}/>
+            </Col>
+            <Col md={11}>
+              <CreateCourseForm ref="myForm" onSubmit={this.onSubmit}/>
+            </Col>
+          </Row>
         </Dialog>
       </div>
     )
