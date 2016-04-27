@@ -44,14 +44,12 @@ export class LeftSectionTeacherDashboard extends React.Component {
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
           <AddCourseComponent />
           <FriendsDisplayComponent fullName="Sina Mah." universityName="RWTH Aachen" discipline="Social Science"/>
-          <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Juli" courseUrl="" notifications="2"/>
-          <CourseCard titleCourse="Physics" universityCourse="Aachen" courseTeacher="Rey Becker" courseUrl="" notifications="2"/>      
+          <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications={rows} />
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications={rows} />
+          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications={rows} />
+          <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl="" notifications={rows} />
+          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl="" notifications={rows} />
+          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl="" notifications={rows} />
       </div>
     )
   }

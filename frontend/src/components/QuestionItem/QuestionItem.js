@@ -14,8 +14,8 @@ export class QuestionItem extends React.Component {
   static propTypes = {
     questionStatement: PropTypes.string.isRequired,
     datePosted: PropTypes.string.isRequired,
-    numberOfVotes: PropTypes.number.isRequired,
-    questionURL: PropTypes.string.isRequired
+    numberOfVotes: PropTypes.number,
+    questionURL: PropTypes.string
   };
 
   render () { 

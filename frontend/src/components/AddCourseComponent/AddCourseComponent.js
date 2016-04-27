@@ -28,22 +28,17 @@ export class AddCourseComponent extends React.Component {
 	  lineHeight: 200
 	};
 
-	const noteStyle ={
+	const plusButton ={
 	  width: 70,
 	  height: 70 
 	};
 
-    const actionsCourse = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={noteStyle} /></IconButton></div> ;
+    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={plusButton} /></IconButton></div> ;
 	
-    const nodePaper = [
-
-      actionsCourse
-      
-      ];
 
     return (
       <div>
-      	<Paper style={addCourseCompStyle} zDepth={1} children={nodePaper}  />   
+      	<Paper style={addCourseCompStyle} zDepth={1} children={actions}  />   
       </div>
     )
   }
