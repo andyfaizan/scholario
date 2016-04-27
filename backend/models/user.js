@@ -83,6 +83,8 @@ UserSchema.methods.getCourses = function (opts) {
         p = p.select(opts.select);
       if ('lean' in opts)
         p = p.lean(opts.lean);
+      if ('limit' in opts)
+        p = p.limit(opts.limit);
     }
     p.exec().then(courses => {
       return resolve({

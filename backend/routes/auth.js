@@ -69,30 +69,37 @@ router.post('/login', function (req, res) {
     return user.authenticate(req.body.password);
   }).then(function (user) {
     return user.getCourses({
-      populate: 'university program',
+      populate: [{
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'program',
+        select: 'id name university',
+      }],
       select: 'id name prof university program',
-      lean: true
+      lean: true,
+      limit: 5,
     });
   }).then(function (values) {
     var user = values.user;
-    //var courses = values.courses
-    var courses = [];
-    for (var i = 0; i < values.courses.length; i++) {
-      courses.push({
-        id: values.courses[i]._id,
-        name: values.courses[i].name,
-        prof: values.courses[i].prof,
-        university: {
-          id: values.courses[i].university._id,
-          name: values.courses[i].university.name,
-        },
-        program: {
-          id: values.courses[i].program._id,
-          name: values.courses[i].program.name,
-          university: values.courses[i].program.university,
-        },
-      });
-    }
+    var courses = values.courses;
+/*    var courses = [];*/
+    //for (var i = 0; i < values.courses.length; i++) {
+      //courses.push({
+        //id: values.courses[i]._id,
+        //name: values.courses[i].name,
+        //prof: values.courses[i].prof,
+        //university: {
+          //id: values.courses[i].university._id,
+          //name: values.courses[i].university.name,
+        //},
+        //program: {
+          //id: values.courses[i].program._id,
+          //name: values.courses[i].program.name,
+          //university: values.courses[i].program.university,
+        //},
+      //});
+    /*}*/
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
@@ -100,7 +107,7 @@ router.post('/login', function (req, res) {
       err: [],
       user: {
         token: token,
-        id: user._id,
+        _id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
         role: user.role.toLowerCase(),
