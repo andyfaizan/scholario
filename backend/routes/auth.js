@@ -60,16 +60,39 @@ router.post('/login', function (req, res) {
   }
 
   var findP = User.findOne({ 'email': req.body.email });
-  var authP = findP.then(function (user) {
+  var userP = findP.then(function (user) {
     if (!user) {
       return res.status(404).json({
         err: [{msg: 'UserNotFound'}],
       });
     }
     return user.authenticate(req.body.password);
-  });
-  Promise.all([findP, authP]).then(function (values) {
-    var user = values[0];
+  }).then(function (user) {
+    return user.getCourses({
+      populate: 'university program',
+      select: 'id name prof university program',
+      lean: true
+    });
+  }).then(function (values) {
+    var user = values.user;
+    //var courses = values.courses
+    var courses = [];
+    for (var i = 0; i < values.courses.length; i++) {
+      courses.push({
+        id: values.courses[i]._id,
+        name: values.courses[i].name,
+        prof: values.courses[i].prof,
+        university: {
+          id: values.courses[i].university._id,
+          name: values.courses[i].university.name,
+        },
+        program: {
+          id: values.courses[i].program._id,
+          name: values.courses[i].program.name,
+          university: values.courses[i].program.university,
+        },
+      });
+    }
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
@@ -81,6 +104,7 @@ router.post('/login', function (req, res) {
         firstname: user.firstname,
         lastname: user.lastname,
         role: user.role.toLowerCase(),
+        courses: courses,
       },
     });
   }).catch(function (err) {

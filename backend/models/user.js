@@ -62,7 +62,35 @@ UserSchema.methods.authenticate = function (password) {
     bcrypt.compare(password, this.password, (err, res) => {
       if (err) return reject(err);
       if (!res) return reject(Error('User/Password incorrect.'));
-      return resolve();
+      return resolve(this);
+    });
+  });
+};
+
+UserSchema.methods.getCourses = function (opts) {
+  const Course = mongoose.model('Course');
+  return new Promise((resolve, reject) => {
+    var p;
+    if (this.role === 'Student') {
+      p = Course.find({ participants: { $in: [this.id] } });
+    } else if (this.role === 'Prof') {
+      p = Course.find({ prof: this.id });
+    }
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts)
+        p = p.populate(opts.populate);
+      if ('select' in opts)
+        p = p.select(opts.select);
+      if ('lean' in opts)
+        p = p.lean(opts.lean);
+    }
+    p.exec().then(courses => {
+      return resolve({
+        user: this,
+        courses,
+      });
+    }).catch(err => {
+      return reject(err);
     });
   });
 };
