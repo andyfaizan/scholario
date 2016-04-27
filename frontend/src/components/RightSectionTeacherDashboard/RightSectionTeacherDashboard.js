@@ -5,6 +5,7 @@ import List from 'material-ui/lib/lists/list'
 import ListItem from 'material-ui/lib/lists/list-item'
 import Divider from 'material-ui/lib/divider'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
+import Subheader from 'material-ui/lib/Subheader'
 
 type Props = {
 
@@ -17,14 +18,16 @@ export class RightSectionTeacherDashboard extends React.Component {
       <div>
         <Card>
           <CardText>
-            <List subheader="Popular Questions" insetSubheader={false}>
+            <List>
+              <Subheader>Popular Questions</Subheader>
               <Divider />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>
             <Divider />
-            <List subheader="Recent Questions" insetSubheader={false}>
+            <List>
+              <Subheader>Recent Questions</Subheader>
               <Divider />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />

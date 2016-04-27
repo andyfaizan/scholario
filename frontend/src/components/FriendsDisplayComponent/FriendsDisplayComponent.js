@@ -24,7 +24,7 @@ export class FriendsDisplayComponent extends React.Component {
 
   render () {
 
-  	const style = {
+  	const friendsPaperStyle = {
 	  float: 'left',
 	  height: 220,
 	  width: 170,
@@ -35,7 +35,7 @@ export class FriendsDisplayComponent extends React.Component {
 		float:'right'
 	};
 
-	const buttonStyle = {
+	const friendsButtonStyle = {
 
 	  margin:'auto',
 	  width:'100%',
@@ -43,22 +43,22 @@ export class FriendsDisplayComponent extends React.Component {
 	  lineHeight: 50
 	};
 
-	const noteStyle ={
+	const noteFriendsStyle ={
 	  width: 60,
 	  height: 60 
 	};
 
 	const header = <div><h3>{this.props.fullName}</h3><h5>{this.props.universityName}</h5><h6>{this.props.discipline}</h6></div>;
 	const actionsCourse = <div style={divStyleActions}><IconButton tooltip="unfollow friend"> <Delete /> </IconButton><IconButton tooltip="friends Profile"> <PageView /> </IconButton></div> ;
-	const separator = <div><br/><Divider /></div> ;
-	const container = <div><IconButton style={buttonStyle}> <Person style={noteStyle} /></IconButton></div> ;
+	const separator = <div><Divider /></div> ;
+	const container = <div><IconButton style={friendsButtonStyle}> <Person style={noteFriendsStyle} /></IconButton></div> ;
 
 	const nodeFriendsComp = [
       
       	header,
-		<Divider />,
+		separator,
 		container,
-		<Divider />,
+		separator,
 		actionsCourse
       
     ];
@@ -66,7 +66,7 @@ export class FriendsDisplayComponent extends React.Component {
     return (
 
       <div>
-      	<Paper style={style} zDepth={1} children={nodeFriendsComp}  />   
+      	<Paper style={friendsPaperStyle} zDepth={1} children={nodeFriendsComp}  />   
       </div>
     )
   }

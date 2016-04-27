@@ -35,15 +35,10 @@ export class AddCourseComponent extends React.Component {
 
     const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={plusButton} /></IconButton></div> ;
 	
-    const paper = [
-
-      actions
-      
-      ];
 
     return (
       <div>
-      	<Paper style={addCourseCompStyle} zDepth={1} children={paper}  />   
+      	<Paper style={addCourseCompStyle} zDepth={1} children={actions}  />   
       </div>
     )
   }
