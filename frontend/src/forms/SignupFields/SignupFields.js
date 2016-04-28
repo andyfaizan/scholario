@@ -31,6 +31,9 @@ const validate = (values) => {
   if (!values.lastname) {
     errors.lastname = 'Geben Sie Ihr Nachname ein'
   }
+  if (!values.role) {
+    errors.role = 'Geben Sie Ihr Role ein'
+  }
   return errors
 }
 
@@ -44,24 +47,6 @@ export class SignupFields extends React.Component {
   }
 
   // handleChange = (event, index, value) => this.setState({value});
-
-  sendRequest = (data) => {
-    request
-    .post('https://api.scholario.de/users')
-    .send({ email: data.email, password: data.password,
-      firstname: data.firstname, lastname: data.lastname, role: 'student' })
-      .end(function(err, res){
-        // Calling the end function will send the request
-        console.log("Data is : " + data.email + " " + data.password +
-        " " + data.firstname + " " + data.lastname + " " + data.role );
-        if(res.ok){
-          console.log("Status : " + res.status);
-          console.log("Response body : " + res.text);
-        } else{
-          console.log("Response not ok. Error is : " + err);
-        }
-      })
-  }
 
   render () {
       const styles = {
@@ -98,11 +83,10 @@ export class SignupFields extends React.Component {
         }
       }
 
-      const { fields: { email, password, firstname, lastname, role }, handleSubmit } = this.props
+      const { fields: { email, password, firstname, lastname, role } } = this.props
       return (
         <div>
-          <form onSubmit={handleSubmit(this.sendRequest.bind(this))}>
-            <div className={classes.loginContainer}>
+            <div className={classes.signupContainer}>
               <TextField
                 {...firstname}
                 hintText='Steve'
@@ -137,8 +121,16 @@ export class SignupFields extends React.Component {
                 />
               <br/>
               <br/>
-              <Grid>
-                {/*TODO Why Checkboxes and not Radiobuttons?*/}
+              <TextField
+                {...role}
+                hintText='student oder prof'
+                errorText={role.touched && role.error ? role.error : ''}
+                floatingLabelText='Role'
+                floatingLabelStyle={styles.floatingLabelStyle}
+                underlineFocusStyle={styles.focusStyle}
+                />
+              {/*TODO Why Checkboxes and not Radiobuttons?*/}
+              {/*<Grid>
                 <Row className='show-grid'>
                   <Col xs={12} md={1} align='right'>
                     <Checkbox
@@ -152,7 +144,7 @@ export class SignupFields extends React.Component {
                   </Col>
                 </Row>
               </Grid>
-              {/*<SelectField
+              <SelectField
                 value={this.state.value}
                 onChange={this.handleChange}>
                 <MenuItem value={1} primaryText='Never' />
@@ -169,19 +161,7 @@ export class SignupFields extends React.Component {
                 <MenuItem value={3} primaryText='Weeknights' />
                 </SelectField>*/}
                 <br/>
-                <br/>
-                <RaisedButton
-                  label='Signup'
-                  type='submit'
-                  primary={false}
-                  backgroundColor='#9fa8a3'
-                  fullWidth={true}
-                  labelStyle={styles.labelStyle} />
-                <br/>
-                <br/>
-                <br/>
               </div>
-            </form>
           </div>
         )
       }

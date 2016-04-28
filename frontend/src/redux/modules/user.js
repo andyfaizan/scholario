@@ -10,6 +10,11 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_OK = 'LOGIN_OK'
 export const LOGIN_ERR = 'LOGIN_ERR'
 
+export const REQUEST_SIGNUP = 'REQUEST_SIGNUP'
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST'
+export const SIGNUP_OK = 'SIGNUP_OK'
+export const SIGNUP_ERR = 'SIGNUP_ERR'
+
 
 // ------------------------------------
 // Actions
@@ -56,11 +61,60 @@ export function requestLogin(email, password) {
   }
 }
 
+export function signupRequest() {
+  return {
+    type: REQUEST_SIGNUP,
+  }
+}
+
+export function signupOk() { //user, data) {
+  //console.log(data)
+  return {
+    type: SIGNUP_OK
+    // ,
+    // response: data,
+    // user,
+  }
+}
+
+export function signupErr(err) {
+  return {
+    type: SIGNUP_ERR,
+    payload: {
+      err: err
+    }
+  }
+}
+
+export function requestSignup(firstname, lastname, role, email, password) {
+  return function (dispatch) {
+    dispatch(signupRequest())
+    return request
+    .post('https://api.scholario.de/users')
+    .send({ email: email, password: password,
+      firstname: firstname, lastname: lastname, role: role })
+      .end(function(err, res){
+        if (err || !res.ok) {
+          dispatch(signupErr(res.body.err))
+        } else {
+          //var response = normalize(res.body.user, userSchema)
+          // dispatch(signupOk({ token: res.body.user.token, _id: res.body.user._id },
+          //                  response))
+          dispatch(signupOk())
+        }
+      })
+  }
+}
+
 export const actions = {
   loginRequest,
   loginOk,
   loginErr,
   requestLogin,
+  signupRequest,
+  signupOk,
+  signupErr,
+  requestSignup
 }
 
 // ------------------------------------
@@ -80,10 +134,20 @@ const initialState = {
   lastname: '',
 }
 
+// Fake state returned on signup for testing
+const bogusState = {
+  token: 'blah',
+  id: 'blah',
+  firstname: 'Andy',
+  lastname: 'Faizan',
+}
+
 export default function loginReducer(state=initialState, action) {
   switch (action.type) {
     case LOGIN_OK:
       return action.user
+    case SIGNUP_OK:
+      return bogusState
     default:
       return state
   }

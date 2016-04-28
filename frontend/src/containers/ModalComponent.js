@@ -9,62 +9,74 @@ import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
 import {hide} from '../redux/modules/modal'
 import { browserHistory } from 'react-router'
-import { requestLogin } from '../redux/modules/user'
+import { requestLogin, requestSignup } from '../redux/modules/user'
 
 var request = require('superagent');
 var self;
 
 export class ModalComponent extends React.Component {
   static propTypes = {
-    modal: PropTypes.bool.isRequired,
-    hide: PropTypes.func.isRequired
+    modal: PropTypes.object.isRequired,
+    hide: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
   }
 
   static contextTypes = {
-    router: React.PropTypes.object
+    router: PropTypes.object
   }
 
   constructor(props) {
     super(props)
-    this.sendRequest = this.sendRequest.bind(this)
-    this.confirm = this.confirm.bind(this)
+    this.sendLoginRequest = this.sendLoginRequest.bind(this)
+    this.sendSignupRequest = this.sendSignupRequest.bind(this)
+    this.confirmLogin = this.confirmLogin.bind(this)
+    this.confirmSignup = this.confirmSignup.bind(this)
     self = this
   }
 
-  confirm = () => {
-    this.refs.myForm.submit()
+  confirmLogin = () => {
+    this.refs.loginForm.submit()
+  }
+
+  confirmSignup = () => {
+    this.refs.signupForm.submit()
   }
 
   hideError = () => {
-    this.refs.errorText.style.visibility = 'hidden'
+    this.refs.loginErrorText.style.visibility = 'hidden'
   }
 
   showError = () => {
-    this.refs.errorText.style.visibility = 'visible'
+    this.refs.loginErrorText.style.visibility = 'visible'
   }
 
-  sendRequest = (data) => {
-    this.props.onSubmit(data)
-    this.context.router.push('/dashboard')
+  sendLoginRequest = (data) => {
+    this.props.onLoginSubmit(data)
     this.props.hide()
-    //browserHistory.push('/dashboard')
-/*    request*/
-  //.post('https://api.scholario.de/auth/login')
-  //.send({ email: data.email, password: data.password })
-  //.end(function(err, res){
-    //// Calling the end function will send the request
-    //console.log("Data is : " + data.email + " " + data.password);
-    //if(res.ok){
-      //self.hideError()
-      //self.props.hide()
-      //console.log("Status : " + res.status);
-      //console.log("Response body : " + res.text);
-    //} else{
-      //self.showError()
-      //console.log("Response not ok. Error is : " + err);
-    //}
-  /*})*/
-}
+    this.context.router.push('/dashboard')
+
+    // TODO async wait and then check
+    // if (this.props.user.token !== ''){
+    //   this.props.hide()
+    //   this.context.router.push('/dashboard')
+    // } else {
+    //     this.showError()
+    // }
+  }
+
+    sendSignupRequest = (data) => {
+      this.props.onSignupSubmit(data)
+      this.props.hide()
+      this.context.router.push('/dashboard')
+
+      // TODO async wait and then check
+      // if (this.props.user.token !== ''){
+      //   this.props.hide()
+      //   this.context.router.push('/dashboard')
+      // } else {
+      //     this.showError()
+      // }
+    }
 
   render () {
     const styles = {
@@ -129,9 +141,9 @@ export class ModalComponent extends React.Component {
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
           <div>
-            <LoginFields ref="myForm" onSubmit={this.sendRequest}/>
+            <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest}/>
           </div>
-          <div ref="errorText" style={errorTextStyle}>
+          <div ref="loginErrorText" style={errorTextStyle}>
             Falsches Email oder Kennwort
           </div>
           <div style={buttonStyle}>
@@ -144,14 +156,28 @@ export class ModalComponent extends React.Component {
             backgroundColor='#f1c40f'
             fullWidth={true}
             labelStyle={labelStyle}
-            onTouchTap={this.confirm}
+            onTouchTap={this.confirmLogin}
             />
         </div>
         <br/>
         </Tab>
         <Tab label='Sign Up' >
           <div>
-            <SignupFields />
+            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest}/>
+          </div>
+          <div ref="signupErrorText" style={errorTextStyle}>
+            Falsches Email oder Kennwort
+          </div>
+          <div style={buttonStyle}>
+            <br/>
+            <RaisedButton
+              label='Signup'
+              type='submit'
+              primary={false}
+              backgroundColor='#f1c40f'
+              fullWidth={true}
+              labelStyle={labelStyle}
+              onTouchTap={this.confirmSignup} />
           </div>
         </Tab>
       </Tabs>
@@ -174,14 +200,18 @@ export class ModalComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  modal: state.modal
+  modal: state.modal,
+  user: state.user
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
     hide: () => dispatch(hide('LOGIN_MODAL')),
-    onSubmit: values => {
+    onLoginSubmit: values => {
       dispatch(requestLogin(values.email, values.password))
+    },
+    onSignupSubmit: values => {
+      dispatch(requestSignup(values.firstname, values.lastname, values.role, values.email, values.password))
     },
   }
 }
