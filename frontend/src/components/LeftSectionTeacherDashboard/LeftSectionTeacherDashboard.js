@@ -9,7 +9,7 @@ import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
-import AddCourseComponent from '../../components/AddCourseComponent/AddCourseComponent'
+import AddCourse from '../../containers/AddCourse'
 import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -25,7 +25,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
   render () {
 
     var floatingLabelTextState = 'Search Your Courses';
-    //const filter dataSource for Connects and Courses 
+    //const filter dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
       'Orange',
@@ -42,7 +42,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
     return (
       <div>
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
-          <AddCourseComponent />
+          <AddCourse />
           <FriendsDisplayComponent fullName="Sina Mah." universityName="RWTH Aachen" discipline="Social Science"/>
           <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications={rows} />
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications={rows} />
@@ -56,4 +56,3 @@ export class LeftSectionTeacherDashboard extends React.Component {
 }
 
 export default LeftSectionTeacherDashboard
-

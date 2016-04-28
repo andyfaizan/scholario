@@ -11,13 +11,9 @@ import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
-import {show, CREATE_COURSE_MODAL as course_modal} from '../redux/modules/modal'
-import ModalRoot from './ModalRoot'
-
 
 type Props = {
-  modal : Boolean,
-  show : Function
+
 };
 export class DashboardToolBar extends React.Component {
   props : Props;
@@ -50,9 +46,8 @@ export class DashboardToolBar extends React.Component {
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
-            <FlatButton style={styles.buttonStyle} label="Courses" onClick={this.props.show}>
+            <FlatButton style={styles.buttonStyle} label="Courses" >
             </FlatButton>
-            {this.props.modal.visible ? <ModalRoot {...course_modal} /> : null}
             <FlatButton style={styles.buttonStyle} label="Connects">
             </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Feed">
@@ -73,8 +68,6 @@ export class DashboardToolBar extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  modal: state.modal
+
 })
-export default connect((mapStateToProps), {
-  show: () => show(course_modal)
-})(DashboardToolBar)
+export default connect((mapStateToProps))(DashboardToolBar)
