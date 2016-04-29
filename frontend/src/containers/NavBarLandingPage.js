@@ -13,7 +13,7 @@ injectTapEventPlugin()
 export class NavBarLandingPage extends React.Component {
 
   static propTypes = {
-    modal: PropTypes.bool.isRequired,
+    modal: PropTypes.object.isRequired,
     show: PropTypes.func.isRequired
   };
 

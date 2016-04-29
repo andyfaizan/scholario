@@ -59,7 +59,20 @@ router.post('/login', function (req, res) {
     });
   }
 
-  var findP = User.findOne({ 'email': req.body.email });
+  var findP = User.findOne({ 'email': req.body.email })
+                  .populate([{
+                    path: 'university',
+                    select: 'id name',
+                  }, {
+                    path: 'program',
+                    select: 'id name university',
+                  }, {
+                    path: 'universities',
+                    select: 'id name',
+                  }, {
+                    path: 'programs',
+                    select: 'id name university',
+                  }]);
   var userP = findP.then(function (user) {
     if (!user) {
       return res.status(404).json({
@@ -103,8 +116,7 @@ router.post('/login', function (req, res) {
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
-    return res.json({
-      err: [],
+    var data = {
       user: {
         token: token,
         _id: user._id,
@@ -113,7 +125,20 @@ router.post('/login', function (req, res) {
         role: user.role.toLowerCase(),
         courses: courses,
       },
-    });
+    };
+    var uni;
+    var program;
+    if (user.role === 'Student') {
+      uni = user.university;
+      program = user.program;
+    } else if (user.role === 'Prof') {
+      uni = user.universities[0];
+      program = user.programs[0];
+    }
+    if (uni) data.user.university = uni;
+    if (program) data.user.program = program;
+
+    return res.json(data);
   }).catch(function (err) {
     return res.json({
       err: [{
