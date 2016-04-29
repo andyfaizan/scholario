@@ -30,8 +30,8 @@ export class CourseCard extends React.Component {
   	//inline styling variables for certain components ...
 	const style = {
 	  float: 'left',
-	  height: 220,
-	  width: 170,
+	  height: 280,
+	  width: 260,
 	  margin: 8.5
 	};
 

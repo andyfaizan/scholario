@@ -16,7 +16,7 @@ export class AddCourseComponent extends React.Component {
 
   	const addCourseCompStyle = {
 	  float: 'left',
-	  height: 220,
+	  height: 280,
 	  width: 170,
 	  margin: 8.5,
 	  alignItem:'center'

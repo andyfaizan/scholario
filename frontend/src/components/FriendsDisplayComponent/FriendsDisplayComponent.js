@@ -26,8 +26,8 @@ export class FriendsDisplayComponent extends React.Component {
 
   	const friendsPaperStyle = {
 	  float: 'left',
-	  height: 220,
-	  width: 170,
+	  height: 280,
+	  width: 260,
 	  margin: 8.5
 	};
 

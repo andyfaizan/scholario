@@ -53,13 +53,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
             />
           )}
-          {/*<CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications={rows} />
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications={rows} />
-          <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications={rows} />
-          <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl="" notifications={rows} />
-          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl="" notifications={rows} />
-          <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl="" notifications={rows} />
-          */}
+
       </div>
     )
   }
