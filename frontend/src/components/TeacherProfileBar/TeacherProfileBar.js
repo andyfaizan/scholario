@@ -43,14 +43,14 @@ export class TeacherProfileBar extends React.Component {
   render () {
 
     //Card Header Title Variables
-    var firstNameUser = 'Prof Jan ' ;
-    var lastNameUser = 'Brochers' ;
-    var cardTitle = firstNameUser + lastNameUser ;
+    //var firstNameUser = 'Prof Jan ' ;
+    //var lastNameUser = 'Brochers' ;
+    var cardTitle = `${this.props.firstNameUser}  ${this.props.lastNameUser}`;
 
     //Card Header Subtitle Variables
-    var universityName = 'RWTH Aachen' ;
-    var programeName = 'Media Informatics' ;
-    var cardSubtitle = universityName + '( ' + programeName + ' )' ;
+    //var universityName = 'RWTH Aachen' ;
+    //var programeName = 'Media Informatics' ;
+    var cardSubtitle = this.props.universityName + '( ' + this.props.programeName + ' )' ;
 
     //Url for image icon 
     var imageIcon = '' ;

@@ -23,6 +23,8 @@ const questionSchema = new Schema('questions', {
 
 userSchema.define({
   courses: arrayOf(courseSchema),
+  university: universitySchema,
+  program: programSchema,
 })
 
 programSchema.define({

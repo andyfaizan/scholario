@@ -8,8 +8,9 @@ import RaisedButton from 'material-ui/lib/raised-button'
 import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
 import {hide} from '../redux/modules/modal'
-import { browserHistory } from 'react-router'
+//import { browserHistory } from 'react-router'
 import { requestLogin, requestSignup } from '../redux/modules/user'
+import { browserHistory } from '../history'
 
 var request = require('superagent');
 var self;
@@ -53,7 +54,9 @@ export class ModalComponent extends React.Component {
   sendLoginRequest = (data) => {
     this.props.onLoginSubmit(data)
     this.props.hide()
-    this.context.router.push('/dashboard')
+    //browserHistory.push('/dashboard')
+    //this.props.router.push('/dashboard')
+    //this.context.router.push('/dashboard')
 
     // TODO async wait and then check
     // if (this.props.user.token !== ''){
@@ -201,7 +204,8 @@ export class ModalComponent extends React.Component {
 
 const mapStateToProps = (state) => ({
   modal: state.modal,
-  user: state.user
+  user: state.user,
+  router: state.router,
 })
 
 const mapDispatchToProps = (dispatch) => {

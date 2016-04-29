@@ -1,5 +1,6 @@
 import { normalize } from 'normalizr'
-var request = require('superagent');
+import request from 'superagent'
+import { browserHistory } from '../../history'
 import { userSchema } from '../schemas'
 
 // ------------------------------------
@@ -26,7 +27,6 @@ export function loginRequest() {
 }
 
 export function loginOk(user, data) {
-  console.log(data)
   return {
     type: LOGIN_OK,
     response: data,
@@ -56,6 +56,7 @@ export function requestLogin(email, password) {
                 var response = normalize(res.body.user, userSchema)
                 dispatch(loginOk({ token: res.body.user.token, _id: res.body.user._id },
                                  response))
+                browserHistory.push('/dashboard')
               }
             });
   }

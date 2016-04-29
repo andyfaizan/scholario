@@ -17,8 +17,9 @@ import Col from 'react-bootstrap/lib/Col'
 import AutoComplete from 'material-ui/lib/auto-complete'
 
 type Props = {
-
+  courses: React.PropTypes.array,
 };
+
 export class LeftSectionTeacherDashboard extends React.Component {
   props: Props;
 
@@ -44,12 +45,21 @@ export class LeftSectionTeacherDashboard extends React.Component {
           <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
           <AddCourse />
           <FriendsDisplayComponent fullName="Sina Mah." universityName="RWTH Aachen" discipline="Social Science"/>
-          <CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications={rows} />
+          {this.props.courses.map(course =>
+            <CourseCard
+              key={course._id}
+              titleCourse={course.name}
+              universityCourse={course.university.name}
+              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+            />
+          )}
+          {/*<CourseCard titleCourse="Physics" universityCourse="RWTH Aachen" courseTeacher="Simon" courseUrl="" notifications={rows} />
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Manthey" courseUrl="" notifications={rows} />
           <CourseCard titleCourse="Physics" universityCourse="Bonn" courseTeacher="Prof Becker" courseUrl="" notifications={rows} />
           <CourseCard titleCourse="Physics" universityCourse="Darmstadt" courseTeacher="Dr Rapp" courseUrl="" notifications={rows} />
           <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Dr Maria" courseUrl="" notifications={rows} />
           <CourseCard titleCourse="Physics" universityCourse="TUM" courseTeacher="Sara Mahsa" courseUrl="" notifications={rows} />
+          */}
       </div>
     )
   }
