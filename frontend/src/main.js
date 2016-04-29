@@ -18,7 +18,11 @@ import { browserHistory } from './history'
 // so we need to provide a custom `selectLocationState` to inform
 // react-router-redux of its location.
 
-const initialState = window.__INITIAL_STATE__
+//const initialState = window.__INITIAL_STATE__
+var initialState, localStore = window.localStorage.getItem('scholario:store')
+if (localStore && typeof localStore !== 'undefined') {
+  initialState = JSON.parse(localStore)
+}
 const store = configureStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router

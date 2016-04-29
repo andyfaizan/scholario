@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr'
 import request from 'superagent'
-import { browserHistory } from '../../history'
+import { push } from 'react-router-redux'
 import { userSchema } from '../schemas'
 
 // ------------------------------------
@@ -54,9 +54,18 @@ export function requestLogin(email, password) {
                 dispatch(loginErr(res.body.err))
               } else {
                 var response = normalize(res.body.user, userSchema)
-                dispatch(loginOk({ token: res.body.user.token, _id: res.body.user._id },
-                                 response))
-                browserHistory.push('/dashboard')
+                const user = {
+                  token: res.body.user.token,
+                  _id: res.body.user._id,
+                }
+                dispatch(loginOk(user, response))
+       /*         window.localStorage.setItem('scholario:store', JSON.stringify({*/
+                  //user: user,
+                  //entities: {
+                    //users: response.entities.users,
+                  //},
+                /*}))*/
+                dispatch(push('/dashboard'))
               }
             });
   }
@@ -130,9 +139,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   token: '',
-  id: '',
-  firstname: '',
-  lastname: '',
+  _id: '',
 }
 
 // Fake state returned on signup for testing
