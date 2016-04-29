@@ -1,11 +1,5 @@
 import React from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardActions from 'material-ui/lib/card/card-actions'
-import CardHeader from 'material-ui/lib/card/card-header'
-import CardMedia from 'material-ui/lib/card/card-media'
-import CardTitle from 'material-ui/lib/card/card-title'
 import FlatButton from 'material-ui/lib/flat-button'
-import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
@@ -14,7 +8,6 @@ import DashboardTitleComponent from '../../components/DashboardTitleComponent/Da
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import AutoComplete from 'material-ui/lib/auto-complete'
 
 type Props = {
   courses: React.PropTypes.array,
@@ -37,8 +30,6 @@ export class LeftSectionTeacherDashboard extends React.Component {
       'Black',
       'White',
     ];
-
-    var rows = 3;
 
     return (
       <div>
