@@ -16,7 +16,7 @@ const CourseInfoHeader = ({currentCourse}) => (
 
 
 CourseInfoHeader.propTypes = {
-  currentCourse: PropTypes.object.isRequired
+  currentCourse: PropTypes.object
 }
 
 export default CourseInfoHeader;

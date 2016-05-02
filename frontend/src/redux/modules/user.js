@@ -97,7 +97,7 @@ export function requestSignup(firstname, lastname, role, email, password) {
         if (err || !res.ok) {
           dispatch(signupErr(res.body.err))
         } else {
-          //var response = normalize(res.body.user, userSchema)
+          //var response = normalize(res.body, {user:userSchema, question:questionSchema})
           // dispatch(signupOk({ token: res.body.user.token, _id: res.body.user._id },
           //                  response))
           dispatch(signupOk())
