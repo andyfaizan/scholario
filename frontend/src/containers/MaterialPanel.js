@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import DataList from '../components/DataList/DataList'
-import { open_material, add_material } from '../redux/modules/Material'
+import { add_material } from '../redux/modules/Material'
 
 const bogus = {
   name: "Sample Content",
@@ -10,15 +9,10 @@ const bogus = {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    subfolders: state.Material
-  }
+  return {}
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onMaterialClick : (id) => {
-      dispatch(open_material(id))
-    },
     onAddClick : () => {
       dispatch(add_material(bogus))
     }
@@ -28,4 +22,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DataList)
+)(MaterialPanel)

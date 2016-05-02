@@ -1,10 +1,9 @@
 // Constants
-export const constants = {
-  ADD_MATERIAL : 'ADD_MATERIAL',
-  DELETE_MATERIAL : 'DELETE_MATERIAL',
-  EDIT_MATERIAL : 'EDIT_MATERIAL',
-  OPEN_MATERIAL: 'OPEN_MATERIAL'
- }
+
+export const ADD_MATERIAL = 'ADD_MATERIAL'
+export const DELETE_MATERIAL = 'DELETE_MATERIAL'
+export const EDIT_MATERIAL = 'EDIT_MATERIAL'
+export const OPEN_MATERIAL = 'OPEN_MATERIAL'
 
 // Action Creators
 let nextMaterialId = 0

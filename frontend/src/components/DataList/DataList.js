@@ -2,20 +2,22 @@ import React, { PropTypes } from 'react'
 import List from 'material-ui/lib/lists/list';
 import Data from '../Data/Data'
 
-const DataList = ({subfolders, onTodoClick}) => (
+const DataList = ({subfolders, onMaterialClick, onAddClick}) => (
   <List>
       {subfolders.length !== 0 ?
         subfolders.map(subfolder =>
         <Data
           key={subfolder.id}
           {...subfolder}
-          onClick={() => onTodoClick(subfolder.id)}
+          onClick={() => onMaterialClick(subfolder.id)}
           name={subfolder.name}
           subtext={subfolder.subtext}
           isFolder={subfolder.isFolder}
           subsubfolders={subfolder.subsubfolders}
         />
-    ): <h1>Add some material</h1>}
+    ): <div onClick={onAddClick}>
+          <h1>Add some material</h1>
+        </div>}
   </List>
 );
 
@@ -37,7 +39,8 @@ DataList.propTypes = {
     isFolder: PropTypes.bool.isRequired,
     subsubfolders: React.PropTypes.arrayOf(lazyTreeType)
   })),
-  onTodoClick: PropTypes.func.isRequired
+  onMaterialClick: PropTypes.func.isRequired,
+  onAddClick: PropTypes.func.isRequired
 }
 
 export default DataList;

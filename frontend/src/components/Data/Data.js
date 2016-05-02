@@ -10,12 +10,13 @@ import ContentInbox from 'material-ui/lib/svg-icons/content/inbox';
 import ContentDrafts from 'material-ui/lib/svg-icons/content/drafts';
 import ContentSend from 'material-ui/lib/svg-icons/content/send';
 import ActionInfo from 'material-ui/lib/svg-icons/action/info';
+import AddCircle from 'material-ui/lib/svg-icons/content/add-circle'
 import Divider from 'material-ui/lib/divider';
 
 const Data = ({ name, subtext, isFolder, subsubfolders, onClick }) => (
   <ListItem
     leftAvatar={<Avatar icon={isFolder ? <FileFolder /> : <ActionAssignment />} />}
-    rightIcon={<ActionInfo />}
+    rightIcon={!!(isFolder && children) ? <AddCircle /> : <ActionInfo />}
     primaryText={name}
     secondaryText={subtext}
     initiallyOpen={isFolder}

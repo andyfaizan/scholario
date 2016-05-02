@@ -5,7 +5,7 @@ import InfoBox from '../../containers/InfoBox'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import MaterialPanel from '../../components/MaterialPanel/MaterialPanel'
+import DataPanel from '../../components/DataPanel/DataPanel'
 import MaterialsList from '../../containers/MaterialsList'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import List from 'material-ui/lib/lists/list'
@@ -38,23 +38,23 @@ export class Material extends React.Component {
           </Row>
           <Row>
             <Col md={3}>
-              <MaterialPanel>
+              <DataPanel name="Directory Structure">
                 <MaterialsList />
-              </MaterialPanel>
+              </DataPanel>
             </Col>
             <Col md={6}>
-              <MaterialPanel />
+              <DataPanel name="Material Preview"/>
             </Col>
             <Col md={3}>
-              <MaterialPanel>
+              <DataPanel name="Questions">
                 <List>
                   <Subheader>Popular Questions</Subheader>
                   <Divider />
-                  <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-                  <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-                  <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+                  <QuestionItem questionStatement="What is Nuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+                  <QuestionItem questionStatement="What is Nuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+                  <QuestionItem questionStatement="What is Nuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
                 </List>
-              </MaterialPanel>
+              </DataPanel>
             </Col>
           </Row>
         </Grid>
