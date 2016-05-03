@@ -140,9 +140,10 @@ router.post('/login', function (req, res) {
 
     return res.json(data);
   }).catch(function (err) {
-    return res.json({
+    logger.error(err)
+    return res.status(500).json({
       err: [{
-        'msg': err.message,
+        msg: 'InternalError',
       }]
     });
   });
