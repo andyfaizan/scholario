@@ -58,7 +58,7 @@ export class DashboardToolBar extends React.Component {
             iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
                 <MenuItem primaryText="User Settings" />
                 <MenuItem primaryText="Feed Settings" />
-                <MenutItem primaryText="Logout" />
+                <MenuItem primaryText="Logout" onTouchTap="#" />
              </IconMenu>
           </ToolbarGroup>
         </Toolbar>
