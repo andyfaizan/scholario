@@ -8,6 +8,8 @@ import PageView from 'material-ui/lib/svg-icons/action/pageview'
 import FlatButton from 'material-ui/lib/flat-button'
 import Badge from 'material-ui/lib/badge'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
+import browserHistory from '../../history'
+import { Router, Route, Link } from 'react-router'
 
 type Props = {
 
@@ -51,7 +53,8 @@ export class CourseCard extends React.Component {
 	};
 
 	//variables for displaying Child Node
-	var actionsCourse = <div style={divStyleActions}><Badge color='22A7F0' badgeContent={this.props.notifications} primary={true}><NotificationsIcon color='white'/></Badge><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView color='white' /> </IconButton></div> ;
+	var actionsCourse = <div style={divStyleActions}><Badge color='#ffffff' badgeContent={this.props.notifications} primary={true}><NotificationsIcon color='#ffffff'/></Badge><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton>
+	<IconButton containerElement= {<Link to='course'  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div> ;
 	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1> <Divider /> </div>;
 	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
 
@@ -70,6 +73,12 @@ export class CourseCard extends React.Component {
     )
   }
 }
+
+const connectToCourseView = () => ({
+
+  })
+
+
 
 export default CourseCard
 
