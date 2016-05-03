@@ -15,6 +15,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 // Own modules
 const config = require('./config/config');
+const logger = require('../logger');
 
 const port = process.env.PORT || 3000;
 const models = join(__dirname, 'models');
