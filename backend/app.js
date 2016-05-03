@@ -15,6 +15,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 // Own modules
 const config = require('./config/config');
+const logger = require('./logger');
 
 const port = process.env.PORT || 3000;
 const models = join(__dirname, 'models');
@@ -106,6 +107,13 @@ app.get('/email-verification/:code', function (req, res) {
     user.save();
     return res.status(200).json({
       err: [],
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{
+        msg: 'InternalError'
+      }]
     });
   });
 });

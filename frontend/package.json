@@ -84,7 +84,8 @@
     "redux": "^3.0.0",
     "redux-thunk": "^2.0.0",
     "request": "^2.70.0",
-    "reselect": "^2.5.1"
+    "reselect": "^2.5.1",
+    "superagent-promise": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",

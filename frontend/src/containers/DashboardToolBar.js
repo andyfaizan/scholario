@@ -12,6 +12,8 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
 
+import { logout } from '../redux/modules/user'
+
 
 type Props = {
 
@@ -58,7 +60,7 @@ export class DashboardToolBar extends React.Component {
             iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
                 <MenuItem primaryText="User Settings" />
                 <MenuItem primaryText="Feed Settings" />
-                <MenuItem primaryText="Logout" onTouchTap="#" />
+                <MenuItem primaryText="Logout" onTouchTap={this.props.logout} />
              </IconMenu>
           </ToolbarGroup>
         </Toolbar>
@@ -72,4 +74,14 @@ export class DashboardToolBar extends React.Component {
 const mapStateToProps = (state) => ({
 
 })
-export default connect((mapStateToProps))(DashboardToolBar)
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => dispatch(logout()),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DashboardToolBar)

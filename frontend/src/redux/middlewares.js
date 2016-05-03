@@ -1,7 +1,7 @@
 import { LOCATION_CHANGE, replace } from 'react-router-redux'
 import { merge } from 'lodash'
 import { browserHistory } from '../history'
-import { LOGIN_OK } from './modules/user'
+import { LOGIN_OK, LOGOUT_OK } from './modules/user'
 
 
 export const authMiddleware = store => next => action => {
@@ -36,6 +36,9 @@ export const persistStore = store => next => action => {
       state.user = action.user
     delete state.router
     window.localStorage.setItem('scholario:store', JSON.stringify(state))
+    return next(action)
+  } else if (action.type === LOGOUT_OK) {
+    window.localStorage.setItem('scholario:store', '')
     return next(action)
   }
   return next(action)

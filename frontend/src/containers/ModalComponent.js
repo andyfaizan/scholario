@@ -9,7 +9,7 @@ import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
 import {hide} from '../redux/modules/modal'
 //import { browserHistory } from 'react-router'
-import { requestLogin, requestSignup } from '../redux/modules/user'
+import { login, createUser } from '../redux/modules/user'
 import { browserHistory } from '../history'
 
 var request = require('superagent');
@@ -70,7 +70,7 @@ export class ModalComponent extends React.Component {
     sendSignupRequest = (data) => {
       this.props.onSignupSubmit(data)
       this.props.hide()
-      this.context.router.push('/dashboard')
+      //this.context.router.push('/dashboard')
 
       // TODO async wait and then check
       // if (this.props.user.token !== ''){
@@ -212,10 +212,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hide: () => dispatch(hide('LOGIN_MODAL')),
     onLoginSubmit: values => {
-      dispatch(requestLogin(values.email, values.password))
+      dispatch(login(values.email, values.password))
     },
     onSignupSubmit: values => {
-      dispatch(requestSignup(values.firstname, values.lastname, values.role, values.email, values.password))
+      dispatch(createUser(values.firstname, values.lastname, values.role, values.email, values.password))
     },
   }
 }
