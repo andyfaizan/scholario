@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
+import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+
 
 type Props = {
 
@@ -22,7 +24,7 @@ export class Course extends React.Component {
         <Grid className='container-fluid'>
           <Row >
             <Col xs={20} md={8}>
-          
+              <MaterialComponent />
             </Col>
             <Col xs={4} md={4}>
               <RightSectionTeacherDashboard />

@@ -32,7 +32,9 @@ export class CourseCard extends React.Component {
 	  float: 'left',
 	  height: 280,
 	  width: 260,
-	  margin: 8.5
+	  margin: 8.5,
+	  backgroundColor: '#26A65B',
+	  color: 'white'
 	};
 
 	const divStyle = {
@@ -41,7 +43,7 @@ export class CourseCard extends React.Component {
 	};
 
 	const iconStyles = {
-  		marginRight: 24
+  		backgroundColor:'white'
 	};
 
 	const divStyleActions = {
@@ -49,7 +51,7 @@ export class CourseCard extends React.Component {
 	};
 
 	//variables for displaying Child Node
-	var actionsCourse = <div style={divStyleActions}><Badge badgeContent={this.props.notifications} primary={true}><NotificationsIcon /></Badge><IconButton tooltip="Delete Course"> <Delete /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView /> </IconButton></div> ;
+	var actionsCourse = <div style={divStyleActions}><Badge color='22A7F0' badgeContent={this.props.notifications} primary={true}><NotificationsIcon color='white'/></Badge><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView color='white' /> </IconButton></div> ;
 	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1> <Divider /> </div>;
 	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
 
