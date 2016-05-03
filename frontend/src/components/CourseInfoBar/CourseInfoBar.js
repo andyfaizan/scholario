@@ -89,7 +89,7 @@ export class CourseInfoBar extends React.Component {
           	<Grid >
 	          <Row >
 	            <Col xs={6} md={3}>
-	            <h4>Teachers: Prof Ranier Manthey</h4>
+	            <h4>Teachers: {this.props.courseTitle} </h4>
 	            </Col>
 	            <Col xs={6} md={3}>
 	          	  <h4>Assitant: Stuart James </h4>
