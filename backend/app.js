@@ -107,6 +107,13 @@ app.get('/email-verification/:code', function (req, res) {
     return res.status(200).json({
       err: [],
     });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{
+        msg: 'InternalError'
+      }]
+    });
   });
 });
 
