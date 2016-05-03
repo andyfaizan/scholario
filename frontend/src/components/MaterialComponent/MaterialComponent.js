@@ -11,21 +11,21 @@ import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 
 type Props = {
 
-	titleCourse: string,
-	universityCourse: string,
-	courseTeacher: string,
-	notifications:number,
-	courseUrl: string
+	courseName: string,
+	materialTitle: string,
+	numberOfItems:number,
+	dateUploaded:string,
+	semesterInstance: string
 
 };
 export class MaterialComponent extends React.Component {
    
    static propTypes = {
-    titleCourse: PropTypes.string,
-    universityCourse: PropTypes.string,
-    courseTeacher: PropTypes.string,
-    notifications: PropTypes.number,
-    courseUrl: PropTypes.string
+    courseName: PropTypes.string,
+    materialTitle: PropTypes.string,
+    numberOfItems: PropTypes.number,
+    dateUploaded: PropTypes.string,
+    semesterInstance: PropTypes.string
   };
   render () {
 
@@ -53,15 +53,13 @@ export class MaterialComponent extends React.Component {
 	};
 
 	//variables for displaying Child Node
-	var actionsCourse = <div style={divStyleActions}><Badge color='22A7F0' badgeContent={this.props.notifications} primary={true}><NotificationsIcon color='white'/></Badge><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton><IconButton tooltip="Go to Detail Course"> <PageView color='white' /> </IconButton></div> ;
-	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1> <Divider /> </div>;
-	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
+	var heading = <div style={divStyle}><h1>{this.props.materialTitle}</h1> <Divider /> </div>;
+	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseName}</h6><br/> <Divider /><br/></div> ;
 
 	const nodePaperCourse = [
       
       heading,
-	  container,
-      actionsCourse
+	  container
       
       ];
 
