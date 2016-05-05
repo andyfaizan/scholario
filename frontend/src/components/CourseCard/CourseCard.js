@@ -32,11 +32,12 @@ export class CourseCard extends React.Component {
   	//inline styling variables for certain components ...
 	const style = {
 	  float: 'left',
-	  height: 280,
-	  width: 260,
+	  height: 170,
+	  width: 300,
 	  margin: 8.5,
-	  backgroundColor: '#26A65B',
-	  color: 'white'
+	  backgroundColor: '#1690DB',
+	  color: 'white',
+	  borderRadius: 13 
 	};
 
 	const divStyle = {
@@ -55,8 +56,8 @@ export class CourseCard extends React.Component {
 	//variables for displaying Child Node
 	var actionsCourse = <div style={divStyleActions}><Badge color='#ffffff' badgeContent={this.props.notifications} primary={true}><NotificationsIcon color='#ffffff'/></Badge><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton>
 	<IconButton containerElement= {<Link to='course'  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div> ;
-	var heading = <div style={divStyle}><h1>{this.props.titleCourse}</h1> <Divider /> </div>;
-	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
+	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4> <Divider /> </div>;
+	var container =<div> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
 
 	const nodePaperCourse = [
       

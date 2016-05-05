@@ -9,9 +9,20 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
-
+import MyRawTheme from '../../themes/mainTheme'
+import ThemeManager from 'material-ui/lib/styles/theme-manager'
 
 class DashboardView extends React.Component {
+  
+ //  static childContextTypes = {
+ //   muiTheme: React.PropTypes.object
+ // }
+
+ //  getChildContext() {
+ //    return {
+ //      muiTheme: ThemeManager.getMuiTheme(MyRawTheme),
+ //    };
+ //  }
 
   render () {
     return (
