@@ -79,9 +79,15 @@ export const initialState = {
       name: 'Child',
       subtext: 'Child subtext',
       fileType: 'png',
+      childIds: [2]
+    },
+  2: {
+      id: 2,
+      name: 'Nested Child',
+      subtext: 'Nested Child subtext',
+      fileType: '',
       childIds: []
     }
-
 }
 
 function childIds(state, action) {
