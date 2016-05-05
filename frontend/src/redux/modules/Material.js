@@ -78,7 +78,7 @@ export const initialState = {
       id: 1,
       name: 'Child',
       subtext: 'Child subtext',
-      fileType: 'png',
+      fileType: '',
       childIds: [2]
     },
   2: {

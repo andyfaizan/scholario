@@ -62,6 +62,7 @@ export class Material extends React.Component {
         subtext={child.subtext}
         fileType={child.fileType}
         childIds={child.childIds}
+        children={child.childIds.map(id => this.props.materials[id])}
         />
     )
 
@@ -106,7 +107,8 @@ const mapStateToProps = (state, ownProps) => {
     subtext: state.Material[ownProps.id].subtext,
     childIds: state.Material[ownProps.id].childIds,
     fileType: state.Material[ownProps.id].fileType,
-    children: state.Material[ownProps.id].childIds.map(id => state.Material[id])
+    children: state.Material[ownProps.id].childIds.map(id => state.Material[id]),
+    materials: state.Material
   }
 }
 
