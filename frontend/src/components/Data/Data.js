@@ -15,6 +15,7 @@ import Divider from 'material-ui/lib/divider';
 import actions from '../../redux/modules/Material'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+// import Material from '../../containers/Material'
 
 const handleAddChildClick = (e) => {
   e.preventDefault()
@@ -30,19 +31,21 @@ const handleRemoveClick = (e) => {
   delete_material(id)
 }
 
-const renderChild = (childId) => {
-  const { id } = this.props
+const renderChild = (id, childId) => {
   return (
-    <ListItem key={childId}>
-      <ConnectedData id={childId} parentId={id} />
-    </ListItem>
+    <Data key={childId}
+      id={childId}
+      parentId={id}
+      name="Child"
+      subtext="Child subtext"
+      fileType="png"/>
   )
 }
 
-const getNestedItems = (childIds) => {
+const getNestedItems = (id, childIds) => {
   var childItems = []
   for(var i=0; i < childIds.length; i++){
-      var child = renderChild(childIds[i])
+      var child = renderChild(id, childIds[i])
       childItems.push(child)
   }
   return childItems
@@ -57,8 +60,7 @@ const Data = ({parentId, id, name, subtext, childIds, fileType}) => (
     initiallyOpen={fileType.length === 0}
     primaryTogglesNestedList={fileType.length === 0}
     // onTouchTap={onClick}
-    //nestedItems={children}
-    //{childIds.map(renderChild)}
+    // nestedItems={typeof childIds !== undefined ? getNestedItems(id, childIds) : null}
   />
 );
 
@@ -68,7 +70,7 @@ Data.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   subtext: PropTypes.string.isRequired,
-  childIds: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  childIds: PropTypes.arrayOf(PropTypes.number.isRequired),
   fileType: PropTypes.string.isRequired
   // onMaterialClick: PropTypes.func.isRequired,
   // onAddClick: PropTypes.func.isRequired
