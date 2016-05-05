@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const co = require('co');
 const config = require('../config/config');
 const logger = require('../logger');
 const User = mongoose.model('User');
@@ -59,29 +60,29 @@ router.post('/login', function (req, res) {
     });
   }
 
-  var findP = User.findOne({ 'email': req.body.email })
-                  .populate([{
-                    path: 'university',
-                    select: 'id name',
-                  }, {
-                    path: 'program',
-                    select: 'id name university',
-                  }, {
-                    path: 'universities',
-                    select: 'id name',
-                  }, {
-                    path: 'programs',
-                    select: 'id name university',
-                  }]);
-  var userP = findP.then(function (user) {
+  co(function *() {
+    var user = yield User.findOne({ 'email': req.body.email })
+                    .populate([{
+                      path: 'university',
+                      select: 'id name',
+                    }, {
+                      path: 'program',
+                      select: 'id name university',
+                    }, {
+                      path: 'universities',
+                      select: 'id name',
+                    }, {
+                      path: 'programs',
+                      select: 'id name university',
+                    }]);
+
     if (!user) {
       return res.status(404).json({
         err: [{msg: 'UserNotFound'}],
       });
     }
-    return user.authenticate(req.body.password);
-  }).then(function (user) {
-    return user.getCourses({
+    user = yield user.authenticate(req.body.password);
+    var courses = yield user.getCourses({
       populate: [{
         path: 'university',
         select: 'id name',
@@ -93,26 +94,17 @@ router.post('/login', function (req, res) {
       lean: true,
       limit: 5,
     });
-  }).then(function (values) {
-    var user = values.user;
-    var courses = values.courses;
-/*    var courses = [];*/
-    //for (var i = 0; i < values.courses.length; i++) {
-      //courses.push({
-        //id: values.courses[i]._id,
-        //name: values.courses[i].name,
-        //prof: values.courses[i].prof,
-        //university: {
-          //id: values.courses[i].university._id,
-          //name: values.courses[i].university.name,
-        //},
-        //program: {
-          //id: values.courses[i].program._id,
-          //name: values.courses[i].program.name,
-          //university: values.courses[i].program.university,
-        //},
-      //});
-    /*}*/
+
+    var questions = yield user.getQuestions({
+      populate: [{
+        path: 'user',
+        select: 'id firstname lastname',
+      }],
+      select: 'id title course user createDate votes',
+      lean: true,
+      limit: 5,
+    });
+
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
@@ -124,6 +116,7 @@ router.post('/login', function (req, res) {
         lastname: user.lastname,
         role: user.role.toLowerCase(),
         courses: courses,
+        questions: questions,
       },
     };
     var uni;
@@ -139,13 +132,22 @@ router.post('/login', function (req, res) {
     if (program) data.user.program = program;
 
     return res.json(data);
+
   }).catch(function (err) {
-    logger.error(err)
-    return res.status(500).json({
-      err: [{
-        msg: 'InternalError',
-      }]
-    });
+    if (err.message === 'User/Password incorrect.') {
+      return res.status(401).json({
+        err: [{
+          msg: 'UserOrPassIncorrect'
+        }]
+      });
+    } else {
+      logger.error(err);
+      return res.status(500).json({
+        err: [{
+          msg: 'InternalError',
+        }]
+      });
+    }
   });
 });
 
