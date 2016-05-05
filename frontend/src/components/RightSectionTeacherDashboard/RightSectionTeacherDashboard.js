@@ -8,8 +8,9 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import Subheader from 'material-ui/lib/Subheader'
 
 type Props = {
-
+  questions: React.PropTypes.array,
 };
+
 export class RightSectionTeacherDashboard extends React.Component {
   props: Props;
 
@@ -21,6 +22,14 @@ export class RightSectionTeacherDashboard extends React.Component {
             <List>
               <Subheader>Popular Questions</Subheader>
               <Divider />
+              {this.props.questions.map(question =>
+                <QuestionItem
+                  key={question._id}
+                  questionStatement={question.title}
+                  datePosted={question.createDate}
+                />
+              )}
+
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />

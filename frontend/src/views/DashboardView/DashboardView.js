@@ -4,11 +4,12 @@ import DashboardToolBar from '../../containers/DashboardToolBar'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
-import { getUser, getUserUniversity } from '../../redux/selectors'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
+import { getUser, getUserUniversity, getUserProgram,
+  getUserCourses, getUserQuestions } from '../../redux/selectors'
 
 
 class DashboardView extends React.Component {
@@ -30,7 +31,7 @@ class DashboardView extends React.Component {
               <LeftSectionTeacherDashboard courses={this.props.courses} />
             </Col>
             <Col xs={4} md={4}>
-              <RightSectionTeacherDashboard />
+              <RightSectionTeacherDashboard questions={this.props.questions} />
             </Col>
           </Row>
         </Grid>
@@ -41,21 +42,12 @@ class DashboardView extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  const user = state.entities.users[state.user._id]
-  const userUniversity = state.entities.universities[user.university]
-  const userProgram = state.entities.programs[user.program]
-  const courses = user.courses.map(id => {
-    var c = state.entities.courses[id]
-    c.university = state.entities.universities[c.university]
-    c.prof = state.entities.users[c.prof]
-    return c
-  })
   return {
     user: getUser(state),
-    userUniversity,
-    userProgram,
-    courses,
-    //userUniversity: getUserUniversity(state),
+    userUniversity: getUserUniversity(state),
+    userProgram: getUserProgram(state),
+    courses: getUserCourses(state),
+    questions: getUserQuestions(state),
   }
 }
 
