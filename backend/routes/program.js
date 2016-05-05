@@ -39,7 +39,7 @@ var router = express.Router();
  *     }
  *
  */
-router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/', function (req, res) {
   req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
 
   var errors = req.validationErrors();

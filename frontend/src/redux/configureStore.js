@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
 import { routerMiddleware } from 'react-router-redux'
-import { authMiddleware, persistStore } from './middlewares'
+import { authMiddleware, persistStoreMiddleware, callAPIMiddleware } from './middlewares'
 
 export default function configureStore (initialState = {}, history) {
   // Compose final middleware and use devtools in debug environment
@@ -10,7 +10,8 @@ export default function configureStore (initialState = {}, history) {
     thunk,
     routerMiddleware(history),
     authMiddleware,
-    persistStore,
+    persistStoreMiddleware,
+    callAPIMiddleware,
   )
   if (__DEBUG__) {
     const devTools = window.devToolsExtension

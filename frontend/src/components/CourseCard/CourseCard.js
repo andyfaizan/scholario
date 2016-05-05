@@ -37,7 +37,8 @@ export class CourseCard extends React.Component {
 	  margin: 8.5,
 	  backgroundColor: '#1690DB',
 	  color: 'white',
-	  borderRadius: 13 
+	  borderRadius: 13,
+	  overflow: 'auto' 
 	};
 
 	const divStyle = {
@@ -49,15 +50,32 @@ export class CourseCard extends React.Component {
   		backgroundColor:'white'
 	};
 
-	const divStyleActions = {
-		float:'right'
+	const paperActions = {
+		// display: 'flex',
+  // 		boxSizing:'border-box',
+  // 		alignItems: 'center',
+  		float:'left'
+
 	};
 
+	const styleActions = {
+
+		// marginRight: 80,
+  // 		marginLeft: 80,
+  float:'right'
+	};
+
+	const mainActionStyle = {
+
+		opacity: 0.5,
+		marginBottom: 20
+	}
+
 	//variables for displaying Child Node
-	var actionsCourse = <div style={divStyleActions}><Badge color='#ffffff' badgeContent={this.props.notifications} primary={true}><NotificationsIcon color='#ffffff'/></Badge><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton>
-	<IconButton containerElement= {<Link to='course'  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div> ;
-	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4> <Divider /> </div>;
-	var container =<div> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><br/> <Divider /><br/></div> ;
+	var actionsCourse = <div style={mainActionStyle} ><div style={paperActions}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div style ={styleActions}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton>
+	<IconButton containerElement= {<Link to='course'  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div></div> ;
+	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4></div>;
+	var container =<div> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><br/></div> ;
 
 	const nodePaperCourse = [
       
