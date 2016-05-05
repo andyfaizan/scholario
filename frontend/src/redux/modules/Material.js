@@ -79,7 +79,7 @@ export const initialState = {
       name: 'Child',
       subtext: 'Child subtext',
       fileType: 'png',
-      childIds: [1]
+      childIds: []
     }
 
 }
