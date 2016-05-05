@@ -5,7 +5,7 @@ import InfoBox from '../../containers/InfoBox'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import DataPanel from '../../components/DataPanel/DataPanel'
+import MaterialPanel from '../../containers/MaterialPanel'
 import MaterialsList from '../../containers/MaterialsList'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import List from 'material-ui/lib/lists/list'
@@ -39,17 +39,17 @@ export class MaterialView extends React.Component {
           </Row>
           <Row>
             <Col md={3}>
-              <DataPanel name="Directory Structure">
+              <MaterialPanel name="Directory Structure">
                 <List>
                   <Material id={0}/>
                 </List>
-              </DataPanel>
+              </MaterialPanel>
             </Col>
             <Col md={6}>
-              <DataPanel name="Material Preview"/>
+              <MaterialPanel name="Material Preview"/>
             </Col>
             <Col md={3}>
-              <DataPanel name="Questions">
+              <MaterialPanel name="Questions">
                 <List>
                   <Subheader>Popular Questions</Subheader>
                   <Divider />
@@ -57,7 +57,7 @@ export class MaterialView extends React.Component {
                   <QuestionItem questionStatement="What is Nuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
                   <QuestionItem questionStatement="What is Nuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
                 </List>
-              </DataPanel>
+              </MaterialPanel>
             </Col>
           </Row>
         </Grid>

@@ -6,10 +6,10 @@ const styles = {
 
 };
 
-const DataPanel = ({name, children, onAddClick}) => (
+const DataPanel = ({name, children}) => (
   <div>
     <Tabs>
-      <Tab label={name} onTouchTap={onAddClick} >
+      <Tab label={name}>
         <div>
           {children}
         </div>
@@ -19,8 +19,7 @@ const DataPanel = ({name, children, onAddClick}) => (
 );
 
 DataPanel.propTypes = {
-  name: PropTypes.string.isRequired,
-  onAddClick: PropTypes.func
+  name: PropTypes.string.isRequired
 }
 
 export default DataPanel;

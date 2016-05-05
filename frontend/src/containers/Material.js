@@ -19,6 +19,7 @@ import { bindActionCreators } from 'redux'
 
 // TODO: Selected list - hightlight current item
 // TODO: Nested items idented to right
+// TODO: Code cleanup
 
 export class Material extends React.Component {
 

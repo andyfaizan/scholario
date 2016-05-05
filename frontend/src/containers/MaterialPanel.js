@@ -1,26 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { add_material } from '../redux/modules/Material'
-
-const bogus = {
-  name: "Sample Content",
-  content: "Some content",
-  fileType: "png"
-}
+import DataPanel from '../components/DataPanel/DataPanel'
 
 const mapStateToProps = (state) => {
   return {}
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddClick : () => {
-      dispatch(add_material(bogus))
-    }
   }
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MaterialPanel)
+)(DataPanel)

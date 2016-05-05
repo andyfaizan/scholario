@@ -85,7 +85,7 @@ export const initialState = {
       id: 2,
       name: 'Nested Child',
       subtext: 'Nested Child subtext',
-      fileType: '',
+      fileType: 'pdf',
       childIds: []
     }
 }
