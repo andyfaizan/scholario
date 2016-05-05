@@ -9,11 +9,12 @@ const DataList = ({subfolders, onMaterialClick, onAddClick}) => (
         <Data
           key={subfolder.id}
           {...subfolder}
-          onClick={() => onMaterialClick(subfolder.id)}
+          onClick={onAddClick}
+          //{() => onMaterialClick(subfolder.id)}
           name={subfolder.name}
           subtext={subfolder.subtext}
-          isFolder={subfolder.isFolder}
-          subsubfolders={subfolder.subsubfolders}
+          isFolder={subfolder.fileType.length === 0}
+          subsubfolders={subfolder.children}
         />
     ): <div onClick={onAddClick}>
           <h1>Add some material</h1>
@@ -36,8 +37,7 @@ DataList.propTypes = {
     onClick: PropTypes.func,
     name: PropTypes.string.isRequired,
     subtext: PropTypes.string.isRequired,
-    isFolder: PropTypes.bool.isRequired,
-    subsubfolders: React.PropTypes.arrayOf(lazyTreeType)
+    subsubfolders: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired
   })),
   onMaterialClick: PropTypes.func.isRequired,
   onAddClick: PropTypes.func.isRequired

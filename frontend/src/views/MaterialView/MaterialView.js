@@ -11,12 +11,13 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import List from 'material-ui/lib/lists/list'
 import Divider from 'material-ui/lib/divider'
 import Subheader from 'material-ui/lib/Subheader'
+import Material from '../../containers/Material'
 
 type Props = {
 
 };
 
-export class Material extends React.Component {
+export class MaterialView extends React.Component {
   props: Props;
 
   render () {
@@ -39,7 +40,9 @@ export class Material extends React.Component {
           <Row>
             <Col md={3}>
               <DataPanel name="Directory Structure">
-                <MaterialsList />
+                <List>
+                  <Material id={0}/>
+                </List>
               </DataPanel>
             </Col>
             <Col md={6}>
@@ -63,4 +66,4 @@ export class Material extends React.Component {
   }
 }
 
-export default Material
+export default MaterialView

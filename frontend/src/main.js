@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import makeRoutes from './routes'
 import Root from './containers/Root'
 import configureStore from './redux/configureStore'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 // Configure history for react-router
 const browserHistory = useRouterHistory(createBrowserHistory)({
@@ -29,6 +30,7 @@ const routes = makeRoutes(store)
 
 // Now that redux and react-router have been configured, we can render the
 // React application to the DOM!
+injectTapEventPlugin()
 ReactDOM.render(
   <Root history={history} routes={routes} store={store} />,
   document.getElementById('root')

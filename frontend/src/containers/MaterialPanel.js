@@ -5,7 +5,8 @@ import { add_material } from '../redux/modules/Material'
 
 const bogus = {
   name: "Sample Content",
-  content: "Some content"
+  content: "Some content",
+  fileType: "png"
 }
 
 const mapStateToProps = (state) => {

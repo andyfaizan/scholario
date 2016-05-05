@@ -2,17 +2,22 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import DataList from '../components/DataList/DataList'
-import { open_material, add_material } from '../redux/modules/Material'
+import { open_material, add_material, add_child_material } from '../redux/modules/Material'
 
 const bogus = {
   name: "Sample Content",
-  content: "Some content"
+  subtext: "Some content",
+  fileType: ""
+}
+
+const bogusChild = {
+  name: "child Content",
+  subtext: "child content",
+  fileType: ""
 }
 
 const mapStateToProps = (state) => {
-  return {
-    subfolders: state.Material
-  }
+
 }
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -20,7 +25,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(open_material(id))
     },
     onAddClick : () => {
-      dispatch(add_material(bogus))
+      dispatch(add_material(bogus)),
+      dispatch(add_child_material(bogusChild, 0))
     }
   }
 }
