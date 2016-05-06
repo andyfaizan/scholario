@@ -16,6 +16,10 @@ type Props = {
 export class LeftSectionTeacherDashboard extends React.Component {
   props: Props;
 
+  componentDidMount() {
+    console.log(this.props.location)
+  }
+
   render () {
 
     var floatingLabelTextState = 'Search Your Courses';

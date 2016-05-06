@@ -11,6 +11,7 @@ import {hide} from '../redux/modules/modal'
 //import { browserHistory } from 'react-router'
 import { login, createUser } from '../redux/modules/user'
 import { browserHistory } from '../history'
+import { getUniversitiesWithPrograms } from '../redux/selectors'
 
 var request = require('superagent');
 var self;
@@ -166,7 +167,7 @@ export class ModalComponent extends React.Component {
         </Tab>
         <Tab label='Sign Up' >
           <div>
-            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest}/>
+            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities} />
           </div>
           <div ref="signupErrorText" style={errorTextStyle}>
             Falsches Email oder Kennwort
@@ -202,11 +203,14 @@ export class ModalComponent extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  modal: state.modal,
-  user: state.user,
-  router: state.router,
-})
+const mapStateToProps = (state) => {
+  return {
+    modal: state.modal,
+    user: state.user,
+    router: state.router,
+    universities: getUniversitiesWithPrograms(state),
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -10,6 +10,9 @@ import SelectField from 'material-ui/lib/select-field'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import { reduxForm } from 'redux-form'
 
+import { getUniversities } from '../../redux/modules/university'
+import { getPrograms } from '../../redux/modules/program'
+
 var request = require('superagent');
 export const fields = [ 'firstname', 'lastname', 'role', 'email' , 'password' ]
 
@@ -41,12 +44,18 @@ export class SignupFields extends React.Component {
 
   static propTypes = {
     fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    universities: PropTypes.array,
     // resetForm: PropTypes.func.isRequired,te
     // submitting: PropTypes.bool.isRequired
   }
 
   // handleChange = (event, index, value) => this.setState({value});
+
+  componentDidMount() {
+    this.props.dispatch(getUniversities())
+    this.props.dispatch(getPrograms())
+  }
 
   render () {
       const styles = {

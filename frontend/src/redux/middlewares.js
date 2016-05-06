@@ -39,7 +39,6 @@ export const persistStoreMiddleware = store => next => action => {
     window.localStorage.setItem('scholario:store', JSON.stringify(state))
     return next(action)
   } else if (action.type === LOGOUT_OK) {
-    console.log('logout')
     window.localStorage.setItem('scholario:store', '')
     return next(action)
   }
