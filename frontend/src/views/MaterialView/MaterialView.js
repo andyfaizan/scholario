@@ -1,6 +1,7 @@
 import React from 'react'
 import DashboardToolBar from '../../containers/DashboardToolBar'
-import CourseInformation from '../../containers/CourseInformation'
+// import CourseInformation from '../../containers/CourseInformation'
+import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import InfoBox from '../../containers/InfoBox'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -25,7 +26,7 @@ export class MaterialView extends React.Component {
     return (
       <div>
         <DashboardToolBar />
-        <CourseInformation course="Physics"/>
+        <CourseInfoBar />
         <Grid fluid={true}>
           <Row>
             <Col md={2}>
