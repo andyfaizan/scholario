@@ -19,12 +19,20 @@ export class QuestionItem extends React.Component {
   };
 
   render () { 
+
+    const styleSecondaryText = {
+
+      color: '#26A65B',
+      opacity: 0.2
+    }; 
+    
+    const secondaryText = <div className={styleSecondaryText}>{this.props.datePosted}</div>
     return (
       <div>
       	<ListItem
-        leftIcon={<ActionQuestionAnswer/>}
+        leftIcon={<ActionQuestionAnswer color="#26A65B"/>}
         primaryText= {this.props.questionStatement}
-        secondaryText={this.props.datePosted}
+        secondaryText={secondaryText}
         innerDivStyle={{color:'#26A65B'}}
         style={{color:'#26A65B'}}
       	/>

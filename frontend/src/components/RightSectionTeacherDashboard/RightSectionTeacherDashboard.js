@@ -39,7 +39,7 @@ export class RightSectionTeacherDashboard extends React.Component {
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>
             <List>
-              <Subheader>Recent Questions</Subheader>
+              <Subheader style={border}>Recent Questions</Subheader>
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>

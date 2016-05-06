@@ -41,12 +41,15 @@ export class LeftSectionTeacherDashboard extends React.Component {
             </Row>
           </Grid>
           <AddCourse />
-         <CourseCard
+          {
+                   <CourseCard
               key="22"
               titleCourse="Computer Graphics"
               universityCourse="RWTH Aachen"
               courseTeacher="Prof Rey Bakcer"
-            />
+            /> 
+          }
+ 
 
           {this.props.courses.map(course =>
             <CourseCard
