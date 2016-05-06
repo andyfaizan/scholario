@@ -33,18 +33,19 @@ export class Course extends React.Component {
 
   render () {
 
-    var displayMaterialCards = this.props.courses.map(course =>
-            <CourseCard
-              key={course._id}
-              titleCourse={course.name}
-              universityCourse={course.university.name}
-              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-            />
-          ) ;
+    // var displayMaterialCards = this.props.courses.map(course =>
+    //         <CourseCard
+    //           key={course._id}
+    //           titleCourse={course.name}
+    //           universityCourse={course.university.name}
+    //           courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+    //         />
+    //       ) ;
 
     return (
       <div className={classes.rootCourse}>
         <DashboardToolBar />
+        <CourseInfoBar />
         <br/>
         <Grid className='container-fluid'>
           <Row >
@@ -64,10 +65,10 @@ export class Course extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: getUser(state),
-    userUniversity,
-    userProgram,
-    courses,
+     user: getUser(state),
+    userUniversity: getUserUniversity(state),
+    userProgram: getUserProgram(state),
+    courses: getUserCourses(state),
     questions: getUserQuestions(state),
   }
 }
