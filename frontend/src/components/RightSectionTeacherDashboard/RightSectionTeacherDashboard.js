@@ -17,15 +17,22 @@ export class RightSectionTeacherDashboard extends React.Component {
   render () {
 
     const border = {
-      color:'#26A65B'
+      color:'#26A65B',
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#26A65B'
            };
+    const subheader ={
+      color:'#26A65B'
+    } ;
 
     return (
       <div>
         <Card style={border}>
-          <CardText style={border}>
-            <List style={border}>
-              <Subheader style={border}>Popular Questions</Subheader>
+          <CardText >
+            <List>
+              <Subheader style={subheader}>Popular Questions</Subheader>
+              <div>
               {this.props.questions.map(question =>
                 <QuestionItem
                   key={question._id}
@@ -33,15 +40,18 @@ export class RightSectionTeacherDashboard extends React.Component {
                   datePosted={question.createDate}
                 />
               )}
-
+                
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              </div>
             </List>
             <List>
-              <Subheader style={border}>Recent Questions</Subheader>
+              <Subheader style={subheader}>Recent Questions</Subheader>
+              <div>
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              </div>
             </List>
           </CardText>
        </Card>
