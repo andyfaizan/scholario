@@ -35,31 +35,51 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
     err: '',
   });
 });
-/*
+
 router.get('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
-  Question.findOne({ _id: req.params.qid }).then( function(question) {
+  req.checkParams('qid', 'Invalid question id').notEmpty().isMongoId();
+
+ var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
+  Question.findOne({ _id: req.params.qid})
+    .select('id title description course user createDate answers votes')
+        .populate([{
+          path: 'course',
+          select: 'name',
+        }, {
+          path: 'user',
+          select: 'firstname lastname',
+        }, {
+          path: 'answers',
+            select: 'content createDate votes user',
+                populate: {
+                  path: 'user',
+                  select: 'firstname lastname',
+                }
+        }])
+        .lean(true)
+        .then( function(question) {
     if (!question) {
       return res.status(404).json({
-        err: [{msg:'QuestionNotFound'}],
+        err: [{
+          msg: 'QuestionNotFound',
+        }]
       });
     }
-
-    return res.json({
-      titel: question.titel,
-      description: question.description,
-      course:
-      question-creator: 
-      createDate:
-      answers:
-      votes:
-    });
+    return res.status(200).json(question);
   }).catch(function (err) {
+    logger.error(err)
     return res.json({
       err: err.message,
     });
   });
 });
-*/
+
  
 /**
 router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), function (req, res) {
