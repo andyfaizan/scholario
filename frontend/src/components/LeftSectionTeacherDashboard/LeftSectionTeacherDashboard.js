@@ -31,6 +31,24 @@ export class LeftSectionTeacherDashboard extends React.Component {
       'White',
     ];
 
+    var displayCards;
+    var viewMain = 2;
+
+    if ( viewMain == 4 )
+    {
+
+
+    }else
+    {
+      displayCards = this.props.courses.map(course =>
+            <CourseCard
+              key={course._id}
+              titleCourse={course.name}
+              universityCourse={course.university.name}
+              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+            />
+          )
+    }
     return (
       <div>
           <Grid>
@@ -41,24 +59,9 @@ export class LeftSectionTeacherDashboard extends React.Component {
             </Row>
           </Grid>
           <AddCourse />
-          {
-                   <CourseCard
-              key="22"
-              titleCourse="Computer Graphics"
-              universityCourse="RWTH Aachen"
-              courseTeacher="Prof Rey Bakcer"
-            /> 
-          }
  
+          {displayCards}
 
-          {this.props.courses.map(course =>
-            <CourseCard
-              key={course._id}
-              titleCourse={course.name}
-              universityCourse={course.university.name}
-              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-            />
-          )}
 
            
 
