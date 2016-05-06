@@ -30,6 +30,7 @@ static propTypes = {
   render () {
     return (
       <div className={classes.rootCourse}>
+        <DashboardToolBar />
         <CourseInfoBar courseTitle = {this.props.userProgram.name} />
         <br/>
         <Grid className='container-fluid'>
