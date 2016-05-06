@@ -13,20 +13,26 @@ import { Router, Route, Link } from 'react-router'
 type Props = {
   courses: React.PropTypes.array,
   location: React.PropTypes.object,
+  connects: React.PropTypes.array
 };
 
 export class LeftSectionTeacherDashboard extends React.Component {
   props: Props;
 
   componentDidMount() {
-    console.log(this.props.location)
+    console.log(this.props.location.pathname);
+
   }
 
   render () {
-
-    var floatingLabelTextState = 'Search Your Courses';
+    
+    //paths to routes on dashboard view for material and connects
+    const pathConnects = 'connects' ;
+    const pathConnectsInitial = '/connects'
+    const pathCourses = 'dashboard';
+    const pathCoursesInitial = '/dashboard' ;
  
-    //const filter dataSource for Connects and Courses
+    //dummy dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
       'Orange',
@@ -40,7 +46,10 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     var displayCards;
 
-    displayCards = this.props.courses.map(course =>
+    if ( this.props.location.pathname == pathCourses || this.props.location.pathname == '/dashboard' ) 
+    {
+        //display cards filled up for courses....
+        displayCards = this.props.courses.map(course =>
             <CourseCard
               key={course._id}
               titleCourse={course.name}
@@ -49,6 +58,13 @@ export class LeftSectionTeacherDashboard extends React.Component {
               courseUrl={`/course/${course._id}`}
             />
           ) ;
+    }else if ( this.props.location.pathname == pathConnects )
+    {
+    }else
+    {
+      console.log('path to eroneous route') ;
+    }
+    
 
     return (
       <div>
