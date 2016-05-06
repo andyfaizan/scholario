@@ -1,5 +1,6 @@
 import { LOCATION_CHANGE, replace } from 'react-router-redux'
 import { merge } from 'lodash'
+import { normalize } from 'normalizr'
 import { browserHistory } from '../history'
 import { LOGIN_OK, LOGOUT_OK } from './modules/user'
 
@@ -38,19 +39,21 @@ export const persistStoreMiddleware = store => next => action => {
     window.localStorage.setItem('scholario:store', JSON.stringify(state))
     return next(action)
   } else if (action.type === LOGOUT_OK) {
+    console.log('logout')
     window.localStorage.setItem('scholario:store', '')
     return next(action)
   }
   return next(action)
 }
 
-export const callAPIMiddleware = (dispatch, getState) => {
+export const callAPIMiddleware = ({dispatch, getState}) => {
   return next => action => {
     const {
       types,
       callAPI,
       shouldCallAPI = () => true,
-      payload = {}
+      payload = {},
+      schema,
     } = action
 
     if (!types) {
@@ -80,9 +83,9 @@ export const callAPIMiddleware = (dispatch, getState) => {
       type: requestType
     }))
 
-    return callAPI().then(
+    return callAPI().set('Authorization', `JWT ${getState().user.token}`).end().then(
       response => dispatch(Object.assign({}, payload, {
-        response,
+        response: normalize(response.body, schema),
         type: successType
       })),
       error => dispatch(Object.assign({}, payload, {

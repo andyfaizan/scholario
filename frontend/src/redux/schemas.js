@@ -32,7 +32,7 @@ programSchema.define({
 })
 
 courseSchema.define({
-  //prof: userSchema,
+  prof: userSchema,
   university: universitySchema,
   program: programSchema,
 })

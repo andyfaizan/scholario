@@ -47,6 +47,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               titleCourse="Computer Graphics"
               universityCourse="RWTH Aachen"
               courseTeacher="Prof Rey Bakcer"
+              courseUrl={`course/22`}
             /> 
           }
  
@@ -57,6 +58,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               titleCourse={course.name}
               universityCourse={course.university.name}
               courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+              courseUrl={`course/${course._id}`}
             />
           )}
 

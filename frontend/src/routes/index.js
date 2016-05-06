@@ -19,7 +19,7 @@ export default (store) => (
     <Route component={Dashboard}>
       <Route path='landing' component={LandingView} />
       <Route path='dashboard' component={DashboardView} />
-      <Route path='course' component={CourseView} />
+      <Route path='course/:id' component={CourseView} />
     </Route>
   </Route>
 )

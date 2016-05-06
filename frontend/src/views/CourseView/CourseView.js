@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/lib/Col'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import { getCourse } from '../../redux/modules/course'
 import { getUser, getUserUniversity, getUserProgram,
   getUserCourses, getUserQuestions } from '../../redux/selectors'
 
@@ -22,10 +23,15 @@ type Props = {
 
 export class Course extends React.Component {
 
-static propTypes = {
-      courseName: PropTypes.string,
-      courseId: PropTypes.string,
-};
+  static propTypes = {
+    courseName: PropTypes.string,
+    courseId: PropTypes.string,
+  };
+
+  componentDidMount() {
+    const cid = this.props.params.id
+    this.props.dispatch(getCourse(cid))
+  }
 
   render () {
     return (
