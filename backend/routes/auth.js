@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const co = require('co');
 const config = require('../config/config');
 const logger = require('../logger');
 const User = mongoose.model('User');
@@ -59,30 +60,94 @@ router.post('/login', function (req, res) {
     });
   }
 
-  var findP = User.findOne({ 'email': req.body.email });
-  var authP = findP.then(function (user) {
+  co(function *() {
+    var user = yield User.findOne({ 'email': req.body.email })
+                    .populate([{
+                      path: 'university',
+                      select: 'id name',
+                    }, {
+                      path: 'program',
+                      select: 'id name university',
+                    }, {
+                      path: 'universities',
+                      select: 'id name',
+                    }, {
+                      path: 'programs',
+                      select: 'id name university',
+                    }]);
+
     if (!user) {
       return res.status(404).json({
         err: [{msg: 'UserNotFound'}],
       });
     }
-    return user.authenticate(req.body.password);
-  });
-  Promise.all([findP, authP]).then(function (values) {
-    var user = values[0];
+    user = yield user.authenticate(req.body.password);
+    var courses = yield user.getCourses({
+      populate: [{
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'program',
+        select: 'id name university',
+      }],
+      select: 'id name prof university program',
+      lean: true,
+      limit: 5,
+    });
+
+    var questions = yield user.getQuestions({
+      populate: [{
+        path: 'user',
+        select: 'id firstname lastname',
+      }],
+      select: 'id title course user createDate votes',
+      lean: true,
+      limit: 5,
+    });
+
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
-    return res.json({
-      err: [],
-      token: token,
-    });
+    var data = {
+      user: {
+        token: token,
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        role: user.role.toLowerCase(),
+        courses: courses,
+        questions: questions,
+      },
+    };
+    var uni;
+    var program;
+    if (user.role === 'Student') {
+      uni = user.university;
+      program = user.program;
+    } else if (user.role === 'Prof') {
+      uni = user.universities[0];
+      program = user.programs[0];
+    }
+    if (uni) data.user.university = uni;
+    if (program) data.user.program = program;
+
+    return res.json(data);
+
   }).catch(function (err) {
-    return res.json({
-      err: [{
-        'msg': err.message,
-      }]
-    });
+    if (err.message === 'User/Password incorrect.') {
+      return res.status(401).json({
+        err: [{
+          msg: 'UserOrPassIncorrect'
+        }]
+      });
+    } else {
+      logger.error(err);
+      return res.status(500).json({
+        err: [{
+          msg: 'InternalError',
+        }]
+      });
+    }
   });
 });
 

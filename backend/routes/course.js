@@ -28,18 +28,30 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
     });
   }
 
-  Course.findOne({ _id: req.params.cid }).populate('prof university').then(function (course) {
+  Course.findOne({ _id: req.params.cid })
+        .select('id name university program prof')
+        .populate([{
+          path: 'university',
+          select: 'name',
+        }, {
+          path: 'program',
+          select: 'name',
+        }, {
+          path: 'prof',
+          select: 'firstname lastname'
+        }])
+        .lean(true)
+        .then(function (course) {
     if (!course) {
-      return res.json({
-        err: 'Course not found.',
+      return res.status(404).json({
+        err: [{
+          msg: 'CourseNotFound.',
+        }]
       });
     }
-    return res.json({
-      name: course.name,
-      prof: course.prof.name,
-      university: course.university.name,
-    });
+    return res.status(200).json(course);
   }).catch(function (err) {
+    logger.error(err)
     return res.json({
       err: err.message,
     });
@@ -400,7 +412,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
-      err: [{ msg: 'Internal Error' }],
+      err: [{ msg: 'InternalError' }],
     });
   });
 });

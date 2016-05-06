@@ -9,6 +9,10 @@ import _debug from 'debug'
 import config from '../config'
 import webpackDevMiddleware from './middleware/webpack-dev'
 import webpackHMRMiddleware from './middleware/webpack-hmr'
+import superagent from 'superagent'
+import superagentPromise from 'superagent-promise'
+
+const request = superagentPromise(superagent, Promise)
 
 const debug = _debug('app:server')
 const paths = config.utils_paths
@@ -18,6 +22,15 @@ const app = new Koa()
 if (config.proxy && config.proxy.enabled) {
   app.use(convert(proxy(config.proxy.options)))
 }
+
+app.use(async (ctx, next) => {
+  if (!ctx.request.path.startsWith('/email-verification')) return next()
+  var code = ctx.request.path.split('/')[2]
+  var res = await request
+    .get('https://api.scholario.de/email-verification/' + code)
+    .end()
+  ctx.response.redirect('/')
+})
 
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement isomorphic

@@ -62,8 +62,56 @@ UserSchema.methods.authenticate = function (password) {
     bcrypt.compare(password, this.password, (err, res) => {
       if (err) return reject(err);
       if (!res) return reject(Error('User/Password incorrect.'));
-      return resolve();
+      return resolve(this);
     });
+  });
+};
+
+UserSchema.methods.getCourses = function (opts) {
+  const Course = mongoose.model('Course');
+  return new Promise((resolve, reject) => {
+    var p;
+    if (this.role === 'Student') {
+      p = Course.find({ participants: { $in: [this.id] } });
+    } else if (this.role === 'Prof') {
+      p = Course.find({ prof: this.id });
+    }
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts)
+        p = p.populate(opts.populate);
+      if ('select' in opts)
+        p = p.select(opts.select);
+      if ('lean' in opts)
+        p = p.lean(opts.lean);
+      if ('limit' in opts)
+        p = p.limit(opts.limit);
+    }
+    p.exec().then(courses => resolve(courses))
+            .catch(err => reject(err));
+  });
+};
+
+UserSchema.methods.getQuestions = function (opts) {
+  const Question = mongoose.model('Question');
+  const getCourseIds = (course) => course._id;
+  return new Promise((resolve, reject) => {
+    courses = this.getCourses({
+      select: 'id',
+    }).then(function (courses) {
+      var p = Question.find({ course: { $in: courses.map(getCourseIds) } });
+      if (typeof opts !== 'undefined') {
+        if ('populate' in opts)
+          p = p.populate(opts.populate);
+        if ('select' in opts)
+          p = p.select(opts.select);
+        if ('lean' in opts)
+          p = p.lean(opts.lean);
+        if ('limit' in opts)
+          p = p.limit(opts.limit);
+      }
+      return p.exec();
+    }).then(questions => resolve(questions))
+      .catch(err => reject(err));
   });
 };
 

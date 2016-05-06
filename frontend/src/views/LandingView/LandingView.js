@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBarLandingPage from '../../components/NavBarLandingPage/NavBarLandingPage'
+import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/lib/divider'

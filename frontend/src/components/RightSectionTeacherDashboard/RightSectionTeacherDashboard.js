@@ -1,27 +1,48 @@
 import React from 'react'
 import Card from 'material-ui/lib/card/card'
-import CardActions from 'material-ui/lib/card/card-actions'
-import CardHeader from 'material-ui/lib/card/card-header'
-import CardMedia from 'material-ui/lib/card/card-media'
-import CardTitle from 'material-ui/lib/card/card-title'
-import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
+import List from 'material-ui/lib/lists/list'
+import ListItem from 'material-ui/lib/lists/list-item'
+import Divider from 'material-ui/lib/divider'
+import QuestionItem from '../../components/QuestionItem/QuestionItem'
+import Subheader from 'material-ui/lib/Subheader'
 
 type Props = {
-
+  questions: React.PropTypes.array,
 };
+
 export class RightSectionTeacherDashboard extends React.Component {
   props: Props;
 
   render () {
+
+    const border = {
+      color:'#26A65B'
+           };
+
     return (
       <div>
-        <Card>
-          <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+        <Card style={border}>
+          <CardText style={border}>
+            <List style={border}>
+              <Subheader style={border}>Popular Questions</Subheader>
+              {this.props.questions.map(question =>
+                <QuestionItem
+                  key={question._id}
+                  questionStatement={question.title}
+                  datePosted={question.createDate}
+                />
+              )}
+
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+            </List>
+            <List>
+              <Subheader style={border}>Recent Questions</Subheader>
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+            </List>
           </CardText>
        </Card>
       </div>
