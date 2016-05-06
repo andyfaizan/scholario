@@ -13,9 +13,7 @@ import { getUser, getUserUniversity, getUserProgram,
   getUserCourses, getUserQuestions } from '../../redux/selectors'
 
 
-
 type Props = {
-
   courseName: string,
   courseId: string
 
@@ -34,10 +32,19 @@ export class Course extends React.Component {
   }
 
   render () {
+
+    var displayMaterialCards = this.props.courses.map(course =>
+            <CourseCard
+              key={course._id}
+              titleCourse={course.name}
+              universityCourse={course.university.name}
+              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+            />
+          ) ;
+
     return (
       <div className={classes.rootCourse}>
         <DashboardToolBar />
-        <CourseInfoBar courseTitle = {this.props.userProgram.name} />
         <br/>
         <Grid className='container-fluid'>
           <Row >
@@ -56,15 +63,6 @@ export class Course extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const user = state.entities.users[state.user._id]
-  const userUniversity = state.entities.universities[user.university]
-  const userProgram = state.entities.programs[user.program]
-  const courses = user.courses.map(id => {
-    var c = state.entities.courses[id]
-    c.university = state.entities.universities[c.university]
-    c.prof = state.entities.users[c.prof]
-    return c
-  })
   return {
     user: getUser(state),
     userUniversity,

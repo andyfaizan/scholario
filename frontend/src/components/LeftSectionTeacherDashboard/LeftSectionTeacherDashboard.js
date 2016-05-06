@@ -45,6 +45,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               titleCourse={course.name}
               universityCourse={course.university.name}
               courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+              courseUrl={`/course/${course._id}`}
             />
           ) ;
 
