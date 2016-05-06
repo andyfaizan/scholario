@@ -2,13 +2,10 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/lib/app-bar'
 import FlatButton from 'material-ui/lib/flat-button'
-import injectTapEventPlugin from 'react-tap-event-plugin'
 import ModalComponent from './ModalComponent'
 import {show} from '../redux/modules/modal'
 import {LOGIN_MODAL as login_modal} from '../redux/modules/modal'
 import ModalRoot from './ModalRoot'
-
-injectTapEventPlugin()
 
 export class NavBarLandingPage extends React.Component {
 
