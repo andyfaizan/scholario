@@ -15,11 +15,14 @@ export class AddCourseComponent extends React.Component {
   render () {
 
   	const addCourseCompStyle = {
-	  float: 'left',
-	  height: 280,
-	  width: 170,
+	    float: 'left',
+	  height: 170,
+	  width: 300,
 	  margin: 8.5,
-	  alignItem:'center'
+	  backgroundColor: '#26A65B',
+	  color: 'white',
+	  borderRadius: 13,
+	  overflow: 'inherit' 
 	};
 
 	const buttonStyle = {

@@ -40,7 +40,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               </Col>
             </Row>
           </Grid>
-          
+          <AddCourse />
          <CourseCard
               key="22"
               titleCourse="Computer Graphics"
