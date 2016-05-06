@@ -12,6 +12,8 @@ type Props = {
 export class AddCourseComponent extends React.Component {
   props: Props;
 
+
+
   render () {
 
   	const addCourseCompStyle = {
@@ -20,11 +22,15 @@ export class AddCourseComponent extends React.Component {
 	  height: 170,
 	  width: 300,
 	  margin: 8.5,
-	  backgroundColor: '#26A65B',
+	  backgroundColor: '#ffffff',
 	  color: 'white',
 	  borderRadius: 13,
 	  overflow: 'inherit',
-	  alignItems: 'center'
+	  alignItems: 'center',
+	  borderStyle: 'solid',
+	  borderWidth: 1,
+	  borderColor: '#26A65B'
+
 	};
 
 	const buttonStyle = {
@@ -42,7 +48,8 @@ export class AddCourseComponent extends React.Component {
 	  opacity: 0.9
 	};
 
-    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={plusButton} color="white" /></IconButton></div> ;
+
+    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={plusButton} color="#26A65B" /></IconButton></div> ;
 
 
     return (

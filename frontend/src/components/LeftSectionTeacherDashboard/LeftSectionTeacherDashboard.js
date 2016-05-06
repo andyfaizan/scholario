@@ -8,6 +8,7 @@ import DashboardTitleComponent from '../../components/DashboardTitleComponent/Da
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import { Router, Route, Link } from 'react-router'
 
 type Props = {
   courses: React.PropTypes.array,
@@ -23,6 +24,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
   render () {
 
     var floatingLabelTextState = 'Search Your Courses';
+ 
     //const filter dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
@@ -35,6 +37,17 @@ export class LeftSectionTeacherDashboard extends React.Component {
       'White',
     ];
 
+    var displayCards;
+
+    displayCards = this.props.courses.map(course =>
+            <CourseCard
+              key={course._id}
+              titleCourse={course.name}
+              universityCourse={course.university.name}
+              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+            />
+          ) ;
+
     return (
       <div>
           <Grid>
@@ -45,28 +58,10 @@ export class LeftSectionTeacherDashboard extends React.Component {
             </Row>
           </Grid>
           <AddCourse />
-          {
-                   <CourseCard
-              key="22"
-              titleCourse="Computer Graphics"
-              universityCourse="RWTH Aachen"
-              courseTeacher="Prof Rey Bakcer"
-              courseUrl={`course/22`}
-            /> 
-          }
- 
 
-          {this.props.courses.map(course =>
-            <CourseCard
-              key={course._id}
-              titleCourse={course.name}
-              universityCourse={course.university.name}
-              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-              courseUrl={`course/${course._id}`}
-            />
-          )}
+          {displayCards}
 
-           
+
 
       </div>
     )

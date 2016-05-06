@@ -148,6 +148,8 @@
     "react-bootstrap": "^0.28.5",
     "react-conditional-render": "^1.0.5",
     "react-search": "^1.0.9",
+    "react-swipe": "^5.0.3",
+    "react-swipeable-views": "^0.5.4",
     "react-tap-event-plugin": "^0.2.2",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.2",

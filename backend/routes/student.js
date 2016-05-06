@@ -11,8 +11,6 @@ const Question = mongoose.model('Question');
 
 var router = express.Router();
 
-
-
 router.get('/', passport.authenticate('jwt', {session: false}),
            utils.hasPermission('Student'), function (req, res) {
   Course
@@ -75,6 +73,28 @@ router.get('/follower', passport.authenticate('jwt', {session: false}),
       });
     });
 });
-
+/**
+router.get('/notification', passport.authenticate('jwt', {session: false}),
+            utils.hasPermission('Student'), function (req,res) {
+  Material
+    .find({ createDate: { $gte() }} $or { modifiedDate: {$gte()} })
+    .populate('following')
+    .exec()
+    .then(function (material) {
+      var data = [];
+      for (var i = 0; i < material.length; i++) {
+        data.push({
+          id: material[i]._id,
+          name: material[i].name,
+          owner: matrial[i].owner._id,
+          course: material.course._id,
+        });
+      }
+      return res.json({
+        notification: data,
+      });
+    });
+}) */
 
 module.exports = router;
+

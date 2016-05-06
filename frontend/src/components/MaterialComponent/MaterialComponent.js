@@ -32,35 +32,29 @@ export class MaterialComponent extends React.Component {
   	//inline styling variables for certain components ...
 	const style = {
 	  float: 'left',
-	  height: 280,
-	  width: 260,
+	  height: 170,
+	  width: 300,
 	  margin: 8.5,
-	  backgroundColor: '#26A65B',
-	  color: 'white'
+	  backgroundColor: '#1690DB',
+	  color: 'white',
+	  borderRadius: 13,
+	  overflow: 'inherit' 
 	};
 
 	const divStyle = {
-		textAlign: 'center'
+		textAlign: 'center',
+		color: 'white'
 
-	};
-
-	const iconStyles = {
-  		backgroundColor:'white'
-	};
-
-	const divStyleActions = {
-		float:'right'
 	};
 
 	//variables for displaying Child Node
-	var heading = <div style={divStyle}><h1>{this.props.materialTitle}</h1> <Divider /> </div>;
-	var container =<div> <h4>{this.props.universityCourse}</h4><h6>{this.props.courseName}</h6><br/> <Divider /><br/></div> ;
+	var heading = <div style={divStyle}><h3>rohan</h3> </div>;
+	var container =<div> <h4>rohan</h4><h6>{this.props.courseName}</h6></div> ;
 
 	const nodePaperCourse = [
       
       heading,
 	  container
-      
       ];
 
     return (

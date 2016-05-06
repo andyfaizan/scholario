@@ -25,6 +25,11 @@ export class QuestionItem extends React.Component {
       color: '#26A65B',
       opacity: 0.2
     }; 
+
+      const border = {
+      color:'#26A65B'
+ 
+           };
     
     const secondaryText = <div className={styleSecondaryText}>{this.props.datePosted}</div>
     return (
@@ -34,7 +39,7 @@ export class QuestionItem extends React.Component {
         primaryText= {this.props.questionStatement}
         secondaryText={secondaryText}
         innerDivStyle={{color:'#26A65B'}}
-        style={{color:'#26A65B'}}
+        style={border}
       	/>
       </div>
     )

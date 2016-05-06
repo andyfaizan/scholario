@@ -36,6 +36,7 @@ export class Course extends React.Component {
   render () {
     return (
       <div className={classes.rootCourse}>
+        <DashboardToolBar />
         <CourseInfoBar courseTitle = {this.props.userProgram.name} />
         <br/>
         <Grid className='container-fluid'>
