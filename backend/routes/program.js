@@ -53,18 +53,16 @@ router.get('/', function (req, res) {
   if (req.query.q) {
     p = Program.find({ name: { $regex: req.query.q, $options: 'i' } });
   }
-  p.exec().then(function (programs) {
-    var data = [];
-
-    _.each(programs, function (program) {
-      data.push({
-        id: program.id,
-        name: program.name
-      });
-    });
+  p.select('id name university')
+   .populate([{
+     path: 'university',
+     select: 'id name',
+   }])
+   .lean(true)
+   .exec()
+   .then(function (programs) {
     return res.status(200).json({
-      err: [],
-      programs: data,
+      programs,
     });
   }).catch(function (err) {
     logger.error(err);

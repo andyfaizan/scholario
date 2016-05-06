@@ -54,18 +54,12 @@ router.get('/', function (req, res) {
   if (req.query.q) {
     p = University.find({ name: { $regex: req.query.q, $options: 'i' } });
   }
-  p.exec().then(function (unis) {
-    var data = [];
-
-    _.each(unis, function (uni) {
-      data.push({
-        id: uni.id,
-        name: uni.name
-      });
-    });
+  p.select('id name')
+   .lean(true)
+   .exec()
+   .then(function (universities) {
     return res.status(200).json({
-      err: [],
-      universities: data,
+      universities,
     });
   }).catch(function (err) {
     logger.error(err);
