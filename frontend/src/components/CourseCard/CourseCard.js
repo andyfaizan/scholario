@@ -25,7 +25,7 @@ export class CourseCard extends React.Component {
     universityCourse: PropTypes.string.isRequired,
     courseTeacher: PropTypes.string.isRequired,
     notifications: PropTypes.number,
-    courseUrl: PropTypes.string.isRequired
+    courseUrl: PropTypes.string
   };
   render () {
 

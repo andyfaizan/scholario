@@ -13,6 +13,7 @@ import LandingView from 'views/LandingView/LandingView'
 import DashboardView from 'views/DashboardView/DashboardView'
 import CourseView from 'views/CourseView/CourseView'
 import MaterialView from 'views/MaterialView/MaterialView'
+import DashboardTitleComponent from 'components/MaterialComponent/MaterialComponent'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
@@ -20,6 +21,7 @@ export default (store) => (
     <Route component={Dashboard}>
       <Route path='landing' component={LandingView} />
       <Route path='dashboard' component={DashboardView} />
+      <Route path='connects' component={DashboardView}/>
       <Route path='course/:id' component={CourseView} />
       <Route path='material' component={MaterialView} />
     </Route>

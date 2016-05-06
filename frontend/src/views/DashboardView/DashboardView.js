@@ -27,6 +27,8 @@ class DashboardView extends React.Component {
  //  }
 
   render () {
+
+  
     return (
       <div className={classes.dashboardRoot} >
         <DashboardToolBar />

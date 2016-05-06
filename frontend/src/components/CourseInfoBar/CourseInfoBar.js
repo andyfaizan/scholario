@@ -79,7 +79,7 @@ export class CourseInfoBar extends React.Component {
           <Toolbar style = {styles.toolbarStyle } >
           	<ToolbarGroup float='right'>
           	<IconButton  style={styles.iconStyle} touch={true}> <NavigationMenu color='black'  /> </IconButton>
-            <ToolbarTitle text='Fundamentals of Computer Graphics' style={styles.titleStyle}/>
+            <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
          <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>

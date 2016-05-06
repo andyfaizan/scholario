@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import _ from 'lodash'
 
 
 
@@ -33,4 +34,19 @@ export const getUserCourses = createSelector(
 export const getUserQuestions = createSelector(
   [getUser, getQuestions, getUsers],
   (user, questions, users) => user.questions.map((id) => questions[id])
+)
+
+export const getUniversitiesWithPrograms = createSelector(
+  [getUniversities, getPrograms],
+  (universities, programs) => {
+    if (universities) {
+      var res = _.values(universities).map((u) => {
+        var new_u = Object.assign({}, u)
+        new_u.programs = _.values(programs).filter((p) => p.university === u._id)
+        return new_u
+      })
+      return res
+    }
+    return []
+  }
 )
