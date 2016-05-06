@@ -25,6 +25,8 @@ export class QuestionItem extends React.Component {
         leftIcon={<ActionQuestionAnswer/>}
         primaryText= {this.props.questionStatement}
         secondaryText={this.props.datePosted}
+        innerDivStyle={{color:'#26A65B'}}
+        style={{color:'#26A65B'}}
       	/>
       </div>
     )

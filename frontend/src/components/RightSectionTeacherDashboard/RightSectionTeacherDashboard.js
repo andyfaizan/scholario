@@ -15,13 +15,17 @@ export class RightSectionTeacherDashboard extends React.Component {
   props: Props;
 
   render () {
+
+    const border = {
+      color:'#26A65B'
+           };
+
     return (
       <div>
-        <Card>
-          <CardText>
-            <List>
-              <Subheader>Popular Questions</Subheader>
-              <Divider />
+        <Card style={border}>
+          <CardText style={border}>
+            <List style={border}>
+              <Subheader style={border}>Popular Questions</Subheader>
               {this.props.questions.map(question =>
                 <QuestionItem
                   key={question._id}
@@ -34,10 +38,8 @@ export class RightSectionTeacherDashboard extends React.Component {
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>
-            <Divider />
             <List>
               <Subheader>Recent Questions</Subheader>
-              <Divider />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
             </List>
