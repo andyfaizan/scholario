@@ -48,21 +48,6 @@ export class LeftSectionTeacherDashboard extends React.Component {
               courseTeacher="Prof Rey Bakcer"
             />
 
-
-             <CourseCard
-              key="23"
-              titleCourse="Computer Graphics"
-              universityCourse="RWTH Aachen"
-              courseTeacher="Prof Rey Bakcer"
-            />
-
-             <CourseCard
-              key="24"
-              titleCourse="Computer Graphics"
-              universityCourse="RWTH Aachen"
-              courseTeacher="Prof Rey Bakcer"
-            />
-
           {this.props.courses.map(course =>
             <CourseCard
               key={course._id}
