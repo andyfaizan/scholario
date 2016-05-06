@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { getUser, getUserUniversity } from '../../redux/selectors'
 import classes from './CourseView.scss'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -9,6 +8,9 @@ import Col from 'react-bootstrap/lib/Col'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import { getUser, getUserUniversity, getUserProgram,
+  getUserCourses, getUserQuestions } from '../../redux/selectors'
+
 
 
 type Props = {
@@ -36,7 +38,7 @@ static propTypes = {
               <MaterialComponent />
             </Col>
             <Col xs={4} md={4}>
-              <RightSectionTeacherDashboard />
+              <RightSectionTeacherDashboard questions={this.props.questions} />
             </Col>
           </Row>
         </Grid>
@@ -61,6 +63,7 @@ const mapStateToProps = (state) => {
     userUniversity,
     userProgram,
     courses,
+    questions: getUserQuestions(state),
   }
 }
 
