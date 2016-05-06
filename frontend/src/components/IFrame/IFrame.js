@@ -1,4 +1,5 @@
 import React from 'react'
+import classes from './IFrame.scss'
 
 type Props = {
   src: String,
@@ -10,13 +11,10 @@ export class IFrame extends React.Component {
 
   render () {
     return (
-      <div>
-        <iframe
+        <iframe className={classes.fitParent}
           src={"https://docs.google.com/viewer?url="+this.props.src+"&embedded=true"}
-          height={300}
-          width={610}
+          height={600}
           frameborder="0"/>
-      </div>
     )
   }
 }
