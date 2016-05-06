@@ -8,6 +8,7 @@ import DashboardTitleComponent from '../../components/DashboardTitleComponent/Da
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import { Router, Route, Link } from 'react-router'
 
 type Props = {
   courses: React.PropTypes.array,
@@ -19,6 +20,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
   render () {
 
     var floatingLabelTextState = 'Search Your Courses';
+ 
     //const filter dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
@@ -32,23 +34,16 @@ export class LeftSectionTeacherDashboard extends React.Component {
     ];
 
     var displayCards;
-    var viewMain = 2;
 
-    if ( viewMain == 4 )
-    {
-
-
-    }else
-    {
-      displayCards = this.props.courses.map(course =>
+    displayCards = this.props.courses.map(course =>
             <CourseCard
               key={course._id}
               titleCourse={course.name}
               universityCourse={course.university.name}
               courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
             />
-          )
-    }
+          ) ;
+
     return (
       <div>
           <Grid>

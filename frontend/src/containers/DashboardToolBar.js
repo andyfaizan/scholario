@@ -11,7 +11,7 @@ import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import Divider from 'material-ui/lib/divider'
 import FlatButton from 'material-ui/lib/flat-button'
-
+import { Router, Route, Link } from 'react-router'
 import { logout } from '../redux/modules/user'
 
 
@@ -20,6 +20,8 @@ type Props = {
 };
 export class DashboardToolBar extends React.Component {
   props : Props;
+
+
 
   render () {
 
@@ -49,7 +51,7 @@ export class DashboardToolBar extends React.Component {
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
-            <FlatButton style={styles.buttonStyle} label="Courses" >
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='courseview' />} label="Courses" >
             </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Connects">
             </FlatButton>
