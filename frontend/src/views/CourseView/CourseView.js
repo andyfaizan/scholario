@@ -9,9 +9,8 @@ import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDa
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import { getCourse } from '../../redux/modules/course'
-import { getUser, getUserUniversity, getUserProgram,
+import { getUser, getUserUniversity, getUserProgram, getCurrentCourse,
   getUserCourses, getUserQuestions } from '../../redux/selectors'
-
 
 type Props = {
   courseName: string,
@@ -45,7 +44,7 @@ export class Course extends React.Component {
     return (
       <div className={classes.rootCourse}>
         <DashboardToolBar />
-        <CourseInfoBar />
+        <CourseInfoBar courseTitle={this.props.course.name} />
         <br/>
         <Grid className='container-fluid'>
           <Row >
@@ -63,9 +62,10 @@ export class Course extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
      user: getUser(state),
+     course: getCurrentCourse(state, ownProps.params.id),
     userUniversity: getUserUniversity(state),
     userProgram: getUserProgram(state),
     courses: getUserCourses(state),

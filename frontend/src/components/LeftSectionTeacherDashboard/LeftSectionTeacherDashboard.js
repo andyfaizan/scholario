@@ -12,6 +12,7 @@ import { Router, Route, Link } from 'react-router'
 
 type Props = {
   courses: React.PropTypes.array,
+  location: React.PropTypes.object,
 };
 
 export class LeftSectionTeacherDashboard extends React.Component {

@@ -28,7 +28,7 @@ class DashboardView extends React.Component {
 
   render () {
 
-  
+
     return (
       <div className={classes.dashboardRoot} >
         <DashboardToolBar />
@@ -42,7 +42,7 @@ class DashboardView extends React.Component {
         <Grid className='container-fluid'>
           <Row >
             <Col xs={20} md={8}>
-              <LeftSectionTeacherDashboard courses={this.props.courses} />
+              <LeftSectionTeacherDashboard courses={this.props.courses} location={this.props.location} />
             </Col>
             <Col xs={4} md={4}>
               <RightSectionTeacherDashboard questions={this.props.questions} />

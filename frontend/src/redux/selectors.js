@@ -9,7 +9,13 @@ export const getUniversities = (state) => state.entities.universities
 export const getPrograms = (state) => state.entities.programs
 export const getCourses = (state) => state.entities.courses
 export const getQuestions = (state) => state.entities.questions
-
+export const getCurrentCourse = (state, id) => {
+  var c = Object.assign({}, state.entities.courses[id])
+  c.prof = state.entities.users[c.prof]
+  c.university = state.entities.universities[c.university]
+  c.program = state.entities.programs[c.program]
+  return c
+}
 
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
