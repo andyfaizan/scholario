@@ -40,7 +40,7 @@ var router = express.Router();
  *
  */
 router.get('/', function (req, res) {
-  req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+  if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -49,7 +49,11 @@ router.get('/', function (req, res) {
     });
   }
 
-  Program.find({ name: { $regex: req.query.q, $options: 'i' } }).exec().then(function (programs) {
+  var p = Program.find()
+  if (req.query.q) {
+    p = Program.find({ name: { $regex: req.query.q, $options: 'i' } });
+  }
+  p.exec().then(function (programs) {
     var data = [];
 
     _.each(programs, function (program) {
