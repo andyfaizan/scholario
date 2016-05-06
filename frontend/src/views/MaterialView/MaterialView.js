@@ -12,6 +12,7 @@ import List from 'material-ui/lib/lists/list'
 import Divider from 'material-ui/lib/divider'
 import Subheader from 'material-ui/lib/Subheader'
 import Material from '../../containers/Material'
+import IFrame from '../../components/IFrame/IFrame'
 
 type Props = {
 
@@ -46,7 +47,9 @@ export class MaterialView extends React.Component {
               </MaterialPanel>
             </Col>
             <Col md={6}>
-              <MaterialPanel name="Material Preview"/>
+              <MaterialPanel name="Material Preview">
+                <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
+              </MaterialPanel>
             </Col>
             <Col md={3}>
               <MaterialPanel name="Questions">
