@@ -4,6 +4,7 @@ import counter from './modules/counter'
 import modal from './modules/modal'
 import { loginReducer } from './modules/user'
 import entities from './modules/entities'
+import Material from './modules/Material'
 import {reducer as formReducer} from 'redux-form';
 
 export default combineReducers({
@@ -12,4 +13,5 @@ export default combineReducers({
   form : formReducer,
   user: loginReducer,
   entities,
+  Material,
 router})
