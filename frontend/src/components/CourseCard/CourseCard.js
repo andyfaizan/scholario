@@ -13,7 +13,6 @@ import { Router, Route, Link } from 'react-router'
 import classes from './CourseCard.scss'
 
 type Props = {
-
 	titleCourse: string,
 	universityCourse: string,
 	courseTeacher: string,
@@ -21,7 +20,7 @@ type Props = {
 	courseUrl: string
 };
 export class CourseCard extends React.Component {
- static propTypes = {
+  static propTypes = {
     titleCourse: PropTypes.string.isRequired,
     universityCourse: PropTypes.string.isRequired,
     courseTeacher: PropTypes.string.isRequired,
@@ -65,7 +64,7 @@ export class CourseCard extends React.Component {
 
 	//variables for displaying Child Node
 	var actionsCourse = <div className={classes.actionMain} ><div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div className={classes.actionPosition}>
-	<IconButton containerElement= {<Link to='course'  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div></div> ;
+	<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div></div> ;
 	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}><Badge
       badgeContent={10}
       secondary={true}

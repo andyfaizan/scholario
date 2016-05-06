@@ -1,4 +1,5 @@
 import { normalize } from 'normalizr'
+import { merge } from 'lodash'
 import request from 'superagent'
 import { push, replace } from 'react-router-redux'
 import { userSchema } from '../schemas'
@@ -168,7 +169,7 @@ const bogusState = {
   lastname: 'Faizan',
 }
 
-export default function loginReducer(state=initialState, action) {
+export function loginReducer(state=initialState, action) {
   switch (action.type) {
     case LOGIN_OK:
       return action.user
@@ -182,4 +183,14 @@ export default function loginReducer(state=initialState, action) {
   //const handler = ACTION_HANDLERS[action.type]
 
   //return handler ? handler(state, action) : state
+}
+
+export function userReducer(state={}, action) {
+  switch (action.type) {
+    default:
+      if (action.response && action.response.entities && action.response.entities.users) {
+        return merge({}, state, action.response.entities.users)
+      }
+      return state
+  }
 }

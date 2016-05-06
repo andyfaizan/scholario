@@ -23,7 +23,7 @@ export const getUserProgram = createSelector(
 export const getUserCourses = createSelector(
   [getUser, getCourses, getUniversities, getUsers],
   (user, courses, universities, users) => user.courses.map((id) => {
-    var c = courses[id]
+    var c = Object.assign({}, courses[id])
     c.university = universities[c.university]
     c.prof = users[c.prof]
     return c

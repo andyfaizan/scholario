@@ -12,14 +12,14 @@ const request = superagentPromise(superagent, Promise)
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const GET_UNIVERSITIES_REQUEST = 'GET_UNIVERSITIES_REQUEST'
-export const GET_UNIVERSITIES_OK = 'GET_UNIVERSITIES_OK'
-export const GET_UNIVERSITIES_ERR = 'GET_UNIVERSITIES_ERR'
+export const GET_QUESTION_REQUEST = 'GET_QUESTION_REQUEST'
+export const GET_QUESTION_OK = 'GET_QUESTION_OK'
+export const GET_QUESTION_ERR = 'GET_QUESTION_ERR'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function getUniversities(substr = '') {
+export function getQuestion(substr = '') {
   var endpoint = 'https://api.scholario.de'
   return {
     types: [GET_UNIVERSITIES_REQUEST, GET_UNIVERSITIES_OK, GET_UNIVERSITIES_ERR],
@@ -34,11 +34,11 @@ export function getUniversities(substr = '') {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function universityReducer(state={}, action) {
+export function questionReducer(state={}, action) {
   switch (action.type) {
     default:
-      if (action.response && action.response.entities && action.response.entities.universities) {
-        return merge({}, state, action.response.entities.universities)
+      if (action.response && action.response.entities && action.response.entities.questions) {
+        return merge({}, state, action.entities.questions)
       }
       return state
   }

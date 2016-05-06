@@ -54,11 +54,10 @@ export class LeftSectionTeacherDashboard extends React.Component {
             </Row>
           </Grid>
           <AddCourse />
- 
+
           {displayCards}
 
 
-           
 
       </div>
     )
