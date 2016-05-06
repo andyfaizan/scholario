@@ -33,22 +33,16 @@ export class DashboardTitleComponent extends React.Component {
 
     return (
       <div>
-      	<Card>
-      	  <CardText>
-      	      <div className="row">
-      	      <div className={classes.divTitle}>
-      	      <h1>{this.props.title}</h1>
-      	      </div>
+      
       	      <div className={classes.divSearchField}>
 		   	  <AutoComplete 
               floatingLabelText= {floatingLabelTextState}
               filter={AutoComplete.caseInsensitiveFilter}
               dataSource={filterDataSource}
+              style={classes.autoComplete}
               />
               </div>
-              </div>
-      	  </CardText>
-      	</Card>
+      
       </div>
     )
   }

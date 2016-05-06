@@ -33,9 +33,36 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     return (
       <div>
-          <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
-          <AddCourse />
-          <FriendsDisplayComponent fullName="Sina Mah." universityName="RWTH Aachen" discipline="Social Science"/>
+          <Grid>
+            <Row>
+              <Col>
+              <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
+              </Col>
+            </Row>
+          </Grid>
+          
+         <CourseCard
+              key="22"
+              titleCourse="Computer Graphics"
+              universityCourse="RWTH Aachen"
+              courseTeacher="Prof Rey Bakcer"
+            />
+
+
+             <CourseCard
+              key="23"
+              titleCourse="Computer Graphics"
+              universityCourse="RWTH Aachen"
+              courseTeacher="Prof Rey Bakcer"
+            />
+
+             <CourseCard
+              key="24"
+              titleCourse="Computer Graphics"
+              universityCourse="RWTH Aachen"
+              courseTeacher="Prof Rey Bakcer"
+            />
+
           {this.props.courses.map(course =>
             <CourseCard
               key={course._id}
@@ -44,6 +71,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
               courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
             />
           )}
+
+           
 
       </div>
     )

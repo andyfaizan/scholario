@@ -10,6 +10,7 @@ import Badge from 'material-ui/lib/badge'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import browserHistory from '../../history'
 import { Router, Route, Link } from 'react-router'
+import classes from './CourseCard.scss'
 
 type Props = {
 
@@ -38,7 +39,7 @@ export class CourseCard extends React.Component {
 	  backgroundColor: '#1690DB',
 	  color: 'white',
 	  borderRadius: 13,
-	  overflow: 'auto' 
+	  overflow: 'inherit' 
 	};
 
 	const divStyle = {
@@ -58,24 +59,19 @@ export class CourseCard extends React.Component {
 
 	};
 
-	const styleActions = {
-
-		// marginRight: 80,
-  // 		marginLeft: 80,
-  float:'right'
-	};
-
 	const mainActionStyle = {
 
-		opacity: 0.5,
-		marginBottom: 20
-	}
+		opacity: 0.5	}
 
 	//variables for displaying Child Node
-	var actionsCourse = <div style={mainActionStyle} ><div style={paperActions}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div style ={styleActions}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton>
+	var actionsCourse = <div className={classes.actionMain} ><div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div className={classes.actionPosition}>
 	<IconButton containerElement= {<Link to='course'  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div></div> ;
-	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4></div>;
-	var container =<div> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><br/></div> ;
+	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}><Badge
+      badgeContent={10}
+      secondary={true}
+      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+      ></Badge></div></div>;
+	var container =<div className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><h6>{this.props.courseTeacher}</h6></div> ;
 
 	const nodePaperCourse = [
       
@@ -87,7 +83,7 @@ export class CourseCard extends React.Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={1} children={nodePaperCourse}  />   
+        <Paper style={style} zDepth={1} children={nodePaperCourse}  />
       </div>
     )
   }
