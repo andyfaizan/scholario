@@ -45,6 +45,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
     ];
 
     var displayCards;
+    var display;
+    const additionals = <AddCourse key="addCourseComponent"/> ;
 
     if ( this.props.location.pathname == pathCourses || this.props.location.pathname == '/dashboard' ) 
     {
@@ -58,6 +60,12 @@ export class LeftSectionTeacherDashboard extends React.Component {
               courseUrl={`/course/${course._id}`}
             />
           ) ;
+
+        display = [
+           additionals,
+           displayCards
+        ] ;
+
     }else if ( this.props.location.pathname == pathConnects )
     {
     }else
@@ -75,9 +83,9 @@ export class LeftSectionTeacherDashboard extends React.Component {
               </Col>
             </Row>
           </Grid>
-          <AddCourse />
+         
 
-          {displayCards}
+          {display}
 
 
 
