@@ -14,7 +14,7 @@ import Divider from 'material-ui/lib/divider'
 import Subheader from 'material-ui/lib/Subheader'
 import Material from '../../containers/Material'
 import IFrame from '../../components/IFrame/IFrame'
-import FullMaterial from '../../components/FullMaterial/FullMaterial'
+import PreviewMaterial from '../../containers/PreviewMaterial'
 
 type Props = {
 
@@ -27,7 +27,7 @@ export class MaterialView extends React.Component {
     return (
       <div>
         <DashboardToolBar />
-        <FullMaterial />
+        <PreviewMaterial />
         {/*
           <CourseInfoBar />
           <Grid fluid={true}>

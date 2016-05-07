@@ -22,7 +22,7 @@ const border = {
   borderColor: '#26A65B'
 };
 
-const FullMaterial = ({}) => (
+const FullMaterial = ({fileType}) => (
   <Card>
     <CardHeader
       title="Game Theory"
@@ -33,7 +33,10 @@ const FullMaterial = ({}) => (
       <Row >
         <Col xs={20} md={8}>
           <Card style={border}>
-            <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
+            {fileType === 'image'
+              ? <img src="http://lorempixel.com/400/300/nature/"
+              style={{marginLeft:'auto', marginRight:'auto', display:'block'}}/>
+              : <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>}
           </Card>
         </Col>
         <Col xs={4} md={4}>
