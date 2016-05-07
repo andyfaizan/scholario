@@ -22,6 +22,15 @@ const border = {
   borderColor: '#26A65B'
 };
 
+const imageStyle = {
+  marginLeft:'auto',
+  marginRight:'auto',
+  display:'block',
+  padding: '10%',
+  maxWidth: '100%',
+  maxHeight: 'auto'
+}
+
 const FullMaterial = ({fileType}) => (
   <Card>
     <CardHeader
@@ -34,8 +43,8 @@ const FullMaterial = ({fileType}) => (
         <Col xs={20} md={8}>
           <Card style={border}>
             {fileType === 'image'
-              ? <img src="http://lorempixel.com/400/300/nature/"
-              style={{marginLeft:'auto', marginRight:'auto', display:'block'}}/>
+              ? <img src="http://lorempixel.com/500/400/nature/"
+              style={imageStyle}/>
               : <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>}
           </Card>
         </Col>
