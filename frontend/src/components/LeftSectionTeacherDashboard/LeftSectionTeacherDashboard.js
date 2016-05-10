@@ -25,6 +25,9 @@ export class LeftSectionTeacherDashboard extends React.Component {
     const pathConnects = '/connects' ;
     const pathCourses = '/dashboard';
 
+    const studentRole = 'Student'
+    const teacherRole = 'Prof'
+
     //dummy dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
@@ -40,8 +43,6 @@ export class LeftSectionTeacherDashboard extends React.Component {
     var displayCards;
     var display;
     const additionals = <AddCourse key="addCourseComponent"/> ;
-    console.log(this.props.location.pathname)
-    console.log(this.props.role)
     if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
         displayCards = this.props.courses.map(course =>
@@ -54,11 +55,11 @@ export class LeftSectionTeacherDashboard extends React.Component {
           />
         )
 
-        if (this.props.role === 'student') {
+        if (this.props.role === studentRole) {
           display = [
             displayCards,
           ]
-        } else if (this.props.role === 'prof') {
+        } else if (this.props.role === teacherRole) {
           display = [
              additionals,
              displayCards
