@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import Divider from 'material-ui/lib/divider'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
-import AddCourse from '../../containers/AddCourse'
+import AddCourse from '../../containers/DashboardTitleContainer'
 import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -44,7 +44,6 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     var displayCards;
     var display;
-    const additionals = <AddCourse key="addCourseComponent"/> ;
     console.log(this.props.location)
     if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
@@ -59,7 +58,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
           ) ;
 
         display = [
-           additionals,
+
            displayCards
         ] ;
 
@@ -82,7 +81,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
           <Grid>
             <Row>
               <Col>
-              <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
+              <AddCourse title="Courses" whichFilter="courseFilter" />
               </Col>
             </Row>
           </Grid>
