@@ -42,6 +42,17 @@ export const getUserQuestions = createSelector(
   (user, questions, users) => user.questions.map((id) => questions[id])
 )
 
+export const getUserFollowings = createSelector(
+  [getUser, getUsers, getUniversities, getPrograms],
+  (user, users, universities, programs) => user.followings.map((id) => {
+    var u = Object.assign({}, users[id])
+    u.university = universities[u.university]
+    u.program = programs[u.program]
+    console.log(u)
+    return u
+  })
+)
+
 export const getUniversitiesWithPrograms = createSelector(
   [getUniversities, getPrograms],
   (universities, programs) => {

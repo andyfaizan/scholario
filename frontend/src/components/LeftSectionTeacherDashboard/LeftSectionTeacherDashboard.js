@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/lib/Col'
 import { Router, Route, Link } from 'react-router'
 
 type Props = {
+  role: React.PropTypes.string,
   courses: React.PropTypes.array,
   location: React.PropTypes.object,
   connects: React.PropTypes.array
@@ -19,17 +20,11 @@ type Props = {
 export class LeftSectionTeacherDashboard extends React.Component {
   props: Props;
 
-  componentDidMount() {
-    console.log(this.props.location.pathname);
-
-  }
-
   render () {
-    
     //paths to routes on dashboard view for material and connects
     const pathConnects = '/connects' ;
     const pathCourses = '/dashboard';
- 
+
     //dummy dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
@@ -45,34 +40,43 @@ export class LeftSectionTeacherDashboard extends React.Component {
     var displayCards;
     var display;
     const additionals = <AddCourse key="addCourseComponent"/> ;
-    console.log(this.props.location)
+    console.log(this.props.location.pathname)
+    console.log(this.props.role)
     if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
         displayCards = this.props.courses.map(course =>
-            <CourseCard
-              key={course._id}
-              titleCourse={course.name}
-              universityCourse={course.university.name}
-              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-              courseUrl={`/course/${course._id}`}
-            />
-          ) ;
+          <CourseCard
+            key={course._id}
+            titleCourse={course.name}
+            universityCourse={course.university.name}
+            courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
+            courseUrl={`/course/${course._id}`}
+          />
+        )
 
-        display = [
-           additionals,
-           displayCards
-        ] ;
-
+        if (this.props.role === 'student') {
+          display = [
+            displayCards,
+          ]
+        } else if (this.props.role === 'prof') {
+          display = [
+             additionals,
+             displayCards
+          ]
+        }
     } else if (this.props.location.pathname === pathConnects) {
-      displayCards = [<FriendsDisplayComponent
-        fullName="Andy Ainuddin"
-        discipline="Chemie"
-        universityName="Uni Bonn"
-      />]
+      displayCards = this.props.connects.map(following =>
+        <FriendsDisplayComponent
+          key={following._id}
+          fullName={`${following.firstname} ${following.lastname}`}
+          discipline={following.program}
+          universityName={following.university}
+        />
+      )
 
       display = [
          displayCards
-      ] ;
+      ]
     } else {
       console.log('path to eroneous route') ;
     }

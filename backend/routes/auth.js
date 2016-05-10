@@ -106,14 +106,17 @@ router.post('/login', function (req, res) {
     });
 
     var followings = yield user.getFollowings({
-/*      populate: [{*/
-        //path: 'university',
-        //select: 'id name',
-      //}, {
-        //path: 'universities',
-        //select: 'id name',
-      /*}],*/
-      select: 'id firstname lastname university universities',
+      populate: [{
+        path: 'program',
+        select: 'id name university',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname university universities program',
       lean: true,
       limit: 5,
     });
@@ -127,7 +130,7 @@ router.post('/login', function (req, res) {
         _id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
-        role: user.role.toLowerCase(),
+        role: user.role,
         courses: courses,
         questions: questions,
         followings: followings,
