@@ -51,9 +51,9 @@ export class DashboardToolBar extends React.Component {
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
-            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='dashboard' />} label="Courses" >
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/dashboard' />} label="Courses" >
             </FlatButton>
-            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='connects' />} label="Connects">
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/connects' />} label="Connects">
             </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>

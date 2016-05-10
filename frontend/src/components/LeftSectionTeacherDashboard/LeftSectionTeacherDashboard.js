@@ -27,10 +27,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
   render () {
     
     //paths to routes on dashboard view for material and connects
-    const pathConnects = 'connects' ;
-    const pathConnectsInitial = '/connects'
-    const pathCourses = 'dashboard';
-    const pathCoursesInitial = '/dashboard' ;
+    const pathConnects = '/connects' ;
+    const pathCourses = '/dashboard';
  
     //dummy dataSource for Connects and Courses
     const filterDataSource = [
@@ -47,9 +45,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
     var displayCards;
     var display;
     const additionals = <AddCourse key="addCourseComponent"/> ;
-
-    if ( this.props.location.pathname == pathCourses || this.props.location.pathname == '/dashboard' ) 
-    {
+    console.log(this.props.location)
+    if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
         displayCards = this.props.courses.map(course =>
             <CourseCard
@@ -66,13 +63,19 @@ export class LeftSectionTeacherDashboard extends React.Component {
            displayCards
         ] ;
 
-    }else if ( this.props.location.pathname == pathConnects )
-    {
-    }else
-    {
+    } else if (this.props.location.pathname === pathConnects) {
+      displayCards = [<FriendsDisplayComponent
+        fullName="Andy Ainuddin"
+        discipline="Chemie"
+        universityName="Uni Bonn"
+      />]
+
+      display = [
+         displayCards
+      ] ;
+    } else {
       console.log('path to eroneous route') ;
     }
-    
 
     return (
       <div>
