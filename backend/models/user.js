@@ -115,6 +115,24 @@ UserSchema.methods.getQuestions = function (opts) {
   });
 };
 
+UserSchema.methods.getFollowings = function (opts) {
+  return new Promise((resolve, reject) => {
+    var p = this.model('User').find({ _id: { $in: this.following } });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts)
+        p = p.populate(opts.populate);
+      if ('select' in opts)
+        p = p.select(opts.select);
+      if ('lean' in opts)
+        p = p.lean(opts.lean);
+      if ('limit' in opts)
+        p = p.limit(opts.limit);
+    }
+    p.exec().then(followings => resolve(followings))
+            .catch(err => reject(err));
+  });
+};
+
 // Virtuals
 
 // Validations

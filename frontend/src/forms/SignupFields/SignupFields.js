@@ -50,6 +50,12 @@ export class SignupFields extends React.Component {
     // submitting: PropTypes.bool.isRequired
   }
 
+   constructor(props) {
+    super(props);
+    this.state = {value: this.props.universities[0]._id}
+  }
+
+  handleChange = (event, index, value) => this.setState({value})
   // handleChange = (event, index, value) => this.setState({value});
 
   componentDidMount() {
@@ -89,9 +95,13 @@ export class SignupFields extends React.Component {
           marginBottom: '16',
           paddingLeft: '10px',
           backgroundColor: '#000'
+        },
+        blocking:
+        {
+          overflow: 'hidden'
         }
       }
-
+      var i = 0 ;
       const { fields: { email, password, firstname, lastname, role } } = this.props
       return (
         <div>
@@ -130,6 +140,20 @@ export class SignupFields extends React.Component {
                 />
               <br/>
               <br/>
+             <SelectField
+                style = {styles.blocking}
+                floatingLabelStyle={styles.floatingLabelStyle}
+                underlineFocusStyle={styles.focusStyle}
+                value={this.state.value}
+                onChange={this.handleChange}>
+                {this.props.universities.map(university=>
+                    <MenuItem key={university._id} value={university._id} primaryText={university.name} />
+                )}
+                </SelectField>
+                <br/>
+                <br/>
+             
+                <br/>
               <TextField
                 {...role}
                 hintText='student oder prof'

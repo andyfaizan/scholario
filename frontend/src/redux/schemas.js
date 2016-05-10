@@ -25,6 +25,7 @@ userSchema.define({
   courses: arrayOf(courseSchema),
   university: universitySchema,
   program: programSchema,
+  followings: arrayOf(userSchema),
 })
 
 programSchema.define({
