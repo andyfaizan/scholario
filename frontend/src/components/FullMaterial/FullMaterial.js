@@ -14,21 +14,57 @@ import Subheader from 'material-ui/lib/Subheader'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import ReactPlayer from 'react-player'
+import classes from './FullMaterial.scss'
 
-const border = {
-  color:'#26A65B',
+const previewStyle = {
+  backgroundColor: 'rgba(0, 0, 0, 0.9)',
   borderStyle: 'solid',
   borderWidth: 1,
   borderColor: '#26A65B'
-};
+}
 
-const imageStyle = {
+const mediaStyle = {
   marginLeft:'auto',
   marginRight:'auto',
   display:'block',
   padding: '10%',
   maxWidth: '100%',
   maxHeight: 'auto'
+}
+
+const youtubeConfig = {
+  preload: true,
+  playerVars: {
+    controls: 2
+  }
+}
+
+const getFrame = (fileType, playing) => {
+  if(fileType === 'image'){
+    return <img src="http://lorempixel.com/400/300/nature/" style={mediaStyle}/>
+  }
+  if(fileType === 'video'){
+    return (
+      <div className={classes.videoStyle}>
+        <ReactPlayer
+          url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+          playing={playing}
+          // volume={volume}
+          // soundcloudConfig={soundcloudConfig}
+          // vimeoConfig={vimeoConfig}
+          // youtubeConfig={youtubeConfig}
+          // onPlay={() => this.setState({ playing: true })}
+          // onPause={() => this.setState({ playing: false })}
+          // onBuffer={() => console.log('onBuffer')}
+          // onEnded={() => this.setState({ playing: false })}
+          // onError={(e) => console.log('onError', e)}
+          // onProgress={this.onProgress}
+          // onDuration={(duration) => this.setState({ duration })}
+          />
+      </div>)
+  }
+  return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
 }
 
 const FullMaterial = ({fileType}) => (
@@ -41,11 +77,8 @@ const FullMaterial = ({fileType}) => (
     <Grid fluid={true}>
       <Row >
         <Col xs={20} md={8}>
-          <Card style={border}>
-            {fileType === 'image'
-              ? <img src="http://lorempixel.com/500/400/nature/"
-              style={imageStyle}/>
-              : <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>}
+          <Card style={previewStyle}>
+            {getFrame(fileType)}
           </Card>
         </Col>
         <Col xs={4} md={4}>
@@ -53,22 +86,6 @@ const FullMaterial = ({fileType}) => (
         </Col>
       </Row>
     </Grid>
-    {/*<CardMedia
-      overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-      >
-
-      </CardMedia>
-      <CardTitle title="Card title" subtitle="Card subtitle" />
-      <CardText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-      </CardText>
-      <CardActions>
-      <FlatButton label="Action1" />
-      <FlatButton label="Action2" />
-    </CardActions>*/}
   </Card>
 );
 

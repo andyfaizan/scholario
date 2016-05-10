@@ -6,7 +6,8 @@ import FullMaterial from '../components/FullMaterial/FullMaterial'
 const mapStateToProps = (state) => {
   return {
     // fileType: state.Material[id].fileType
-    fileType: 'image'
+    fileType: 'video',
+    playing: true
   }
 }
 const mapDispatchToProps = (dispatch) => {
