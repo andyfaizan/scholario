@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/lib/paper'
 import IconButton from 'material-ui/lib/icon-button'
-import NoteAdd from 'material-ui/lib/svg-icons/action/note-add'
+import AddCircle from 'material-ui/lib/svg-icons/content/add'
 import ModalRoot from '../../containers/ModalRoot'
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 };
 export class AddCourseComponent extends React.Component {
   props: Props;
+
 
 
 
@@ -29,9 +30,20 @@ export class AddCourseComponent extends React.Component {
 	  alignItems: 'center',
 	  borderStyle: 'solid',
 	  borderWidth: 1,
-	  borderColor: '#26A65B'
+	  borderColor: '#E74C3C'
 
 	};
+
+	const style = {
+	float: 'left',	
+  height: 170,
+  width: 170,
+  margin: 8.5,
+  textAlign: 'center',
+  display: 'inline-block',
+  backgroundColor: '#E74C3C'
+
+};
 
 	const buttonStyle = {
 
@@ -39,22 +51,22 @@ export class AddCourseComponent extends React.Component {
 	  width:'100%',
 	  padding:10,
 	  height: 170,
-	  lineHeight: 200
+	  lineHeight: 140
 	};
 
 	const plusButton ={
-	  width: 70,
-	  height: 70,
+	  width: 80,
+	  height: 80,
 	  opacity: 0.9
-	};
+	  	};
 
 
-    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <NoteAdd style={plusButton} color="#26A65B" /></IconButton></div> ;
+    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <AddCircle style={plusButton} color='#ffffff' /></IconButton></div> ;
 
 
     return (
       <div>
-      	<Paper style={addCourseCompStyle} onClick={this.props.openModal} zDepth={1} children={actions} />
+		<Paper style={style} zDepth={2} onClick={this.props.openModal} circle={true} children= {actions} />
         {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
       </div>
     )
