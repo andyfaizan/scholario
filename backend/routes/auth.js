@@ -105,6 +105,19 @@ router.post('/login', function (req, res) {
       limit: 5,
     });
 
+    var followings = yield user.getFollowings({
+/*      populate: [{*/
+        //path: 'university',
+        //select: 'id name',
+      //}, {
+        //path: 'universities',
+        //select: 'id name',
+      /*}],*/
+      select: 'id firstname lastname university universities',
+      lean: true,
+      limit: 5,
+    });
+
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
@@ -117,6 +130,7 @@ router.post('/login', function (req, res) {
         role: user.role.toLowerCase(),
         courses: courses,
         questions: questions,
+        followings: followings,
       },
     };
     var uni;
