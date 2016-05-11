@@ -5,7 +5,7 @@ import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
-import { courseSchema } from '../schemas'
+import { courseInstanceSchema } from '../schemas'
 
 const request = superagentPromise(superagent, Promise)
 

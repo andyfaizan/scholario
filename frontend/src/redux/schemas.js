@@ -26,9 +26,9 @@ const questionSchema = new Schema('questions', {
 })
 
 userSchema.define({
-  courses: arrayOf(courseSchema),
-  university: universitySchema,
-  program: programSchema,
+  courseInstances: arrayOf(courseInstanceSchema),
+  universities: arrayOf(universitySchema),
+  programs: arrayOf(programSchema),
   followings: arrayOf(userSchema),
 })
 
@@ -52,4 +52,5 @@ export {
   programSchema,
   courseSchema,
   questionSchema,
+  courseInstanceSchema,
 }
