@@ -9,7 +9,7 @@ const MaterialSchema = new Schema({
   name: { type: String, required: true, default: '' },
   root: { type: String, default: '' },
   owner: { type: ObjectId, ref: 'User' },
-  course: { type: ObjectId, required: true, ref: 'Course' },
+  courseInstance: { type: ObjectId, required: true, ref: 'CourseInstance' },
   createDate: { type: Date, default: Date.now },
   modifiedDate: { type: Date },
 });

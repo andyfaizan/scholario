@@ -8,7 +8,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const QuestionSchema = new Schema({
   title: { type: String, default: '' },
   description: { type: String, default: '' },
-  course: { type: ObjectId, ref: 'Course' },
+  courseInstance: { type: ObjectId, ref: 'CourseInstance' },
   user: { type: ObjectId, ref: 'Student' },
   createDate: { type: Date, default: Date.now },
   answers: [{ type: ObjectId, ref: 'Answer' }],

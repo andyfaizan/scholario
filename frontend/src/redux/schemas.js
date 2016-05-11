@@ -17,6 +17,10 @@ const courseSchema = new Schema('courses', {
   idAttribute: '_id'
 })
 
+const courseInstanceSchema = new Schema('courseInstances', {
+  idAttribute: '_id'
+})
+
 const questionSchema = new Schema('questions', {
   idAttribute: '_id'
 })
@@ -33,9 +37,13 @@ programSchema.define({
 })
 
 courseSchema.define({
-  prof: userSchema,
   university: universitySchema,
   program: programSchema,
+})
+
+courseInstanceSchema.define({
+  course: courseSchema,
+  prof: userSchema,
 })
 
 export {

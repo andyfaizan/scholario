@@ -12,7 +12,7 @@ import { Router, Route, Link } from 'react-router'
 
 type Props = {
   role: React.PropTypes.string,
-  courses: React.PropTypes.array,
+  courseInstances: React.PropTypes.array,
   location: React.PropTypes.object,
   connects: React.PropTypes.array
 };
@@ -43,17 +43,15 @@ export class LeftSectionTeacherDashboard extends React.Component {
     var displayCards;
     var display;
 
-    console.log(this.props.location)
-    
     if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
-        displayCards = this.props.courses.map(course =>
+        displayCards = this.props.courseInstances.map(ci =>
           <CourseCard
-            key={course._id}
-            titleCourse={course.name}
-            universityCourse={course.university.name}
-            courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-            courseUrl={`/course/${course._id}`}
+            key={ci._id}
+            titleCourse={ci.course.name}
+            universityCourse={ci.course.university.name}
+            courseTeacher={`${ci.prof.firstname} ${ci.prof.lastname}`}
+            courseUrl={`/course/${ci._id}`}
           />
         )
 
@@ -92,7 +90,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               </Col>
             </Row>
           </Grid>
-         
+
 
           {display}
 

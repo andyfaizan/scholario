@@ -11,7 +11,7 @@ import {hide} from '../redux/modules/modal'
 //import { browserHistory } from 'react-router'
 import { login, createUser } from '../redux/modules/user'
 import { browserHistory } from '../history'
-import { getUniversitiesWithPrograms } from '../redux/selectors'
+import * as selectors from '../redux/selectors'
 
 var request = require('superagent');
 var self;
@@ -99,26 +99,29 @@ export class ModalComponent extends React.Component {
     const customContentStyle = {
       padding: 2,
       marginBottom: 0,
-      marginTop: 0
+      marginTop: 0,
     }
     const customContentStyleTwo = {
       margin: 0,
       padding: '0px',
-      lineHeight: '0px'
+      lineHeight: '0px',
     }
     const customContentStyleThree = {
       padding: 1,
       marginBottom: 0,
       marginTop: 0,
       width: '30%',
-      margin: '0 auto'
+      margin: '0 auto',
     }
     const customContentStyleFour = {
       padding: 0,
       marginBottom: 0,
       marginTop: 0,
       width: '100%',
-      margin: 0
+      margin: 0,
+    }
+    const dialogRootStyle = {
+      overflowY: 'scroll',
     }
     const tabItemContainerStyle = {
       backgroundColor: '#1abc9c',
@@ -197,6 +200,7 @@ export class ModalComponent extends React.Component {
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
           bodyStyle={customContentStyleFour}
+          style={dialogRootStyle}
         />
       </div>
     )
@@ -208,7 +212,7 @@ const mapStateToProps = (state) => {
     modal: state.modal,
     user: state.user,
     router: state.router,
-    universities: getUniversitiesWithPrograms(state),
+    universities: selectors.getUniversitiesWithPrograms(state),
   }
 }
 

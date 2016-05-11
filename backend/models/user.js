@@ -24,16 +24,16 @@ const UserSchema = new Schema({
   vcCreated: { type: Date },
   //courses: [{ type: ObjectId, ref: 'Course'}], // Duplicate with course.participants
   following: [{ type: ObjectId, ref: 'User' }],
+  universities: [{ type: ObjectId, ref: 'University' }],
+  programs: [{ type: ObjectId, ref: 'Program' }],
 }, opts);
 
 const StudentSchema = new Schema({
-  university: { type: ObjectId, ref: 'University' },
-  program: { type: ObjectId, ref: 'Program' },
+  //university: { type: ObjectId, ref: 'University' },
+  //program: { type: ObjectId, ref: 'Program' },
 }, opts);
 
 const ProfSchema = new Schema({
-  universities: [{ type: ObjectId, ref: 'University' }],
-  programs: [{ type: ObjectId, ref: 'Program' }],
 }, opts);
 
 // Indices
@@ -67,14 +67,14 @@ UserSchema.methods.authenticate = function (password) {
   });
 };
 
-UserSchema.methods.getCourses = function (opts) {
-  const Course = mongoose.model('Course');
+UserSchema.methods.getCourseInstances = function (opts) {
+  const CourseInstance = mongoose.model('CourseInstance');
   return new Promise((resolve, reject) => {
     var p;
     if (this.role === 'Student') {
-      p = Course.find({ participants: { $in: [this.id] } });
+      p = CourseInstance.find({ participants: { $in: [this.id] } });
     } else if (this.role === 'Prof') {
-      p = Course.find({ prof: this.id });
+      p = CourseInstance.find({ prof: this.id });
     }
     if (typeof opts !== 'undefined') {
       if ('populate' in opts)
@@ -86,19 +86,19 @@ UserSchema.methods.getCourses = function (opts) {
       if ('limit' in opts)
         p = p.limit(opts.limit);
     }
-    p.exec().then(courses => resolve(courses))
+    p.exec().then(courseInstances => resolve(courseInstances))
             .catch(err => reject(err));
   });
 };
 
 UserSchema.methods.getQuestions = function (opts) {
   const Question = mongoose.model('Question');
-  const getCourseIds = (course) => course._id;
+  const getCourseInstanceIds = (courseInstance) => courseInstance._id;
   return new Promise((resolve, reject) => {
-    courses = this.getCourses({
+    this.getCourseInstances({
       select: 'id',
-    }).then(function (courses) {
-      var p = Question.find({ course: { $in: courses.map(getCourseIds) } });
+    }).then(function (courseInstances) {
+      var p = Question.find({ courseInstance: { $in: courseInstances.map(getCourseInstanceIds) } });
       if (typeof opts !== 'undefined') {
         if ('populate' in opts)
           p = p.populate(opts.populate);

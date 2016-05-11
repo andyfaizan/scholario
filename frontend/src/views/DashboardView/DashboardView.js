@@ -10,8 +10,6 @@ import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
-//import { getUser, getUserUniversity, getUserProgram,
-  //getUserCourses, getUserQuestions } from '../../redux/selectors'
 import * as selectors from '../../redux/selectors'
 
 
@@ -45,7 +43,7 @@ class DashboardView extends React.Component {
             <Col xs={20} md={8}>
               <LeftSectionTeacherDashboard
                 role={this.props.user.role}
-                courses={this.props.courses}
+                courseInstances={this.props.courseInstances}
                 connects={this.props.connects}
                 location={this.props.location}
               />
@@ -66,7 +64,7 @@ const mapStateToProps = (state) => {
     user: selectors.getUser(state),
     userUniversity: selectors.getUserUniversity(state),
     userProgram: selectors.getUserProgram(state),
-    courses: selectors.getUserCourses(state),
+    courseInstances: selectors.getUserCourseInstances(state),
     questions: selectors.getUserQuestions(state),
     connects: selectors.getUserFollowings(state),
   }
