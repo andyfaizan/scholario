@@ -18,6 +18,7 @@ export const getCurrentCourseInstance = (state, id) => {
   c.university = state.entities.universities[c.university]
   c.program = state.entities.programs[c.program]
   ci.course = c
+  ci.materials = state.entities.materials.filter((material) => material.courseInstance === ci._id)
   return ci
 }
 
@@ -49,7 +50,7 @@ export const getUserQuestions = createSelector(
   (user, questions, users) => user.questions.map((id) => questions[id])
 )
 
-export const getCurrentCourseMaterials = createSelector(
+export const getCurrentCourseInstanceMaterials = createSelector(
   [getCurrentCourseInstance, getMaterials, getCourseInstances],
   (currentCourse, materials, courseInstances) => currentCourse.materials.map((id) => materials[id])
 )

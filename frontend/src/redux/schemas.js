@@ -48,11 +48,11 @@ courseSchema.define({
 courseInstanceSchema.define({
   course: courseSchema,
   prof: userSchema,
-  materials: arrayOf(materialSchema)
 })
 
 materialSchema.define({
-  prof: userSchema
+  courseInstance: courseInstanceSchema,
+  owner: userSchema
 })
 
 export {

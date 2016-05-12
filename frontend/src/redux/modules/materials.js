@@ -5,7 +5,7 @@ import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
-import { userSchema } from '../schemas'
+import { materialSchema } from '../schemas'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -27,7 +27,8 @@ export function getMaterial(mid) {
     //shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request().get(endpoint),
     // Arguments to inject in begin/end actions
-    payload: { mid }
+    payload: { mid },
+    schema: materialSchema,
   }
 }
 
