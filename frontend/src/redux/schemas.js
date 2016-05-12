@@ -25,6 +25,10 @@ const questionSchema = new Schema('questions', {
   idAttribute: '_id'
 })
 
+const materialSchema = new Schema('materials', {
+  idAttribute: '_id'
+})
+
 userSchema.define({
   courseInstances: arrayOf(courseInstanceSchema),
   universities: arrayOf(universitySchema),
@@ -44,6 +48,11 @@ courseSchema.define({
 courseInstanceSchema.define({
   course: courseSchema,
   prof: userSchema,
+  materials: arrayOf(materialSchema)
+})
+
+materialSchema.define({
+  prof: userSchema
 })
 
 export {
@@ -53,4 +62,5 @@ export {
   courseSchema,
   questionSchema,
   courseInstanceSchema,
+  materialSchema
 }

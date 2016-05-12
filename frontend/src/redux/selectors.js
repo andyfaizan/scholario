@@ -10,6 +10,7 @@ export const getPrograms = (state) => state.entities.programs
 export const getCourses = (state) => state.entities.courses
 export const getCourseInstances = (state) => state.entities.courseInstances
 export const getQuestions = (state) => state.entities.questions
+export const getMaterials = (state) => state.entities.materials
 export const getCurrentCourseInstance = (state, id) => {
   var ci = Object.assign({}, state.entities.courseInstances[id])
   ci.prof = state.entities.users[ci.prof]
@@ -46,6 +47,11 @@ export const getUserCourseInstances = createSelector(
 export const getUserQuestions = createSelector(
   [getUser, getQuestions, getUsers],
   (user, questions, users) => user.questions.map((id) => questions[id])
+)
+
+export const getCurrentCourseMaterials = createSelector(
+  [getCurrentCourseInstance, getMaterials, getCourseInstances],
+  (currentCourse, materials, courseInstances) => currentCourse.materials.map((id) => materials[id])
 )
 
 export const getUserFollowings = createSelector(
