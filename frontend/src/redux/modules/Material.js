@@ -111,10 +111,6 @@ function node(state, action) {
         fileType: action.material.fileType,
         childIds: []
       }
-    // case INCREMENT:
-    //   return Object.assign({}, state, {
-    //     counter: state.counter + 1
-    //   })
     case ADD_CHILD_MATERIAL:
     case DELETE_CHILD_MATERIAL:
       return Object.assign({}, state, {
@@ -153,66 +149,3 @@ export default function materialReducer(state = initialState, action) {
     [nodeId]: node(state[nodeId], action)
   })
 }
-
-//
-// function reducer (state = initialState, action) {
-//   switch (action.type) {
-//     case 'ADD_MATERIAL':
-//       return {
-//         id: action.id,
-//         name: action.material.name,
-//         subtext: action.material.subtext,
-//         fileType: action.material.fileType,
-//         children: []
-//       }
-//     case 'ADD_CHILD_MATERIAL':
-//       if (state.id !== action.id) {
-//         return state
-//       }
-//       // simply call ADD_MATERIAL for child
-//       let child = reducer(undefined, action)
-//       return Object.assign({}, state, {
-//         children: state.children.push(child.id)
-//       })
-//     case 'EDIT_MATERIAL':
-//       if (state.id !== action.id) {
-//         return state
-//       }
-//       return Object.assign({}, state, {
-//         material: state.material
-//       })
-//     case 'DELETE_MATERIAL':
-//       if (state.id !== action.id) {
-//         return state
-//       }
-//       return Object.assign({}, state, {
-//         material: null
-//       })
-//     default:
-//       return state
-//   }
-// }
-//
-// export default function materialReducer (state = [], action) {
-//   switch (action.type) {
-//     case 'ADD_MATERIAL':
-//       return [
-//         ...state,
-//         reducer(undefined, action)
-//       ]
-//     case 'ADD_CHILD_MATERIAL':
-//       return state.map(m =>
-//         reducer(m, action)
-//       )
-//     case 'EDIT_MATERIAL':
-//       return state.map(m =>
-//         reducer(m, action)
-//       )
-//     case 'DELETE_MATERIAL':
-//       return state.map(m =>
-//         reducer(m, action)
-//       )
-//     default:
-//       return state
-//   }
-// }
