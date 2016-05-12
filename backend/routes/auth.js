@@ -63,12 +63,6 @@ router.post('/login', function (req, res) {
   co(function *() {
     var user = yield User.findOne({ 'email': req.body.email })
                     .populate([{
-                      path: 'university',
-                      select: 'id name',
-                    }, {
-                      path: 'program',
-                      select: 'id name university',
-                    }, {
                       path: 'universities',
                       select: 'id name',
                     }, {
@@ -82,15 +76,19 @@ router.post('/login', function (req, res) {
       });
     }
     user = yield user.authenticate(req.body.password);
-    var courses = yield user.getCourses({
+    var courseInstances = yield user.getCourseInstances({
       populate: [{
-        path: 'university',
-        select: 'id name',
-      }, {
-        path: 'program',
-        select: 'id name university',
+        path: 'course',
+        select: 'name university program',
+        populate: [{
+          path: 'university',
+          select: 'id name',
+        }, {
+          path: 'program',
+          select: 'id name university',
+        }],
       }],
-      select: 'id name prof university program',
+      select: 'id prof course semester',
       lean: true,
       limit: 5,
     });
@@ -105,34 +103,42 @@ router.post('/login', function (req, res) {
       limit: 5,
     });
 
+    var followings = yield user.getFollowings({
+      populate: [{
+        path: 'program',
+        select: 'id name university',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
     var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
       expresInMinutes: 1440
     });
+
     var data = {
       user: {
         token: token,
         _id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
-        role: user.role.toLowerCase(),
-        courses: courses,
+        role: user.role,
+        courseInstances: courseInstances,
         questions: questions,
+        followings: followings,
+        universities: user.universities,
+        programs: user.programs,
       },
     };
-    var uni;
-    var program;
-    if (user.role === 'Student') {
-      uni = user.university;
-      program = user.program;
-    } else if (user.role === 'Prof') {
-      uni = user.universities[0];
-      program = user.programs[0];
-    }
-    if (uni) data.user.university = uni;
-    if (program) data.user.program = program;
 
     return res.json(data);
-
   }).catch(function (err) {
     if (err.message === 'User/Password incorrect.') {
       return res.status(401).json({

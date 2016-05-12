@@ -10,8 +10,7 @@ import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
-import { getUser, getUserUniversity, getUserProgram,
-  getUserCourses, getUserQuestions } from '../../redux/selectors'
+import * as selectors from '../../redux/selectors'
 
 
 class DashboardView extends React.Component {
@@ -42,7 +41,12 @@ class DashboardView extends React.Component {
         <Grid className='container-fluid'>
           <Row >
             <Col xs={20} md={8}>
-              <LeftSectionTeacherDashboard courses={this.props.courses} location={this.props.location} />
+              <LeftSectionTeacherDashboard
+                role={this.props.user.role}
+                courseInstances={this.props.courseInstances}
+                connects={this.props.connects}
+                location={this.props.location}
+              />
             </Col>
             <Col xs={4} md={4}>
               <RightSectionTeacherDashboard questions={this.props.questions} />
@@ -57,11 +61,12 @@ class DashboardView extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: getUser(state),
-    userUniversity: getUserUniversity(state),
-    userProgram: getUserProgram(state),
-    courses: getUserCourses(state),
-    questions: getUserQuestions(state),
+    user: selectors.getUser(state),
+    userUniversity: selectors.getUserUniversity(state),
+    userProgram: selectors.getUserProgram(state),
+    courseInstances: selectors.getUserCourseInstances(state),
+    questions: selectors.getUserQuestions(state),
+    connects: selectors.getUserFollowings(state),
   }
 }
 

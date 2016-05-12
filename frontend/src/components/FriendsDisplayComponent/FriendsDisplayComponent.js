@@ -26,9 +26,17 @@ export class FriendsDisplayComponent extends React.Component {
 
   	const friendsPaperStyle = {
 	  float: 'left',
-	  height: 280,
-	  width: 260,
-	  margin: 8.5
+	  height: 170,
+	  width: 300,
+	  margin: 8.5,
+	  backgroundColor: 'white',
+	  color: '#1690DB',
+	  borderRadius: 13,
+	  overflow: 'inherit',
+	  alignItems: 'center',
+	  borderStyle: 'solid',
+	  borderWidth: 1,
+	  borderColor: '#1690DB'
 	};
 
 	const divActionStyles = {
@@ -49,18 +57,12 @@ export class FriendsDisplayComponent extends React.Component {
 	};
 
 	const header = <div><h3>{this.props.fullName}</h3><h5>{this.props.universityName}</h5><h6>{this.props.discipline}</h6></div>;
-	const actionsCourse = <div style={divActionStyles}><IconButton tooltip="unfollow friend"> <Delete /> </IconButton><IconButton tooltip="friends Profile"> <PageView /> </IconButton></div> ;
-	const separator = <div><Divider /></div> ;
 	const container = <div><IconButton style={friendsButtonStyle}> <Friend style={noteFriendsStyle} /></IconButton></div> ;
 
 	const nodeFriendsComp = [
       
       	header,
-		separator,
-		container,
-		separator,
-		actionsCourse
-      
+		container
     ];
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import AddCourseComponent from '../components/AddCourseComponent/AddCourseComponent'
+import DashboardTitleComponent from '../components/DashboardTitleComponent/DashboardTitleComponent'
 import {show, CREATE_COURSE_MODAL as course_modal} from '../redux/modules/modal'
 import ModalRoot from './ModalRoot'
 
@@ -9,10 +9,12 @@ type Props = {
 
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     modal: state.modal,
-    course_modal : course_modal
+    course_modal : course_modal,
+    title: ownProps.title,
+    whichFilter: ownProps.whichFilter
   }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -26,4 +28,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AddCourseComponent)
+)(DashboardTitleComponent)

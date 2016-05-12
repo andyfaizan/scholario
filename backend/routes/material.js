@@ -10,7 +10,7 @@ const async = require('async');
 const logger = require('../logger');
 const utils = require('../utils');
 const User = mongoose.model('User');
-const Course = mongoose.model('Course');
+const CourseInstance = mongoose.model('CourseInstance');
 const Material = mongoose.model('Material');
 
 var router = express.Router();
@@ -32,7 +32,6 @@ router.get('/:mid', passport.authenticate('jwt', {session: false}), function (re
         'err': [{'msg': 'Material not found'}],
       });
     }
-    logger.debug('here');
     fs.readdir(material.root, function (err, files) {
       if (err) {
         return res.json({
@@ -60,7 +59,6 @@ router.get('/:mid', passport.authenticate('jwt', {session: false}), function (re
           });
         }
         for (var i = 0; i < files.length; i++) {
-          logger.debug(data[i]);
           if (results[i].isFile()) data[i].type = 'file';
           else if (results[i].isDirectory()) data[i].type = 'dir';
           data[i].size = results[i].size;
@@ -111,7 +109,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
             multer({dest: 'uploads/tmp'}).array('material'),
             function (req, res) {
   req.checkBody('name', 'InvalidName').notEmpty().isAlphanumeric();
-  req.checkBody('course', 'InvalidCourseID').isMongoId();
+  req.checkBody('courseInstance', 'InvalidCourseID').isMongoId();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -120,7 +118,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     });
   }
 
-  Course.findOne({ _id: req.body.course }).then(function (course) {
+  CourseInstance.findOne({ _id: req.body.courseInstance }).then(function (course) {
     if (!course) {
       return res.json({
         'err': [{'msg': 'CourseNotFound'}],
@@ -129,7 +127,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     var materialRoot = path.join(course.materialsRoot, req.body.name);
     var material = new Material({
       name: req.body.name,
-      course: req.body.course,
+      courseInstance: req.body.courseInstance,
       owner: req.user._id,
       root: materialRoot,
     }).save().then(function () {

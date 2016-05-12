@@ -14,7 +14,7 @@ import { getUniversities } from '../../redux/modules/university'
 import { getPrograms } from '../../redux/modules/program'
 
 var request = require('superagent');
-export const fields = [ 'firstname', 'lastname', 'role', 'email' , 'password' ]
+export const fields = [ 'firstname', 'lastname', 'role', 'email' , 'password', 'university', 'program' ]
 
 const validate = (values) => {
   const errors = {}
@@ -50,11 +50,34 @@ export class SignupFields extends React.Component {
     // submitting: PropTypes.bool.isRequired
   }
 
+   constructor(props) {
+    super(props);
+    this.state = {
+      university: 0,
+      program: 0,
+    }
+  }
+
+  handleUniversityChange = (event, index, value) => this.setState({ university: value })
+  handleProgramChange = (event, index, value) => this.setState({ program: value })
   // handleChange = (event, index, value) => this.setState({value});
 
   componentDidMount() {
     this.props.dispatch(getUniversities())
     this.props.dispatch(getPrograms())
+    if (this.props.universities && this.props.universities.length > 0) {
+      this.setState({
+        university: this.props.universities[0]._id,
+      })
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.universities && newProps.universities.length > 0) {
+      this.setState({
+        university: newProps.universities[0]._id,
+      })
+    }
   }
 
   render () {
@@ -89,10 +112,24 @@ export class SignupFields extends React.Component {
           marginBottom: '16',
           paddingLeft: '10px',
           backgroundColor: '#000'
+        },
+        blocking:
+        {
+          overflow: 'hidden'
         }
       }
+      var i = 0 ;
+      const { fields: { email, password, firstname, lastname, role, university, program } } = this.props
 
-      const { fields: { email, password, firstname, lastname, role } } = this.props
+      var programItems = []
+      if (this.state.university !== 0) {
+        programItems = this.props.universities
+          .find(u => u._id === this.state.university).programs
+          .map(p =>
+            <MenuItem key={p._id} value={p._id} primaryText={p.name} />
+          )
+      }
+
       return (
         <div>
             <div className={classes.signupContainer}>
@@ -130,6 +167,28 @@ export class SignupFields extends React.Component {
                 />
               <br/>
               <br/>
+             <SelectField
+                style = {styles.blocking}
+                floatingLabelStyle={styles.floatingLabelStyle}
+                underlineFocusStyle={styles.focusStyle}
+                value={this.state.university}
+                onChange={this.handleUniversityChange}>
+                {this.props.universities.map(university =>
+                    <MenuItem key={university._id} value={university._id} primaryText={university.name} />
+                )}
+                </SelectField>
+                <br/>
+                <br/>
+             <SelectField
+                style = {styles.blocking}
+                floatingLabelStyle={styles.floatingLabelStyle}
+                underlineFocusStyle={styles.focusStyle}
+                value={this.state.program}
+                onChange={this.handleProgramChange}>
+                { programItems }
+                </SelectField>
+                <br/>
+                <br/>
               <TextField
                 {...role}
                 hintText='student oder prof'

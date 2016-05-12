@@ -63,14 +63,14 @@ export class CourseCard extends React.Component {
 		opacity: 0.5	}
 
 	//variables for displaying Child Node
-	var actionsCourse = <div className={classes.actionMain} ><div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div className={classes.actionPosition}>
+	var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} ><div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div className={classes.actionPosition}>
 	<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div></div> ;
-	var heading = <div style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}><Badge
+	var heading = <div key="headingCourses" style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}><Badge
       badgeContent={10}
       secondary={true}
       badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
       ></Badge></div></div>;
-	var container =<div className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><h6>{this.props.courseTeacher}</h6></div> ;
+	var container =<div key="containerCourse" className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><h6>{this.props.courseTeacher}</h6></div> ;
 
 	const nodePaperCourse = [
       

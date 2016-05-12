@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import Divider from 'material-ui/lib/divider'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
-import AddCourse from '../../containers/AddCourse'
+import AddCourse from '../../containers/DashboardTitleContainer'
 import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -11,22 +11,24 @@ import Col from 'react-bootstrap/lib/Col'
 import { Router, Route, Link } from 'react-router'
 
 type Props = {
-  courses: React.PropTypes.array,
+  role: React.PropTypes.string,
+  courseInstances: React.PropTypes.array,
   location: React.PropTypes.object,
+  connects: React.PropTypes.array
 };
 
 export class LeftSectionTeacherDashboard extends React.Component {
   props: Props;
 
-  componentDidMount() {
-    console.log(this.props.location)
-  }
-
   render () {
+    //paths to routes on dashboard view for material and connects
+    const pathConnects = '/connects' ;
+    const pathCourses = '/dashboard';
 
-    var floatingLabelTextState = 'Search Your Courses';
- 
-    //const filter dataSource for Connects and Courses
+    const studentRole = 'Student'
+    const teacherRole = 'Prof'
+
+    //dummy dataSource for Connects and Courses
     const filterDataSource = [
       'Red',
       'Orange',
@@ -39,29 +41,58 @@ export class LeftSectionTeacherDashboard extends React.Component {
     ];
 
     var displayCards;
+    var display;
 
-    displayCards = this.props.courses.map(course =>
-            <CourseCard
-              key={course._id}
-              titleCourse={course.name}
-              universityCourse={course.university.name}
-              courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-              courseUrl={`/course/${course._id}`}
-            />
-          ) ;
+    if (this.props.location.pathname === pathCourses) {
+        //display cards filled up for courses....
+        displayCards = this.props.courseInstances.map(ci =>
+          <CourseCard
+            key={ci._id}
+            titleCourse={ci.course.name}
+            universityCourse={ci.course.university.name}
+            courseTeacher={`${ci.prof.firstname} ${ci.prof.lastname}`}
+            courseUrl={`/course/${ci._id}`}
+          />
+        )
+
+        if (this.props.role === studentRole) {
+          display = [
+            displayCards,
+          ]
+        } else if (this.props.role === teacherRole) {
+          display = [
+             displayCards
+          ]
+        }
+    } else if (this.props.location.pathname === pathConnects) {
+      displayCards = this.props.connects.map(following =>
+        <FriendsDisplayComponent
+          key={following._id}
+          fullName={`${following.firstname} ${following.lastname}`}
+          discipline={following.program}
+          universityName={following.university}
+        />
+      )
+
+      display = [
+         displayCards
+      ]
+    } else {
+      console.log('path to eroneous route') ;
+    }
 
     return (
       <div>
           <Grid>
             <Row>
               <Col>
-              <DashboardTitleComponent title="Courses" whichFilter="courseFilter" />
+              <AddCourse title="Courses" whichFilter="courseFilter" />
               </Col>
             </Row>
           </Grid>
-          <AddCourse />
 
-          {displayCards}
+
+          {display}
 
 
 

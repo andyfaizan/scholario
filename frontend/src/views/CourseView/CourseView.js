@@ -8,9 +8,8 @@ import Col from 'react-bootstrap/lib/Col'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
-import { getCourse } from '../../redux/modules/course'
-import { getUser, getUserUniversity, getUserProgram, getCurrentCourse,
-  getUserCourses, getUserQuestions } from '../../redux/selectors'
+import { getCourseInstance } from '../../redux/modules/course-instance'
+import * as selectors from '../../redux/selectors'
 
 type Props = {
   courseName: string,
@@ -27,7 +26,7 @@ export class Course extends React.Component {
 
   componentDidMount() {
     const cid = this.props.params.id
-    this.props.dispatch(getCourse(cid))
+    this.props.dispatch(getCourseInstance(cid))
   }
 
   render () {
@@ -44,7 +43,7 @@ export class Course extends React.Component {
     return (
       <div className={classes.rootCourse}>
         <DashboardToolBar />
-        <CourseInfoBar courseTitle={this.props.course.name} />
+        <CourseInfoBar courseTitle={this.props.courseInstance.course.name} />
         <br/>
         <Grid className='container-fluid'>
           <Row >
@@ -64,12 +63,12 @@ export class Course extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-     user: getUser(state),
-     course: getCurrentCourse(state, ownProps.params.id),
-    userUniversity: getUserUniversity(state),
-    userProgram: getUserProgram(state),
-    courses: getUserCourses(state),
-    questions: getUserQuestions(state),
+    //user: selectors.getUser(state),
+    courseInstance: selectors.getCurrentCourseInstance(state, ownProps.params.id),
+    //userUniversity: getUserUniversity(state),
+    //userProgram: getUserProgram(state),
+    //courses: getUserCourses(state),
+    questions: selectors.getUserQuestions(state),
   }
 }
 
