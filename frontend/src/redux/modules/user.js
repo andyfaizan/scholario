@@ -1,8 +1,11 @@
 import { normalize } from 'normalizr'
 import { merge } from 'lodash'
-import request from 'superagent'
+import superagent from 'superagent'
+import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
 import { userSchema } from '../schemas'
+
+const request = superagentPromise(superagent, Promise)
 
 // ------------------------------------
 // Constants
@@ -19,6 +22,10 @@ export const CREATE_USER_ERR = 'CREATE_USER_ERR'
 
 export const LOGOUT = 'LOGOUT'
 export const LOGOUT_OK = 'LOGOUT_OK'
+
+export const FOLLOW_USER_REQUEST = 'FOLLOW_USER_REQUEST'
+export const FOLLOW_USER_OK = 'FOLLOW_USER_OK'
+export const FOLLOW_USER_ERR = 'FOLLOW_USER_ERR'
 
 // ------------------------------------
 // Actions
@@ -49,7 +56,7 @@ export function loginErr(err) {
 export function login(email, password) {
   return function (dispatch) {
     dispatch(loginRequest())
-    return request
+    return superagent
             .post('https://api.scholario.de/auth/login')
             .send({ email: email, password: password })
             .end(function (err, res) {
@@ -101,7 +108,7 @@ export function createUserErr(err) {
 export function createUser(firstname, lastname, email, password, role, university, program) {
   return function (dispatch) {
     dispatch(createUserRequest())
-    return request
+    return superagent
     .post('https://api.scholario.de/users')
     .accept('json')
     .send({ firstname, lastname, email, password, role, university, program })
@@ -115,6 +122,15 @@ export function createUser(firstname, lastname, email, password, role, universit
           dispatch(createUserOk())
         }
       })
+  }
+}
+
+export function followUser(uid) {
+  const endpoint = urlJoin(config.apiURL, 'users', uid,'follow')
+  return {
+    types: [FOLLOW_USER_REQUEST, FOLLOW_USER_OK, FOLLOW_USER_ERR],
+    callAPI: () => request.get(endpoint),
+    payload: { uid },
   }
 }
 
