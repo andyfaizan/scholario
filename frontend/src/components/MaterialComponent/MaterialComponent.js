@@ -37,20 +37,17 @@ export class MaterialComponent extends React.Component {
 	  height: 170,
 	  width: 300,
 	  margin: 8.5,
-	  backgroundColor: '#ffffff',
-	  color: '#1690DB',
+	  backgroundColor: '#FFA400',
+	  color: '#ffffff',
 	  borderRadius: 13,
 	  overflow: 'inherit',
-	  alignItems: 'center',
-	  borderStyle: 'solid',
-	  borderWidth: 1,
-	  borderColor: '#1690DB'
+	  alignItems: 'center'
 
 	};
 
 	const divStyle = {
 		textAlign: 'center',
-		color: '#1690DB'
+		color: '#ffffff'
 
 	};
 
@@ -64,9 +61,9 @@ export class MaterialComponent extends React.Component {
 
     var actionsCourse = <div key="actionMaterialsDiv" className={classes.actionMain} >
     					<div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> 
-    					<Delete color='#1690DB' /> </IconButton></div><div className={classes.actionPosition}>
+    					<Delete color='#ffffff' /> </IconButton></div><div className={classes.actionPosition}>
 						<IconButton linkButton={true} tooltip="Go to Detail Course">
-						<PageView color='#1690DB' />
+						<PageView color='#ffffff' />
 						</IconButton></div></div> ;
 
 	var container =<div key="containerMaterial" className={classes.container}> 

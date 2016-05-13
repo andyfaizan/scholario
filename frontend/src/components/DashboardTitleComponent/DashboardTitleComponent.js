@@ -37,22 +37,20 @@ export class DashboardTitleComponent extends React.Component {
 
     return (
       <div>
-      
-      	      <div className={classes.divSearchField}>
-		   	  <AutoComplete 
+            <div className={classes.addCourseAction}>
+              <FloatingActionButton onTouchTap={this.props.openModal} backgroundColor='#E74C3C' primary={false}>
+                <AddCircle  color="white" />
+              </FloatingActionButton>
+              {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
+            </div>
+      	    <div className={classes.divSearchField}>
+		   	      <AutoComplete 
               floatingLabelText= {floatingLabelTextState}
               filter={AutoComplete.caseInsensitiveFilter}
               dataSource={filterDataSource}
               style={classes.autoComplete}
               />
             </div>
-            <div className={classes.addCourseAction}>
-              <FloatingActionButton onTouchTap={this.props.openModal} backgroundColor='#E74C3C' primary={false}>
-              <AddCircle  color="white" />
-            </FloatingActionButton>
-            {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
-            </div>
-            
       </div>
     )
   }
