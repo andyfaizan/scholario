@@ -131,8 +131,8 @@ router.post('/', function (req, res) {
   req.checkBody('password', 'InvalidPassword').notEmpty();
   req.checkBody('firstname', 'InvalidFirstName').notEmpty();
   req.checkBody('lastname', 'InvalidLastName').notEmpty();
-  req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoID();
-  req.checkBody('program', 'InvalidProgram').notEmpty().isMongoID();
+  req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
+  req.checkBody('program', 'InvalidProgram').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
   if (errors) {
