@@ -50,11 +50,8 @@ export class Course extends React.Component {
           <Row >
             <Col xs={20} md={8}>
               <div>
-                <MaterialComponent materialTitle="Dynamics & Motions" materialNotifications={10} 
-                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue","Green"]}
-                />
                 <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
-                  dateUploaded="20/06/2009" semesterInstance="2009" />
+                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
               </div>
             </Col>
             <Col xs={4} md={4}>

@@ -61,13 +61,14 @@ export class CourseCard extends React.Component {
 
 	const mainActionStyle = {
 
-		opacity: 0.5	}
+		opacity: 0.5	
+	}
 
 	//variables for displaying Child Node
 	var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
 						<div className={classes.actionFollow} >
-							<IconButton tooltip="Delete Course">
-							<LibraryAdd color='white' /> </IconButton>
+						<IconButton tooltip="Delete Course">
+						<LibraryAdd color='white' /></IconButton>	
 						</div>
 						<div className={classes.actionPostionLeft}>
 						<IconButton tooltip="Delete Course">

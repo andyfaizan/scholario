@@ -37,7 +37,7 @@ export class IndependentPackage extends React.Component {
 	  height: 172,
 	  width: 170,
 	  margin: 8.5,
-	  backgroundColor: '#F9690E',
+	  backgroundColor: '#1690DB',
 	  color: '#ffffff',
 	  borderTopRightRadius: 30,
 	  borderBottomRightRadius:30,
@@ -63,7 +63,7 @@ export class IndependentPackage extends React.Component {
       marginLeft: -34,
       borderStyle: 'solid',
 	  borderWidth: 1,
-	  borderColor: '#F9690E'
+	  borderColor: '#1690DB'
 
 	};
 
@@ -72,7 +72,7 @@ const styleThree = {
 	  height: 170,
 	  width: 22,
 	  margin: 8.5,
-	  backgroundColor: '#F9690E',
+	  backgroundColor: '#1690DB',
 	  color: '#ffffff',
 	  borderTopRightRadius: 30,
 	  borderBottomRightRadius:30,
@@ -84,20 +84,29 @@ const styleThree = {
       marginLeft: -36,
       borderStyle: 'solid',
 	  borderWidth: 1,
-	  borderColor: '#F9690E',
+	  borderColor: '#1690DB'
 
 	};
 
 
 	const divStyle = {
-		textAlign: 'center',
-		color: '#ffffff'
+		textAlign: 'left',
+		color: '#ffffff',
+		marginLeft:5,
+		marginTop: 15
 
 	};
 
 	//variables for displaying Child Node
-	var heading = <div key="headingMaterials" style={divStyle}><h4>{this.props.materialTitle}</h4>
-				  <div className={classes.badge}></div></div>;
+	var heading = <div key="headingIndependentPackage" style={divStyle}>
+				  <h5>{this.props.materialTitle}</h5>
+				  <h5>{this.props.semesterInstance}</h5>
+				  <div className={classes.badge}><Badge
+			      badgeContent={10}
+			      secondary={true}
+			      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+			      ></Badge>
+      			  </div></div>;
 
     var actionsCourse = <div key="actionMaterialsDiv" className={classes.actionMain} >
     					<div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> 
@@ -106,13 +115,13 @@ const styleThree = {
 						<PageView color='#ffffff' />
 						</IconButton></div></div> ;
 
-	var container =<div key="containerMaterial" className={classes.container}> 
-				   <h5>Keywords: {this.props.keywords}</h5>	
-				   <h6>Semester Instance:{this.props.semesterInstance}</h6>
-				   <h6>Date Uploaded: {this.props.dateUploaded}</h6></div> ;
+	var container =<div key="IndependentPackage" className={classes.container}> 
+				   <h5>{this.props.keywords}</h5>
+				   </div> ;
 
 	const nodePaperCourse = [
-      heading
+      heading,
+      container
     ];
 
     return (
