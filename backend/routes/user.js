@@ -148,7 +148,7 @@ router.post('/', function (req, res) {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       universities: [req.body.university],
-      programs: [req.body.programs],
+      programs: [req.body.program],
       //username: req.body.username,
     });
   } else if (req.body.role === 'prof') {
@@ -157,7 +157,7 @@ router.post('/', function (req, res) {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       universities: [req.body.university],
-      programs: [req.body.programs],
+      programs: [req.body.program],
     });
   }
 
