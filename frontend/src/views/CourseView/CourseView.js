@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/lib/Col'
 import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance } from '../../redux/modules/course-instance'
 import * as selectors from '../../redux/selectors'
 
@@ -52,6 +53,8 @@ export class Course extends React.Component {
                 <MaterialComponent materialTitle="Dynamics & Motions" materialNotifications={10} 
                   dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue","Green"]}
                 />
+                <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
+                  dateUploaded="20/06/2009" semesterInstance="2009" />
               </div>
             </Col>
             <Col xs={4} md={4}>
