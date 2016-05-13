@@ -48,7 +48,11 @@ export class Course extends React.Component {
         <Grid className='container-fluid'>
           <Row >
             <Col xs={20} md={8}>
-              <MaterialComponent />
+              <div>
+                <MaterialComponent materialTitle="Dynamics & Motions" materialNotifications={10} 
+                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue","Green"]}
+                />
+              </div>
             </Col>
             <Col xs={4} md={4}>
               <RightSectionTeacherDashboard questions={this.props.questions} />
