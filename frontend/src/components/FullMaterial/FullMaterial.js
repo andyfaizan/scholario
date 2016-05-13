@@ -42,18 +42,18 @@ const youtubeConfig = {
 
 const getFrame = (fileType, playing) => {
   if(fileType === 'image'){
-    return <img src="http://lorempixel.com/400/300/nature/" style={mediaStyle}/>
+    return <img src="http://lorempixel.com/800/600/nature/" style={mediaStyle}/>
   }
   if(fileType === 'video'){
     return (
       <div className={classes.videoStyle}>
         <ReactPlayer
-          url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+          url='https://www.youtube.com/watch?v=XSGBVzeBUbk'
           playing={playing}
           // volume={volume}
           // soundcloudConfig={soundcloudConfig}
           // vimeoConfig={vimeoConfig}
-          // youtubeConfig={youtubeConfig}
+          youtubeConfig={youtubeConfig}
           // onPlay={() => this.setState({ playing: true })}
           // onPause={() => this.setState({ playing: false })}
           // onBuffer={() => console.log('onBuffer')}

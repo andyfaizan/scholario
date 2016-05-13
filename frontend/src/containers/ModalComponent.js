@@ -147,7 +147,7 @@ export class ModalComponent extends React.Component {
     const mainComponentStyle = {
 
       position: 'absolute',
-      marginTop: '-15%'
+      marginTop: '-10%'
 
     }
 

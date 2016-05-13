@@ -22,7 +22,8 @@ export default (store) => (
       <Route path='dashboard' component={DashboardView} />
       <Route path='connects' component={DashboardView}/>
       <Route path='course/:id' component={CourseView} />
-      <Route path='material' component={MaterialView} />
+      <Route path='course/:id/materials' component={CourseView} />
+      <Route path='course/:id/materials/:id' component={MaterialView} />
     </Route>
   </Route>
 )
