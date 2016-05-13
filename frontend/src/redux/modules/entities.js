@@ -1,6 +1,7 @@
 import { merge } from 'lodash'
 import { combineReducers } from 'redux'
 import { userReducer } from './user'
+import { courseReducer } from './course'
 import { courseInstanceReducer } from './course-instance'
 import { programReducer } from './program'
 import { universityReducer } from './university'
@@ -10,6 +11,7 @@ import { materialReducer } from './materials'
 
 const entities = combineReducers({
   users: userReducer,
+  courses: courseReducer,
   courseInstances: courseInstanceReducer,
   programs: programReducer,
   universities: universityReducer,
