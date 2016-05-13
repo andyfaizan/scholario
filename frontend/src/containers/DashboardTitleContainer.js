@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import DashboardTitleComponent from '../components/DashboardTitleComponent/DashboardTitleComponent'
 import {show, CREATE_COURSE_MODAL as course_modal} from '../redux/modules/modal'
 import ModalRoot from './ModalRoot'
+import * as selectors from '../redux/selectors'
 
 type Props = {
 
@@ -14,7 +15,8 @@ const mapStateToProps = (state, ownProps) => {
     modal: state.modal,
     course_modal : course_modal,
     title: ownProps.title,
-    whichFilter: ownProps.whichFilter
+    whichFilter: ownProps.whichFilter,
+    role: selectors.getUser(state).role,
   }
 }
 const mapDispatchToProps = (dispatch) => {
