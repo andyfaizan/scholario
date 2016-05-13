@@ -34,17 +34,60 @@ export class IndependentPackage extends React.Component {
   	//inline styling variables for certain components ...
 	const style = {
 	  float: 'left',
-	  height: 170,
+	  height: 172,
 	  width: 170,
 	  margin: 8.5,
 	  backgroundColor: '#F9690E',
 	  color: '#ffffff',
-	  borderTopRightRadius: 20,
-	  borderBottomRightRadius:20,
+	  borderTopRightRadius: 30,
+	  borderBottomRightRadius:30,
 	  overflow: 'inherit',
 	  alignItems: 'center'
 
 	};
+
+	const styleTwo = {
+	  float: 'left',
+	  height: 170,
+	  width: 25,
+	  margin: 8.5,
+	  backgroundColor: '#ffffff',
+	  color: '#ffffff',
+	  borderTopRightRadius: 30,
+	  borderBottomRightRadius:30,
+	  overflow: 'inherit',
+	  alignItems: 'center',
+	  postion: 'absolute',
+	  margin:'auto',
+      marginTop: 9,
+      marginLeft: -34,
+      borderStyle: 'solid',
+	  borderWidth: 1,
+	  borderColor: '#F9690E'
+
+	};
+
+const styleThree = {
+	  float: 'left',
+	  height: 170,
+	  width: 22,
+	  margin: 8.5,
+	  backgroundColor: '#F9690E',
+	  color: '#ffffff',
+	  borderTopRightRadius: 30,
+	  borderBottomRightRadius:30,
+	  overflow: 'inherit',
+	  alignItems: 'center',
+	  postion: 'absolute',
+	  margin:'auto',
+      marginTop: 9,
+      marginLeft: -36,
+      borderStyle: 'solid',
+	  borderWidth: 1,
+	  borderColor: '#F9690E',
+
+	};
+
 
 	const divStyle = {
 		textAlign: 'center',
@@ -54,11 +97,7 @@ export class IndependentPackage extends React.Component {
 
 	//variables for displaying Child Node
 	var heading = <div key="headingMaterials" style={divStyle}><h4>{this.props.materialTitle}</h4>
-				  <div className={classes.badge}><Badge
-      			badgeContent={this.props.materialNotifications}
-      			secondary={true}
-      			badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      			></Badge></div></div>;
+				  <div className={classes.badge}></div></div>;
 
     var actionsCourse = <div key="actionMaterialsDiv" className={classes.actionMain} >
     					<div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> 
@@ -78,7 +117,10 @@ export class IndependentPackage extends React.Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={5} children={nodePaperCourse}  />   
+        <Paper style={style} zDepth={2} children={nodePaperCourse}  /> 
+        <Paper style={styleTwo} zDepth={0}  />   
+        <Paper style={styleThree} zDepth={0}  />   
+ 
       </div>
     )
   }
