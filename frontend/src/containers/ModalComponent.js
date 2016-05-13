@@ -144,6 +144,13 @@ export class ModalComponent extends React.Component {
       marginTop: '3%'
     }
 
+    const mainComponentStyle = {
+
+      position: 'absolute',
+      marginTop: '-15%'
+
+    }
+
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
@@ -176,7 +183,6 @@ export class ModalComponent extends React.Component {
             Falsches Email oder Kennwort
           </div>
           <div style={buttonStyle}>
-            <br/>
             <RaisedButton
               label='Signup'
               type='submit'
@@ -186,6 +192,7 @@ export class ModalComponent extends React.Component {
               labelStyle={labelStyle}
               onTouchTap={this.confirmSignup} />
           </div>
+          <br/>
         </Tab>
       </Tabs>
     ]
@@ -200,8 +207,10 @@ export class ModalComponent extends React.Component {
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
           bodyStyle={customContentStyleFour}
-          style={dialogRootStyle}
-        />
+          repositionOnUpdate={true}
+          style = {mainComponentStyle}
+          //style={dialogRootStyle}
+          />
       </div>
     )
   }

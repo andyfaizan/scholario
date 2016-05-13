@@ -120,7 +120,6 @@ export class SignupFields extends React.Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelText='First Name'
                 underlineFocusStyle={styles.focusStyle} />
-              <br/>
               <TextField
                 {...lastname}
                 hintText='Jobs'
@@ -128,7 +127,6 @@ export class SignupFields extends React.Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelText='Last Name'
                 underlineFocusStyle={styles.focusStyle} />
-              <br/>
               <TextField
                 {...email}
                 hintText='abc@gmail.com'
@@ -136,7 +134,6 @@ export class SignupFields extends React.Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelText='Email Id'
                 underlineFocusStyle={styles.focusStyle} />
-              <br/>
               <TextField
                 {...password}
                 errorText={password.touched && password.error ? password.error : ''}
@@ -145,8 +142,6 @@ export class SignupFields extends React.Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
                 />
-              <br/>
-              <br/>
              <SelectFieldWrapper
                 {...university}
                 style = {styles.blocking}
@@ -157,8 +152,6 @@ export class SignupFields extends React.Component {
                     <MenuItem key={university._id} value={university._id} primaryText={university.name} />
                 )}
                 </SelectFieldWrapper>
-                <br/>
-                <br/>
              <SelectFieldWrapper
                 {...program}
                 style = {styles.blocking}
@@ -167,8 +160,6 @@ export class SignupFields extends React.Component {
                 underlineFocusStyle={styles.focusStyle}>
                 { programItems }
                 </SelectFieldWrapper>
-                <br/>
-                <br/>
               <TextField
                 {...role}
                 hintText='student oder prof'
@@ -208,7 +199,6 @@ export class SignupFields extends React.Component {
                 <MenuItem value={2} primaryText='Every Night' />
                 <MenuItem value={3} primaryText='Weeknights' />
                 </SelectField>*/}
-                <br/>
               </div>
           </div>
         )
