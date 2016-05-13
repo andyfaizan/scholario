@@ -18,7 +18,7 @@ export const getCurrentCourseInstance = (state, id) => {
   c.university = state.entities.universities[c.university]
   c.program = state.entities.programs[c.program]
   ci.course = c
-  ci.materials = state.entities.materials.filter((material) => material.courseInstance === ci._id)
+  ci.materials = _.values(state.entities.materials).filter((material) => material.courseInstance === ci._id)
   return ci
 }
 
