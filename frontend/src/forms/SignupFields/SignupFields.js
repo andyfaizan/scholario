@@ -58,19 +58,6 @@ export class SignupFields extends React.Component {
   componentDidMount() {
     this.props.dispatch(getUniversities())
     this.props.dispatch(getPrograms())
-    if (this.props.universities && this.props.universities.length > 0) {
-      this.setState({
-        university: this.props.universities[0]._id,
-      })
-    }
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.universities && newProps.universities.length > 0) {
-      this.setState({
-        university: newProps.universities[0]._id,
-      })
-    }
   }
 
   render () {
