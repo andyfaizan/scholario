@@ -78,7 +78,7 @@ export class IndependentPackage extends React.Component {
 
     return (
       <div>
-        <Paper style={style} zDepth={1} children={nodePaperCourse}  />   
+        <Paper style={style} zDepth={5} children={nodePaperCourse}  />   
       </div>
     )
   }
