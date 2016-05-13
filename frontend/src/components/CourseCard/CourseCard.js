@@ -8,6 +8,7 @@ import PageView from 'material-ui/lib/svg-icons/action/pageview'
 import FlatButton from 'material-ui/lib/flat-button'
 import Badge from 'material-ui/lib/badge'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
+import LibraryAdd from 'material-ui/lib/svg-icons/av/library-add'
 import browserHistory from '../../history'
 import { Router, Route, Link } from 'react-router'
 import classes from './CourseCard.scss'
@@ -63,8 +64,19 @@ export class CourseCard extends React.Component {
 		opacity: 0.5	}
 
 	//variables for displaying Child Node
-	var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} ><div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> <Delete color='white' /> </IconButton></div><div className={classes.actionPosition}>
-	<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} tooltip="Go to Detail Course"><PageView color='white' /></IconButton></div></div> ;
+	var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
+						<div className={classes.actionFollow} >
+							<IconButton tooltip="Delete Course">
+							<LibraryAdd color='white' /> </IconButton>
+						</div>
+						<div className={classes.actionPostionLeft}>
+						<IconButton tooltip="Delete Course">
+						<Delete color='white' /></IconButton>
+						</div><div className={classes.actionPosition}>
+						<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} tooltip="Go to Detail Course">
+						<PageView color='white' />
+						</IconButton></div></div> ;
+
 	var heading = <div key="headingCourses" style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}><Badge
       badgeContent={10}
       secondary={true}
