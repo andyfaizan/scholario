@@ -141,7 +141,13 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
  *
  */
 router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
-  req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+  if (req.query.q) {
+    req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+  }
+
+  if (req.query.program) {
+    req.checkQuery('program', 'InvalidProgram').notEmpty().isMongoId();
+  }
 
   var errors = req.validationErrors();
   if (errors) {
@@ -150,31 +156,54 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
     });
   }
 
-  Course.find({ name: { $regex: req.query.q, $options: 'i' } }).populate('prof university').exec().then(function (courses) {
-    var data = [];
-    for (var i = 0; i < courses.length; i++) {
-      data.push({
-        id: courses[i]._id,
-        name: courses[i].name,
-        university: {
-          id: courses[i].university.id,
-          name: courses[i].university.name,
-        },
-        prof: {
-          id: courses[i].prof.id,
-          name: courses[i].prof.name,
-        },
-      });
-      return res.status(200).json({
-        err: [],
-        courses: data
+  co(function *() {
+    var promise;
+    if (req.query.q) {
+      promise = Course.find({ name: { $regex: req.query.q, $options: 'i' } });
+    } else {
+      promise = Course.find();
+    }
+
+    if (req.query.program) {
+      promise.where('program').equals(req.query.program);
+    }
+
+    var courses = yield promise.populate('university program').exec();
+    if (!courses || courses.length === 0) {
+      return res.status(404).json({
+        err: [{ msg: 'CourseNotFound' }],
       });
     }
-  }).catch(function (err) {
-    logger.error(err);
-    return res.status(500).json({
-      err: [{ msg: 'InternalError' }],
-    });
+
+    var courseInstances = yield CourseInstance
+      .find({ course: { $in: courses } })
+      .select('course prof semester')
+      .populate([{
+       path: 'prof',
+       select: 'firstname lastname',
+      }, {
+       path: 'course',
+       select: 'name university program',
+       populate: [{
+         path: 'university',
+         select: 'name',
+       }, {
+         path: 'program',
+         select: 'name university',
+       }]
+      }])
+      .lean(true)
+      .exec()
+      .then(function (courseInstances) {
+        return res.status(200).json({
+          courseInstances,
+        });
+      }).catch(function (err) {
+        logger.error(err);
+        return res.status(500).json({
+          err: [{ msg: 'InternalError' }],
+        });
+      });
   });
 });
 
