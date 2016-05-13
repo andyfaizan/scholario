@@ -98,13 +98,13 @@ export function createUserErr(err) {
   }
 }
 
-export function createUser(firstname, lastname, role, email, password) {
+export function createUser(firstname, lastname, email, password, role, university, program) {
   return function (dispatch) {
     dispatch(createUserRequest())
     return request
     .post('https://api.scholario.de/users')
-    .send({ email: email, password: password,
-      firstname: firstname, lastname: lastname, role: role })
+    .accept('json')
+    .send({ firstname, lastname, email, password, role, university, program })
       .end(function(err, res){
         if (err || !res.ok) {
           dispatch(createUserErr(res.body.err))

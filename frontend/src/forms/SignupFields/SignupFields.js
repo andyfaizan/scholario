@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/lib/Col'
 import SelectField from 'material-ui/lib/select-field'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import { reduxForm } from 'redux-form'
+import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 
 import { getUniversities } from '../../redux/modules/university'
 import { getPrograms } from '../../redux/modules/program'
@@ -52,15 +53,7 @@ export class SignupFields extends React.Component {
 
    constructor(props) {
     super(props);
-    this.state = {
-      university: 0,
-      program: 0,
-    }
   }
-
-  handleUniversityChange = (event, index, value) => this.setState({ university: value })
-  handleProgramChange = (event, index, value) => this.setState({ program: value })
-  // handleChange = (event, index, value) => this.setState({value});
 
   componentDidMount() {
     this.props.dispatch(getUniversities())
@@ -122,7 +115,7 @@ export class SignupFields extends React.Component {
       const { fields: { email, password, firstname, lastname, role, university, program } } = this.props
 
       var programItems = []
-      if (this.state.university !== 0) {
+      if (this.props.fields.university.value) {
         programItems = this.props.universities
           .find(u => u._id === this.state.university).programs
           .map(p =>
@@ -167,26 +160,26 @@ export class SignupFields extends React.Component {
                 />
               <br/>
               <br/>
-             <SelectField
+             <SelectFieldWrapper
+                {...university}
                 style = {styles.blocking}
+                floatingLabelText="University"
                 floatingLabelStyle={styles.floatingLabelStyle}
-                underlineFocusStyle={styles.focusStyle}
-                value={this.state.university}
-                onChange={this.handleUniversityChange}>
+                underlineFocusStyle={styles.focusStyle}>
                 {this.props.universities.map(university =>
                     <MenuItem key={university._id} value={university._id} primaryText={university.name} />
                 )}
-                </SelectField>
+                </SelectFieldWrapper>
                 <br/>
                 <br/>
-             <SelectField
+             <SelectFieldWrapper
+                {...program}
                 style = {styles.blocking}
+                floatingLabelText="Program"
                 floatingLabelStyle={styles.floatingLabelStyle}
-                underlineFocusStyle={styles.focusStyle}
-                value={this.state.program}
-                onChange={this.handleProgramChange}>
+                underlineFocusStyle={styles.focusStyle}>
                 { programItems }
-                </SelectField>
+                </SelectFieldWrapper>
                 <br/>
                 <br/>
               <TextField
