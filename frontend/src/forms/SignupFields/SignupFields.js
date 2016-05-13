@@ -117,7 +117,7 @@ export class SignupFields extends React.Component {
       var programItems = []
       if (this.props.fields.university.value) {
         programItems = this.props.universities
-          .find(u => u._id === this.state.university).programs
+          .find(u => u._id === this.props.fields.university.value).programs
           .map(p =>
             <MenuItem key={p._id} value={p._id} primaryText={p.name} />
           )
