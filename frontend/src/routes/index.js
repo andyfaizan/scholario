@@ -13,7 +13,6 @@ import LandingView from 'views/LandingView/LandingView'
 import DashboardView from 'views/DashboardView/DashboardView'
 import CourseView from 'views/CourseView/CourseView'
 import MaterialView from 'views/MaterialView/MaterialView'
-import DashboardTitleComponent from 'components/MaterialComponent/MaterialComponent'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>

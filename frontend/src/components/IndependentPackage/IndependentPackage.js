@@ -107,7 +107,7 @@ const styleThree = {
 						</IconButton></div></div> ;
 
 	var container =<div key="containerMaterial" className={classes.container}> 
-				   <h5>Keywords: {this.props.keywords}</h5>
+				   <h5>Keywords: {this.props.keywords}</h5>	
 				   <h6>Semester Instance:{this.props.semesterInstance}</h6>
 				   <h6>Date Uploaded: {this.props.dateUploaded}</h6></div> ;
 

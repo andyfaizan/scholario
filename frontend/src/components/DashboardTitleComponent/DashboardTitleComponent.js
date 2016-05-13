@@ -14,11 +14,11 @@ export class DashboardTitleComponent extends React.Component {
     openModal: PropTypes.Function,
     modal: PropTypes.Object,
     course_modal: PropTypes.string
-  };
+  }
 
   render () {
 
-  	const filterDataSource = [
+    const filterDataSource = [
       'Red',
       'Orange',
       'Yellow',
@@ -27,30 +27,39 @@ export class DashboardTitleComponent extends React.Component {
       'Purple',
       'Black',
       'White',
-    ];
+    ]
 
     const style = {
-      backgroundColor:'#E74C3C' 
+      backgroundColor:'#E74C3C',
     }
 
-    var floatingLabelTextState = 'Search Your Courses';
+    var floatingLabelTextState = 'Search Your Courses'
+    const studentRole = 'Student'
+    const teacherRole = 'Prof'
+    var addCourse
+    console.log(typeof this.props.openModal)
+    console.log(typeof this.props.modal)
+    if (this.props.role === teacherRole) {
+      addCourse =
+        <div className={classes.addCourseAction}>
+          <FloatingActionButton onTouchTap={this.props.openModal} backgroundColor='#E74C3C' primary={false}>
+            <AddCircle  color="white" />
+          </FloatingActionButton>
+          {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
+        </div>
+    }
 
     return (
       <div>
-            <div className={classes.addCourseAction}>
-              <FloatingActionButton onTouchTap={this.props.openModal} backgroundColor='#E74C3C' primary={false}>
-                <AddCircle  color="white" />
-              </FloatingActionButton>
-              {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
-            </div>
-      	    <div className={classes.divSearchField}>
-		   	      <AutoComplete 
-              floatingLabelText= {floatingLabelTextState}
-              filter={AutoComplete.caseInsensitiveFilter}
-              dataSource={filterDataSource}
-              style={classes.autoComplete}
-              />
-            </div>
+        {addCourse}
+        <div className={classes.divSearchField}>
+          <AutoComplete
+          floatingLabelText= {floatingLabelTextState}
+          filter={AutoComplete.caseInsensitiveFilter}
+          dataSource={filterDataSource}
+          style={classes.autoComplete}
+          />
+        </div>
       </div>
     )
   }
