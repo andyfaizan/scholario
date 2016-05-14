@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const UniversitySchema = new Schema({
   name: { type: String, default: '' },
   alias: { type: String, default: '' },
+  emailDomain: { type: String, default: '' },
 });
 
 

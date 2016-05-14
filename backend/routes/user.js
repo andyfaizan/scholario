@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const _ = require('lodash');
 const crypto = require('crypto');
+const co = require('co');
 
 const utils = require('../utils');
 const logger = require('../logger');
@@ -11,6 +12,8 @@ const mailer = require('../mailer');
 const User = mongoose.model('User');
 const Student = mongoose.model('Student');
 const Prof = mongoose.model('Prof');
+const University = mongoose.model('University');
+const Program = mongoose.model('Program');
 
 var router = express.Router();
 
@@ -141,29 +144,52 @@ router.post('/', function (req, res) {
     });
   }
 
-  var user;
-  if (req.body.role === 'student') {
-    user = new Student({
-      email: req.body.email,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      universities: [req.body.university],
-      programs: [req.body.program],
-      //username: req.body.username,
-    });
-  } else if (req.body.role === 'prof') {
-    user = new Prof({
-      email: req.body.email,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      universities: [req.body.university],
-      programs: [req.body.program],
-    });
-  }
+  co(function *() {
+    var university = yield University.findOne({ _id: req.body.university });
+    if (!university) {
+      return res.status(404).json({
+        err: [{ msg: 'UniversityNotFound' }],
+      });
+    }
+    var program = yield Program.findOne({ _id: req.body.program });
+    if (!program) {
+      return res.status(404).json({
+        err: [{ msg: 'ProgramNotFound' }],
+      });
+    }
+    if (program.university.toString() !== university._id.toString()) {
+      return res.status(400).json({
+        err: [{ msg: 'UniversityProgramDontMatch' }],
+      });
+    }
+    if (!req.body.email.split('@')[1].endsWith(university.emailDomain)) {
+      return res.status(400).json({
+        err: [{ msg: 'EmailNotValid' }],
+      });
+    }
 
-  user.updatePassword(req.body.password).then(function () {
-    return crypto.randomBytes(48);
-  }).then(function (buffer) {
+    var user;
+    if (req.body.role === 'student') {
+      user = new Student({
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        universities: [req.body.university],
+        programs: [req.body.program],
+        //username: req.body.username,
+      });
+    } else if (req.body.role === 'prof') {
+      user = new Prof({
+        email: req.body.email,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        universities: [req.body.university],
+        programs: [req.body.program],
+      });
+    }
+
+    yield user.updatePassword(req.body.password);
+    const buffer = crypto.randomBytes(48);
     var verificationCode = buffer.toString('hex');
     user.verificationCode = verificationCode;
     user.vcCreated = Date.now();
@@ -183,20 +209,19 @@ router.post('/', function (req, res) {
       logger.debug(verificationURL);
     }
 
-    return user.save();
-  }).then(function (user) {
+    user = yield user.save();
     return res.status(201).json({
       err: [],
     });
   }).catch(function (err) {
     if (err.message.lastIndexOf("E1100", 0) === 0) {
       return res.status(400).json({
-        err: [{msg: 'EmailExists' }],
+        err: [{ msg: 'EmailExists' }],
       });
     } else {
       logger.error(err);
       return res.status(500).json({
-        err: [{msg: err.message}],
+        err: [{ msg: 'InternalError' }],
       });
     }
   });
