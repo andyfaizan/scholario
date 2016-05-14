@@ -147,7 +147,7 @@ const styleThree = {
 
     return (
       <div>
-        <Paper style={style} zDepth={2}   /> 
+        <Paper style={style} zDepth={2}  children={nodePaperCourse} /> 
         <Paper style={styleTwo} zDepth={0}  />   
         <Paper style={styleThree} zDepth={0}  />   
         <Paper style={styleFour} zDepth={5}  />   

@@ -20,6 +20,8 @@ import Delete from 'material-ui/lib/svg-icons/action/delete'
 import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
 import NoteAdd from 'material-ui/lib/svg-icons/action/note-add'
 import Friend from 'material-ui/lib/svg-icons/social/person'
+import { Router, Route, Link } from 'react-router'
+
 
 type Props = {
 
@@ -78,7 +80,7 @@ export class CourseInfoBar extends React.Component {
         <Card>
           <Toolbar style = {styles.toolbarStyle } >
           	<ToolbarGroup float='right'>
-          	<IconButton  style={styles.iconStyle} touch={true}> <NavigationMenu color='black'  /> </IconButton>
+          	<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
             <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
@@ -106,7 +108,7 @@ export class CourseInfoBar extends React.Component {
 	        <Grid>
 	          <Row >
 	            <Col xs={18} md={9}>
-	            <p>Short Information Short InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort Information</p>
+	            Short Information Short InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort Information
 	            </Col>
 	            <Col xs={6} md={3}>
 	          		<IconButton  touch={true}> <NavigationMenu color='black'  /> </IconButton> 

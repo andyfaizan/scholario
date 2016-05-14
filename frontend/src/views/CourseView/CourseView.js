@@ -12,6 +12,7 @@ import IndependentPackage from '../../components/IndependentPackage/IndependentP
 import { getCourseInstance } from '../../redux/modules/course-instance'
 import * as selectors from '../../redux/selectors'
 
+
 type Props = {
   courseName: string,
   courseId: string
@@ -32,19 +33,10 @@ export class Course extends React.Component {
 
   render () {
 
-    // var displayMaterialCards = this.props.courses.map(course =>
-    //         <CourseCard
-    //           key={course._id}
-    //           titleCourse={course.name}
-    //           universityCourse={course.university.name}
-    //           courseTeacher={`${course.prof.firstname} ${course.prof.lastname}`}
-    //         />
-    //       ) ;
-
     return (
       <div className={classes.rootCourse}>
         <DashboardToolBar />
-        <CourseInfoBar courseTitle={this.props.courseInstance.course.name} />
+        <CourseInfoBar courseTitle={this.props.courseInstance.course.name} courseUrl={`/course/${this.props.courseInstance._id}`} />
         <br/>
         <Grid className='container-fluid'>
           <Row >
@@ -54,13 +46,7 @@ export class Course extends React.Component {
                   dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
                   <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
                   dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
-                  <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
-                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
-                  <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
-                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
-                  <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
-                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
-                  
+                              
               </div>
             </Col>
             <Col xs={4} md={4}>
