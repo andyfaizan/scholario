@@ -11,6 +11,7 @@ import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import * as selectors from '../../redux/selectors'
+import { getRecommendedCourseInstances } from '../../redux/modules/course-instance.js'
 
 
 class DashboardView extends React.Component {
@@ -24,6 +25,12 @@ class DashboardView extends React.Component {
  //      muiTheme: ThemeManager.getMuiTheme(MyRawTheme),
  //    };
  //  }
+
+  componentDidMount () {
+    if (this.props.user && this.props.user.courseInstances.length === 0) {
+      this.props.getRecommendedCourseInstances('', this.props.user.program)
+    }
+  }
 
   render () {
 
@@ -60,11 +67,15 @@ class DashboardView extends React.Component {
 
 
 const mapStateToProps = (state) => {
+  var courseInstances = selectors.getUserCourseInstances(state)
+  if (courseInstances.length === 0) {
+    courseInstances = selectors.getRecommendedCourseInstances(state)
+  }
   return {
     user: selectors.getUser(state),
     userUniversity: selectors.getUserUniversity(state),
     userProgram: selectors.getUserProgram(state),
-    courseInstances: selectors.getUserCourseInstances(state),
+    courseInstances,
     questions: selectors.getUserQuestions(state),
     connects: selectors.getUserFollowings(state),
   }
@@ -74,7 +85,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSubmit: values => {
       dispatch(requestLogin(values.email, values.password))
-    }
+    },
+    getRecommendedCourseInstances: (substring, program) => {
+      dispatch(getRecommendedCourseInstances(substring, program))
+    },
   }
 }
 

@@ -83,10 +83,19 @@ export const callAPIMiddleware = ({dispatch, getState}) => {
     }))
 
     return callAPI().set('Authorization', `JWT ${getState().user.token}`).end().then(
-      response => dispatch(Object.assign({}, payload, {
-        response: schema ? normalize(response.body, schema) : response.body,
-        type: successType
-      })),
+      response => {
+        var data = response.body
+        if (schema) {
+          data = normalize(response.body, schema)
+        }
+
+        var action = Object.assign({}, payload, {
+          response: data,
+          type: successType,
+        })
+        if (data.result) action.result = data.result
+        dispatch(action)
+      },
       error => dispatch(Object.assign({}, payload, {
         error,
         type: failureType

@@ -41,6 +41,24 @@ export const getUserCourseInstances = createSelector(
     c.university = universities[c.university]
     c.program = programs[c.program]
     ci.course = c
+    ci.following = true
+    return ci
+  })
+)
+
+export const getRecommendedCourseInstances = createSelector(
+  [getCourseInstances, getCourses, getUniversities,
+    getPrograms, getUsers,
+    state => state.recommendedCourseInstances],
+  (courseInstances, courses, universities, programs, users, recommendedCourseInstances) => recommendedCourseInstances.map(id => {
+    console.log(id)
+    var ci = Object.assign({}, courseInstances[id])
+    ci.prof = users[ci.prof]
+    var c = Object.assign({}, courses[ci.course])
+    c.university = universities[c.university]
+    c.program = programs[c.program]
+    ci.course = c
+    ci.following = false
     return ci
   })
 )
