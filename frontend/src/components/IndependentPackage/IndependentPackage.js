@@ -88,6 +88,27 @@ const styleThree = {
 
 	};
 
+	const styleFour = {
+	  float: 'left',
+	  height: 172,
+	  width: 10,
+	  margin: 8.5,
+	  backgroundColor: '#000000',
+	  color: '#ffffff',
+	  overflow: 'inherit',
+	  alignItems: 'center',
+	  postion: 'absolute',
+	  margin:'auto',
+      marginTop: 9,
+      marginLeft: -179,
+      borderStyle: 'solid',
+	  borderWidth: 1,
+	  borderColor: '#000000',
+	  opacity: 0.7
+
+	};
+
+
 
 	const divStyle = {
 		textAlign: 'left',
@@ -126,9 +147,10 @@ const styleThree = {
 
     return (
       <div>
-        <Paper style={style} zDepth={2} children={nodePaperCourse}  /> 
+        <Paper style={style} zDepth={2}   /> 
         <Paper style={styleTwo} zDepth={0}  />   
         <Paper style={styleThree} zDepth={0}  />   
+        <Paper style={styleFour} zDepth={5}  />   
  
       </div>
     )
