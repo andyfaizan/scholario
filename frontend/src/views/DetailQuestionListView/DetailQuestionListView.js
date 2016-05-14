@@ -21,13 +21,16 @@ export class DetailQuestionList extends React.Component {
       <div>
       	  <DashboardToolBar />
 		      	<Grid>
+		      		<br/>
 		      		<Row>
-		      			<br/>
-		      			<Col xs={20} md={8}>
+		      			<Col xs={24} md={12}>
 		      				<QuestionToolBar />
 		      			</Col>
-		      			<br/>
-		      			<Col xs={20} md={8}>
+		      		</Row>
+		      		<br/>
+		      		<br/>
+		      		<Row>
+		      			<Col xs={24} md={12}>
 		      				<QuestionListInDetailsView />
 		      			</Col>
 		      		</Row>
