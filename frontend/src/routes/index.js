@@ -13,6 +13,7 @@ import LandingView from 'views/LandingView/LandingView'
 import DashboardView from 'views/DashboardView/DashboardView'
 import CourseView from 'views/CourseView/CourseView'
 import MaterialView from 'views/MaterialView/MaterialView'
+import DetailQuestionListView from 'views/DetailQuestionListView/DetailQuestionListView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
@@ -24,6 +25,8 @@ export default (store) => (
       <Route path='course/:id' component={CourseView} />
       <Route path='course/:id/materials' component={CourseView} />
       <Route path='course/:id/materials/:id' component={MaterialView} />
+      <Route path='detailQuestions' component={DetailQuestionListView} />
     </Route>
+
   </Route>
 )
