@@ -15,13 +15,7 @@ export class QuestionListInDetailsView extends React.Component {
       <div>
       	<Card>
           <CardText >
-          	<QuestionItem />
-          	<QuestionItem />
-          	<QuestionItem />
-          	<QuestionItem />
-          	<QuestionItem />
-          	<QuestionItem />
-          	<QuestionItem />
+          	
           </CardText>
         </Card>
       </div>
