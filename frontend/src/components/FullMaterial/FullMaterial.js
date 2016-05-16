@@ -17,6 +17,8 @@ import Col from 'react-bootstrap/lib/Col'
 import ReactPlayer from 'react-player'
 import classes from './FullMaterial.scss'
 
+import Questions from '../../containers/Questions'
+
 const previewStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.9)',
   borderStyle: 'solid',
@@ -82,7 +84,7 @@ const FullMaterial = ({fileType}) => (
           </Card>
         </Col>
         <Col xs={4} md={4}>
-          <RightSectionTeacherDashboard questions={[]}/>
+          <Questions />
         </Col>
       </Row>
     </Grid>
