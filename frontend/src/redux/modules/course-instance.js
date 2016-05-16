@@ -49,7 +49,7 @@ export function createCourseInstance(name, prof, university, program, semester) 
   return {
     types: [CREATE_COURSE_INSTANCE_REQUEST, CREATE_COURSE_INSTANCE_OK, CREATE_COURSE_INSTANCE_ERR],
     callAPI: () => {
-      reqest
+      request
         .post(endpoint)
         .send({ name, prof, university, program, semester })
     },

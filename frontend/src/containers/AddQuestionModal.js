@@ -3,17 +3,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {submit} from 'redux-form'
 import {hide} from '../redux/modules/modal'
+import {addQuestion} from '../redux/modules/question'
 import {ADD_QUESTION_MODAL as add_question} from '../redux/modules/modal'
 import Dialog from 'material-ui/lib/dialog'
 import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
-import Avatar from 'material-ui/lib/avatar'
 import AddQuestionForm from '../forms/AddQuestionForm/AddQuestionForm'
 import * as selectors from '../redux/selectors'
-import Grid from 'react-bootstrap/lib/Grid'
-import Row from 'react-bootstrap/lib/Row'
-import Col from 'react-bootstrap/lib/Col'
-
 
 export class AddQuestionModal extends React.Component {
   static propTypes = {
@@ -24,7 +20,7 @@ export class AddQuestionModal extends React.Component {
   constructor(props) {
     super(props)
     this.create = this.create.bind(this)
-    this.onSubmit = this.onSubmit.bind(this)
+    this.onAddQuestionSubmit = this.onAddQuestionSubmit.bind(this)
   }
 
   create = () => {
@@ -32,9 +28,10 @@ export class AddQuestionModal extends React.Component {
     this.refs.myForm.submit()  // will return a promise
   }
 
-  onSubmit = () => {
+  onAddQuestionSubmit = (data) => {
+    console.log('onAddQuestionSubmit called')
+    //this.props.addQuestion(data)
     this.props.hide()
-    console.log('onSubmit called')
   }
 
   render() {
@@ -44,15 +41,11 @@ export class AddQuestionModal extends React.Component {
       fontWeight: 'bold'
     }
 
-    const dialogStyle = {
-      maxHeight: '500'
-    }
-
     const actions = [
       <FlatButton
         label="Verwerfen"
         secondary={true}
-        onTouchEnd={this.props.hide}/>,
+        onTouchTap={this.props.hide}/>,
       <RaisedButton
         // TODO disabled={submitting}
         label='Zustimmen'
@@ -70,16 +63,8 @@ export class AddQuestionModal extends React.Component {
           modal={true}
           open={this.props.modal.visible}
           autoScrollBodyContent={true}
-          autoDetectWindowHeight={true}
-          contentStyle={dialogStyle}>
-          <Row>
-            <Col md={1}>
-              <Avatar src="http://lorempixel.com/100/100/nature/"/>
-            </Col>
-            <Col md={11}>
-              <AddQuestionForm ref="myForm" onSubmit={this.onSubmit}/>
-            </Col>
-          </Row>
+          autoDetectWindowHeight={true}>
+            <AddQuestionForm ref="myForm" onSubmit={this.onAddQuestionSubmit} courses={this.props.courses}/>
         </Dialog>
       </div>
     )
@@ -95,10 +80,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    hide: () => dispatch(hide(add_question))
+    hide: () => dispatch(hide(add_question)),
+    addQuestion: (data) => {
+        dispatch(addQuestion(data.title, data.content,
+          data.course, data.pkg, data.material))
+    }
   }
 }
-
 
 export default connect(
   mapStateToProps,

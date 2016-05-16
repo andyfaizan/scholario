@@ -23,9 +23,10 @@ export class AddQuestion extends React.Component {
     fields: {},
   }
 
-  componentDidMount() {
-    this.props.dispatch(getCourseInstances())
-  }
+  //TODO @Sina
+  // componentDidMount() {
+  //   this.props.dispatch(getCourseInstances())
+  // }
 
   render() {
 
@@ -57,23 +58,13 @@ export class AddQuestion extends React.Component {
 
     const { fields: { title, content, course, pkg, material} } = this.props
 
-    var courseItems = []
-    for (let i = 0; i < 8; i++) {
-      courseItems.push(
-        <MenuItem
-          key={i}
-          value={i + 1}
-          primaryText={`Semester ${i + 1}`}
-        />
-      );
-    }
     var packageItems = []
     for (let i = 0; i < 8; i++) {
       packageItems.push(
         <MenuItem
           key={i}
           value={i + 1}
-          primaryText={`Semester ${i + 1}`}
+          primaryText={`Package ${i + 1}`}
         />
       );
     }
@@ -83,7 +74,7 @@ export class AddQuestion extends React.Component {
         <MenuItem
           key={i}
           value={i + 1}
-          primaryText={`Semester ${i + 1}`}
+          primaryText={`Material ${i + 1}`}
         />
       );
     }
@@ -124,7 +115,8 @@ export class AddQuestion extends React.Component {
              floatingLabelStyle={styles.floatingLabelStyle}
              underlineFocusStyle={styles.focusStyle}
              fullWidth={true}>
-             {courseItems}
+             {this.props.courses
+             .map(p => <MenuItem key={p._id} value={p._id} primaryText={p.course.name} />)}
              </SelectFieldWrapper>
           <br/>
            <SelectFieldWrapper
