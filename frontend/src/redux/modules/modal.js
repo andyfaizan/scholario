@@ -5,6 +5,7 @@ export const MODAL_SHOW = 'MODAL_SHOW'
 export const MODAL_HIDE = 'MODAL_HIDE'
 export const LOGIN_MODAL = 'LOGIN_MODAL'
 export const CREATE_COURSE_MODAL = 'CREATE_COURSE_MODAL'
+export const ADD_QUESTION_MODAL = 'ADD_QUESTION_MODAL'
 
 
 

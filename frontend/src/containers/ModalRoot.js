@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import CreateCourseModal from './CreateCourseModal'
 import ModalComponent from './ModalComponent'
+import AddQuestionModal from './AddQuestionModal'
 
 /*
 Idea for the Modal hierarchy has been taken from this StackOverflow post:
@@ -12,7 +13,8 @@ The answer is by Dan Abromov himself
 
 const MODAL_COMPONENTS = {
   'CREATE_COURSE_MODAL': CreateCourseModal,
-  'LOGIN_MODAL': ModalComponent
+  'LOGIN_MODAL': ModalComponent,
+  'ADD_QUESTION_MODAL': AddQuestionModal
   /* other modals */
 }
 

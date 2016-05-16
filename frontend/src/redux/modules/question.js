@@ -20,6 +20,10 @@ export const VOTE_QUESTION_REQUEST = 'VOTE_QUESTION_REQUEST'
 export const VOTE_QUESTION_OK = 'VOTE_QUESTION_OK'
 export const VOTE_QUESTION_ERR = 'VOTE_QUESTION_ERR'
 
+export const ADD_QUESTION_REQUEST = 'ADD_QUESTION_REQUEST'
+export const ADD_QUESTION_OK = 'ADD_QUESTION_OK'
+export const ADD_QUESTION_ERR = 'ADD_QUESTION_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -44,6 +48,20 @@ export function voteQuestion(qid) {
     payload: { qid },
   }
 }
+
+//TODO @Sina
+export function addQuestion(title, content, course, pkg, material) {
+  const endpoint = urlJoin(config.apiURL, 'questions')
+  return {
+    types: [ADD_QUESTION_REQUEST, ADD_QUESTION_OK, ADD_QUESTION_ERR],
+    callAPI: () => {
+      request
+      .post(endpoint)
+      .send({ title, content, course, pkg, material })
+    },
+  }
+}
+
 
 // ------------------------------------
 // Reducer
