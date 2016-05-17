@@ -26,14 +26,13 @@ export class Question extends React.Component {
 
     return (
       <div>
-      	<DashboardToolBar />
-        
-      	<TeacherProfileBar
-          firstNameUser={this.props.user.firstname}
-          lastNameUser={this.props.user.lastname}
-          universityName={this.props.userUniversity.name}
-          programeName={this.props.userProgram.name}
-        />
+      	   <DashboardToolBar />
+          	<TeacherProfileBar
+              firstNameUser={this.props.user.firstname}
+              lastNameUser={this.props.user.lastname}
+              universityName={this.props.userUniversity.name}
+              programeName={this.props.userProgram.name}
+            />
 		      	<Grid>
 		      		<br/>
 		      		<Row>
