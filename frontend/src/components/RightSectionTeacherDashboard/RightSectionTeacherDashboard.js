@@ -24,6 +24,9 @@ export class RightSectionTeacherDashboard extends React.Component {
 
   render () {
 
+    //question item is clickable ......
+    const boolQuestionClickable = false ;
+
     const border = {
       color:'#26A65B',
       borderStyle: 'solid',
@@ -65,16 +68,16 @@ export class RightSectionTeacherDashboard extends React.Component {
                 />
             ) : null}
 
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               </div>
             </List>
             <List>
               <Subheader style={subheader}>Recent Questions</Subheader>
               <div>
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-              <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               </div>
             </List>
           </CardText>

@@ -15,7 +15,8 @@ export class QuestionItem extends React.Component {
     questionStatement: PropTypes.string.isRequired,
     datePosted: PropTypes.string.isRequired,
     numberOfVotes: PropTypes.number,
-    questionURL: PropTypes.string
+    questionURL: PropTypes.string,
+    listItemClickable: PropTypes.bool
   };
 
   render () { 
@@ -40,6 +41,7 @@ export class QuestionItem extends React.Component {
         secondaryText={secondaryText}
         innerDivStyle={{color:'#26A65B'}}
         style={border}
+        disabled ={this.props.listItemClickable}
       	/>
       </div>
     )
