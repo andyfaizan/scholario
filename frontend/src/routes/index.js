@@ -15,6 +15,7 @@ import CourseView from 'views/CourseView/CourseView'
 import MaterialView from 'views/MaterialView/MaterialView'
 import DetailQuestionListView from 'views/DetailQuestionListView/DetailQuestionListView'
 import QuestionView from 'views/QuestionView/QuestionView'
+import PackageView from 'views/PackageView/PackageView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
@@ -24,7 +25,7 @@ export default (store) => (
       <Route path='dashboard' component={DashboardView} />
       <Route path='connects' component={DashboardView}/>
       <Route path='course/:id' component={CourseView} />
-      <Route path='package/:id' component={CourseView} />
+      <Route path='package/:id' component={PackageView} />
       <Route path='material/:id' component={MaterialView} />
       <Route path='detailQuestions' component={DetailQuestionListView} />
       <Route path='questionsView' component={QuestionView} />
