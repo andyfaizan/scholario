@@ -50,14 +50,14 @@ export function voteQuestion(qid) {
 }
 
 //TODO @Sina
-export function addQuestion(title, content, course, pkg, material) {
+export function addQuestion(title, content, courseInstance, pkg, material) {
   const endpoint = urlJoin(config.apiURL, 'questions')
   return {
     types: [ADD_QUESTION_REQUEST, ADD_QUESTION_OK, ADD_QUESTION_ERR],
     callAPI: () => {
       request
       .post(endpoint)
-      .send({ title, content, course, pkg, material })
+      .send({ title, content, courseInstance, pkg, material })
     },
   }
 }
