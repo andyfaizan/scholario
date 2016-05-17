@@ -13,8 +13,16 @@ var router = express.Router();
 
 
 router.post('/', passport.authenticate('jwt', {session: false}), function (req, res) {
-  req.checkBody('title', 'Invalid title').notEmpty();
-  req.checkBody('course', 'Invalid course').notEmpty().isMongoId();
+  req.checkBody('title', 'InvalidTitle').notEmpty();
+  req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
+  if (req.body.pkg) req.checkBody('pkg', 'InvalidPkg').notEmpty().isMongoId();
+  if (req.body.material) req.checkBody('material', 'InvalidMaterial').notEmpty().isMongoId();
+
+  if (!req.body.courseInstance && !req.body.pkg && !req.body.material) {
+    return res.status(400).json({
+      err: [{ msg: 'InvalidInput' }],
+    });
+  }
 
   var errors = req.validationErrors();
   if (errors) {
@@ -26,13 +34,15 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   var question = new Question({
     title: req.body.title,
     description: req.body.description,
-    course: req.body.course,
     user: req.user,
+    courseInstance
   });
+  if (req.body.pkg) question.pkg = req.body.pkg;
+  if (req.body.material) question.material = req.body.material;
   question.save();
 
   return res.json({
-    err: '',
+    err: [],
   });
 });
 
@@ -48,10 +58,10 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
 
   Question.findOne({ _id: req.params.qid})
     .select('id title description course user createDate answers votes')
-        .populate([{
-          path: 'course',
-          select: 'name',
-        }, {
+        .populate([/*{*/
+          //path: 'courseInstance',
+          //select: 'name',
+        /*}, */{
           path: 'user',
           select: 'firstname lastname',
         }, {

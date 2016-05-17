@@ -64,7 +64,7 @@ export class AddQuestionModal extends React.Component {
           open={this.props.modal.visible}
           autoScrollBodyContent={true}
           autoDetectWindowHeight={true}>
-            <AddQuestionForm ref="myForm" onSubmit={this.onAddQuestionSubmit} courses={this.props.courses}/>
+            <AddQuestionForm ref="myForm" onSubmit={this.onAddQuestionSubmit} courseInstances={this.props.courseInstances}/>
         </Dialog>
       </div>
     )
@@ -74,7 +74,7 @@ export class AddQuestionModal extends React.Component {
 const mapStateToProps = (state) => {
   return {
     modal: state.modal,
-    courses: selectors.getUserCourseInstances(state),
+    courseInstances: selectors.getUserCourseInstances(state),
   }
 }
 

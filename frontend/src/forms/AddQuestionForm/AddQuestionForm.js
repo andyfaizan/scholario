@@ -24,9 +24,9 @@ export class AddQuestion extends React.Component {
   }
 
   //TODO @Sina
-  // componentDidMount() {
-  //   this.props.dispatch(getCourseInstances())
-  // }
+   //componentDidMount() {
+  //  this.props.dispatch(getCourseInstances())
+   //}
 
   render() {
 
@@ -115,7 +115,7 @@ export class AddQuestion extends React.Component {
              floatingLabelStyle={styles.floatingLabelStyle}
              underlineFocusStyle={styles.focusStyle}
              fullWidth={true}>
-             {this.props.courses
+             {this.props.courseInstances
              .map(p => <MenuItem key={p._id} value={p._id} primaryText={p.course.name} />)}
              </SelectFieldWrapper>
           <br/>

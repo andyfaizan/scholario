@@ -11,6 +11,7 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import Subheader from 'material-ui/lib/Subheader'
 import ModalRoot from '../../containers/ModalRoot'
 import {ADD_QUESTION_MODAL as add_question} from '../../redux/modules/modal'
+import { Router, Route, Link } from 'react-router'
 
 
 type Props = {
@@ -43,6 +44,7 @@ export class RightSectionTeacherDashboard extends React.Component {
 
     const allQuestionsTooltip = "Alle Frage"
     const askQuestion = "Eine Frage stellen"
+    const linkToQuestionsList = "detailQuestions"
 
     return (
       <div>
@@ -51,7 +53,7 @@ export class RightSectionTeacherDashboard extends React.Component {
             <List>
               <Subheader style={subheader}>
                 Popular Questions
-                <IconButton tooltip={allQuestionsTooltip} style={iconStyles}>
+                <IconButton tooltip={allQuestionsTooltip} style={iconStyles} containerElement={<Link to={linkToQuestionsList}  />}>
                   <ViewList />
                 </IconButton>
                 <IconButton tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>

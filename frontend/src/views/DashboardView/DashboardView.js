@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
-import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
+import Questions from '../../containers/Questions'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
@@ -15,7 +15,7 @@ import { getRecommendedCourseInstances } from '../../redux/modules/course-instan
 
 
 class DashboardView extends React.Component {
-  
+
  //  static childContextTypes = {
  //   muiTheme: React.PropTypes.object
  // }
@@ -56,7 +56,7 @@ class DashboardView extends React.Component {
               />
             </Col>
             <Col xs={4} md={4}>
-              <RightSectionTeacherDashboard questions={this.props.questions} />
+              <Questions questions={this.props.questions} />
             </Col>
           </Row>
         </Grid>
