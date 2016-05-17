@@ -66,7 +66,8 @@ export class AddQuestionModal extends React.Component {
           autoDetectWindowHeight={true}>
             <AddQuestionForm ref="myForm"
             onSubmit={this.onAddQuestionSubmit}
-            courseInstances={this.props.courseInstances}/>
+            courseInstances={this.props.courseInstances}
+            allPkgs={this.props.allPkgs}/>
         </Dialog>
       </div>
     )
@@ -77,6 +78,7 @@ const mapStateToProps = (state) => {
   return {
     modal: state.modal,
     courseInstances: selectors.getUserCourseInstances(state),
+    allPkgs: selectors.getPkgs(state)
   }
 }
 

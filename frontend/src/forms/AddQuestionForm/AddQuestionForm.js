@@ -59,33 +59,26 @@ export class AddQuestion extends React.Component {
     const { fields: { title, content, courseInstance, pkg, material} } = this.props
 
     var packageItems = []
-    for (let i = 0; i < 8; i++) {
-      packageItems.push(
-        <MenuItem
-          key={i}
-          value={i + 1}
-          primaryText={`Package ${i + 1}`}
-        />
-      );
-    }
-    var materialItems = []
-    for (let i = 0; i < 8; i++) {
-      materialItems.push(
-        <MenuItem
-          key={i}
-          value={i + 1}
-          primaryText={`Material ${i + 1}`}
-        />
-      );
+    if (this.props.fields.courseInstance.value) {
+      packageItems = this.props.courseInstances
+        .find(c => c._id === this.props.fields.courseInstance.value).pkgs
+        .map(p =>
+          <MenuItem key={p._id} value={p._id} primaryText={p.name} />
+        )
     }
 
-    // if (this.props.currentCourse) {
-    //   courseItems = this.props.universities
-    //     .find(u => u._id === this.props.fields.university.value).programs
-    //     .map(p =>
-    //       <MenuItem key={p._id} value={p._id} primaryText={p.name} />
-    //     )
-    // }
+    var materials = []
+    var materialItems = []
+    if (this.props.fields.pkg.value && packageItems && packageItems.length > 0) {
+      for ( var i = 0; i < this.props.allPkgs.length; i++ ){
+        if ( this.props.allPkgs[i]._id === this.props.fields.pkg.value ) {
+          materials = this.props.allPkgs[i].materials
+        }
+      }
+      materialItems = materials.map(m =>
+        <MenuItem key={m._id} value={m._id} primaryText={m.name} />)
+    }
+
     return (
       <div>
         <div className={classes.addQuestionContainer} fullWidth={true}>
@@ -116,7 +109,7 @@ export class AddQuestion extends React.Component {
              underlineFocusStyle={styles.focusStyle}
              fullWidth={true}>
              {this.props.courseInstances
-             .map(p => <MenuItem key={p._id} value={p._id} primaryText={p.course.name} />)}
+             .map(c => <MenuItem key={c._id} value={c._id} primaryText={c.course.name} />)}
              </SelectFieldWrapper>
           <br/>
            <SelectFieldWrapper
