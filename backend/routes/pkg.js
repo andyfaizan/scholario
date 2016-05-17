@@ -8,6 +8,7 @@ const passport = require('passport');
 const _ = require('lodash');
 const co = require('co');
 const async = require('async');
+const url = require('url');
 const logger = require('../logger');
 const utils = require('../utils');
 const User = mongoose.model('User');
@@ -59,7 +60,12 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
       .exec();
 
     for (var i = 0; i < materials.length; i++) {
-      materials[i].url = `http://uploads.scholario.de/courses/${pkg.courseInstance}/${pkg._id}/${materials[i]._id}`
+      materials[i].url = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname: `${pkg.courseInstance}/${pkg._id}/${encodeURIComponent(materials[i].name)}${materials[i].ext}`,
+      });
     }
 
     pkg.materials = materials
