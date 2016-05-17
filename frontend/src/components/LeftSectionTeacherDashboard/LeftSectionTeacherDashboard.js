@@ -42,6 +42,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     var displayCards;
     var display;
+    var filterBar;
+
 
     if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
@@ -57,9 +59,12 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
         if (this.props.role === studentRole) {
           display = [
-            displayCards,
+            displayCards
           ]
         } else if (this.props.role === teacherRole) {
+
+          filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
+
           display = [
              displayCards
           ]
@@ -86,7 +91,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
           <Grid>
             <Row>
               <Col>
-              <AddCourse title="Courses" whichFilter="courseFilter" />
+                {filterBar}
               </Col>
             </Row>
           </Grid>
