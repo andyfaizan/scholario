@@ -38,7 +38,7 @@ export class CourseCard extends React.Component {
 	  margin: 8.5,
 	  backgroundColor: '#446CB3',
 	  color: 'white',
-	  borderRadius: 0,
+	  borderRadius: 13,
 	  overflow: 'inherit' 
 	};
 
