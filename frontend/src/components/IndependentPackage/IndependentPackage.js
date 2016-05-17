@@ -16,7 +16,7 @@ type Props = {
 	materialTitle: string,
 	keywords:array,
 	dateUploaded:string,
-	semesterInstance: string,
+	//semesterInstance: string,
 	materialNotifications: number
 
 };
@@ -26,7 +26,7 @@ export class IndependentPackage extends React.Component {
     materialTitle: PropTypes.string,
     keywords: PropTypes.array,
     dateUploaded: PropTypes.string,
-    semesterInstance: PropTypes.string,
+    //semesterInstance: PropTypes.string,
     materialNotifications:PropTypes.number
   };
   render () {
@@ -121,7 +121,7 @@ const styleThree = {
 	//variables for displaying Child Node
 	var heading = <div key="headingIndependentPackage" style={divStyle}>
 				  <h5>{this.props.materialTitle}</h5>
-				  <h5>{this.props.semesterInstance}</h5>
+          {/*<h5>{this.props.semesterInstance}</h5>*/}
 				  <div className={classes.badge}><Badge
 			      badgeContent={10}
 			      secondary={true}

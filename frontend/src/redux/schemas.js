@@ -29,6 +29,10 @@ const answerSchema = new Schema('answers', {
   idAttribute: '_id'
 })
 
+const pkgSchema = new Schema('pkgs', {
+  idAttribute: '_id'
+})
+
 const materialSchema = new Schema('materials', {
   idAttribute: '_id'
 })
@@ -52,6 +56,8 @@ courseSchema.define({
 courseInstanceSchema.define({
   course: courseSchema,
   prof: userSchema,
+  questions: arrayOf(questionSchema),
+  pkgs: arrayOf(pkgSchema),
 })
 
 questionSchema.define({
@@ -64,9 +70,13 @@ answerSchema.define({
   user: userSchema,
 })
 
-materialSchema.define({
+pkgSchema.define({
   courseInstance: courseInstanceSchema,
-  owner: userSchema
+  owner: userSchema,
+})
+
+materialSchema.define({
+  pkg: pkgSchema,
 })
 
 export {

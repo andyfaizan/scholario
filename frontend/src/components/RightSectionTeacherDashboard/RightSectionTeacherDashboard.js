@@ -17,7 +17,8 @@ import { Router, Route, Link } from 'react-router'
 type Props = {
   questions: PropTypes.array,
   modal: PropTypes.object,
-  show: PropTypes.func
+  show: PropTypes.func,
+  location: PropTypes.object
 };
 
 export class RightSectionTeacherDashboard extends React.Component {
@@ -58,6 +59,7 @@ export class RightSectionTeacherDashboard extends React.Component {
                 </IconButton>
                 <IconButton tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>
                   <AddBox />
+                  {console.log(this.props.location.pathname)}
                   {this.props.modal ? (this.props.modal.visible ? <ModalRoot {...add_question} /> : null) : null}
                 </IconButton>
               </Subheader>
