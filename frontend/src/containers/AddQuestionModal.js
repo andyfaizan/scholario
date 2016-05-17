@@ -64,7 +64,9 @@ export class AddQuestionModal extends React.Component {
           open={this.props.modal.visible}
           autoScrollBodyContent={true}
           autoDetectWindowHeight={true}>
-            <AddQuestionForm ref="myForm" onSubmit={this.onAddQuestionSubmit} courseInstances={this.props.courseInstances}/>
+            <AddQuestionForm ref="myForm"
+            onSubmit={this.onAddQuestionSubmit}
+            courseInstances={this.props.courseInstances}/>
         </Dialog>
       </div>
     )

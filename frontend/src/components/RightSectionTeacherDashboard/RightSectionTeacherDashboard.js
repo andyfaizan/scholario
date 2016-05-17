@@ -59,8 +59,7 @@ export class RightSectionTeacherDashboard extends React.Component {
                 </IconButton>
                 <IconButton tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>
                   <AddBox />
-                  {console.log(this.props.location.pathname)}
-                  {this.props.modal ? (this.props.modal.visible ? <ModalRoot {...add_question} /> : null) : null}
+                  {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_question} location={this.props.location} /> : null) : null}
                 </IconButton>
               </Subheader>
               <div>
