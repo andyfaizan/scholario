@@ -5,14 +5,14 @@ import AutoComplete from 'material-ui/lib/auto-complete'
 import classes from './DashboardTitleComponent.scss'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
-import ModalRoot from '../../containers/ModalRoot' 
+import ModalRoot from '../../containers/ModalRoot'
 
 export class DashboardTitleComponent extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     whichFilter: PropTypes.string.isRequired,
-    openModal: PropTypes.Function,
-    modal: PropTypes.Object,
+    openModal: PropTypes.func,
+    modal: PropTypes.object,
     course_modal: PropTypes.string
   }
 
@@ -37,8 +37,7 @@ export class DashboardTitleComponent extends React.Component {
     const studentRole = 'Student'
     const teacherRole = 'Prof'
     var addCourse
-    console.log(typeof this.props.openModal)
-    console.log(typeof this.props.modal)
+
     if (this.props.role === teacherRole) {
       addCourse =
         <div className={classes.addCourseAction}>
@@ -51,16 +50,16 @@ export class DashboardTitleComponent extends React.Component {
 
     return (
       <div>
-        <Card>
+      <Card>
           {addCourse}
-          <div className={classes.divSearchField}>
+          {/*<div className={classes.divSearchField}>
             <AutoComplete
             floatingLabelText= {floatingLabelTextState}
             filter={AutoComplete.caseInsensitiveFilter}
             dataSource={filterDataSource}
-            style={classes.autoComplete}
+            //style={classes.autoComplete}
             />
-          </div>
+          </div>*/}
         </Card>
       </div>
     )
@@ -68,4 +67,3 @@ export class DashboardTitleComponent extends React.Component {
 }
 
 export default DashboardTitleComponent
-
