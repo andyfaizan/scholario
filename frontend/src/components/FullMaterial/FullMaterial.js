@@ -69,7 +69,7 @@ const getFrame = (fileType, playing) => {
   return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
 }
 
-const FullMaterial = ({fileType}) => (
+const FullMaterial = ({fileType, playing, location}) => (
   <Card>
     <CardHeader
       title="Game Theory"
@@ -84,7 +84,7 @@ const FullMaterial = ({fileType}) => (
           </Card>
         </Col>
         <Col xs={4} md={4}>
-          <Questions />
+          <Questions location={location}/>
         </Col>
       </Row>
     </Grid>
