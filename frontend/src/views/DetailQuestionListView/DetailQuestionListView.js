@@ -9,7 +9,6 @@ import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 
-
 type Props = {
 
 };

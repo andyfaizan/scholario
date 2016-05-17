@@ -36,9 +36,9 @@ export class CourseCard extends React.Component {
 	  height: 170,
 	  width: 300,
 	  margin: 8.5,
-	  backgroundColor: '#1690DB',
+	  backgroundColor: '#446CB3',
 	  color: 'white',
-	  borderRadius: 13,
+	  borderRadius: 0,
 	  overflow: 'inherit' 
 	};
 
