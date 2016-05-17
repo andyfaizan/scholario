@@ -51,15 +51,17 @@ export class DashboardTitleComponent extends React.Component {
 
     return (
       <div>
-        {addCourse}
-        <div className={classes.divSearchField}>
-          <AutoComplete
-          floatingLabelText= {floatingLabelTextState}
-          filter={AutoComplete.caseInsensitiveFilter}
-          dataSource={filterDataSource}
-          style={classes.autoComplete}
-          />
-        </div>
+        <Card>
+          {addCourse}
+          <div className={classes.divSearchField}>
+            <AutoComplete
+            floatingLabelText= {floatingLabelTextState}
+            filter={AutoComplete.caseInsensitiveFilter}
+            dataSource={filterDataSource}
+            style={classes.autoComplete}
+            />
+          </div>
+        </Card>
       </div>
     )
   }
