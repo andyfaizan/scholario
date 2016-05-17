@@ -12,6 +12,8 @@ const request = superagentPromise(superagent, Promise)
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const SET_CUR_PKG = 'SET_CUR_PKG'
+
 export const GET_PKG_REQUEST = 'GET_PKG_REQUEST'
 export const GET_PKG_OK = 'GET_PKG_OK'
 export const GET_PKG_ERR = 'GET_PKG_ERR'
@@ -19,6 +21,15 @@ export const GET_PKG_ERR = 'GET_PKG_ERR'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export function setCurPkg(pid) {
+  return {
+    type: SET_CUR_PKG,
+    payload: {
+      pid,
+    }
+  }
+}
+
 export function getPkg(pid) {
   var endpoint = urlJoin(config.apiURL, 'pkgs', pid)
 
@@ -42,6 +53,17 @@ export function pkgReducer(state={}, action) {
       if (action.response && action.response.entities && action.response.entities.pkgs) {
         return merge({}, state, action.response.entities.pkgs)
       }
+      return state
+  }
+}
+
+export function curPkgReducer(state='', action) {
+  switch (action.type) {
+    case SET_CUR_PKG:
+      if (action.payload && action.payload.pid) {
+        return action.payload.pid
+      }
+    default:
       return state
   }
 }
