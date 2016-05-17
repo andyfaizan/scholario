@@ -20,6 +20,7 @@ export class Question extends React.Component {
     return (
       <div>
       	<DashboardToolBar />
+        
       	<TeacherProfileBar
           firstNameUser={this.props.user.firstname}
           lastNameUser={this.props.user.lastname}
