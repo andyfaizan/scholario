@@ -13,7 +13,8 @@ type Props = {
 const mapStateToProps = (state, ownProps) => {
   return {
     modal: state.modal,
-    questions: ownProps.questions
+    questions: ownProps.questions,
+    location: ownProps.location
   }
 }
 const mapDispatchToProps = (dispatch) => {

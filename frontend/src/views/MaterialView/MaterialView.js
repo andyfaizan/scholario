@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import PreviewMaterial from '../../containers/PreviewMaterial'
 
@@ -13,10 +14,25 @@ export class MaterialView extends React.Component {
     return (
       <div>
         <DashboardToolBar />
-        <PreviewMaterial />
+        <PreviewMaterial location={this.props.location} />
       </div>
     )
   }
 }
 
-export default MaterialView
+const mapStateToProps = (state) => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MaterialView)

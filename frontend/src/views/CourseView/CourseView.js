@@ -50,7 +50,7 @@ export class Course extends React.Component {
               </div>
             </Col>
             <Col xs={4} md={4}>
-              <Questions questions={this.props.questions} />
+              <Questions questions={this.props.questions} location={this.props.location}/>
             </Col>
           </Row>
         </Grid>
