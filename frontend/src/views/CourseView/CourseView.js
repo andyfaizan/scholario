@@ -52,11 +52,8 @@ export class Course extends React.Component {
               <div>
                 {courseInstance.pkgs.map(pkg =>
                   <IndependentPackage key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-                    dateUploaded="20/06/2009" semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`} keywords={["Blue ","Green ", "Red "]} />
+                    dateUploaded={pkg.createDate.slice(0,10)} semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`} keywords={["Blue ","Green ", "Red "]} />
                 )}
-                {/*<IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10}
-                  dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />*/}
-
               </div>
             </Col>
             <Col xs={4} md={4}>
@@ -72,11 +69,7 @@ export class Course extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    //user: selectors.getUser(state),
     courseInstance: selectors.getCurrentCourseInstance(state),
-    //userUniversity: getUserUniversity(state),
-    //userProgram: getUserProgram(state),
-    //courses: getUserCourses(state),
     questions: selectors.getUserQuestions(state),
   }
 }

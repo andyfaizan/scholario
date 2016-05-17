@@ -16,7 +16,6 @@ type Props = {
 	materialTitle: string,
 	keywords:array,
 	dateUploaded:string,
-	//semesterInstance: string,
 	materialNotifications: number
 
 };
@@ -26,7 +25,6 @@ export class IndependentPackage extends React.Component {
     materialTitle: PropTypes.string,
     keywords: PropTypes.array,
     dateUploaded: PropTypes.string,
-    //semesterInstance: PropTypes.string,
     materialNotifications:PropTypes.number
   };
   render () {
@@ -111,36 +109,31 @@ const styleThree = {
 
 
 	const divStyle = {
-		textAlign: 'left',
+		textAlign: 'center',
 		color: '#ffffff',
 		marginLeft:5,
-		marginTop: 15
-
+		marginTop: -7
 	};
 
 	//variables for displaying Child Node
 	var heading = <div key="headingIndependentPackage" style={divStyle}>
 				  <h5>{this.props.materialTitle}</h5>
-          {/*<h5>{this.props.semesterInstance}</h5>*/}
-				  <div className={classes.badge}><Badge
-			      badgeContent={10}
-			      secondary={true}
-			      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-			      ></Badge>
-      			  </div></div>;
-
-    var actionsCourse = <div key="actionMaterialsDiv" className={classes.actionMain} >
-    					<div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> 
-    					<Delete color='#ffffff' /> </IconButton></div><div className={classes.actionPosition}>
-						<IconButton linkButton={true} tooltip="Go to Detail Course">
-						<PageView color='#ffffff' />
-						</IconButton></div></div> ;
+                  {<h5>{this.props.dateUploaded}</h5>}
+				  </div>;
 
 	var container =<div key="IndependentPackage" className={classes.container}> 
 				   <h5>{this.props.keywords}</h5>
 				   </div> ;
+    
+    var notifications = <div className={classes.badge}><Badge
+					      badgeContent={10}
+					      secondary={true}
+					      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+					      ></Badge>
+		      			  </div> ;
 
 	const nodePaperCourse = [
+      notifications,
       heading,
       container
     ];
@@ -151,7 +144,6 @@ const styleThree = {
         <Paper style={styleTwo} zDepth={0}  />   
         <Paper style={styleThree} zDepth={0}  />   
         <Paper style={styleFour} zDepth={5}  />   
- 
       </div>
     )
   }
