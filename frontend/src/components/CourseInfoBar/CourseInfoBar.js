@@ -1,25 +1,19 @@
 import React, { PropTypes } from 'react'
 import Card from 'material-ui/lib/card/card'
-import CardActions from 'material-ui/lib/card/card-actions'
-import CardMedia from 'material-ui/lib/card/card-media'
 import FlatButton from 'material-ui/lib/flat-button'
-import CardText from 'material-ui/lib/card/card-text'
-import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
-import ActionHome from 'material-ui/lib/svg-icons/action/home'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import Toolbar from 'material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
-import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
 import IconMenu from 'material-ui/lib/menus/icon-menu'
 import IconButton from 'material-ui/lib/icon-button'
 import Delete from 'material-ui/lib/svg-icons/action/delete'
 import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
-import NoteAdd from 'material-ui/lib/svg-icons/action/note-add'
 import Friend from 'material-ui/lib/svg-icons/social/person'
+
 import { Router, Route, Link } from 'react-router'
 
 
@@ -83,46 +77,27 @@ export class CourseInfoBar extends React.Component {
 	            <h4>Teachers: {this.props.teachersName} </h4>
 	            </Col>
 	            <Col xs={6} md={3}>
-	          	  <h4>Assitant: Stuart James </h4>
+	          	  <h4>Assitant: No Assistant </h4>
 	            </Col>
 	            <Col xs={6} md={3}>
 	          	  <h4>Semester: {semesterInstance}</h4>
 	            </Col>
 	            <Col xs={6} md={3}>
-	          	  <h4>Most Active Users </h4>
+                <Friend />
+                {this.props.participantsNum} Likes
 	            </Col>
 	          </Row>
 	         </Grid>
           </Toolbar>
-	        <Grid>
-	          <Row >
-	            <Col xs={18} md={9}>
-                {this.props.shortInformation}
-	            </Col>
-	            <Col xs={6} md={3}>
-	          		<IconButton  touch={true}> <NavigationMenu color='black'  /> </IconButton> 
-	          		<IconButton  touch={true}> <NavigationMenu color='black'  /> </IconButton> 
-	          		<IconButton  touch={true}> <NavigationMenu color='black'  /> </IconButton> 
-	          		<IconButton  touch={true}> <NavigationMenu color='black'  /> </IconButton> 
-	            </Col>
-	          </Row>
-	        </Grid>
-			<Grid>
-	          <Row >
-	            <Col xs={2} md={1}>
-	 			<Friend />
-	            </Col>
-	            <Col xs={2} md={1}>
-                Participants: {this.props.participantsNum}
-	            </Col>
-	            <Col xs={2} md={1}>
-					20 Likes
-	            </Col>
-	            <Col xs={2} md={1}>
-	 			   <NoteAdd color='black'  />
-	            </Col>
-	          </Row>
-	        </Grid>
+          <Toolbar style = {styles.toolbarStyle } >
+  	        <Grid>
+  	          <Row >
+  	            <Col xs={24} md={12}>
+                  {this.props.shortInformation}
+  	            </Col>
+  	          </Row>
+  	        </Grid>
+          </Toolbar>
         </Card>
       </div>
     )

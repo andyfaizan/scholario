@@ -5,7 +5,8 @@ import counter from './modules/counter'
 import modal from './modules/modal'
 import entities from './modules/entities'
 import { loginReducer } from './modules/user'
-import { recommendedCourseInstancesReducer, currentCourseInstanceReducer } from './modules/course-instance.js'
+import { recommendedCourseInstancesReducer, curCourseInstanceReducer } from './modules/course-instance'
+import { curPkgReducer } from './modules/pkg'
 
 export default combineReducers({
   counter,
@@ -14,6 +15,7 @@ export default combineReducers({
   user: loginReducer,
   entities,
   recommendedCourseInstances: recommendedCourseInstancesReducer,
-  currentCourseInstance: currentCourseInstanceReducer,
+  curCourseInstance: curCourseInstanceReducer,
+  curPkg: curPkgReducer,
 
 router})

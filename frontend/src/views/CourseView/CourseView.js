@@ -9,7 +9,7 @@ import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
-import { getCourseInstance, setCurrentCourseInstance } from '../../redux/modules/course-instance'
+import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import * as selectors from '../../redux/selectors'
 
 
@@ -28,17 +28,29 @@ export class Course extends React.Component {
 
   componentDidMount() {
     const cid = this.props.params.id
-    this.props.dispatch(setCurrentCourseInstance(cid))
+    this.props.dispatch(setCurCourseInstance(cid))
     this.props.dispatch(getCourseInstance(cid))
   }
 
   render () {
     const { courseInstance } = this.props
+    var pkgs = []
+    if (courseInstance.pkgs) {
+      pkgs = courseInstance.pkgs.map(pkg =>
+        <IndependentPackage
+          key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
+          dateUploaded="20/06/2009"
+          semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
+          keywords={["Blue ","Green ", "Red "]}
+        />
+      )
+    }
+
     return (
       <div className={classes.rootCourse}>
         <DashboardToolBar />
         <CourseInfoBar
-          courseTitle={courseInstance.course.name}
+          courseTitle={courseInstance.course ? courseInstance.course.name : ''}
           courseUrl={`/course/${courseInstance._id}`}
           semesterInstance={courseInstance.semester ? `${courseInstance.semester.term} ${courseInstance.semester.year}` : ''}
           teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
@@ -50,10 +62,7 @@ export class Course extends React.Component {
           <Row >
             <Col xs={20} md={8}>
               <div>
-                {courseInstance.pkgs.map(pkg =>
-                  <IndependentPackage key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-                    dateUploaded={pkg.createDate.slice(0,10)} semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`} keywords={["Blue ","Green ", "Red "]} />
-                )}
+                {pkgs}
               </div>
             </Col>
             <Col xs={4} md={4}>
@@ -69,7 +78,7 @@ export class Course extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    courseInstance: selectors.getCurrentCourseInstance(state),
+    courseInstance: selectors.getCurCourseInstance(state),
     questions: selectors.getUserQuestions(state),
   }
 }

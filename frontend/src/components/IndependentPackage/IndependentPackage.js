@@ -112,7 +112,8 @@ const styleThree = {
 		textAlign: 'center',
 		color: '#ffffff',
 		marginLeft:5,
-		marginTop: -7
+		marginTop: -7,
+		opacity: 0.9
 	};
 
 	//variables for displaying Child Node
@@ -125,7 +126,7 @@ const styleThree = {
 				   <h5>{this.props.keywords}</h5>
 				   </div> ;
     
-    var notifications = <div className={classes.badge}><Badge
+    var notifications = <div key="notifications" className={classes.badge}><Badge
 					      badgeContent={10}
 					      secondary={true}
 					      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
