@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import * as selectors from '../../redux/selectors'
+import { getCourseInstance } from '../../redux/modules/course-instance'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import DashboardToolBar from '../../containers/DashboardToolBar'
+import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
@@ -19,20 +21,20 @@ type Props = {
 export class Question extends React.Component {
   props: Props;
 
-  render () {
+  componentDidMount() {
+    const cid = this.props.params.id
+    this.props.dispatch(getCourseInstance(cid))
+  }
 
+  render () {
     //question item const display
     const questionClickable = {true}
-
     return (
       <div>
       	   <DashboardToolBar />
-          	<TeacherProfileBar
-              firstNameUser={this.props.user.firstname}
-              lastNameUser={this.props.user.lastname}
-              universityName={this.props.userUniversity.name}
-              programeName={this.props.userProgram.name}
-            />
+           <CourseInfoBar courseTitle={this.props.courseInstance.course.name} 
+                          courseUrl={`/course/${this.props.courseInstance._id}`} 
+           />
 		      	<Grid>
 		      		<br/>
 		      		<Row>
@@ -55,17 +57,16 @@ export class Question extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+
+const mapStateToProps = (state, ownProps) => {
   return {
-    user: selectors.getUser(state),
-    userUniversity: selectors.getUserUniversity(state),
-    userProgram: selectors.getUserProgram(state),
+    courseInstance: selectors.getCurrentCourseInstance(state, ownProps.params.id),
     questions: selectors.getUserQuestions(state),
-    connects: selectors.getUserFollowings(state),
   }
 }
 
+
 export default connect(
   mapStateToProps
-  )(Question)
+)(Question)
 
