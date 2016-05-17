@@ -58,6 +58,10 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
       .lean(true)
       .exec();
 
+    for (var i = 0; i < materials.length; i++) {
+      materials[i].url = `http://uploads.scholario.de/courses/${pkg.courseInstance}/${pkg._id}/${materials[i]._id}`
+    }
+
     pkg.materials = materials
     return res.json(pkg);
   });
