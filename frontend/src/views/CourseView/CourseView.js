@@ -5,7 +5,7 @@ import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import RightSectionTeacherDashboard from '../../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
+import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
@@ -42,15 +42,15 @@ export class Course extends React.Component {
           <Row >
             <Col xs={20} md={8}>
               <div>
-                <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
+                <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10}
                   dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
-                  <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10} 
+                  <IndependentPackage materialTitle="Dynamics & Motions" materialNotifications={10}
                   dateUploaded="20/06/2009" semesterInstance="2009" keywords={["Blue ","Green ", "Red "]} />
-                              
+
               </div>
             </Col>
             <Col xs={4} md={4}>
-              <RightSectionTeacherDashboard questions={this.props.questions} />
+              <Questions questions={this.props.questions} />
             </Col>
           </Row>
         </Grid>

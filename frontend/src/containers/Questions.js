@@ -12,7 +12,8 @@ type Props = {
 // ownProps for specifying page where it is rendered i.e. course, package, material
 const mapStateToProps = (state, ownProps) => {
   return {
-    modal: state.modal
+    modal: state.modal,
+    questions: ownProps.questions
   }
 }
 const mapDispatchToProps = (dispatch) => {
