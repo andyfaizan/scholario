@@ -16,8 +16,11 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import ReactPlayer from 'react-player'
 import classes from './FullMaterial.scss'
-
+import Avatar from 'material-ui/lib/avatar'
+import ArrowBack from 'material-ui/lib/svg-icons/navigation/arrow-back'
 import Questions from '../../containers/Questions'
+import IconButton from 'material-ui/lib/icon-button'
+import { Router, Route, Link } from 'react-router'
 
 const previewStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -41,7 +44,7 @@ const youtubeConfig = {
     controls: 2
   }
 }
-
+// //avatar={ <Avatar icon={<ArrowBack />} onClick={console.log("Tapped")}/> }
 const getFrame = (fileType, playing) => {
   if(fileType === 'image'){
     return <img src="http://lorempixel.com/800/600/nature/" style={mediaStyle}/>
@@ -69,12 +72,18 @@ const getFrame = (fileType, playing) => {
   return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
 }
 
+const linkToMaterials = '/package/7'
 const FullMaterial = ({fileType, playing, location}) => (
   <Card>
     <CardHeader
       title="Game Theory"
       subtitle="Basics of Economics"
-      avatar="http://lorempixel.com/100/100/nature/"
+      avatar={
+        <IconButton tooltip="Back to Package"
+        containerElement={<Link to={linkToMaterials}/>}>
+          <ArrowBack />
+        </IconButton>
+      }
       />
     <Grid fluid={true}>
       <Row >
