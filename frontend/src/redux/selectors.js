@@ -10,17 +10,9 @@ export const getPrograms = (state) => state.entities.programs
 export const getCourses = (state) => state.entities.courses
 export const getCourseInstances = (state) => state.entities.courseInstances
 export const getQuestions = (state) => state.entities.questions
+export const getPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
-export const getCurrentCourseInstance = (state, id) => {
-  var ci = Object.assign({}, state.entities.courseInstances[id])
-  ci.prof = state.entities.users[ci.prof]
-  var c = Object.assign({}, state.entities.courses[ci.course])
-  c.university = state.entities.universities[c.university]
-  c.program = state.entities.programs[c.program]
-  ci.course = c
-  ci.materials = _.values(state.entities.materials).filter((material) => material.courseInstance === ci._id)
-  return ci
-}
+export const getCurrentCourseInstanceId = (state) => state.currentCourseInstance
 
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
@@ -30,6 +22,21 @@ export const getUserUniversity = createSelector(
 export const getUserProgram = createSelector(
   [getUser, getPrograms],
   (user, programs) => programs[user.programs[0]]
+)
+
+export const getCurrentCourseInstance = createSelector(
+  [getCurrentCourseInstanceId, getCourseInstances,
+   getCourses, getUniversities, getPrograms, getUsers, getPkgs],
+  (currentCourseInstanceId, courseInstances, courses, universities, programs, users, pkgs) => {
+    var ci = Object.assign({}, courseInstances[currentCourseInstanceId])
+    ci.prof = users[ci.prof]
+    var c = Object.assign({}, courses[ci.course])
+    c.university = universities[c.university]
+    c.program = programs[c.program]
+    ci.course = c
+    ci.pkgs = _.values(pkgs).filter(pkg => pkg.courseInstance === ci._id)
+    return ci
+  }
 )
 
 export const getUserCourseInstances = createSelector(

@@ -24,39 +24,26 @@ import { Router, Route, Link } from 'react-router'
 
 
 type Props = {
-
-  courseTitle: string,
-  teachersName: string,
-  assistantsName: string,
-  universityName:string,
-  programeName: string,
-  semesterInstance: string,
-  shortInformation: string,
-  courseVotes: string,
-  courseUrl: string,
-  courseFollowers: array,
-  topFiveUsersProfileLink: array
-};
+  courseTitle: PropTypes.string,
+  teachersName: PropTypes.string,
+  assistantsName: PropTypes.string,
+  universityName: PropTypes.string,
+  programeName: PropTypes.string,
+  semesterInstance: PropTypes.string,
+  shortInformation: PropTypes.string,
+  courseVotes: PropTypes.string,
+  courseUrl: PropTypes.string,
+  courseFollowers: PropTypes.array,
+  participantsNum: PropTypes.number,
+  topFiveUsersProfileLink: PropTypes.array
+}
 
 export class CourseInfoBar extends React.Component {
-  
-  static propTypes = {
-      courseTitle: PropTypes.string,
-      teachersName: PropTypes.string,
-      assistantsName: PropTypes.string,
-      universityName: PropTypes.string,
-      programeName: PropTypes.string,
-      semesterInstance: PropTypes.string,
-      shortInformation: PropTypes.string,
-      courseVotes: PropTypes.string,
-      courseUrl: PropTypes.string,
-      courseFollowers: PropTypes.array,
-      topFiveUsersProfileLink: PropTypes.array
-    };
+  props: Props
 
   render () {
 
-  	const styles = {
+    const styles = {
       iconStyle: {
         marginTop: '4',
       },
@@ -75,12 +62,14 @@ export class CourseInfoBar extends React.Component {
       }
     }
 
+    const { semesterInstance } = this.props
+
     return (
       <div>
         <Card>
           <Toolbar style = {styles.toolbarStyle } >
-          	<ToolbarGroup float='right'>
-          	<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
+            <ToolbarGroup float='right'>
+            <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
             <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
@@ -91,13 +80,13 @@ export class CourseInfoBar extends React.Component {
           	<Grid >
 	          <Row >
 	            <Col xs={6} md={3}>
-	            <h4>Teachers: {this.props.courseTitle} </h4>
+	            <h4>Teachers: {this.props.teachersName} </h4>
 	            </Col>
 	            <Col xs={6} md={3}>
 	          	  <h4>Assitant: Stuart James </h4>
 	            </Col>
 	            <Col xs={6} md={3}>
-	          	  <h4>Semester: 2009 </h4>
+	          	  <h4>Semester: {semesterInstance}</h4>
 	            </Col>
 	            <Col xs={6} md={3}>
 	          	  <h4>Most Active Users </h4>
@@ -108,7 +97,7 @@ export class CourseInfoBar extends React.Component {
 	        <Grid>
 	          <Row >
 	            <Col xs={18} md={9}>
-	            Short Information Short InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort InformationShort Information
+                {this.props.shortInformation}
 	            </Col>
 	            <Col xs={6} md={3}>
 	          		<IconButton  touch={true}> <NavigationMenu color='black'  /> </IconButton> 
@@ -124,16 +113,7 @@ export class CourseInfoBar extends React.Component {
 	 			<Friend />
 	            </Col>
 	            <Col xs={2} md={1}>
-	 			Chris ,
-	            </Col>
-	            <Col xs={2} md={1}>
-	 			Ahmet,
-	            </Col>
-	            <Col xs={2} md={1}>
-	 			Rizwan,
-	            </Col>
-	            <Col xs={12} md={6}>
-	 			and 200 more users follow the course
+                Participants: {this.props.participantsNum}
 	            </Col>
 	            <Col xs={2} md={1}>
 					20 Likes
