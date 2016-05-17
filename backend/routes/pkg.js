@@ -64,7 +64,7 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
         protocol: 'http',
         slashes: true,
         host: 'uploads.scholario.de',
-        pathname: `${pkg.courseInstance}/${pkg._id}/${encodeURIComponent(materials[i].name)}${materials[i].ext}`,
+        pathname: `/courses/${pkg.courseInstance}/${pkg._id}/${encodeURIComponent(materials[i].name)}${materials[i].ext}`,
       });
     }
 
