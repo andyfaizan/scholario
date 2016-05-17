@@ -9,6 +9,8 @@ const QuestionSchema = new Schema({
   title: { type: String, default: '' },
   description: { type: String, default: '' },
   courseInstance: { type: ObjectId, ref: 'CourseInstance' },
+  pkg: { type: ObjectId, ref: 'Pkg' },
+  material: { type: ObjectId, ref: 'Material' },
   user: { type: ObjectId, ref: 'Student' },
   createDate: { type: Date, default: Date.now },
   answers: [{ type: ObjectId, ref: 'Answer' }],
