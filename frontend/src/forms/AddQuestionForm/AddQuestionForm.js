@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import {getCourseInstances} from '../../redux/modules/course-instance'
 
-export const fields = ['title', 'content', 'course', 'pkg', 'material']
+export const fields = ['title', 'content', 'courseInstance', 'pkg', 'material']
 
 const validate = (values) => {
   const errors = {}
@@ -56,7 +56,7 @@ export class AddQuestion extends React.Component {
     const courseLabel = 'Kurs'
     const materialLabel = 'Material'
 
-    const { fields: { title, content, course, pkg, material} } = this.props
+    const { fields: { title, content, courseInstance, pkg, material} } = this.props
 
     var packageItems = []
     for (let i = 0; i < 8; i++) {
@@ -109,7 +109,7 @@ export class AddQuestion extends React.Component {
             />
           <br/>
           <SelectFieldWrapper
-             {...course}
+             {...courseInstance}
              style = {styles.blocking}
              floatingLabelText={courseLabel}
              floatingLabelStyle={styles.floatingLabelStyle}
