@@ -69,7 +69,7 @@ export class AddQuestion extends React.Component {
 
     var materials = []
     var materialItems = []
-    if (this.props.fields.pkg.value && packageItems && packageItems.length > 0) {
+    if (this.props.fields.pkg.value) {
       for ( var i = 0; i < this.props.allPkgs.length; i++ ){
         if ( this.props.allPkgs[i]._id === this.props.fields.pkg.value ) {
           materials = this.props.allPkgs[i].materials

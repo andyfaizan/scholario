@@ -14,7 +14,8 @@ import * as selectors from '../redux/selectors'
 export class AddQuestionModal extends React.Component {
   static propTypes = {
     modal: PropTypes.object.isRequired,
-    hide: PropTypes.func.isRequired
+    hide: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired
   }
 
   constructor(props) {
@@ -67,7 +68,8 @@ export class AddQuestionModal extends React.Component {
             <AddQuestionForm ref="myForm"
             onSubmit={this.onAddQuestionSubmit}
             courseInstances={this.props.courseInstances}
-            allPkgs={this.props.allPkgs}/>
+            allPkgs={this.props.allPkgs}
+            location={this.props.location}/>
         </Dialog>
       </div>
     )
