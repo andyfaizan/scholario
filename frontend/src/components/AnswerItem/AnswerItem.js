@@ -5,7 +5,9 @@ import CardHeader from 'material-ui/lib/card/card-header'
 import Avatar from 'material-ui/lib/avatar'
 
 type Props = {
-
+	personWhoAnswered: string,
+	dateAnswered: string,
+	answerText: string
 };
 export class AnswerItem extends React.Component {
   props: Props;
@@ -15,14 +17,14 @@ export class AnswerItem extends React.Component {
       <div>
         <Card>
           <CardHeader
-              title="Without Avatar"
-		      subtitle="Subtitle"
+              title={this.props.personWhoAnswered}
+		      subtitle={this.props.dateAnswered}
 		      actAsExpander={false}
 		      showExpandableButton={false}
 		      avatar = {<Avatar>A</Avatar>} 
 		  />
             <CardText>
-              dasdlasldjasljdljasljdljasldjslasldjjlajdlksjaldjlalsdjlalsjdjsaldljlsaldjlsljldjlalkdsll
+            	{this.props.answerText}
             </CardText>
         </Card>
       </div>
