@@ -20,6 +20,10 @@ export class Question extends React.Component {
   props: Props;
 
   render () {
+
+    //question item const display
+    const questionClickable = {true}
+
     return (
       <div>
       	<DashboardToolBar />
@@ -35,7 +39,7 @@ export class Question extends React.Component {
 		      		<Row>
 		      			<Col xs={24} md={12}>
                   <Card>
-                    <QuestionItem questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+                    <QuestionItem listItemClickable={questionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
                   </Card>
                 </Col>
 		      		</Row>
