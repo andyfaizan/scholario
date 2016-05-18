@@ -37,6 +37,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
     }
 
     var courseInstances = yield user.getCourseInstances({
+      select: 'id prof course semester',
       populate: [{
         path: 'course',
         select: 'name university program',
@@ -47,8 +48,17 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
           path: 'program',
           select: 'id name university',
         }],
+      }, {
+        path: 'prof',
+        select: 'firstname lastname role universities programs',
+        populate: [{
+          path: 'universities',
+          select: 'name',
+        }, {
+          path: 'programs',
+          select: 'name university',
+        }],
       }],
-      select: 'id prof course semester',
       lean: true,
       limit: 5,
     });
