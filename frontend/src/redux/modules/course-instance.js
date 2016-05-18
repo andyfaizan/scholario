@@ -112,12 +112,12 @@ export function createCourseInstance(name, prof, university, program, semester) 
   }
 }
 
-export function followCourse(cid) {
+export function followCourse(uid, cid) {
   const endpoint = urlJoin(config.apiURL, 'course-instances', cid, 'follow')
   return {
     types: [FOLLOW_COURSE_INSTANCE_REQUEST, FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR],
     callAPI: () => request.get(endpoint),
-    payload: { cid },
+    payload: { uid, cid },
   }
 }
 

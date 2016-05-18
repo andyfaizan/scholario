@@ -40,7 +40,6 @@ export const getCourseInstances = createSelector(
         c.program = programs[c.program]
         res[k].course = c
         res[k].pkgs = _.values(pkgs).filter(pkg => pkg.courseInstance === k)
-        res[k].following = true
       }
     }
     return res
@@ -59,6 +58,7 @@ export const getUserCourseInstances = createSelector(
   [getUser, getCourseInstances],
   (user, courseInstances) => user.courseInstances.map((id) => {
     var ci = Object.assign({}, courseInstances[id])
+    ci.following = true
     return ci
   })
 )

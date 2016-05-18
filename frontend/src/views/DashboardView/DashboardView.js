@@ -40,12 +40,9 @@ class DashboardView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.courseInstances.length === 0) {
-      if (nextProps.entities && nextProps.entities.users &&
-          nextProps.entities.users[this.props.user._id] &&
-          nextProps.entities.users[this.props.user._id].courseInstances.length === 0) {
-        this.props.getRecommendedCourseInstances('', this.props.user.program)
-      }
+    if (this.props.courseInstances.length === 0 &&
+        nextProps.courseInstances.length === 0) {
+      this.props.getRecommendedCourseInstances('', this.props.user.program)
     }
   }
 
@@ -70,7 +67,7 @@ class DashboardView extends React.Component {
                 courseInstances={this.props.courseInstances}
                 connects={this.props.connects}
                 location={this.props.location}
-                onClickFollow={this.props.followCourse}
+                onClickFollow={(cid) => this.props.followCourse(this.props.user._id, cid)}
               />
             </Col>
             <Col xs={4} md={4}>
@@ -110,9 +107,8 @@ const mapDispatchToProps = (dispatch) => {
     getRecommendedCourseInstances: (substring, program) => {
       dispatch(getRecommendedCourseInstances(substring, program))
     },
-    followCourse: (cid) => {
-      console.log(cid)
-      dispatch(followCourse(cid))
+    followCourse: (uid, cid) => {
+      dispatch(followCourse(uid, cid))
     },
   }
 }

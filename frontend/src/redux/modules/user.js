@@ -6,6 +6,7 @@ import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { userSchema } from '../schemas'
+import { FOLLOW_COURSE_INSTANCE_OK } from './course-instance'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -218,6 +219,19 @@ export function loginReducer(state=initialState, action) {
 
 export function userReducer(state={}, action) {
   switch (action.type) {
+    case FOLLOW_COURSE_INSTANCE_OK:
+      let cid = action.cid
+      let uid = action.uid
+      if (state[uid]) {
+        let u = Object.assign({}, state[uid], {
+          courseInstances: [
+            ...state[uid].courseInstances,
+            cid
+          ],
+        })
+        return Object.assign({}, state, { [uid]: u })
+      }
+
     default:
       if (action.response && action.response.entities && action.response.entities.users) {
         return merge({}, state, action.response.entities.users)
