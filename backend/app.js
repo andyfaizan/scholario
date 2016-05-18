@@ -69,6 +69,7 @@ app.use(config.urlPrefix, apiRouter);
 // Routes
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const usersRouter = require('./routes/users');
 const courseInstanceRouter = require('./routes/course-instance');
 const questionRouter = require('./routes/question');
 const studentRouter = require('./routes/student');
@@ -76,7 +77,8 @@ const pkgRouter = require('./routes/pkg');
 const universityRouter = require('./routes/university');
 const programRouter = require('./routes/program');
 apiRouter.use('/auth', authRouter);
-apiRouter.use('/users', userRouter);
+apiRouter.use('/user', userRouter);
+apiRouter.use('/users', usersRouter);
 apiRouter.use('/course-instances', courseInstanceRouter);
 apiRouter.use('/questions', questionRouter);
 apiRouter.use('/students', studentRouter);
