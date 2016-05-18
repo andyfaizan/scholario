@@ -11,7 +11,8 @@ import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import * as selectors from '../../redux/selectors'
-import { getRecommendedCourseInstances } from '../../redux/modules/course-instance.js'
+import { getUser } from '../../redux/modules/user'
+import { getRecommendedCourseInstances, followCourse } from '../../redux/modules/course-instance'
 
 
 class DashboardView extends React.Component {
@@ -27,8 +28,24 @@ class DashboardView extends React.Component {
  //  }
 
   componentDidMount () {
-    if (this.props.user && this.props.user.courseInstances.length === 0) {
-      this.props.getRecommendedCourseInstances('', this.props.user.program)
+    if (this.props.user) {
+      if (!this.props.user.freshLogin) {
+        this.props.getUser()
+      } else {
+        if (this.props.user.courseInstances.length === 0) {
+          this.props.getRecommendedCourseInstances('', this.props.user.program)
+        }
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.courseInstances.length === 0) {
+      if (nextProps.entities && nextProps.entities.users &&
+          nextProps.entities.users[this.props.user._id] &&
+          nextProps.entities.users[this.props.user._id].courseInstances.length === 0) {
+        this.props.getRecommendedCourseInstances('', this.props.user.program)
+      }
     }
   }
 
@@ -53,6 +70,7 @@ class DashboardView extends React.Component {
                 courseInstances={this.props.courseInstances}
                 connects={this.props.connects}
                 location={this.props.location}
+                onClickFollow={this.props.followCourse}
               />
             </Col>
             <Col xs={4} md={4}>
@@ -86,8 +104,15 @@ const mapDispatchToProps = (dispatch) => {
     onSubmit: values => {
       dispatch(requestLogin(values.email, values.password))
     },
+    getUser: () => {
+      dispatch(getUser())
+    },
     getRecommendedCourseInstances: (substring, program) => {
       dispatch(getRecommendedCourseInstances(substring, program))
+    },
+    followCourse: (cid) => {
+      console.log(cid)
+      dispatch(followCourse(cid))
     },
   }
 }

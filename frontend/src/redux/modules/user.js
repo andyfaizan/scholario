@@ -3,6 +3,8 @@ import { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
+import urlJoin from 'url-join'
+import config from '../../config'
 import { userSchema } from '../schemas'
 
 const request = superagentPromise(superagent, Promise)
@@ -15,7 +17,10 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_OK = 'LOGIN_OK'
 export const LOGIN_ERR = 'LOGIN_ERR'
 
-//export const REQUEST_SIGNUP = 'REQUEST_SIGNUP'
+export const GET_USER_REQUEST = 'GET_USER_REQUEST'
+export const GET_USER_OK = 'GET_USER_OK'
+export const GET_USER_ERR = 'GET_USER_ERR'
+
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST'
 export const CREATE_USER_OK = 'CREATE_USER_OK'
 export const CREATE_USER_ERR = 'CREATE_USER_ERR'
@@ -67,6 +72,7 @@ export function login(email, password) {
                 const user = {
                   token: res.body.user.token,
                   _id: res.body.user._id,
+                  freshLogin: true,
                 }
                 dispatch(loginOk(user, response))
        /*         window.localStorage.setItem('scholario:store', JSON.stringify({*/
@@ -81,6 +87,15 @@ export function login(email, password) {
   }
 }
 
+export function getUser() {
+  var endpoint = urlJoin(config.apiURL, 'user')
+
+  return {
+    types: [GET_USER_REQUEST, GET_USER_OK, GET_USER_ERR],
+    callAPI: () => request.get(endpoint),
+    schema: userSchema,
+  }
+}
 export function createUserRequest() {
   return {
     type: CREATE_USER_REQUEST,
