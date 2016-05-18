@@ -42,6 +42,7 @@ export class Course extends React.Component {
           dateUploaded="20/06/2009"
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
+          pkgUrl={`/package/${pkg._id}`}
         />
       )
     }
