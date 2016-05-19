@@ -32,7 +32,7 @@ export const ADD_QUESTION_ERR = 'ADD_QUESTION_ERR'
 // Actions
 // ------------------------------------
 export function getQuestions(cid = '', pid = '', mid = '') {
-  var endpoint = UrlJoin(config.apiURL, 'questions')
+  var endpoint = urlJoin(config.apiURL, 'questions')
   if (cid) {
     endpoint = urlJoin(endpoint, `?courseInstance=${cid}`)
   }
@@ -47,9 +47,9 @@ export function getQuestions(cid = '', pid = '', mid = '') {
 
   return {
     types: [GET_QUESTIONS_REQUEST, GET_QUESTIONS_OK, GET_QUESTIONS_ERR],
-    callAPI: () => request().get(endpoint),
+    callAPI: () => request.get(endpoint),
     payload: { cid, pid, mid },
-    schema: arrayOf(questionSchema),
+    schema: { questions: arrayOf(questionSchema) },
   }
 }
 
@@ -59,7 +59,7 @@ export function getQuestion(qid) {
     types: [GET_QUESTION_REQUEST, GET_QUESTION_OK, GET_QUESTION_ERR],
     // Check the cache (optional):
     //shouldCallAPI: (state) => !state.posts[userId],
-    callAPI: () => request().get(endpoint),
+    callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
     payload: { qid },
     schema: questionSchema,

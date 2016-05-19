@@ -9,7 +9,7 @@ export const getUniversities = (state) => state.entities.universities
 export const getPrograms = (state) => state.entities.programs
 export const getCourses = (state) => state.entities.courses
 export const getShallowCourseInstances = (state) => state.entities.courseInstances
-export const getQuestions = (state) => state.entities.questions
+export const getShallowQuestions = (state) => state.entities.questions
 export const getShallowPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
 export const getCurCourseInstanceId = (state) => state.curs.courseInstance
@@ -72,9 +72,38 @@ export const getRecommendedCourseInstances = createSelector(
   })
 )
 
+export const getQuestions = createSelector(
+  [getShallowQuestions, getUsers, getCourseInstances],
+  (shallowQuestions, users, courseInstances) => {
+    var res = {}
+
+    for (var k in shallowQuestions) {
+      if (shallowQuestions.hasOwnProperty(k)) {
+        res[k] = Object.assign({}, shallowQuestions[k])
+        res[k].user = users[res[k].user]
+        //res[k].courseInstance = courseInstances[res[k].courseInstance]
+      }
+    }
+    return res
+  }
+)
+
 export const getUserQuestions = createSelector(
-  [getUser, getQuestions, getUsers],
-  (user, questions, users) => user.questions.map((id) => questions[id])
+  [getUser, getQuestions],
+  (user, questions) => _.values(questions)
+    .filter((question) => (user.courseInstances.indexOf(question.courseInstance) > -1))
+)
+
+export const getCurCourseInstanceQuestions = createSelector(
+  [getCurCourseInstanceId, getQuestions],
+  (cid, questions) => _.values(questions)
+    .filter((question) => (question.courseInstance === cid))
+)
+
+export const getCurPkgQuestions = createSelector(
+  [getCurPkgId, getQuestions],
+  (pid, questions) => _.values(questions)
+    .filter((question) => (question.pkg === pid))
 )
 
 export const getCurrentCourseInstanceMaterials = createSelector(
