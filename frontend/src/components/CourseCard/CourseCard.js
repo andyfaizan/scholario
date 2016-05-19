@@ -14,67 +14,61 @@ import { Router, Route, Link } from 'react-router'
 import classes from './CourseCard.scss'
 
 type Props = {
-	titleCourse: string,
-	universityCourse: string,
-	courseTeacher: string,
-	notifications:number,
-	courseUrl: string
-};
+  titleCourse: PropTypes.string,
+  universityCourse: PropTypes.string,
+  courseTeacher: PropTypes.string,
+  notifications: PropTypes.number,
+  courseUrl: PropTypes.string,
+  onClickFollow: PropTypes.func,
+}
+
 export class CourseCard extends React.Component {
-  static propTypes = {
-    titleCourse: PropTypes.string.isRequired,
-    universityCourse: PropTypes.string.isRequired,
-    courseTeacher: PropTypes.string.isRequired,
-    notifications: PropTypes.number,
-    courseUrl: PropTypes.string
-  };
+  props: Props
+
   render () {
 
-  	//inline styling variables for certain components ...
-	const style = {
-	  float: 'left',
-	  height: 170,
-	  width: 300,
-	  margin: 8.5,
-	  backgroundColor: '#446CB3',
-	  color: 'white',
-	  borderRadius: 13,
-	  overflow: 'inherit' 
-	};
+    //inline styling variables for certain components ...
+    const style = {
+      float: 'left',
+      height: 170,
+      width: 300,
+      margin: 8.5,
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: 13,
+      overflow: 'inherit',
+    }
 
-	const divStyle = {
-		textAlign: 'center'
+    const divStyle = {
+      textAlign: 'center',
+    }
 
-	};
+    const iconStyles = {
+      backgroundColor:'white',
+    }
 
-	const iconStyles = {
-  		backgroundColor:'white'
-	};
+    const paperActions = {
+      // display: 'flex',
+      // 		boxSizing:'border-box',
+      // 		alignItems: 'center',
+      float:'left',
+    }
 
-	const paperActions = {
-		// display: 'flex',
-  // 		boxSizing:'border-box',
-  // 		alignItems: 'center',
-  		float:'left'
+    const mainActionStyle = {
+      opacity: 0.5,
+    }
 
-	};
-
-	const mainActionStyle = {
-
-		opacity: 0.5	
-	}
-
-	//variables for displaying Child Node
-	var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
+    //variables for displaying Child Node
+    var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
 						<div className={classes.actionFollow} >
-						<IconButton tooltip="follow the course">
+						<IconButton disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="follow the course">
 						<LibraryAdd color='white' /></IconButton>	
 						</div>
 						<div className={classes.actionPostionLeft}>
 						<IconButton tooltip="Delete Course">
 						<Delete color='white' /></IconButton>
 						</div><div className={classes.actionPosition}>
-						<IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} tooltip="Go to Detail Course">
+						<IconButton containerElement={<Link to={this.props.courseUrl} />} linkButton={true} tooltip="Go to Detail Course">
 						<PageView color='white' />
 						</IconButton></div></div> ;
 

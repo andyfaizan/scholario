@@ -11,7 +11,8 @@ import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import * as selectors from '../../redux/selectors'
-import { getRecommendedCourseInstances } from '../../redux/modules/course-instance.js'
+import { getUser } from '../../redux/modules/user'
+import { getRecommendedCourseInstances, followCourse } from '../../redux/modules/course-instance'
 
 
 class DashboardView extends React.Component {
@@ -27,7 +28,20 @@ class DashboardView extends React.Component {
  //  }
 
   componentDidMount () {
-    if (this.props.user && this.props.user.courseInstances.length === 0) {
+    if (this.props.user) {
+      if (!this.props.user.freshLogin) {
+        this.props.getUser()
+      } else {
+        if (this.props.user.courseInstances.length === 0) {
+          this.props.getRecommendedCourseInstances('', this.props.user.program)
+        }
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.courseInstances.length === 0 &&
+        nextProps.courseInstances.length === 0) {
       this.props.getRecommendedCourseInstances('', this.props.user.program)
     }
   }
@@ -47,15 +61,16 @@ class DashboardView extends React.Component {
         <br/>
         <Grid className='container-fluid'>
           <Row >
-            <Col xs={20} md={8}>
+            <Col xs={16} md={8}>
               <LeftSectionTeacherDashboard
                 role={this.props.user.role}
                 courseInstances={this.props.courseInstances}
                 connects={this.props.connects}
                 location={this.props.location}
+                onClickFollow={(cid) => this.props.followCourse(this.props.user._id, cid)}
               />
             </Col>
-            <Col xs={4} md={4}>
+            <Col xs={8} md={4}>
               <Questions questions={this.props.questions} location={this.props.location}/>
             </Col>
           </Row>
@@ -86,8 +101,14 @@ const mapDispatchToProps = (dispatch) => {
     onSubmit: values => {
       dispatch(requestLogin(values.email, values.password))
     },
+    getUser: () => {
+      dispatch(getUser())
+    },
     getRecommendedCourseInstances: (substring, program) => {
       dispatch(getRecommendedCourseInstances(substring, program))
+    },
+    followCourse: (uid, cid) => {
+      dispatch(followCourse(uid, cid))
     },
   }
 }

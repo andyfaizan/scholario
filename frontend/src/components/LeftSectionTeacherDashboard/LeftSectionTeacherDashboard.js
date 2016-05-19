@@ -14,11 +14,12 @@ type Props = {
   role: React.PropTypes.string,
   courseInstances: React.PropTypes.array,
   location: React.PropTypes.object,
-  connects: React.PropTypes.array
-};
+  connects: React.PropTypes.array,
+  onClickFollow: React.PropTypes.func.isRequired,
+}
 
 export class LeftSectionTeacherDashboard extends React.Component {
-  props: Props;
+  props: Props
 
   render () {
     //paths to routes on dashboard view for material and connects
@@ -54,6 +55,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
             universityCourse={ci.course.university.name}
             courseTeacher={`${ci.prof.firstname} ${ci.prof.lastname}`}
             courseUrl={`/course/${ci._id}`}
+            following={ci.following}
+            onClickFollow={() => this.props.onClickFollow(ci._id)}
           />
         )
 

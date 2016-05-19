@@ -12,8 +12,8 @@ export const getShallowCourseInstances = (state) => state.entities.courseInstanc
 export const getQuestions = (state) => state.entities.questions
 export const getShallowPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
-export const getCurCourseInstanceId = (state) => state.curCourseInstance
-export const getCurPkgId = (state) => (state) => state.curPkg
+export const getCurCourseInstanceId = (state) => state.curs.courseInstance
+export const getCurPkgId = (state) => state.curs.pkg
 export const getRecommendedCourseInstanceIds = (state) => state.recommendedCourseInstances
 
 export const getUserUniversity = createSelector(
@@ -58,7 +58,7 @@ export const getUserCourseInstances = createSelector(
   [getUser, getCourseInstances],
   (user, courseInstances) => user.courseInstances.map((id) => {
     var ci = Object.assign({}, courseInstances[id])
-    console.log(ci)
+    ci.following = true
     return ci
   })
 )
@@ -115,7 +115,7 @@ export const getPkgs = createSelector(
       if (shallowPkgs.hasOwnProperty(k)) {
         res[k] = Object.assign({}, shallowPkgs[k])
         res[k].owner = users[res[k].owner]
-        res[k].courseInstance = courseInstances[res[k].courseInstance]
+        //res[k].courseInstance = courseInstances[res[k].courseInstance]
         res[k].materials = _.values(materials, material => material.pkg === k)
       }
     }

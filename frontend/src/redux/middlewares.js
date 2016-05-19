@@ -6,7 +6,7 @@ import { LOGIN_OK, LOGOUT_OK } from './modules/user'
 
 
 export const authMiddleware = store => next => action => {
-  const allowedPaths = [ '/' ]
+  const allowedPaths = [ '/', '/impressum' ]
   if (action.type === LOCATION_CHANGE) {
     if (store.getState().user && store.getState().user.token) {
       if (action.payload.pathname === '/') {
