@@ -17,9 +17,9 @@ export class FooterLanding extends React.Component {
     }
     return (
       <div>
-        <a href={impressumLink} style={linkStyle}>
+        <Link to={impressumLink} style={linkStyle}>
           Impressum
-        </a>
+        </Link>
       </div>
     )
   }
