@@ -69,6 +69,12 @@ export class Package extends React.Component {
             <Col xs={16} md={8}>
               <div>
                 {materials}
+                 <MaterialComponent
+          key="{material._id}" materialTitle="Rohan Asmat" materialNotifications={10}
+          dateUploaded="20/06/2009"
+          keywords={["Blue ","Green ", "Red "]}
+          pkgUrl="dsad;ad;akdad"
+        />
               </div>
             </Col>
             <Col xs={8} md={4}>

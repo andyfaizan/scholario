@@ -19,7 +19,7 @@ type Props = {
   courseTeacher: PropTypes.string,
   notifications: PropTypes.number,
   courseUrl: PropTypes.string,
-  onClickFollow: PropTypes.func,
+  onClickFollow: PropTypes.func
 }
 
 export class CourseCard extends React.Component {
