@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
 import Card from 'material-ui/lib/card/card'
+import CardText from 'material-ui/lib/card/card-text'
+import CardHeader from 'material-ui/lib/card/card-header'
+import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
+import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
-import Grid from 'react-bootstrap/lib/Grid'
-import Row from 'react-bootstrap/lib/Row'
-import Col from 'react-bootstrap/lib/Col'
 import Toolbar from 'material-ui/lib/toolbar/toolbar'
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
@@ -13,7 +14,7 @@ import IconButton from 'material-ui/lib/icon-button'
 import Delete from 'material-ui/lib/svg-icons/action/delete'
 import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
 import Friend from 'material-ui/lib/svg-icons/social/person'
-
+import classes from './CourseInfoBar.scss'
 import { Router, Route, Link } from 'react-router'
 
 
@@ -53,6 +54,12 @@ export class CourseInfoBar extends React.Component {
       },
       separator: {
         backgroundColor:'black'
+      },
+      text: {
+        position:'relative',
+        marginRight: 5,
+        marginLeft: 20,
+        color: 'green'
       }
     }
 
@@ -61,9 +68,7 @@ export class CourseInfoBar extends React.Component {
     return (
       <div>
         <Card>
-          <Grid>
-            <Row>
-              <Col xs={24} md={12} > 
+       
                   <Toolbar style = {styles.toolbarStyle } >
                     <ToolbarGroup float='right'>
                     <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
@@ -73,45 +78,44 @@ export class CourseInfoBar extends React.Component {
                  <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>
                   </ToolbarGroup>
                   </Toolbar>
-              </Col>
-            </Row>
-          </Grid>
-          <Grid>
-            <Row>
-              <Col xs={24} md={12} >
-                  <Toolbar style = {styles.toolbarStyle } >
-                  	<Grid >
-        	          <Row >
-        	            <Col xs={6} md={3}>
-        	            <h4>Teachers: {this.props.teachersName} </h4>
-        	            </Col>
-        	            <Col xs={6} md={3}>
-        	          	  <h4>Assitant: No Assistant </h4>
-        	            </Col>
-        	            <Col xs={6} md={3}>
-        	          	  <h4>Semester: {semesterInstance}</h4>
-        	            </Col>
-        	            <Col xs={6} md={3}>
+                  <CardHeader
+                    title={this.props.teachersName}
+                    subtitle={semesterInstance}
+                    actAsExpander={true}
+                    showExpandableButton={true}
+                    style ={styles.text}
+                  />
+                  <Divider />
+                  <CardText expandable={true}>
+                      <div className = {classes.actionPosition} >
+
+                                asmdmdakdkasldlkadklsaldasdkslakdlakdlkdl
+                            jskjdkajjdjsadasdjsadajkjdjajds
+                            djsalkjdaksldjlsjjdljasljldjaj
+                                                    djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj                        djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+                            djsalkjdaksldjlsjjdljasljldjaj
+
+
+                            {this.props.participantsNum}
+                            {this.props.shortInformation}
+                        </div>
+                  </CardText>
+                  <CardActions expandable={true} >
+                    <div className={classes.actionPosition} >
                         <Friend />
-                        {this.props.participantsNum} Likes
-        	            </Col>
-        	          </Row>
-        	         </Grid>
-                    </Toolbar>
-                </Col>
-              </Row>
-          </Grid>
-         <Grid>
-            <Row>
-              <Col xs={24} md={12} >
-                <Toolbar style = {styles.toolbarStyle } >
-        	      
-                        {this.props.shortInformation}
-        	         
-                </Toolbar>
-              </Col>
-            </Row>
-          </Grid>
+                        {this.props.participantsNum}
+                    </div>
+                  </CardActions>
+
+
         </Card>
       </div>
     )

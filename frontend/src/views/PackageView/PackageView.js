@@ -12,6 +12,7 @@ import MaterialComponent from '../../components/MaterialComponent/MaterialCompon
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { setCurPkg, getPkg } from '../../redux/modules/pkg'
+import { getQuestions } from '../../redux/modules/question'
 import * as selectors from '../../redux/selectors'
 
 
@@ -27,6 +28,7 @@ export class Package extends React.Component {
     const pid = this.props.params.id
     this.props.dispatch(setCurPkg(pid))
     this.props.dispatch(getPkg(pid))
+    this.props.dispatch(getQuestions('', pid))
   }
 
   componentWillReceiveProps(newProps) {
@@ -83,7 +85,7 @@ export class Package extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     pkg: selectors.getCurPkg(state),
-    questions: selectors.getUserQuestions(state),
+    questions: selectors.getCurPkgQuestions(state),
     courseInstance: selectors.getCurCourseInstance(state),
   }
 }
