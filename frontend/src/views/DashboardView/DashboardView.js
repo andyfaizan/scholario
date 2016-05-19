@@ -13,6 +13,7 @@ import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import * as selectors from '../../redux/selectors'
 import { getUser } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse } from '../../redux/modules/course-instance'
+import { getQuestions } from '../../redux/modules/question'
 
 
 class DashboardView extends React.Component {
@@ -36,6 +37,7 @@ class DashboardView extends React.Component {
           this.props.getRecommendedCourseInstances('', this.props.user.program)
         }
       }
+      this.props.getQuestions()
     }
   }
 
@@ -109,6 +111,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     followCourse: (uid, cid) => {
       dispatch(followCourse(uid, cid))
+    },
+    getQuestions: () => {
+      dispatch(getQuestions())
     },
   }
 }

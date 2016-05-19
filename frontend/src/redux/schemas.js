@@ -42,6 +42,7 @@ userSchema.define({
   universities: arrayOf(universitySchema),
   programs: arrayOf(programSchema),
   followings: arrayOf(userSchema),
+  questions: arrayOf(questionSchema),
 })
 
 programSchema.define({

@@ -10,6 +10,7 @@ import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
+import { getQuestions } from '../../redux/modules/question'
 import * as selectors from '../../redux/selectors'
 
 
@@ -30,6 +31,7 @@ export class Course extends React.Component {
     const cid = this.props.params.id
     this.props.dispatch(setCurCourseInstance(cid))
     this.props.dispatch(getCourseInstance(cid))
+    this.props.dispatch(getQuestions(cid))
   }
 
   render () {
@@ -80,7 +82,7 @@ export class Course extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     courseInstance: selectors.getCurCourseInstance(state),
-    questions: selectors.getUserQuestions(state),
+    questions: selectors.getCurCourseInstanceQuestions(state),
   }
 }
 
