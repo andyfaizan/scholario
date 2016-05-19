@@ -47,7 +47,7 @@ class DashboardView extends React.Component {
         <br/>
         <Grid className='container-fluid'>
           <Row >
-            <Col xs={20} md={8}>
+            <Col xs={16} md={8}>
               <LeftSectionTeacherDashboard
                 role={this.props.user.role}
                 courseInstances={this.props.courseInstances}
@@ -55,7 +55,7 @@ class DashboardView extends React.Component {
                 location={this.props.location}
               />
             </Col>
-            <Col xs={4} md={4}>
+            <Col xs={8} md={4}>
               <Questions questions={this.props.questions} location={this.props.location}/>
             </Col>
           </Row>
