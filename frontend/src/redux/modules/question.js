@@ -70,7 +70,7 @@ export function questionReducer(state={}, action) {
   switch (action.type) {
     default:
       if (action.response && action.response.entities && action.response.entities.questions) {
-        return merge({}, state, action.entities.questions)
+        return merge({}, state, action.response.entities.questions)
       }
       return state
   }

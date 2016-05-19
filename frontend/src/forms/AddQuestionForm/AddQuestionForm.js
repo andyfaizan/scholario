@@ -5,12 +5,13 @@ import classes from './AddQuestionForm.scss'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import {getCourseInstances} from '../../redux/modules/course-instance'
+import { load as loadAccount } from '../../redux/modules/AskQuestion'
 
 export const fields = ['title', 'content', 'courseInstance', 'pkg', 'material']
-
-const validate = (values) => {
-  const errors = {}
-  return errors
+var defaultData = {
+  courseInstance : '',
+  pkg: '',
+  material: ''
 }
 
 type Props = {
@@ -23,10 +24,25 @@ export class AddQuestion extends React.Component {
     fields: {},
   }
 
+  constructor(props) {
+    super(props)
+    this.getObjects = this.getObjects.bind(this)
+  }
   //TODO @Sina
-   //componentDidMount() {
+   componentDidMount() {
+     this.props.dispatch(loadAccount(defaultData))
   //  this.props.dispatch(getCourseInstances())
-   //}
+   }
+
+  getObjects(obj) {
+    var array=[]
+    for (var p in obj) {
+      if (obj[p] instanceof Object) {
+        array.push(obj[p])
+      }
+    }
+    return array
+  }
 
   render() {
 
@@ -61,7 +77,7 @@ export class AddQuestion extends React.Component {
     var packageItems = []
     if (this.props.fields.courseInstance.value) {
       packageItems = this.props.courseInstances
-        .find(c => c._id === this.props.fields.courseInstance.value).pkgs
+        .find(c => c._id === this.props.fields.courseInstance.value).pkgs // pkgs in courseInstance is an array
         .map(p =>
           <MenuItem key={p._id} value={p._id} primaryText={p.name} />
         )
@@ -70,13 +86,55 @@ export class AddQuestion extends React.Component {
     var materials = []
     var materialItems = []
     if (this.props.fields.pkg.value) {
-      for ( var i = 0; i < this.props.allPkgs.length; i++ ){
-        if ( this.props.allPkgs[i]._id === this.props.fields.pkg.value ) {
-          materials = this.props.allPkgs[i].materials
+      var pkgArray = this.getObjects(this.props.allPkgs)
+      for ( var i = 0; i < pkgArray.length; i++ ){
+        if ( pkgArray[i]._id === this.props.fields.pkg.value ) {
+          materials = pkgArray[i].materials
         }
       }
       materialItems = materials.map(m =>
         <MenuItem key={m._id} value={m._id} primaryText={m.name} />)
+    }
+
+
+
+    if(this.props.location){
+      let pathArray = this.props.location.pathname.split("/")
+      let currentLevel = pathArray[1]
+      let id = pathArray[2]
+      console.log(id)
+      switch (currentLevel) {
+        case "course":
+        console.log("Case: course");
+          // this.props.fields.courseInstance.value = id
+          defaultData.courseInstance = id
+          console.log(defaultData);
+        break;
+        case "package":
+        console.log("Case: package");
+        var currCourseInstance
+        var flag=0
+        // this.props.fields.pkg.value = id
+        defaultData.pkg = id
+        for (var i = 0; i < this.props.courseInstances.length && flag === 0; i++) {
+          for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
+            if(this.props.courseInstances[i].pkgs[j]._id === id){
+              currCourseInstance = this.props.courseInstances[i]
+              flag=1
+              break;
+            }
+          }
+        }
+        // this.props.fields.courseInstance.value = currCourseInstance._id
+        defaultData.courseInstance = currCourseInstance._id
+        console.log(defaultData);
+        break;
+        case "material":
+        console.log("Case: material");
+        break;
+        default:
+        break;
+      }
     }
 
     return (
@@ -141,8 +199,11 @@ export class AddQuestion extends React.Component {
 
 AddQuestion = reduxForm({
   form: 'AddQuestion',
-  fields,
-  validate
-})(AddQuestion)
+  fields
+},
+state => ({ // mapStateToProps
+  initialValues: defaultData // will pull state into form's initialValues
+})
+)(AddQuestion)
 
 export default AddQuestion

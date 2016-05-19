@@ -15,7 +15,7 @@ export class AddQuestionModal extends React.Component {
   static propTypes = {
     modal: PropTypes.object.isRequired,
     hide: PropTypes.func.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.object
   }
 
   constructor(props) {
