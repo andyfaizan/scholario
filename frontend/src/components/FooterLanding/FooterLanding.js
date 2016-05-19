@@ -11,9 +11,13 @@ export class FooterLanding extends React.Component {
 
   render () {
     const impressumLink = '/impressum'
+    const linkStyle={
+      backgroundColor: 'white',
+      marginLeft: 20
+    }
     return (
       <div>
-        <a href={impressumLink}>
+        <a href={impressumLink} style={linkStyle}>
           Impressum
         </a>
       </div>
