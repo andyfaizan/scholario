@@ -2,18 +2,23 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const co = require('co');
 const logger = require('../logger');
 const utils = require('../utils');
 const User = mongoose.model('User');
 const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
+const CourseInstance = mongoose.model('CourseInstance');
+const Pkg = mongoose.model('Pkg');
+const Material = mongoose.model('Material');
 
 var router = express.Router();
 
 
 
 router.post('/', passport.authenticate('jwt', {session: false}), function (req, res) {
-  req.checkBody('title', 'InvalidTitle').notEmpty();
+  req.checkBody('title', 'InvalidTitle').notEmpty().isAscii();
+  req.checkBody('description', 'InvalidDescription').notEmpty().isAscii();
   req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
   if (req.body.pkg) req.checkBody('pkg', 'InvalidPkg').notEmpty().isMongoId();
   if (req.body.material) req.checkBody('material', 'InvalidMaterial').notEmpty().isMongoId();
@@ -35,7 +40,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
     title: req.body.title,
     description: req.body.description,
     user: req.user,
-    courseInstance
+    courseInstance: req.body.courseInstance,
   });
   if (req.body.pkg) question.pkg = req.body.pkg;
   if (req.body.material) question.material = req.body.material;
@@ -44,6 +49,56 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   return res.json({
     err: [],
   });
+});
+
+router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+  if (req.query.courseInstance) req.checkQuery('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
+  if (req.query.pkg) req.checkQuery('pkg', 'InvalidPkg').notEmpty().isMongoId();
+  if (req.query.material) req.checkQuery('material', 'InvalidMaterial').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      'err': errors
+    });
+  }
+
+  co(function *() {
+    var pr;
+    if (req.query.material) pr = Question.find({ material: req.query.material });
+    else if (req.query.pkg) pr = Question.find({ pkg: req.query.pkg });
+    else if (req.query.courseInstance) pr = Question.find({ courseInstance: req.query.courseInstance });
+    else {
+      var userCis = yield req.user.getCourseInstances();
+      pr = Question.find({ courseInstance: { $in: userCis } });
+    }
+
+    questions = yield pr
+      .select('title description courseInstance pkg material user createDate votes')
+      .populate([{
+        path: 'user',
+        select: 'firstname lastname role universities programs',
+        populate: [{
+          path: 'universities',
+          select: 'name',
+        }, {
+          path: 'programs',
+          select: 'name university',
+        }]
+      }])
+      .lean(true)
+      .exec();
+
+    return res.json({
+      questions,
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+
 });
 
 router.get('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {

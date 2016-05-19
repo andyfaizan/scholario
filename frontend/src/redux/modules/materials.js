@@ -39,7 +39,7 @@ export function materialReducer(state={}, action) {
   switch (action.type) {
     default:
       if (action.response && action.response.entities && action.response.entities.materials) {
-        return merge({}, state, action.entities.materials)
+        return merge({}, state, action.response.entities.materials)
       }
       return state
   }

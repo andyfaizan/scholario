@@ -12,7 +12,7 @@ const request = superagentPromise(superagent, Promise)
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const SET_CURRENT_COURSE_INSTANCE = 'SET_CURRENT_COURSE_INSTANCE'
+export const SET_CUR_COURSE_INSTANCE = 'SET_CUR_COURSE_INSTANCE'
 
 export const GET_COURSE_INSTANCE_REQUEST = 'GET_COURSE_INSTANCE_REQUEST'
 export const GET_COURSE_INSTANCE_OK = 'GET_COURSE_INSTANCE_OK'
@@ -42,9 +42,9 @@ export const UNFOLLOW_COURSE_INSTANCE_ERR = 'UNFOLLOW_COURSE_INSTANCE_ERR'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function setCurrentCourseInstance(cid) {
+export function setCurCourseInstance(cid) {
   return {
-    type: SET_CURRENT_COURSE_INSTANCE,
+    type: SET_CUR_COURSE_INSTANCE,
     payload: {
       cid,
     }
@@ -112,12 +112,12 @@ export function createCourseInstance(name, prof, university, program, semester) 
   }
 }
 
-export function followCourse(cid) {
+export function followCourse(uid, cid) {
   const endpoint = urlJoin(config.apiURL, 'course-instances', cid, 'follow')
   return {
     types: [FOLLOW_COURSE_INSTANCE_REQUEST, FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR],
     callAPI: () => request.get(endpoint),
-    payload: { cid },
+    payload: { uid, cid },
   }
 }
 
@@ -154,9 +154,9 @@ export function recommendedCourseInstancesReducer(state=[], action) {
   }
 }
 
-export function currentCourseInstanceReducer(state='', action) {
+export function curCourseInstanceReducer(state='', action) {
   switch (action.type) {
-    case SET_CURRENT_COURSE_INSTANCE:
+    case SET_CUR_COURSE_INSTANCE:
       if (action.payload && action.payload.cid) {
         return action.payload.cid
       }

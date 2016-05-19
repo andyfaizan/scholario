@@ -1,8 +1,7 @@
 import React from 'react'
 import classes from './FooterLanding.scss'
-import Grid from 'react-bootstrap/lib/Grid'
-import Row from 'react-bootstrap/lib/Row'
-import Col from 'react-bootstrap/lib/Col'
+import { Router, Route, Link } from 'react-router'
+import ImpressumView from '../../views/ImpressumView'
 
 type Props = {
 
@@ -11,29 +10,19 @@ export class FooterLanding extends React.Component {
   props: Props;
 
   render () {
+    const impressumLink = '/impressum'
+    const linkStyle={
+      backgroundColor: 'white',
+      marginLeft: 20
+    }
     return (
       <div>
-        <Grid>
-          <Row className='show-grid'>
-            <Col xs={12} md={8}>Home</Col>
-            <Col xs={6} md={2}>Home</Col>
-            <Col xs={6} md={2}>Home</Col>
-          </Row>
-          <Row className='show-grid'>
-            <Col xs={12} md={8}>Home</Col>
-            <Col xs={6} md={2}>Home</Col>
-            <Col xs={6} md={2}>Home</Col>
-          </Row>
-          <Row className='show-grid'>
-            <Col xs={12} md={8}>Home</Col>
-            <Col xs={6} md={2}>Home</Col>
-            <Col xs={6} md={2}>Home</Col>
-          </Row>
-        </Grid>
+        <Link to={impressumLink} style={linkStyle}>
+          Impressum
+        </Link>
       </div>
     )
   }
 }
 
 export default FooterLanding
-

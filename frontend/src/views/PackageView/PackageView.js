@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import classes from './CourseView.scss'
+import _ from 'lodash'
+import classes from './PackageView.scss'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -10,39 +11,41 @@ import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
+import { setCurPkg, getPkg } from '../../redux/modules/pkg'
 import * as selectors from '../../redux/selectors'
 
 
 type Props = {
-  courseName: string,
-  courseId: string
-
+  packageName: PropTypes.string,
+  courseId: PropTypes.string,
 };
 
-export class Course extends React.Component {
-
-  static propTypes = {
-    courseName: PropTypes.string,
-    courseId: PropTypes.string,
-  };
+export class Package extends React.Component {
+  props: Props
 
   componentDidMount() {
-    const cid = this.props.params.id
-    this.props.dispatch(setCurCourseInstance(cid))
-    this.props.dispatch(getCourseInstance(cid))
+    const pid = this.props.params.id
+    this.props.dispatch(setCurPkg(pid))
+    this.props.dispatch(getPkg(pid))
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (_.isEmpty(this.props.courseInstance) && newProps && newProps.pkg && newProps.pkg.courseInstance) {
+      this.props.dispatch(setCurCourseInstance(newProps.pkg.courseInstance))
+      this.props.dispatch(getCourseInstance(newProps.pkg.courseInstance))
+    }
   }
 
   render () {
-    const { courseInstance } = this.props
-    var pkgs = []
-    if (courseInstance.pkgs) {
-      pkgs = courseInstance.pkgs.map(pkg =>
+    const { pkg, courseInstance } = this.props
+    var materials = []
+    if (pkg.materials) {
+      materials = pkg.materials.map(material =>
         <IndependentPackage
-          key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
+          key={material._id} materialTitle={material.name} materialNotifications={10}
           dateUploaded="20/06/2009"
-          semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
-          pkgUrl={`/package/${pkg._id}`}
+          pkgUrl={`/material/${material._id}`}
         />
       )
     }
@@ -63,7 +66,7 @@ export class Course extends React.Component {
           <Row >
             <Col xs={20} md={8}>
               <div>
-                {pkgs}
+                {materials}
               </div>
             </Col>
             <Col xs={4} md={4}>
@@ -79,12 +82,13 @@ export class Course extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    courseInstance: selectors.getCurCourseInstance(state),
+    pkg: selectors.getCurPkg(state),
     questions: selectors.getUserQuestions(state),
+    courseInstance: selectors.getCurCourseInstance(state),
   }
 }
 
 
 export default connect(
   mapStateToProps
-)(Course)
+)(Package)
