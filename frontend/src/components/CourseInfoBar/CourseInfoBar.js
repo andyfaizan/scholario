@@ -61,43 +61,57 @@ export class CourseInfoBar extends React.Component {
     return (
       <div>
         <Card>
-          <Toolbar style = {styles.toolbarStyle } >
-            <ToolbarGroup float='right'>
-            <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
-            <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
-          </ToolbarGroup>
-          <ToolbarGroup float='left'>
-         <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>
-          </ToolbarGroup>
-          </Toolbar>
-          <Toolbar style = {styles.toolbarStyle } >
-          	<Grid >
-	          <Row >
-	            <Col xs={6} md={3}>
-	            <h4>Teachers: {this.props.teachersName} </h4>
-	            </Col>
-	            <Col xs={6} md={3}>
-	          	  <h4>Assitant: No Assistant </h4>
-	            </Col>
-	            <Col xs={6} md={3}>
-	          	  <h4>Semester: {semesterInstance}</h4>
-	            </Col>
-	            <Col xs={6} md={3}>
-                <Friend />
-                {this.props.participantsNum} Likes
-	            </Col>
-	          </Row>
-	         </Grid>
-          </Toolbar>
-          <Toolbar style = {styles.toolbarStyle } >
-  	        <Grid>
-  	          <Row >
-  	            <Col xs={24} md={12}>
-                  {this.props.shortInformation}
-  	            </Col>
-  	          </Row>
-  	        </Grid>
-          </Toolbar>
+          <Grid>
+            <Row>
+              <Col xs={24} md={12} > 
+                  <Toolbar style = {styles.toolbarStyle } >
+                    <ToolbarGroup float='right'>
+                    <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
+                    <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
+                  </ToolbarGroup>
+                   <ToolbarGroup float='left'>
+                 <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>
+                  </ToolbarGroup>
+                  </Toolbar>
+              </Col>
+            </Row>
+          </Grid>
+          <Grid>
+            <Row>
+              <Col xs={24} md={12} >
+                  <Toolbar style = {styles.toolbarStyle } >
+                  	<Grid >
+        	          <Row >
+        	            <Col xs={6} md={3}>
+        	            <h4>Teachers: {this.props.teachersName} </h4>
+        	            </Col>
+        	            <Col xs={6} md={3}>
+        	          	  <h4>Assitant: No Assistant </h4>
+        	            </Col>
+        	            <Col xs={6} md={3}>
+        	          	  <h4>Semester: {semesterInstance}</h4>
+        	            </Col>
+        	            <Col xs={6} md={3}>
+                        <Friend />
+                        {this.props.participantsNum} Likes
+        	            </Col>
+        	          </Row>
+        	         </Grid>
+                    </Toolbar>
+                </Col>
+              </Row>
+          </Grid>
+         <Grid>
+            <Row>
+              <Col xs={24} md={12} >
+                <Toolbar style = {styles.toolbarStyle } >
+        	      
+                        {this.props.shortInformation}
+        	         
+                </Toolbar>
+              </Col>
+            </Row>
+          </Grid>
         </Card>
       </div>
     )

@@ -64,12 +64,12 @@ export class Package extends React.Component {
         <br/>
         <Grid className='container-fluid'>
           <Row >
-            <Col xs={20} md={8}>
+            <Col xs={16} md={8}>
               <div>
                 {materials}
               </div>
             </Col>
-            <Col xs={4} md={4}>
+            <Col xs={8} md={4}>
               <Questions questions={this.props.questions} location={this.props.location}/>
             </Col>
           </Row>
