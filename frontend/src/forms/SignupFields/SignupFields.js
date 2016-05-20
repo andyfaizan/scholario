@@ -64,7 +64,7 @@ export class SignupFields extends React.Component {
       const styles = {
         errorStyle:
         {
-          backgroundColor: '#9fa8a3'
+          backgroundColor: '#e74c3c'
         },
         underlineStyle:
         {
@@ -76,7 +76,7 @@ export class SignupFields extends React.Component {
         },
         floatingLabelStyle:
         {
-          color: '#446CB3'
+          color: '#27ae60'
         },
         labelStyle:
         {

@@ -124,11 +124,11 @@ export class ModalComponent extends React.Component {
       overflowY: 'scroll',
     }
     const tabItemContainerStyle = {
-      backgroundColor: '#1abc9c',
+      backgroundColor: '#26A65B',
       fontWeight: 'bold',
     }
     const inkBarStyle = {
-      backgroundColor: 'yellow' //temporary color
+      backgroundColor: '#446CB3'//temporary color
     }
 
     const labelStyle = {
@@ -167,7 +167,7 @@ export class ModalComponent extends React.Component {
             type='submit'
             label='Login'
             primary={false}
-            backgroundColor='#f1c40f'
+            backgroundColor='#446CB3'
             fullWidth={true}
             labelStyle={labelStyle}
             onTouchTap={this.confirmLogin}
@@ -187,7 +187,7 @@ export class ModalComponent extends React.Component {
               label='Signup'
               type='submit'
               primary={false}
-              backgroundColor='#f1c40f'
+              backgroundColor='#446CB3'
               fullWidth={true}
               labelStyle={labelStyle}
               onTouchTap={this.confirmSignup} />
