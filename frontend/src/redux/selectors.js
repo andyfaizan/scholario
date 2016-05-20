@@ -16,6 +16,7 @@ export const getMaterials = (state) => state.entities.materials
 export const getCurCourseInstanceId = (state) => state.curs.courseInstance
 export const getCurPkgId = (state) => state.curs.pkg
 export const getCurMaterialId = (state) => state.curs.material
+export const getCurQuestionId = (state) => state.curs.question
 export const getRecommendedCourseInstanceIds = (state) => state.recommendedCourseInstances
 export const getRequests = (state) => state.requests
 
@@ -89,6 +90,11 @@ export const getQuestions = createSelector(
     }
     return res
   }
+)
+
+export const getCurQuestion = createSelector(
+  [getCurQuestionId, getQuestions],
+  (curQuestionId, questions) => Object.assign({}, questions[curQuestionId])
 )
 
 export const getUserQuestions = createSelector(

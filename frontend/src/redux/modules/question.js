@@ -12,6 +12,8 @@ const request = superagentPromise(superagent, Promise)
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const SET_CUR_QUESTION = 'SET_CUR_QUESTION'
+
 export const GET_QUESTIONS_REQUEST = 'GET_QUESTIONS_REQUEST'
 export const GET_QUESTIONS_OK = 'GET_QUESTIONS_OK'
 export const GET_QUESTIONS_ERR = 'GET_QUESTIONS_ERR'
@@ -31,6 +33,15 @@ export const ADD_QUESTION_ERR = 'ADD_QUESTION_ERR'
 // ------------------------------------
 // Actions
 // ------------------------------------
+export function setCurQuestion(qid) {
+  return {
+    type: SET_CUR_QUESTION,
+    payload: {
+      qid,
+    }
+  }
+}
+
 export function getQuestions(cid = '', pid = '', mid = '') {
   var endpoint = urlJoin(config.apiURL, 'questions')
   if (cid) {

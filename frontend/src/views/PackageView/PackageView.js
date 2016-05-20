@@ -76,7 +76,11 @@ export class Package extends React.Component {
               </div>
             </Col>
             <Col xs={8} md={4}>
-              <Questions questions={this.props.questions} location={this.props.location}/>
+              <Questions
+                questions={this.props.questions}
+                location={this.props.location}
+                linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+              />
             </Col>
           </Row>
         </Grid>
