@@ -53,7 +53,7 @@ export class RightSectionTeacherDashboard extends React.Component {
           <CardText >
             <List>
               <Subheader style={subheader}>
-                Popular Questions
+                Wichtigste Fragen
                 <IconButton tooltip={allQuestionsTooltip} style={iconStyles} containerElement={<Link to={linkToQuestionsList}  />}>
                   <ViewList />
                 </IconButton>
@@ -77,7 +77,7 @@ export class RightSectionTeacherDashboard extends React.Component {
               </div>
             </List>
             <List>
-              <Subheader style={subheader}>Recent Questions</Subheader>
+              <Subheader style={subheader}> Neueste Fragen</Subheader>
               <div>
               <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />

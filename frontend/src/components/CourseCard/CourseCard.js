@@ -61,14 +61,14 @@ export class CourseCard extends React.Component {
     //variables for displaying Child Node
     var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
 						<div className={classes.actionFollow} >
-						<IconButton disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="follow the course">
+						<IconButton disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="Kurz folgen">
 						<LibraryAdd color='white' /></IconButton>	
 						</div>
 						<div className={classes.actionPostionLeft}>
-						<IconButton tooltip="Delete Course">
+						<IconButton tooltip="Kurz löschen">
 						<Delete color='white' /></IconButton>
 						</div><div className={classes.actionPosition}>
-						<IconButton containerElement={<Link to={this.props.courseUrl} />} linkButton={true} tooltip="Go to Detail Course">
+						<IconButton containerElement={<Link to={this.props.courseUrl} />} linkButton={true} tooltip="Zum Kurs">
 						<PageView color='white' />
 						</IconButton></div></div> ;
 

@@ -88,23 +88,6 @@ export class CourseInfoBar extends React.Component {
                   <Divider />
                   <CardText expandable={true}>
                       <div className = {classes.actionPosition} >
-
-                                asmdmdakdkasldlkadklsaldasdkslakdlakdlkdl
-                            jskjdkajjdjsadasdjsadajkjdjajds
-                            djsalkjdaksldjlsjjdljasljldjaj
-                                                    djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj                        djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-                            djsalkjdaksldjlsjjdljasljldjaj
-
-
-                            {this.props.participantsNum}
                             {this.props.shortInformation}
                         </div>
                   </CardText>

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import * as selectors from '../../redux/selectors'
-import { getCourseInstance } from '../../redux/modules/course-instance'
+import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
+import { getQuestions } from '../../redux/modules/question'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
@@ -25,18 +26,27 @@ export class Question extends React.Component {
 
   componentDidMount() {
     const cid = this.props.params.id
+    this.props.dispatch(setCurCourseInstance(cid))
     this.props.dispatch(getCourseInstance(cid))
+    this.props.dispatch(getQuestions(cid))
   }
 
   render () {
     //question item const display
     const questionClickable = {true}
+    const { courseInstance } = this.props
+    
     return (
       <div className={classes.dashboardRoot}>
       	   <DashboardToolBar />
-           <CourseInfoBar courseTitle={this.props.courseInstance.course.name} 
-                          courseUrl={`/course/${this.props.courseInstance._id}`} 
-           />
+           <CourseInfoBar
+          courseTitle={courseInstance.course ? courseInstance.course.name : ''}
+          courseUrl={`/course/${courseInstance._id}`}
+          semesterInstance={courseInstance.semester ? `${courseInstance.semester.term} ${courseInstance.semester.year}` : ''}
+          teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
+          shortInformation={courseInstance.description}
+          participantsNum={courseInstance.participantsNum}
+          />
 		      	<Grid>
 		      		<br/>
 		      		<Row>
@@ -62,8 +72,8 @@ export class Question extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    courseInstance: selectors.getCurrentCourseInstance(state, ownProps.params.id),
-    questions: selectors.getUserQuestions(state),
+    courseInstance: selectors.getCurCourseInstance(state),
+    questions: selectors.getCurCourseInstanceQuestions(state),
   }
 }
 

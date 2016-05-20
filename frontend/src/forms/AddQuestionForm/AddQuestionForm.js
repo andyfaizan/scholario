@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import { load } from '../../redux/modules/AskQuestion'
 // Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
-export const fields = ['title', 'content', 'courseInstance', 'pkg', 'material']
+export const fields = ['title', 'description', 'courseInstance', 'pkg', 'material']
 
 type Props = {
   fields: Object,
@@ -45,12 +45,12 @@ export class AddQuestion extends React.Component {
 
     const titleLabel = 'Frage'
     const titleHint = 'Ein Titel für die Frage'
-    const contentLabel = 'Content'
+    const descriptionLabel = 'Description'
     const packageLabel = 'Package'
     const courseLabel = 'Kurs'
     const materialLabel = 'Material'
 
-    const { fields: { title, content, courseInstance, pkg, material} } = this.props
+    const { fields: { title, description, courseInstance, pkg, material} } = this.props
 
     var packageItems = []
     if (this.props.fields.courseInstance.value) {
@@ -83,9 +83,9 @@ export class AddQuestion extends React.Component {
             />
           <br/>
           <TextField
-            {...content}
+            {...description}
             floatingLabelStyle={styles.floatingLabelStyle}
-            floatingLabelText={contentLabel}
+            floatingLabelText={descriptionLabel}
             underlineFocusStyle={styles.focusStyle}
             fullWidth={true}
             multiLine={true}
