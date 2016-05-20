@@ -15,6 +15,7 @@ import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import Card from 'material-ui/lib/card/card'
+import CardText from 'material-ui/lib/card/card-text'
 import classes from './QuestionView.scss'
 
 
@@ -92,6 +93,9 @@ export class Question extends React.Component {
                       datePosted={question.createDate}
                       questionUrl={`/question/${question._id}`}
                     />
+                    <CardText>
+                      {question.description}
+                    </CardText>
                   </Card>
                 </Col>
 		      		</Row>
