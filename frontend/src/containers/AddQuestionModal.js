@@ -41,6 +41,7 @@ export class AddQuestionModal extends React.Component {
   }
 
   getCourseFromPkg = (id) => {
+    if(this.props.courseInstances)
     for (var i = 0; i < this.props.courseInstances.length; i++) {
       for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
         if(this.props.courseInstances[i].pkgs[j]._id === id){
@@ -76,6 +77,7 @@ export class AddQuestionModal extends React.Component {
       pkg: '',
       material: ''
     }
+    if(this.props.courseInstances && this.props.courseInstances.length > 0)
     if(this.props.location){
       let pathArray = this.props.location.pathname.split("/")
       let currentLevel = pathArray[1]
