@@ -74,7 +74,7 @@ export class Course extends React.Component {
                 <br/>
                 <br/>
                 <fieldset>
-                  <legend><h4>Verpackungsmaterialien von Studenten {courseInstance.course.name}</h4></legend>
+                  <legend><h4>Materialien von Studenten {courseInstance.course.name}</h4></legend>
                 {pkgs}
                 </fieldset>
               </div>

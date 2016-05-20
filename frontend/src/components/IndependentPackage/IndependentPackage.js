@@ -31,7 +31,7 @@ export class IndependentPackage extends React.Component {
       height: 172,
       width: 170,
       margin: 8.5,
-      backgroundColor: '#1690DB',
+      backgroundColor: '#446CB3 ',
       color: '#ffffff',
       borderTopRightRadius: 30,
       borderBottomRightRadius:30,
@@ -56,7 +56,7 @@ export class IndependentPackage extends React.Component {
       marginLeft: -34,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor: '#446CB3 ',
     }
 
     const styleThree = {
@@ -64,7 +64,7 @@ export class IndependentPackage extends React.Component {
       height: 170,
       width: 22,
       margin: 8.5,
-      backgroundColor: '#1690DB',
+      backgroundColor: '#446CB3 ',
       color: '#ffffff',
       borderTopRightRadius: 30,
       borderBottomRightRadius:30,
@@ -76,7 +76,7 @@ export class IndependentPackage extends React.Component {
       marginLeft: -36,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor: '#446CB3 ',
     }
 
     const styleFour = {
