@@ -18,6 +18,10 @@ export const GET_PKG_REQUEST = 'GET_PKG_REQUEST'
 export const GET_PKG_OK = 'GET_PKG_OK'
 export const GET_PKG_ERR = 'GET_PKG_ERR'
 
+export const ADD_PKG_REQUEST = 'ADD_PKG_REQUEST'
+export const ADD_PKG_OK = 'ADD_PKG_OK'
+export const ADD_PKG_ERR = 'ADD_PKG_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -43,6 +47,15 @@ export function getPkg(pid, setCur = false) {
     schema: pkgSchema,
   }
 }
+
+export function addPkg(name, courseInstance, access) {
+  const endpoint = urlJoin(config.apiURL, 'pkgs')
+  return {
+    types: [ADD_PKG_REQUEST, ADD_PKG_OK, ADD_PKG_ERR],
+    callAPI: () => request.post(endpoint).send({ name, courseInstance, access })
+  }
+}
+
 
 // ------------------------------------
 // Reducer
