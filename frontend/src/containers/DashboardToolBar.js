@@ -33,7 +33,7 @@ export class DashboardToolBar extends React.Component {
         color: 'white'
       },
       toolbarStyle: {
-        backgroundColor: '#26A65B ',
+        backgroundColor: '#26A65B',
         color:'white'
       },
       buttonStyle: {
@@ -41,6 +41,9 @@ export class DashboardToolBar extends React.Component {
       },
       separator: {
         backgroundColor:'white'
+      },
+      link: {
+        backgroundColor: '#26A65B'
       }
     }
 
@@ -48,7 +51,9 @@ export class DashboardToolBar extends React.Component {
       <div>
          <Toolbar style={styles.toolbarStyle}>
           <ToolbarGroup float='right'>
-            <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
+                <Link to='/dashboard' style={styles.link} >
+                <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
+                </Link>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
             <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/dashboard' />} label="Kurse" >
