@@ -83,7 +83,7 @@ export class MaterialComponent extends React.Component {
       height: 80,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#22A7F0',
+      backgroundColor:'#446CB3',
       color: '#ffffff',
       overflow: 'inherit',
       alignItems: 'center',
@@ -93,7 +93,7 @@ export class MaterialComponent extends React.Component {
       marginLeft: -229,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#22A7F0',
+      borderColor: '#446CB3',
       opacity: 1.0,
       borderBottomLeftRadius: 50,
       borderBottomRightRadius:50
