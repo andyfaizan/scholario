@@ -68,15 +68,15 @@ export class SignupFields extends React.Component {
         },
         underlineStyle:
         {
-          borderColor: '#e3e0cf'
+          borderColor: '#446CB3'
         },
         focusStyle:
         {
-          borderColor: '#e3e0cf'
+          borderColor: '#446CB3'
         },
         floatingLabelStyle:
         {
-          color: '#9fa8a3'
+          color: '#446CB3'
         },
         labelStyle:
         {

@@ -46,7 +46,7 @@ export class RightSectionTeacherDashboard extends React.Component {
       marginLeft: -15
     };
 
-    const allQuestionsTooltip = "Alle Frage"
+    const allQuestionsTooltip = "Alle Fragen"
     const askQuestion = "Eine Frage stellen"
     const { linkToQuestionsList } = this.props
 

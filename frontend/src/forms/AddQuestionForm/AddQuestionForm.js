@@ -31,11 +31,11 @@ export class AddQuestion extends React.Component {
       },
       underlineStyle:
       {
-        borderColor: '#f1c40f'
+        borderColor: '#446CB3'
       },
       focusStyle:
       {
-        borderColor: '#f1c40f'
+        borderColor: '#446CB3'
       },
       floatingLabelStyle:
       {
