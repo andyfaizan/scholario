@@ -14,13 +14,19 @@ import * as selectors from '../redux/selectors'
 export class AddQuestionModal extends React.Component {
   static propTypes = {
     modal: PropTypes.object.isRequired,
-    hide: PropTypes.func.isRequired
+    hide: PropTypes.func.isRequired,
+    location: PropTypes.object
   }
 
   constructor(props) {
     super(props)
     this.create = this.create.bind(this)
     this.onAddQuestionSubmit = this.onAddQuestionSubmit.bind(this)
+    this.calculateFormProps = this.calculateFormProps.bind(this)
+    this.getObjects = this.getObjects.bind(this)
+    this.getCourseFromPkg = this.getCourseFromPkg.bind(this)
+    this.getPkgFromMaterial = this.getPkgFromMaterial.bind(this)
+    this.data = this.calculateFormProps()
   }
 
   create = () => {
@@ -32,6 +38,74 @@ export class AddQuestionModal extends React.Component {
     console.log('onAddQuestionSubmit called')
     //this.props.addQuestion(data)
     this.props.hide()
+  }
+
+  getCourseFromPkg = (id) => {
+    for (var i = 0; i < this.props.courseInstances.length; i++) {
+      for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
+        if(this.props.courseInstances[i].pkgs[j]._id === id){
+          return this.props.courseInstances[i]
+        }
+      }
+    }
+  }
+
+  getPkgFromMaterial = (pkgArray, id) => {
+    for ( var i = 0; i < pkgArray.length; i++ ){
+        for (var j = 0; j < pkgArray[i].materials.length; j++) {
+          if ( pkgArray[i].materials[j]._id === id ) {
+            return pkgArray[i]
+          }
+        }
+    }
+  }
+
+  getObjects(obj) {
+    var array=[]
+    for (var p in obj) {
+      if (obj[p] instanceof Object) {
+        array.push(obj[p])
+      }
+    }
+    return array
+  }
+
+  calculateFormProps = () => {
+    var defaultData = {
+      courseInstance : '',
+      pkg: '',
+      material: ''
+    }
+    if(this.props.location){
+      let pathArray = this.props.location.pathname.split("/")
+      let currentLevel = pathArray[1]
+      let id = pathArray[2]
+      let currCourseInstance
+      let pkgArray
+      let currPkg
+
+      switch (currentLevel) {
+        case "course":
+          defaultData.courseInstance = id
+        break;
+
+        case "package":
+          defaultData.pkg = id
+          currCourseInstance = this.getCourseFromPkg(id)
+          defaultData.courseInstance = currCourseInstance._id
+        break;
+
+        case "material":
+          defaultData.material = id
+          pkgArray = this.getObjects(this.props.allPkgs)
+          currPkg = this.getPkgFromMaterial(pkgArray, id)
+          defaultData.pkg = currPkg._id
+          currCourseInstance = this.getCourseFromPkg(currPkg._id)
+          defaultData.courseInstance = currCourseInstance._id
+        break;
+      }
+    }
+    return defaultData
   }
 
   render() {
@@ -64,7 +138,12 @@ export class AddQuestionModal extends React.Component {
           open={this.props.modal.visible}
           autoScrollBodyContent={true}
           autoDetectWindowHeight={true}>
-            <AddQuestionForm ref="myForm" onSubmit={this.onAddQuestionSubmit} courseInstances={this.props.courseInstances}/>
+            <AddQuestionForm ref="myForm"
+            onSubmit={this.onAddQuestionSubmit}
+            courseInstances={this.props.courseInstances}
+            allPkgs={this.props.allPkgs}
+            defaultData={this.data}
+            getObjects={this.getObjects}/>
         </Dialog>
       </div>
     )
@@ -75,6 +154,7 @@ const mapStateToProps = (state) => {
   return {
     modal: state.modal,
     courseInstances: selectors.getUserCourseInstances(state),
+    allPkgs: selectors.getPkgs(state)
   }
 }
 

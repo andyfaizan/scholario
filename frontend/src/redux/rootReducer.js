@@ -8,6 +8,7 @@ import { loginReducer } from './modules/user'
 import { recommendedCourseInstancesReducer, curCourseInstanceReducer } from './modules/course-instance'
 import { curPkgReducer } from './modules/pkg'
 import { curReducer } from './modules/cur'
+import { questionReducer } from './modules/AskQuestion'
 
 export default combineReducers({
   counter,
@@ -17,6 +18,7 @@ export default combineReducers({
   entities,
   recommendedCourseInstances: recommendedCourseInstancesReducer,
   curs: curReducer,
+  questionReducer,
   //curCourseInstance: curCourseInstanceReducer,
   //curPkg: curPkgReducer,
 
