@@ -23,7 +23,7 @@ export class NavBarLandingPage extends React.Component {
         fontSize: '35px'
       },
       navBarStyle: {
-        backgroundColor: '#1abc9c'
+        backgroundColor: '#26A65B'
       },
       buttonStyle: {
         backgroundColor: 'transparent',
@@ -31,13 +31,13 @@ export class NavBarLandingPage extends React.Component {
         color: 'white'
       },
       loginButton: {
-        backgroundColor: '#eee111',
+        backgroundColor: '#446CB3',
         marginTop: '7',
         fontWeight: 'bold',
         color: 'white',
         border: 'true',
         borderStyle: 'solid',
-        borderColor: 'grey',
+        borderColor: '#446CB3',
         borderRadius: '20',
         borderWidth: '0.0'
       }

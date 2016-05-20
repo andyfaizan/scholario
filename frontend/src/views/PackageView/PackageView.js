@@ -53,7 +53,7 @@ export class Package extends React.Component {
     }
 
     return (
-      <div className={classes.rootCourse}>
+      <div className={classes.dashboardRoot}>
         <DashboardToolBar />
         <CourseInfoBar
           courseTitle={courseInstance.course ? courseInstance.course.name : ''}

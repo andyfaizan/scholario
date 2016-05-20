@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/lib/Col'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
+import classes from './DetailQuestionListView.scss'
 
 type Props = {
 
@@ -18,7 +19,7 @@ export class DetailQuestionList extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={classes.dashboardRoot}>
       	  <DashboardToolBar />
       	  <TeacherProfileBar
 					          firstNameUser={this.props.user.firstname}

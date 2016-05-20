@@ -13,6 +13,8 @@ import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import Card from 'material-ui/lib/card/card'
+import classes from './QuestionView.scss'
+
 
 type Props = {
 
@@ -30,7 +32,7 @@ export class Question extends React.Component {
     //question item const display
     const questionClickable = {true}
     return (
-      <div>
+      <div className={classes.dashboardRoot}>
       	   <DashboardToolBar />
            <CourseInfoBar courseTitle={this.props.courseInstance.course.name} 
                           courseUrl={`/course/${this.props.courseInstance._id}`} 
