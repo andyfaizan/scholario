@@ -11,7 +11,7 @@ import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
-import { getQuestions } from '../../redux/modules/question'
+import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
@@ -105,6 +105,7 @@ export class Course extends React.Component {
                 questions={this.props.questions}
                 location={this.props.location}
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+                onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
               />
             </Col>
           </Row>
@@ -141,7 +142,6 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-
 export default connect(
-  mapStateToProps
+  mapStateToProps,
 )(Course)

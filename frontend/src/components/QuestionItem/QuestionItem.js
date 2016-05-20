@@ -46,18 +46,18 @@ export class QuestionItem extends React.Component {
     const secondaryText = <div className={styleSecondaryText}>{this.props.datePosted}</div>
     return (
       <div>
-      	<ListItem
-        leftIcon={<ActionQuestionAnswer color="#26A65B"/>}
-        primaryText= {this.props.questionStatement}
-        secondaryText={secondaryText}
-        innerDivStyle={{color:'#26A65B'}}
-        style={border}
-        disabled ={this.props.listItemClickable}
-        rightAvatar = {<div className={classes.avatar}><Avatar size={25} color="#26A65B" backgroundColor="white">52</Avatar></div>}
-        rightIconButton = {<div className={classes.buttonThumbsUp}><IconButton>
-                           <ThumbsUp color="#26A65B" /></IconButton></div>}
-        onTouchTap={touchQuestion}
-      	/>
+        <ListItem
+          leftIcon={<ActionQuestionAnswer color="#26A65B"/>}
+          primaryText= {this.props.questionStatement}
+          secondaryText={secondaryText}
+          innerDivStyle={{color:'#26A65B'}}
+          style={border}
+          disabled ={this.props.listItemClickable}
+          rightAvatar={<div className={classes.avatar}><Avatar size={25} color="#26A65B" backgroundColor="white">{this.props.currentLikes}</Avatar></div>}
+          rightIconButton={<div className={classes.buttonThumbsUp}><IconButton onTouchTap={this.props.onClickVote}>
+                             <ThumbsUp color="#26A65B" /></IconButton></div>}
+          onTouchTap={touchQuestion}
+        />
       </div>
     )
   }

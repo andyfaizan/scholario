@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
-import { getQuestions } from '../../redux/modules/question'
+import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -43,10 +43,13 @@ export class DetailQuestionList extends React.Component {
     var questionEls = questions.map(q =>
       <QuestionListInDetailsView
         key={q._id}
+        questionId={q._id}
         questionStatement={q.title}
         listItemClickable={false}
         datePosted={q.createDate}
         questionURL={`/question/${q._id}`}
+        currentLikes={q.votes.length}
+        onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
       />
     )
     return (
