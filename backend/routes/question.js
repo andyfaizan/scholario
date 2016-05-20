@@ -86,6 +86,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
           select: 'name university',
         }]
       }])
+      .sort({ createDate: -1 })
       .lean(true)
       .exec();
 
