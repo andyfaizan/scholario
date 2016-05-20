@@ -65,7 +65,16 @@ export class Course extends React.Component {
           <Row >
             <Col xs={16} md={8}>
               <div>
+                <fieldset>
+                  <legend><h4>Key Materials By: {courseInstance.prof.firstname} {courseInstance.prof.lastname}</h4></legend>
                 {pkgs}
+                </fieldset>
+                <br/>
+                <br/>
+                <fieldset>
+                  <legend><h4>Package Materials By Students Of {courseInstance.course.name}</h4></legend>
+                {pkgs}
+                </fieldset>
               </div>
             </Col>
             <Col xs={8} md={4}>
