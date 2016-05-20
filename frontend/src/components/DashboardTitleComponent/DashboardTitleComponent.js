@@ -51,7 +51,6 @@ export class DashboardTitleComponent extends React.Component {
     return (
       <div>
       <Card>
-        <CardText>
           {/*<div className={classes.divSearchField}>
             <AutoComplete
             floatingLabelText= {floatingLabelTextState}
@@ -62,7 +61,6 @@ export class DashboardTitleComponent extends React.Component {
           </div>*/}
                     {addCourse}
 
-        </CardText>
         </Card>
       </div>
     )
