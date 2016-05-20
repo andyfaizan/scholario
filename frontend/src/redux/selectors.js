@@ -134,6 +134,12 @@ export const getCurPkgQuestions = createSelector(
     .filter((question) => (question.pkg === pid))
 )
 
+export const getCurMaterialQuestions = createSelector(
+  [getCurMaterialId, getQuestions],
+  (mid, questions) => _.values(questions)
+    .filter(question => (question.material === mid))
+)
+
 export const getCurrentCourseInstanceMaterials = createSelector(
   [getCurCourseInstance, getMaterials, getCourseInstances],
   (currentCourse, materials, courseInstances) => currentCourse.materials.map((id) => materials[id])

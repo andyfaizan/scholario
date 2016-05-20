@@ -72,7 +72,7 @@ const getFrame = (fileType, playing) => {
   return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
 }
 
-const FullMaterial = ({fileType, playing, location, courseInstance, pkg, material}) => (
+const FullMaterial = ({fileType, playing, location, courseInstance, pkg, material, questions}) => (
   <div>
   <Card>
     <CardHeader
@@ -84,8 +84,7 @@ const FullMaterial = ({fileType, playing, location, courseInstance, pkg, materia
           <ArrowBack />
         </IconButton>
       }
-      />
-    
+    />
   </Card>
   <br/>
   <br/>
@@ -97,12 +96,16 @@ const FullMaterial = ({fileType, playing, location, courseInstance, pkg, materia
           </Card>
         </Col>
         <Col xs={8} md={4}>
-          <Questions location={location}/>
+          <Questions
+            questions={questions}
+            location={location}
+            linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+          />
         </Col>
       </Row>
     </Grid>
   </div>
-);
+)
 
 FullMaterial.propTypes = {}
 

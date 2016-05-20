@@ -30,7 +30,7 @@ export class MaterialView extends React.Component {
     const mid = this.props.params.id
     this.props.setCurMaterial(mid)
     this.props.getMaterial(mid)
-    this.props.getQuestions(mid)
+    this.props.getQuestions('', '', mid)
     if (!this.props.userMetadata.fetchedData) {
       this.props.getUser()
     }
@@ -70,6 +70,7 @@ export class MaterialView extends React.Component {
           courseInstance={this.props.courseInstance}
           pkg={this.props.pkg}
           material={this.props.material}
+          questions={this.props.questions}
         />
       </div>
     )
@@ -91,6 +92,7 @@ const mapStateToProps = (state) => {
     pkg,
     material,
     requests: selectors.getRequests(state),
+    questions: selectors.getCurMaterialQuestions(state),
   }
 }
 

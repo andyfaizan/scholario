@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     courseInstance: ownProps.courseInstance,
     pkg: ownProps.pkg,
     material: ownProps.material,
+    questions: ownProps.questions,
   }
 }
 const mapDispatchToProps = (dispatch) => {
