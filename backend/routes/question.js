@@ -122,19 +122,33 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
   }
 
   Question.findOne({ _id: req.params.qid})
-    .select('id title description course user createDate answers votes')
+    .select('id title description courseInstance pkg material user createDate answers votes')
         .populate([/*{*/
           //path: 'courseInstance',
           //select: 'name',
         /*}, */{
           path: 'user',
-          select: 'firstname lastname',
+          select: 'firstname lastname universities programs',
+          populate: [{
+            path: 'universities',
+            select: 'name',
+          }, {
+            path: 'programs',
+            select: 'name university',
+          }],
         }, {
           path: 'answers',
-            select: 'content createDate votes user',
+            select: 'content createDate votes user bestAnswer',
                 populate: {
                   path: 'user',
-                  select: 'firstname lastname',
+                  select: 'firstname lastname universities programs',
+                  populate: [{
+                    path: 'universities',
+                    select: 'name',
+                  }, {
+                    path: 'programs',
+                    select: 'name university',
+                  }],
                 }
         }])
         .lean(true)
