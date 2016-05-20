@@ -74,6 +74,7 @@ const courseInstanceRouter = require('./routes/course-instance');
 const questionRouter = require('./routes/question');
 const studentRouter = require('./routes/student');
 const pkgRouter = require('./routes/pkg');
+const materialRouter = require('./routes/material');
 const universityRouter = require('./routes/university');
 const programRouter = require('./routes/program');
 apiRouter.use('/auth', authRouter);
@@ -83,6 +84,7 @@ apiRouter.use('/course-instances', courseInstanceRouter);
 apiRouter.use('/questions', questionRouter);
 apiRouter.use('/students', studentRouter);
 apiRouter.use('/pkgs', pkgRouter);
+apiRouter.use('/materials', materialRouter);
 apiRouter.use('/universities', universityRouter);
 apiRouter.use('/programs', programRouter);
 
