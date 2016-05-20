@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
-import { getQuestion, setCurQuestion } from '../../redux/modules/question'
+import { getQuestion, setCurQuestion, voteQuestion } from '../../redux/modules/question'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
@@ -93,6 +93,8 @@ export class Question extends React.Component {
                       questionStatement={question.title}
                       datePosted={question.createDate}
                       questionUrl={`/question/${question._id}`}
+                      currentLikes={question.votes.length}
+                      onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
                     />
                     <CardText>
                       {question.description}

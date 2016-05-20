@@ -72,17 +72,16 @@ export class RightSectionTeacherDashboard extends React.Component {
                   questionStatement={question.title}
                   datePosted={question.createDate}
                   questionURL={`/question/${question._id}`}
+                  currentLikes={question.votes.length}
+                  onClickVote={() => this.props.onClickVote(question._id)}
                 />
             ) : null}
 
-              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               </div>
             </List>
             <List>
               <Subheader style={subheader}> Neueste Fragen</Subheader>
               <div>
-              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               </div>
             </List>
           </CardText>

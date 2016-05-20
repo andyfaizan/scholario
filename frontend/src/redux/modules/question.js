@@ -83,6 +83,7 @@ export function voteQuestion(qid) {
     types: [VOTE_QUESTION_REQUEST, VOTE_QUESTION_OK, VOTE_QUESTION_ERR],
     callAPI: () => request.get(endpoint),
     payload: { qid },
+    schema: questionSchema,
   }
 }
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import FullMaterial from '../components/FullMaterial/FullMaterial'
+import { voteQuestion } from '../redux/modules/question'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -16,7 +17,9 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    onClickVote: (qid) => dispatch(voteQuestion(qid)),
+  }
 }
 
 export default connect(
