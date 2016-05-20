@@ -8,7 +8,10 @@ const mapStateToProps = (state, ownProps) => {
     // fileType: state.Material[id].fileType
     fileType: 'video',
     playing: true,
-    location: ownProps.location
+    location: ownProps.location,
+    courseInstance: ownProps.courseInstance,
+    pkg: ownProps.pkg,
+    material: ownProps.material,
   }
 }
 const mapDispatchToProps = (dispatch) => {
