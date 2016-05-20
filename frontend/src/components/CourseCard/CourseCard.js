@@ -36,7 +36,7 @@ export class CourseCard extends React.Component {
       backgroundColor: '#446CB3',
       color: 'white',
       borderRadius: 13,
-      overflow: 'inherit',
+      overflow: 'inherit'
     }
 
     const divStyle = {

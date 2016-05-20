@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import Divider from 'material-ui/lib/divider'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
+import AddCourseComponent from '../../components/AddCourseComponent/AddCourseComponent'
 import AddCourse from '../../containers/DashboardTitleContainer'
 //import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -98,7 +99,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
               </Col>
             </Row>
           </Grid>
-
+          <AddCourseComponent />
 
           {display}
 
