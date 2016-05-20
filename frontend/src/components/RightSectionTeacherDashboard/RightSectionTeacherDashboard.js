@@ -71,6 +71,7 @@ export class RightSectionTeacherDashboard extends React.Component {
                   key={question._id}
                   questionStatement={question.title}
                   datePosted={question.createDate}
+                  questionURL={`/question/${question._id}`}
                 />
             ) : null}
 

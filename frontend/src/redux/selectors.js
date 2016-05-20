@@ -11,6 +11,7 @@ export const getPrograms = (state) => state.entities.programs
 export const getCourses = (state) => state.entities.courses
 export const getShallowCourseInstances = (state) => state.entities.courseInstances
 export const getShallowQuestions = (state) => state.entities.questions
+export const getShallowAnswers = (state) => state.entities.answers
 export const getShallowPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
 export const getCurCourseInstanceId = (state) => state.curs.courseInstance
@@ -76,15 +77,33 @@ export const getRecommendedCourseInstances = createSelector(
   })
 )
 
+export const getAnswers = createSelector(
+  [getShallowAnswers, getUsers],
+  (shallowAnswers, users) => {
+    var res = {}
+
+    for (var k in shallowAnswers) {
+      if (shallowAnswers.hasOwnProperty(k)) {
+        res[k] = Object.assign({}, shallowAnswers[k])
+        if (res[k].user)
+          res[k].user = users[res[k].user]
+      }
+    }
+
+    return res
+  }
+)
 export const getQuestions = createSelector(
-  [getShallowQuestions, getUsers, getCourseInstances],
-  (shallowQuestions, users, courseInstances) => {
+  [getShallowQuestions, getUsers, getCourseInstances, getAnswers],
+  (shallowQuestions, users, courseInstances, answers) => {
     var res = {}
 
     for (var k in shallowQuestions) {
       if (shallowQuestions.hasOwnProperty(k)) {
         res[k] = Object.assign({}, shallowQuestions[k])
         res[k].user = users[res[k].user]
+        if (res[k].answers && res[k].answers.length > 0)
+          res[k].answers = res[k].answers.map(id => answers[id])
         //res[k].courseInstance = courseInstances[res[k].courseInstance]
       }
     }

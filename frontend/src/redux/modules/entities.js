@@ -6,6 +6,7 @@ import { courseInstanceReducer } from './course-instance'
 import { programReducer } from './program'
 import { universityReducer } from './university'
 import { questionReducer } from './question'
+import { answerReducer } from './answer'
 import { pkgReducer } from './pkg'
 import { materialReducer } from './materials'
 
@@ -17,6 +18,7 @@ const entities = combineReducers({
   programs: programReducer,
   universities: universityReducer,
   questions: questionReducer,
+  answers: answerReducer,
   pkgs: pkgReducer,
   materials: materialReducer,
 })

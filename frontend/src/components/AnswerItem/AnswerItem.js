@@ -14,16 +14,20 @@ export class AnswerItem extends React.Component {
   props: Props
 
   render () {
+    var nameInitial = ''
+    if (this.props.personWhoAnswered)
+      nameInitial = this.props.personWhoAnswered[0]
+
     return (
       <div>
         <Card>
           <CardHeader
-              title={this.props.personWhoAnswered}
-		      subtitle={this.props.dateAnswered}
-		      actAsExpander={false}
-		      showExpandableButton={false}
-		      avatar = {<Avatar>A</Avatar>} 
-		  />
+            title={this.props.personWhoAnswered}
+            subtitle={this.props.dateAnswered}
+            actAsExpander={false}
+            showExpandableButton={false}
+            avatar={<Avatar>{nameInitial}</Avatar>}
+          />
             <CardText>
             	{this.props.answerText}
             </CardText>

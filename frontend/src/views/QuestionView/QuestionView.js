@@ -64,6 +64,7 @@ export class Question extends React.Component {
     if (question.answers && question.answers.length > 0) {
       answerEls = question.answers.map(a =>
         <AnswerItem
+          key={a._id}
           personWhoAnswered={a.user ? `${a.user.firstname} ${a.user.lastname}` : ''}
           dateAnswered={a.createDate}
           answerText={a.content}
