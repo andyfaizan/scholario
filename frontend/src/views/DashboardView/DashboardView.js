@@ -63,7 +63,7 @@ class DashboardView extends React.Component {
         <br/>
         <Grid className='container-fluid'>
           <Row >
-            <Col xs={16} md={8}>
+            <Col xs={24} md={12}>
               <LeftSectionTeacherDashboard
                 role={this.props.user.role}
                 courseInstances={this.props.courseInstances}
@@ -71,9 +71,6 @@ class DashboardView extends React.Component {
                 location={this.props.location}
                 onClickFollow={(cid) => this.props.followCourse(this.props.user._id, cid)}
               />
-            </Col>
-            <Col xs={8} md={4}>
-              <Questions questions={this.props.questions} location={this.props.location}/>
             </Col>
           </Row>
         </Grid>
