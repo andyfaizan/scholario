@@ -6,6 +6,7 @@ import { getCourseInstance, setCurCourseInstance, GET_COURSE_INSTANCE_REQUEST } 
 import { getPkg, setCurPkg, GET_PKG_REQUEST } from '../../redux/modules/pkg'
 import { getMaterial, setCurMaterial } from '../../redux/modules/materials'
 import { getQuestions } from '../../redux/modules/question'
+import { getUser } from '../../redux/modules/user'
 import classes from './MaterialView.scss'
 import * as selectors from '../../redux/selectors'
 
@@ -30,6 +31,9 @@ export class MaterialView extends React.Component {
     this.props.setCurMaterial(mid)
     this.props.getMaterial(mid)
     this.props.getQuestions(mid)
+    if (!this.props.userMetadata.fetchedData) {
+      this.props.getUser()
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -82,6 +86,7 @@ const mapStateToProps = (state) => {
   }
 
   return {
+    userMetadata: selectors.getUserMetadata(state),
     courseInstance: selectors.getCurCourseInstance(state),
     pkg,
     material,
@@ -98,6 +103,7 @@ const mapDispatchToProps = (dispatch) => {
     getPkg: (pid) => dispatch(getPkg(pid)),
     setCurCourseInstance: (cid) => dispatch(setCurCourseInstance(cid)),
     getCourseInstance: (cid) => dispatch(getCourseInstance(cid)),
+    getUser: () => dispatch(getUser()),
   }
 }
 

@@ -73,6 +73,7 @@ const getFrame = (fileType, playing) => {
 }
 
 const FullMaterial = ({fileType, playing, location, courseInstance, pkg, material}) => (
+  <div>
   <Card>
     <CardHeader
       title={courseInstance.course ? courseInstance.course.name : ''}
@@ -84,19 +85,23 @@ const FullMaterial = ({fileType, playing, location, courseInstance, pkg, materia
         </IconButton>
       }
       />
-    <Grid fluid={true}>
+    
+  </Card>
+  <br/>
+  <br/>
+  <Grid fluid={true}>
       <Row >
-        <Col xs={20} md={8}>
+        <Col xs={16} md={8}>
           <Card style={previewStyle}>
             {getFrame(fileType)}
           </Card>
         </Col>
-        <Col xs={4} md={4}>
+        <Col xs={8} md={4}>
           <Questions location={location}/>
         </Col>
       </Row>
     </Grid>
-  </Card>
+  </div>
 );
 
 FullMaterial.propTypes = {}

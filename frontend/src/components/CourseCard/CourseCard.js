@@ -88,9 +88,9 @@ export class CourseCard extends React.Component {
       ];
 
     return (
-      <div>
-        <Paper style={style} zDepth={1} children={nodePaperCourse}  /> 
-      </div>
+          <div>
+            <Paper style={style} zDepth={1} children={nodePaperCourse}  /> 
+          </div>
     )
   }
 }
