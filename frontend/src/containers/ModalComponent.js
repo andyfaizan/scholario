@@ -234,7 +234,7 @@ const mapDispatchToProps = (dispatch) => {
     onSignupSubmit: values => {
       dispatch(createUser(
         values.firstname, values.lastname, values.email,
-        values.password, values.role, values.university, values.program,
+        values.password, 'student', values.university, values.program,
       ))
     },
   }
