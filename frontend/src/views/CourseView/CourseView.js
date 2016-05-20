@@ -12,7 +12,8 @@ import IndependentPackage from '../../components/IndependentPackage/IndependentP
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
 import * as selectors from '../../redux/selectors'
-
+import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import FloatingActionButton from 'material-ui/lib/floating-action-button'
 
 type Props = {
   courseName: string,
@@ -39,7 +40,7 @@ export class Course extends React.Component {
     var pkgs = []
     if (courseInstance.pkgs) {
       pkgs = courseInstance.pkgs.map(pkg =>
-        <IndependentPackage
+        <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
           dateUploaded="20/06/2009"
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
@@ -66,13 +67,14 @@ export class Course extends React.Component {
             <Col xs={16} md={8}>
               <div>
                 <fieldset>
-                  <legend><h4>Key Materials By: {courseInstance.prof.firstname} {courseInstance.prof.lastname}</h4></legend>
+                  <legend><h4>Key Materialien Von: {courseInstance.prof.firstname} {courseInstance.prof.lastname}</h4>
+                  </legend>
                 {pkgs}
                 </fieldset>
                 <br/>
                 <br/>
                 <fieldset>
-                  <legend><h4>Package Materials By Students Of {courseInstance.course.name}</h4></legend>
+                  <legend><h4>Verpackungsmaterialien von Studenten {courseInstance.course.name}</h4></legend>
                 {pkgs}
                 </fieldset>
               </div>
