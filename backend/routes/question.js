@@ -246,6 +246,7 @@ router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), functio
       console.log(question.votes[i].user.toString(), req.user.id.toString());
       if (question.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
+          _id: question._id,
           votes: question.votes,
         });
       }
@@ -267,6 +268,7 @@ router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), functio
     /*}*/
 
     return res.json({
+      _id: question._id,
       votes: question.votes,
     });
   }).catch(function (err) {
