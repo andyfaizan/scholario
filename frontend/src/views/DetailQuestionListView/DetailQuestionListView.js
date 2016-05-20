@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
@@ -14,22 +15,40 @@ import classes from './DetailQuestionListView.scss'
 
 type Props = {
 
-};
+}
 
 export class DetailQuestionList extends React.Component {
-  props: Props;
+  props: Props
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      didGetCourseInstance: false,
+    }
+  }
 
   componentDidMount() {
     const cid = this.props.params.id
-    this.props.dispatch(setCurCourseInstance(cid))
-    this.props.dispatch(getCourseInstance(cid))
+    if (!this.props.curCourseInstanceId) {
+      this.props.dispatch(setCurCourseInstance(cid))
+      this.props.dispatch(getCourseInstance(cid))
+    }
     this.props.dispatch(getQuestions(cid))
   }
 
   render () {
 
-  	    const { courseInstance } = this.props
+    const { courseInstance, questions } = this.props
 
+    var questionEls = questions.map(q =>
+      <QuestionListInDetailsView
+        key={q._id}
+        questionStatement={q.title}
+        listItemClickable={false}
+        datePosted={q.createDate}
+        questionURL={`/question/${q._id}`}
+      />
+    )
     return (
       <div className={classes.dashboardRoot}>
       	  <DashboardToolBar />
@@ -52,7 +71,7 @@ export class DetailQuestionList extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
-		      				<QuestionListInDetailsView />
+                  {questionEls}
 		      			</Col>
 		      		</Row>
 		      	</Grid>
@@ -63,11 +82,12 @@ export class DetailQuestionList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-   courseInstance: selectors.getCurCourseInstance(state),
+    courseInstance: selectors.getCurCourseInstance(state),
+    curCourseInstanceId: selectors.getCurCourseInstanceId(state),
     questions: selectors.getCurCourseInstanceQuestions(state),
   }
 }
 
 export default connect(
   mapStateToProps
-  )(DetailQuestionList)
+)(DetailQuestionList)
