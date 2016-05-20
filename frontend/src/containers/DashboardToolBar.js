@@ -44,7 +44,7 @@ export class DashboardToolBar extends React.Component {
       },
       link: {
         backgroundColor: '#26A65B',
-        hoverColor: '#26A65B' 
+        color: '#26A65B' 
       }
     }
 
