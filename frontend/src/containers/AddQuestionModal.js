@@ -24,6 +24,8 @@ export class AddQuestionModal extends React.Component {
     this.onAddQuestionSubmit = this.onAddQuestionSubmit.bind(this)
     this.calculateFormProps = this.calculateFormProps.bind(this)
     this.getObjects = this.getObjects.bind(this)
+    this.getCourseFromPkg = this.getCourseFromPkg.bind(this)
+    this.getPkgFromMaterial = this.getPkgFromMaterial.bind(this)
     this.data = this.calculateFormProps()
   }
 
@@ -36,6 +38,26 @@ export class AddQuestionModal extends React.Component {
     console.log('onAddQuestionSubmit called')
     //this.props.addQuestion(data)
     this.props.hide()
+  }
+
+  getCourseFromPkg = (id) => {
+    for (var i = 0; i < this.props.courseInstances.length; i++) {
+      for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
+        if(this.props.courseInstances[i].pkgs[j]._id === id){
+          return this.props.courseInstances[i]
+        }
+      }
+    }
+  }
+
+  getPkgFromMaterial = (pkgArray, id) => {
+    for ( var i = 0; i < pkgArray.length; i++ ){
+        for (var j = 0; j < pkgArray[i].materials.length; j++) {
+          if ( pkgArray[i].materials[j]._id === id ) {
+            return pkgArray[i]
+          }
+        }
+    }
   }
 
   getObjects(obj) {
@@ -58,68 +80,28 @@ export class AddQuestionModal extends React.Component {
       let pathArray = this.props.location.pathname.split("/")
       let currentLevel = pathArray[1]
       let id = pathArray[2]
-      console.log(id)
+      let currCourseInstance
+      let pkgArray
+      let currPkg
+
       switch (currentLevel) {
         case "course":
           defaultData.courseInstance = id
-          defaultData.pkg = ''
-          defaultData.material = ''
-          console.log(defaultData);
         break;
 
         case "package":
-        var currCourseInstance
-        var flag=0
-        defaultData.pkg = id
-        for (var i = 0; i < this.props.courseInstances.length && flag === 0; i++) {
-          for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
-            if(this.props.courseInstances[i].pkgs[j]._id === id){
-              currCourseInstance = this.props.courseInstances[i]
-              flag=1
-              break
-            }
-          }
-        }
-        defaultData.courseInstance = currCourseInstance._id
-        defaultData.material = ''
-        console.log(defaultData);
+          defaultData.pkg = id
+          currCourseInstance = this.getCourseFromPkg(id)
+          defaultData.courseInstance = currCourseInstance._id
         break;
 
         case "material":
-        defaultData.material = id
-        let pkgArray = this.getObjects(this.props.allPkgs)
-        let currPkg
-        let flag = 0
-        for ( var i = 0; i < pkgArray.length && flag === 0; i++ ){
-          if(pkgArray[i].materials)
-            for (var j = 0; j < pkgArray[i].materials.length; j++) {
-              console.log(pkgArray[i]);
-              if ( pkgArray[i].materials[j]._id === id ) {
-                currPkg = pkgArray[i]
-                flag = 1
-                break
-              }
-            }
-        }
-        defaultData.pkg = currPkg._id
-        let currCourseInstance
-        flag = 0
-        for (var i = 0; i < this.props.courseInstances.length && flag === 0; i++) {
-          for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
-            if(this.props.courseInstances[i].pkgs[j]._id === currPkg._id){
-              currCourseInstance = this.props.courseInstances[i]
-              flag=1
-              break;
-            }
-          }
-        }
-        defaultData.courseInstance = currCourseInstance._id
-        break;
-
-        default:
-        defaultData.courseInstance = ''
-        defaultData.pkg = ''
-        defaultData.material = ''
+          defaultData.material = id
+          pkgArray = this.getObjects(this.props.allPkgs)
+          currPkg = this.getPkgFromMaterial(pkgArray, id)
+          defaultData.pkg = currPkg._id
+          currCourseInstance = this.getCourseFromPkg(currPkg._id)
+          defaultData.courseInstance = currCourseInstance._id
         break;
       }
     }
@@ -160,7 +142,8 @@ export class AddQuestionModal extends React.Component {
             onSubmit={this.onAddQuestionSubmit}
             courseInstances={this.props.courseInstances}
             allPkgs={this.props.allPkgs}
-            defaultData={this.data}/>
+            defaultData={this.data}
+            getObjects={this.getObjects}/>
         </Dialog>
       </div>
     )

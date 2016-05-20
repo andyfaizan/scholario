@@ -4,7 +4,6 @@ import TextField from 'material-ui/lib/text-field'
 import classes from './AddQuestionForm.scss'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
-import {getCourseInstances} from '../../redux/modules/course-instance'
 import { load } from '../../redux/modules/AskQuestion'
 
 export const fields = ['title', 'content', 'courseInstance', 'pkg', 'material']
@@ -19,33 +18,8 @@ export class AddQuestion extends React.Component {
     fields: {},
   }
 
-  constructor(props) {
-    super(props)
-    this.getObjects = this.getObjects.bind(this)
-  }
-
-   componentWillMount() {
-     this.props.dispatch(load(this.props.defaultData))
-  //  this.props.dispatch(getCourseInstances())
-   }
-
-   componentWillUnmount() {
-     var emptyData = {
-       courseInstance : '',
-       pkg: '',
-       material: ''
-     }
-     this.props.dispatch(load(emptyData))
-   }
-
-  getObjects(obj) {
-    var array=[]
-    for (var p in obj) {
-      if (obj[p] instanceof Object) {
-        array.push(obj[p])
-      }
-    }
-    return array
+  componentWillMount() {
+    this.props.dispatch(load(this.props.defaultData))
   }
 
   render() {
@@ -90,13 +64,9 @@ export class AddQuestion extends React.Component {
     var materials = []
     var materialItems = []
     if (this.props.fields.pkg.value) {
-      var pkgArray = this.getObjects(this.props.allPkgs)
-      for ( var i = 0; i < pkgArray.length; i++ ){
-        if ( pkgArray[i]._id === this.props.fields.pkg.value ) {
-          materials = pkgArray[i].materials
-        }
-      }
-      materialItems = materials.map(m =>
+      var pkgArray = this.props.getObjects(this.props.allPkgs)
+      let p = pkgArray.find(p => p._id === this.props.fields.pkg.value)
+      materialItems = p.materials.map(m =>
         <MenuItem key={m._id} value={m._id} primaryText={m.name} />)
     }
 
