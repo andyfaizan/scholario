@@ -234,24 +234,45 @@ router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), fun
   });
 });
 
-router.get('/:qid/votes', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), function (req, res) {
   Question.findOne({ _id: req.params.qid }).then(function (question) {
     if (!question) {
       return res.status(404).json({
-        err: [{msg: 'QuestionNotFound'}],
+        err: [{ msg: 'QuestionNotFound' }],
       });
     }
 
-    if(question.votes.indexOf(req.param.uid) === -1) {
-      question.votes.push(req.params.uid);
-      question.save();
+    for (var i = 0; i < question.votes.length; i++) {
+      console.log(question.votes[i].user.toString(), req.user.id.toString());
+      if (question.votes[i].user.toString() === req.user.id.toString()) {
+        return res.json({
+          votes: question.votes,
+        });
+      }
     }
+    question.votes.push({ user: req.user._id, voteDate: Date.now() })
+    question.save();
+
+    //var data = [];
+    //for (var i = 0; i < question.votes.length; i++) {
+      //console.log(question.votes[i])
+      //data[i] = {
+        //voteDate: question.votes[i].voteDate,
+        //user: {
+          //_id: question.votes[i].user._id,
+          //firstname: question.votes[i].user.firstname,
+          //lastname: question.votes[i].user.lastname,
+        //}
+      //}
+    /*}*/
+
     return res.json({
-      err: [],
+      votes: question.votes,
     });
   }).catch(function (err) {
-    return res.json({
-      err: [{'msg': err.message}],
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
     });
   });
 });
