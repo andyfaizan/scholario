@@ -13,6 +13,7 @@ import IndependentPackage from '../../components/IndependentPackage/IndependentP
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { setCurPkg, getPkg } from '../../redux/modules/pkg'
 import { getQuestions } from '../../redux/modules/question'
+import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 
 
@@ -29,6 +30,9 @@ export class Package extends React.Component {
     this.props.dispatch(setCurPkg(pid))
     this.props.dispatch(getPkg(pid))
     this.props.dispatch(getQuestions('', pid))
+    if (!this.props.userMetadata.fetchedData) {
+      this.props.dispatch(getUser())
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -84,6 +88,7 @@ export class Package extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    userMetadata: selectors.getUserMetadata(state),
     pkg: selectors.getCurPkg(state),
     questions: selectors.getCurPkgQuestions(state),
     courseInstance: selectors.getCurCourseInstance(state),

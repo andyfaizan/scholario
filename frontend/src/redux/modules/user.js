@@ -73,7 +73,7 @@ export function login(email, password) {
                 const user = {
                   token: res.body.user.token,
                   _id: res.body.user._id,
-                  freshLogin: true,
+                  fetchedData: true,
                 }
                 dispatch(loginOk(user, response))
        /*         window.localStorage.setItem('scholario:store', JSON.stringify({*/
