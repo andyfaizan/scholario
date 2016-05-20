@@ -82,6 +82,8 @@ export class AddQuestionModal extends React.Component {
       let pathArray = this.props.location.pathname.split("/")
       let currentLevel = pathArray[1]
       let id = pathArray[2]
+      if(typeof id !== "number")
+        return
       let currCourseInstance
       let pkgArray
       let currPkg
