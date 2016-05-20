@@ -5,7 +5,7 @@ import classes from './AddQuestionForm.scss'
 import MenuItem from 'material-ui/lib/menus/menu-item'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import { load } from '../../redux/modules/AskQuestion'
-
+// Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
 export const fields = ['title', 'content', 'courseInstance', 'pkg', 'material']
 
 type Props = {
