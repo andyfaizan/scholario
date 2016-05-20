@@ -25,10 +25,10 @@ export default (store) => (
       <Route path='dashboard' component={DashboardView} />
       <Route path='connects' component={DashboardView}/>
       <Route path='course/:id' component={CourseView} />
+      <Route path='course/:id/questions' component={DetailQuestionListView} />
       <Route path='package/:id' component={PackageView} />
       <Route path='material/:id' component={MaterialView} />
-      <Route path='detailQuestions' component={DetailQuestionListView} />
-      <Route path='questionsView' component={QuestionView} />
+      <Route path='question/:id' component={QuestionView} />
       <Route path='impressum' component={ImpressumView} />
     </Route>
 

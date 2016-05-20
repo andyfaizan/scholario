@@ -4,18 +4,21 @@ import CardText from 'material-ui/lib/card/card-text'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 
 type Props = {
-
-};
+  questionStatement: PropTypes.string.isRequired,
+  listItemClickable: PropTypes.bool,
+  datePosted: PropTypes.string.isRequired,
+  questionURL: PropTypes.string,
+}
 
 export class QuestionListInDetailsView extends React.Component {
-  props: Props;
+  props: Props
 
   render () {
     return (
       <div>
-      	<Card>
+        <Card>
           <CardText >
-          	
+            <QuestionItem listItemClickable={this.props.listItemClickable} questionStatement={this.props.questionStatement} datePosted={this.props.datePosted}  questionURL={this.props.questionURL} />
           </CardText>
         </Card>
       </div>
