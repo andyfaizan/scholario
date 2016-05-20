@@ -5,6 +5,7 @@ import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import _ from 'lodash'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
@@ -36,10 +37,11 @@ export class Course extends React.Component {
   }
 
   render () {
-    const { courseInstance } = this.props
-    var pkgs = []
-    if (courseInstance.pkgs) {
-      pkgs = courseInstance.pkgs.map(pkg =>
+    const { courseInstance, profPkgs, studentPkgs } = this.props
+    var profPkgEls = []
+    var studentPkgEls
+    if (profPkgs) {
+      profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
           dateUploaded="20/06/2009"
@@ -49,6 +51,18 @@ export class Course extends React.Component {
         />
       )
     }
+    if (studentPkgs) {
+      studentPkgEls = studentPkgs.map(pkg =>
+        <MaterialComponent
+          key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
+          dateUploaded="20/06/2009"
+          semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
+          keywords={["Blue ","Green ", "Red "]}
+          pkgUrl={`/package/${pkg._id}`}
+        />
+      )
+    }
+
 
     return (
       <div className={classes.rootCourse}>
@@ -67,15 +81,18 @@ export class Course extends React.Component {
             <Col xs={16} md={8}>
               <div>
                 <fieldset>
-                  <legend><h4>Key Materialien Von: {courseInstance.prof.firstname} {courseInstance.prof.lastname}</h4>
-                  </legend>
-                {pkgs}
+                  <legend><h4>
+                    Key Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
+                  </h4></legend>
+                {profPkgEls}
                 </fieldset>
                 <br/>
                 <br/>
                 <fieldset>
-                  <legend><h4>Materialien von Studenten {courseInstance.course.name}</h4></legend>
-                {pkgs}
+                  <legend><h4>
+                    Materialien von Studenten {courseInstance.course ? courseInstance.course.name : ''}
+                  </h4></legend>
+                {studentPkgEls}
                 </fieldset>
               </div>
             </Col>
@@ -91,8 +108,26 @@ export class Course extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  var courseInstance = selectors.getCurCourseInstance(state)
+  var profPkgs = []
+  var studentPkgs = []
+  if (!_.isEmpty(courseInstance) && courseInstance.pkgs) {
+    profPkgs = courseInstance.pkgs.filter(p => {
+      if (state.entities && state.entities.users && state.entities.users[p.owner])
+        return (state.entities.users[p.owner].role === 'Prof')
+      return false
+    })
+    studentPkgs = courseInstance.pkgs.filter(p => {
+      if (state.entities && state.entities.users && state.entities.users[p.owner])
+        return (state.entities.users[p.owner].role === 'Student')
+      return false
+    })
+  }
+
   return {
-    courseInstance: selectors.getCurCourseInstance(state),
+    courseInstance,
+    profPkgs,
+    studentPkgs,
     questions: selectors.getCurCourseInstanceQuestions(state),
   }
 }
