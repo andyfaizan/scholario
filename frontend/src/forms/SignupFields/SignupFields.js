@@ -15,7 +15,7 @@ import { getUniversities } from '../../redux/modules/university'
 import { getPrograms } from '../../redux/modules/program'
 
 var request = require('superagent');
-export const fields = [ 'firstname', 'lastname', 'role', 'email' , 'password', 'university', 'program' ]
+export const fields = [ 'firstname', 'lastname', 'email' , 'password', 'university', 'program' ]
 
 const validate = (values) => {
   const errors = {}
@@ -35,9 +35,9 @@ const validate = (values) => {
   if (!values.lastname) {
     errors.lastname = 'Geben Sie Ihr Nachname ein'
   }
-  if (!values.role) {
-    errors.role = 'Geben Sie Ihr Role ein'
-  }
+  //if (!values.role) {
+    //errors.role = 'Geben Sie Ihr Role ein'
+  //}
   return errors
 }
 
@@ -99,7 +99,7 @@ export class SignupFields extends React.Component {
         }
       }
       var i = 0 ;
-      const { fields: { email, password, firstname, lastname, role, university, program } } = this.props
+      const { fields: { email, password, firstname, lastname, university, program } } = this.props
 
       var programItems = []
       if (this.props.fields.university.value) {
@@ -160,14 +160,14 @@ export class SignupFields extends React.Component {
                 underlineFocusStyle={styles.focusStyle}>
                 { programItems }
                 </SelectFieldWrapper>
-              <TextField
+              {/*<TextField
                 {...role}
                 hintText='student oder prof'
                 errorText={role.touched && role.error ? role.error : ''}
                 floatingLabelText='Role'
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
-                />
+                />*/}
               {/*TODO Why Checkboxes and not Radiobuttons?*/}
               {/*<Grid>
                 <Row className='show-grid'>
