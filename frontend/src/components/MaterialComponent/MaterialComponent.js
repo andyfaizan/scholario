@@ -30,7 +30,7 @@ export class MaterialComponent extends React.Component {
       height: 172,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#446CB3 ',
+      backgroundColor: '#446CB3',
       color: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
@@ -52,10 +52,10 @@ export class MaterialComponent extends React.Component {
       postion: 'absolute',
       margin:'auto',
       marginTop: 150,
-      marginLeft: -228,
+      marginLeft: -229,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor:'#446CB3',
     }
 
     const styleThree = {
@@ -63,7 +63,7 @@ export class MaterialComponent extends React.Component {
       height: 30,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#22A7F0',
+      backgroundColor: '#446CB3',
       color: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
@@ -72,10 +72,10 @@ export class MaterialComponent extends React.Component {
       postion: 'absolute',
       margin:'auto',
       marginTop: 144,
-      marginLeft: -228,
+      marginLeft: -229,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#22A7F0',
+      borderColor: '#446CB3',
     }
 
     const styleFour = {
@@ -83,17 +83,17 @@ export class MaterialComponent extends React.Component {
       height: 80,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#1690DB',
+      backgroundColor: '#22A7F0',
       color: '#ffffff',
       overflow: 'inherit',
       alignItems: 'center',
       postion: 'absolute',
       margin:'auto',
-      marginTop: 9,
-      marginLeft: -228,
+      marginTop: 8,
+      marginLeft: -229,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor: '#22A7F0',
       opacity: 1.0,
       borderBottomLeftRadius: 50,
       borderBottomRightRadius:50
@@ -104,7 +104,7 @@ export class MaterialComponent extends React.Component {
       height: 30,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#22A7F0',
+      backgroundColor: '#446CB3',
       color: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
@@ -113,10 +113,10 @@ export class MaterialComponent extends React.Component {
       postion: 'absolute',
       margin:'auto',
       marginTop: 148,
-      marginLeft: -228,
+      marginLeft: -229,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#22A7F0',
+      borderColor: '#446CB3',
     }
 
     const styleSix = {
@@ -133,10 +133,10 @@ export class MaterialComponent extends React.Component {
       postion: 'absolute',
       margin:'auto',
       marginTop: 147,
-      marginLeft: -228,
+      marginLeft: -229,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor: '#446CB3',
     }
 
 
@@ -167,15 +167,15 @@ export class MaterialComponent extends React.Component {
                         </div>
 
     const nodePaperCourse = [
-      heading,
-      container
+      container,
+      notifications
     ]
 
-    const nodeFileClipper = [
+   const nodeFileClipper = [
 
-    	notifications
+      heading
     ]
-
+  
     return (
 	    <Link to={this.props.pkgUrl}>
 	        <div>
@@ -184,7 +184,7 @@ export class MaterialComponent extends React.Component {
 	          <Paper style={styleFive} zDepth={0}  />
 	          <Paper style={styleSix} zDepth={0}  />
 	          <Paper style={styleThree} zDepth={0}  />
-	          <Paper style={styleFour} zDepth={5} children= { nodeFileClipper }  />
+	          <Paper style={styleFour} zDepth={5} children={nodeFileClipper} />
 	        </div>
 	      </Link>
     )
