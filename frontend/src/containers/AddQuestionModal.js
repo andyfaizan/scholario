@@ -36,7 +36,7 @@ export class AddQuestionModal extends React.Component {
 
   onAddQuestionSubmit = (data) => {
     console.log('onAddQuestionSubmit called')
-    //this.props.addQuestion(data)
+    this.props.addQuestion(data)
     this.props.hide()
   }
 
@@ -162,8 +162,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hide: () => dispatch(hide(add_question)),
     addQuestion: (data) => {
-        dispatch(addQuestion(data.title, data.content,
-          data.course, data.pkg, data.material))
+        dispatch(addQuestion(data.title, data.description,
+          data.courseInstance, data.pkg, data.material))
     }
   }
 }
