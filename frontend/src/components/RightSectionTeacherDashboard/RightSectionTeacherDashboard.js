@@ -40,7 +40,9 @@ export class RightSectionTeacherDashboard extends React.Component {
     } ;
 
     const iconStyles = {
-      float: 'right',
+      float: 'left',
+      position: 'relative',
+      marginLeft: -15
     };
 
     const allQuestionsTooltip = "Alle Frage"
@@ -53,7 +55,6 @@ export class RightSectionTeacherDashboard extends React.Component {
           <CardText >
             <List>
               <Subheader style={subheader}>
-                Wichtigste Fragen
                 <IconButton tooltip={allQuestionsTooltip} style={iconStyles} containerElement={<Link to={linkToQuestionsList}  />}>
                   <ViewList />
                 </IconButton>
@@ -61,6 +62,7 @@ export class RightSectionTeacherDashboard extends React.Component {
                   <AddBox />
                   {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_question} location={this.props.location} /> : null) : null}
                 </IconButton>
+                Wichtigste Fragen
               </Subheader>
               <div>
               {this.props.questions? this.props.questions.map(question =>
@@ -71,8 +73,6 @@ export class RightSectionTeacherDashboard extends React.Component {
                 />
             ) : null}
 
-              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
-              <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               <QuestionItem listItemClickable={boolQuestionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
               </div>
             </List>
