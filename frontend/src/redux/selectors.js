@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 
 export const getUser = (state) => state.entities.users[state.user._id]
+export const getUserMetadata = (state) => state.user
 export const getUsers = (state) => state.entities.users
 export const getUniversities = (state) => state.entities.universities
 export const getPrograms = (state) => state.entities.programs

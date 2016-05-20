@@ -12,6 +12,7 @@ import MaterialComponent from '../../components/MaterialComponent/MaterialCompon
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
+import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
@@ -34,6 +35,9 @@ export class Course extends React.Component {
     this.props.dispatch(setCurCourseInstance(cid))
     this.props.dispatch(getCourseInstance(cid))
     this.props.dispatch(getQuestions(cid))
+    if (!this.props.userMetadata.fetchedData) {
+      this.props.dispatch(getUser())
+    }
   }
 
   render () {
@@ -125,6 +129,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
+    userMetadata: selectors.getUserMetadata(state),
     courseInstance,
     profPkgs,
     studentPkgs,

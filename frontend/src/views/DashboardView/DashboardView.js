@@ -30,7 +30,7 @@ class DashboardView extends React.Component {
 
   componentDidMount () {
     if (this.props.user) {
-      if (!this.props.user.freshLogin) {
+      if (!this.props.userMetadata.fetchedData) {
         this.props.getUser()
       } else {
         if (this.props.user.courseInstances.length === 0) {
@@ -90,6 +90,7 @@ const mapStateToProps = (state) => {
   }
   return {
     user: selectors.getUser(state),
+    userMetadata: selectors.getUserMetadata(state),
     userUniversity: selectors.getUserUniversity(state),
     userProgram: selectors.getUserProgram(state),
     courseInstances,
