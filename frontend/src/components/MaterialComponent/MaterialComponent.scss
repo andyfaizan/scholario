@@ -17,11 +17,11 @@
 
 .badge {
 	
-	position:absolute;
-	float: left;
+	position:relative;
   	margin:auto;
-    margin-top: -45px;
-    margin-left: 270px;
+    margin-top: 65px;
+    margin-left: 90px;
+    opacity: 1.0;
 }
 
 .actionMain {
@@ -31,12 +31,13 @@
 }
 
 .container {
-	
-	position:absolute;
-	opacity: 1.0;
+
+	opacity: 0.6;
 	padding-right:3px ;
 	padding-left:3px;
 	padding-top:3px;
+	margin-left: 5px;
+	text-align:center;
 
 
 }
