@@ -24,6 +24,10 @@ router.get('/:mid', passport.authenticate('jwt', {session: false}), function (re
   Material
     .findOne({ _id: req.params.mid })
     .select('name ext size pkg createDate')
+    .populate([{
+      path: 'pkg',
+      select: 'name owner courseInstance createDate',
+    }])
     .lean(true)
     .exec()
     .then(function (material) {
