@@ -12,7 +12,7 @@ export class MaterialView extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className={classes.dashboardRoot}>
         <DashboardToolBar />
         <PreviewMaterial location={this.props.location} />
       </div>

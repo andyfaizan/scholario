@@ -33,7 +33,7 @@ export class DashboardToolBar extends React.Component {
         color: 'white'
       },
       toolbarStyle: {
-        backgroundColor: '#1abc9c',
+        backgroundColor: '#26A65B ',
         color:'white'
       },
       buttonStyle: {
@@ -51,17 +51,16 @@ export class DashboardToolBar extends React.Component {
             <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
-            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/dashboard' />} label="Courses" >
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/dashboard' />} label="Kurse" >
             </FlatButton>
-            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/connects' />} label="Connects">
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/connects' />} label="Netzwerk">
             </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>
-            <ToolbarSeparator style={styles.separator} />
             <IconMenu style={styles.iconStyle}
             iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
-                <MenuItem primaryText="User Settings" />
-                <MenuItem primaryText="Feed Settings" />
+                <MenuItem primaryText="Benutzer Einstellung" />
+                <MenuItem primaryText="Feed Einstellung" />
                 <MenuItem primaryText="Logout" onTouchTap={this.props.logout} />
              </IconMenu>
           </ToolbarGroup>

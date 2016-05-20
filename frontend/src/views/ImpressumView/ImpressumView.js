@@ -7,9 +7,10 @@ type Props = {
 export class Impressum extends React.Component {
   props: Props;
 
+
   render () {
     return (
-      <div>
+      <div class={classes.dashboardRoot}>
         <h1>Impressum</h1>
           <p>Christoph Walpert  c/o Gustav Walpert<br/>
           Magnolienweg 2<br/>
