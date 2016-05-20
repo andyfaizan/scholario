@@ -31,7 +31,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
@@ -44,10 +44,19 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   });
   if (req.body.pkg) question.pkg = req.body.pkg;
   if (req.body.material) question.material = req.body.material;
-  question.save();
-
-  return res.json({
-    err: [],
+  question.save().then(function (question) {
+    return res.json({
+      _id: question._id,
+      title: question.title,
+      description: question.description,
+      user: req.user._id,
+      courseInstance: question.courseInstance,
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
   });
 });
 
