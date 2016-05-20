@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
-import { getQuestions } from '../../redux/modules/question'
+import { getQuestion, setCurQuestion } from '../../redux/modules/question'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
@@ -24,18 +25,51 @@ type Props = {
 export class Question extends React.Component {
   props: Props;
 
-  componentDidMount() {
-    const cid = this.props.params.id
-    this.props.dispatch(setCurCourseInstance(cid))
-    this.props.dispatch(getCourseInstance(cid))
-    this.props.dispatch(getQuestions(cid))
+  constructor (props) {
+    super(props)
+    this.state = {
+      didGetCourseInstance: false,
+    }
+  }
+
+  componentDidMount () {
+    const qid = this.props.params.id
+    //this.props.dispatch(setCurCourseInstance(cid))
+    //this.props.dispatch(getCourseInstance(cid))
+    this.props.dispatch(setCurQuestion(qid))
+    this.props.dispatch(getQuestion(qid))
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (_.isEmpty(this.props.courseInstance) &&
+        !this.props.curCourseInstanceId &&
+        !this.state.didGetCourseInstance &&
+        newProps && newProps.question && newProps.question.courseInstance) {
+      this.setState({
+        didGetCourseInstance: true,
+      })
+      this.props.dispatch(setCurCourseInstance(newProps.question.courseInstance))
+      this.props.dispatch(getCourseInstance(newProps.question.courseInstance))
+    }
+
   }
 
   render () {
     //question item const display
-    const questionClickable = {true}
-    const { courseInstance } = this.props
-    
+    const questionClickable = true
+    const { courseInstance, question } = this.props
+
+    var answerEls = []
+    if (question.answers && question.answers.length > 0) {
+      answerEls = question.answers.map(a =>
+        <AnswerItem
+          personWhoAnswered={a.user ? `${a.user.firstname} ${a.user.lastname}` : ''}
+          dateAnswered={a.createDate}
+          answerText={a.content}
+        />
+      )
+    }
+
     return (
       <div className={classes.dashboardRoot}>
       	   <DashboardToolBar />
@@ -52,7 +86,12 @@ export class Question extends React.Component {
 		      		<Row>
 		      			<Col xs={24} md={12}>
                   <Card>
-                    <QuestionItem listItemClickable={questionClickable} questionStatement="What is Neuclear Physics ?" datePosted ="Jan 17, 2014"  questionUrl="" />
+                    <QuestionItem
+                      listItemClickable={questionClickable}
+                      questionStatement={question.title}
+                      datePosted={question.createDate}
+                      questionUrl={`/question/${question._id}`}
+                    />
                   </Card>
                 </Col>
 		      		</Row>
@@ -60,7 +99,7 @@ export class Question extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
-                  <AnswerItem />
+                  {answerEls}
 		      			</Col>
 		      		</Row>
 		      	</Grid>
@@ -73,7 +112,8 @@ export class Question extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     courseInstance: selectors.getCurCourseInstance(state),
-    questions: selectors.getCurCourseInstanceQuestions(state),
+    curCourseInstanceId: selectors.getCurCourseInstanceId(state),
+    question: selectors.getCurQuestion(state),
   }
 }
 

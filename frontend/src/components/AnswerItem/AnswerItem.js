@@ -5,12 +5,13 @@ import CardHeader from 'material-ui/lib/card/card-header'
 import Avatar from 'material-ui/lib/avatar'
 
 type Props = {
-	personWhoAnswered: string,
-	dateAnswered: string,
-	answerText: string
-};
+  personWhoAnswered: PropTypes.string,
+  dateAnswered: PropTypes.string,
+  answerText: PropTypes.string,
+}
+
 export class AnswerItem extends React.Component {
-  props: Props;
+  props: Props
 
   render () {
     return (

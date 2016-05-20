@@ -18,7 +18,8 @@ type Props = {
   questions: PropTypes.array,
   modal: PropTypes.object,
   show: PropTypes.func,
-  location: PropTypes.object
+  location: PropTypes.object,
+  linkToQuestionsList: PropTypes.string,
 };
 
 export class RightSectionTeacherDashboard extends React.Component {
@@ -47,7 +48,7 @@ export class RightSectionTeacherDashboard extends React.Component {
 
     const allQuestionsTooltip = "Alle Frage"
     const askQuestion = "Eine Frage stellen"
-    const linkToQuestionsList = "detailQuestions"
+    const { linkToQuestionsList } = this.props
 
     return (
       <div>
