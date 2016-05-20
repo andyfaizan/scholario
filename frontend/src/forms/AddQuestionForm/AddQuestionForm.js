@@ -53,7 +53,7 @@ export class AddQuestion extends React.Component {
     const { fields: { title, description, courseInstance, pkg, material} } = this.props
 
     var packageItems = []
-    if (this.props.fields.courseInstance.value) {
+    if (this.props.fields.courseInstance.value && this.props.courseInstances.length > 0) {
       packageItems = this.props.courseInstances
         .find(c => c._id === this.props.fields.courseInstance.value).pkgs // pkgs in courseInstance is an array
         .map(p =>
