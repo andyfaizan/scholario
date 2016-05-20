@@ -122,13 +122,13 @@ export class AddQuestionModal extends React.Component {
     const actions = [
       <FlatButton
         label="Verwerfen"
-        secondary={true}
+        secondary={false}
         onTouchTap={this.props.hide}/>,
       <RaisedButton
         // TODO disabled={submitting}
         label='Zustimmen'
         primary={false}
-        backgroundColor='#f1c40f'
+        backgroundColor='#446CB3'
         labelStyle={labelStyle}
         onTouchTap={this.create}/>
     ];
