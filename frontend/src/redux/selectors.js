@@ -14,7 +14,9 @@ export const getShallowPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
 export const getCurCourseInstanceId = (state) => state.curs.courseInstance
 export const getCurPkgId = (state) => state.curs.pkg
+export const getCurMaterialId = (state) => state.curs.material
 export const getRecommendedCourseInstanceIds = (state) => state.recommendedCourseInstances
+export const getRequests = (state) => state.requests
 
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
@@ -143,7 +145,8 @@ export const getPkgs = createSelector(
     for (var k in shallowPkgs) {
       if (shallowPkgs.hasOwnProperty(k)) {
         res[k] = Object.assign({}, shallowPkgs[k])
-        res[k].owner = users[res[k].owner]
+        if (users[res[k].owner])
+          res[k].owner = users[res[k].owner]
         //res[k].courseInstance = courseInstances[res[k].courseInstance]
         res[k].materials = _.values(materials, material => material.pkg === k)
       }
@@ -160,3 +163,21 @@ export const getCurPkg = createSelector(
     return pkg
   }
 )
+
+export function getPkgFactory(pid) {
+  return createSelector(
+    [state => getPkgs(state)[pid]],
+    (pkg) => Object.assign({}, pkg)
+  )
+}
+
+export const getCurMaterial = createSelector(
+  [getCurMaterialId, getMaterials],
+  (curMaterialId, materials) => materials[curMaterialId]
+)
+
+export function getMaterialFactory(mid) {
+  return createSelector(
+    [state => getMaterials(state)[mid]],
+  )
+}

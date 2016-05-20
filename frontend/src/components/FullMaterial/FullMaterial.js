@@ -72,15 +72,14 @@ const getFrame = (fileType, playing) => {
   return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
 }
 
-const linkToMaterials = '/package/7'
-const FullMaterial = ({fileType, playing, location}) => (
+const FullMaterial = ({fileType, playing, location, courseInstance, pkg, material}) => (
   <Card>
     <CardHeader
-      title="Game Theory"
-      subtitle="Basics of Economics"
+      title={courseInstance.course ? courseInstance.course.name : ''}
+      subtitle={pkg.name}
       avatar={
         <IconButton tooltip="Back to Package"
-        containerElement={<Link to={linkToMaterials}/>}>
+        containerElement={<Link to={`/package/${pkg._id}`}/>}>
           <ArrowBack />
         </IconButton>
       }

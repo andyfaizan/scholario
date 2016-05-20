@@ -30,7 +30,7 @@ export function setCurPkg(pid) {
   }
 }
 
-export function getPkg(pid) {
+export function getPkg(pid, setCur = false) {
   var endpoint = urlJoin(config.apiURL, 'pkgs', pid)
 
   return {
@@ -39,7 +39,7 @@ export function getPkg(pid) {
     //shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
-    payload: { pid },
+    payload: { pid, setCur, },
     schema: pkgSchema,
   }
 }
@@ -59,6 +59,10 @@ export function pkgReducer(state={}, action) {
 
 export function curPkgReducer(state='', action) {
   switch (action.type) {
+    case GET_PKG_REQUEST:
+      if (action.payload && action.payload.setCur) {
+        return action.payload.pid
+      }
     case SET_CUR_PKG:
       if (action.payload && action.payload.pid) {
         return action.payload.pid

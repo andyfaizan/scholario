@@ -34,6 +34,7 @@ class DashboardView extends React.Component {
         this.props.getUser()
       } else {
         if (this.props.user.courseInstances.length === 0) {
+          console.log('here')
           this.props.getRecommendedCourseInstances('', this.props.user.program)
         }
       }
@@ -42,8 +43,10 @@ class DashboardView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // TODO
     if (this.props.courseInstances.length === 0 &&
         nextProps.courseInstances.length === 0) {
+      console.log('here2')
       this.props.getRecommendedCourseInstances('', this.props.user.program)
     }
   }
