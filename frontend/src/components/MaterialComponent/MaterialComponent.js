@@ -30,7 +30,7 @@ export class MaterialComponent extends React.Component {
       height: 172,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#1690DB',
+      backgroundColor: '#446CB3 ',
       color: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
@@ -63,7 +63,7 @@ export class MaterialComponent extends React.Component {
       height: 30,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#1690DB',
+      backgroundColor: '#22A7F0',
       color: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
@@ -75,7 +75,7 @@ export class MaterialComponent extends React.Component {
       marginLeft: -228,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor: '#22A7F0',
     }
 
     const styleFour = {
@@ -104,7 +104,7 @@ export class MaterialComponent extends React.Component {
       height: 30,
       width: 220,
       margin: 8.5,
-      backgroundColor: '#1690DB',
+      backgroundColor: '#22A7F0',
       color: '#ffffff',
       borderBottomLeftRadius: 30,
       borderBottomRightRadius:30,
@@ -116,7 +116,7 @@ export class MaterialComponent extends React.Component {
       marginLeft: -228,
       borderStyle: 'solid',
       borderWidth: 1,
-      borderColor: '#1690DB',
+      borderColor: '#22A7F0',
     }
 
     const styleSix = {
@@ -184,7 +184,7 @@ export class MaterialComponent extends React.Component {
 	          <Paper style={styleFive} zDepth={0}  />
 	          <Paper style={styleSix} zDepth={0}  />
 	          <Paper style={styleThree} zDepth={0}  />
-	          <Paper style={styleFour} zDepth={1} children= { nodeFileClipper }  />
+	          <Paper style={styleFour} zDepth={5} children= { nodeFileClipper }  />
 	        </div>
 	      </Link>
     )
