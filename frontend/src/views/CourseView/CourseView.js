@@ -86,7 +86,7 @@ export class Course extends React.Component {
               <div>
                 <fieldset>
                   <legend><h4>
-                    Key Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
+                    Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
                   </h4></legend>
                 {profPkgEls}
                 </fieldset>
@@ -94,7 +94,7 @@ export class Course extends React.Component {
                 <br/>
                 <fieldset>
                   <legend><h4>
-                    Materialien von Studenten {courseInstance.course ? courseInstance.course.name : ''}
+                    Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
                   </h4></legend>
                 {studentPkgEls}
                 </fieldset>
