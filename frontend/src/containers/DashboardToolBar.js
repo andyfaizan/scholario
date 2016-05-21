@@ -44,7 +44,7 @@ export class DashboardToolBar extends React.Component {
       },
       link: {
         backgroundColor: '#26A65B',
-        color: '#26A65B' 
+        color: '#26A65B'
       }
     }
 
@@ -65,8 +65,8 @@ export class DashboardToolBar extends React.Component {
             </FlatButton>
             <IconMenu style={styles.iconStyle}
             iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
-                <MenuItem primaryText="Benutzer Einstellung" />
-                <MenuItem primaryText="Feed Einstellung" />
+                <MenuItem primaryText="Benutzer Einstellungen" />
+                <MenuItem primaryText="Feed Einstellungen" />
                 <MenuItem primaryText="Logout" onTouchTap={this.props.logout} />
              </IconMenu>
           </ToolbarGroup>
