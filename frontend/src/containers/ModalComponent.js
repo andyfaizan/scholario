@@ -155,7 +155,7 @@ export class ModalComponent extends React.Component {
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
           <div>
-            <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest}/>
+            <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest} confirm={this.confirmLogin}/>
           </div>
           <div ref="loginErrorText" style={errorTextStyle}>
             Falsches Email oder Kennwort
@@ -177,7 +177,8 @@ export class ModalComponent extends React.Component {
         </Tab>
         <Tab label='Sign Up' >
           <div>
-            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities} />
+            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities}
+              confirm={this.confirmSignup} />
           </div>
           <div ref="signupErrorText" style={errorTextStyle}>
             Falsches Email oder Kennwort
