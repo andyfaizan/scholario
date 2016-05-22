@@ -44,16 +44,42 @@ const youtubeConfig = {
     controls: 2
   }
 }
+
+const getFileType = (extension) => {
+  switch (extension.split(".")[1]) {
+    case 'pdf':
+    case 'doc':
+    case 'docx':
+    case 'ppt':
+    case 'pptx':
+    return 'doc'
+    break
+
+    case 'mp4':
+    case 'webm':
+    return 'video'
+    break
+
+    case 'jpeg':
+    case 'jpg':
+    case 'png':
+    return 'image'
+    break
+  }
+}
+
 // //avatar={ <Avatar icon={<ArrowBack />} onClick={console.log("Tapped")}/> }
-const getFrame = (fileType, playing) => {
+const getFrame = (material) => {
+  console.dir(material)
+  var fileType = getFileType(material.ext)
   if(fileType === 'image'){
-    return <img src="http://lorempixel.com/800/600/nature/" style={mediaStyle}/>
+    return <img src={material.url} style={mediaStyle}/>
   }
   if(fileType === 'video'){
     return (
       <div className={classes.videoStyle}>
         <ReactPlayer
-          url='https://www.youtube.com/watch?v=XSGBVzeBUbk'
+          url={material.url}
           playing={playing}
           // volume={volume}
           // soundcloudConfig={soundcloudConfig}
@@ -69,10 +95,10 @@ const getFrame = (fileType, playing) => {
           />
       </div>)
   }
-  return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
+  return <IFrame src={material.url}/>
 }
 
-const FullMaterial = ({fileType, playing, location, courseInstance, pkg, material, questions, onClickVote}) => (
+const FullMaterial = ({location, courseInstance, pkg, material, questions, onClickVote}) => (
   <div>
   <Card>
     <CardHeader
@@ -92,7 +118,7 @@ const FullMaterial = ({fileType, playing, location, courseInstance, pkg, materia
       <Row >
         <Col xs={16} md={8}>
           <Card style={previewStyle}>
-            {getFrame(fileType)}
+            {getFrame(material)}
           </Card>
         </Col>
         <Col xs={8} md={4}>

@@ -6,9 +6,6 @@ import { voteQuestion } from '../redux/modules/question'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    // fileType: state.Material[id].fileType
-    fileType: 'video',
-    playing: true,
     location: ownProps.location,
     courseInstance: ownProps.courseInstance,
     pkg: ownProps.pkg,
