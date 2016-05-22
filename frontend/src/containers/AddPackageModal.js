@@ -117,13 +117,13 @@ export class AddPackageModal extends React.Component {
 
     const actions = [
       <FlatButton
-        label="Verwerfen"
+        label="Abbrechen"
         secondary={true}
         labelStyle={labelStyle2}
         onTouchTap={this.props.hide}/>,
       <RaisedButton
         // TODO disabled={submitting}
-        label='Zustimmen'
+        label='Erstellen'
         primary={false}
         backgroundColor='#446CB3'
         labelStyle={labelStyle1}
