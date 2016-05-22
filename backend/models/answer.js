@@ -14,6 +14,7 @@ const AnswerSchema = new Schema({
   votes: [{
     user: { type: ObjectId, ref: 'Student' },
     voteDate: { type: Date },
+    value: { type: Number, default: 1 },
   }],
 });
 
