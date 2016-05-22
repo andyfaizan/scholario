@@ -243,7 +243,6 @@ router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), functio
     }
 
     for (var i = 0; i < question.votes.length; i++) {
-      console.log(question.votes[i].user.toString(), req.user.id.toString());
       if (question.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
           _id: question._id,
