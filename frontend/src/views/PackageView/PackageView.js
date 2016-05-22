@@ -77,7 +77,8 @@ export class Package extends React.Component {
             </Col>
             <Col xs={8} md={4}>
               <Questions
-                questions={this.props.questions}
+                recentQuestions={this.props.recentQuestions}
+                popularQuestions={this.props.popularQuestions}
                 location={this.props.location}
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
               />
@@ -94,7 +95,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userMetadata: selectors.getUserMetadata(state),
     pkg: selectors.getCurPkg(state),
-    questions: selectors.getCurPkgQuestions(state),
+    recentQuestions: selectors.getCurQuestionsFactory('pkg', 'date')(state),
+    popularQuestions: selectors.getCurQuestionsFactory('pkg', 'vote')(state),
     courseInstance: selectors.getCurCourseInstance(state),
   }
 }

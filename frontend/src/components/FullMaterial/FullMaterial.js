@@ -72,7 +72,8 @@ const getFrame = (fileType, playing) => {
   return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
 }
 
-const FullMaterial = ({fileType, playing, location, courseInstance, pkg, material, questions, onClickVote}) => (
+const FullMaterial = ({fileType, playing, location, courseInstance,
+                       pkg, material, recentQuestions, popularQuestions, onClickVote}) => (
   <div>
   <Card>
     <CardHeader
@@ -97,7 +98,8 @@ const FullMaterial = ({fileType, playing, location, courseInstance, pkg, materia
         </Col>
         <Col xs={8} md={4}>
           <Questions
-            questions={questions}
+            recentQuestions={recentQuestions}
+            popularQuestions={popularQuestions}
             location={location}
             linkToQuestionsList={`/course/${courseInstance._id}/questions`}
             onClickVote={(qid) => onClickVote(qid)}

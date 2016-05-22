@@ -102,7 +102,8 @@ export class Course extends React.Component {
             </Col>
             <Col xs={8} md={4}>
               <Questions
-                questions={this.props.questions}
+                recentQuestions={this.props.recentQuestions}
+                popularQuestions={this.props.popularQuestions}
                 location={this.props.location}
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
                 onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
@@ -138,7 +139,8 @@ const mapStateToProps = (state, ownProps) => {
     courseInstance,
     profPkgs,
     studentPkgs,
-    questions: selectors.getCurCourseInstanceQuestions(state),
+    recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
+    popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
   }
 }
 

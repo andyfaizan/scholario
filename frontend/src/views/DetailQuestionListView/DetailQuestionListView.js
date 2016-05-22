@@ -87,7 +87,7 @@ const mapStateToProps = (state) => {
   return {
     courseInstance: selectors.getCurCourseInstance(state),
     curCourseInstanceId: selectors.getCurCourseInstanceId(state),
-    questions: selectors.getCurCourseInstanceQuestions(state),
+    questions: selectors.getCurQuestionsFactory('courseInstance', 'date', 10)(state),
   }
 }
 
