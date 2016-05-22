@@ -21,10 +21,18 @@ export const POST_ANSWER_REQUEST = 'POST_ANSWER_REQUEST'
 export const POST_ANSWER_OK = 'POST_ANSWER_OK'
 export const POST_ANSWER_ERR = 'POST_ANSWER_ERR'
 
+export const DELETE_ANSWER_REQUEST = 'DELETE_ANSWER_REQUEST'
+export const DELETE_ANSWER_OK = 'DELETE_ANSWER_OK'
+export const DELETE_ANSWER_ERR = 'DELETE_ANSWER_ERR'
+
+export const PUT_ANSWER_REQUEST = 'PUT_ANSWER_REQUEST'
+export const PUT_ANSWER_OK = 'PUT_ANSWER_OK'
+export const PUT_ANSWER_ERR = 'PUT_ANSWER_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function voteQuestion(aid) {
+export function voteAnswer(aid) {
   const endpoint = urlJoin(config.apiURL, 'answers', aid, 'vote')
   return {
     types: [VOTE_ANSWER_REQUEST, VOTE_ANSWER_OK, VOTE_ANSWER_ERR],
@@ -34,7 +42,7 @@ export function voteQuestion(aid) {
   }
 }
 
-export function postQuestion(question, content) {
+export function postAnswer(question, content) {
   const endpoint = urlJoin(config.apiURL, 'answers')
   return {
     types: [POST_ANSWER_REQUEST, POST_ANSWER_OK, POST_ANSWER_ERR],
@@ -45,7 +53,24 @@ export function postQuestion(question, content) {
   }
 }
 
+export function deleteAnswer(aid) {
+  const endpoint = urlJoin(config.apiURL, 'answers', aid)
+  return {
+    types: [DELETE_ANSWER_REQUEST, DELETE_ANSWER_OK, DELETE_ANSWER_ERR],
+    callAPI: () => request.del(endpoint),
+  }
+}
 
+export function putAnswer(aid, content) {
+  const endpoint = urlJoin(config.apiURL, 'answers', aid)
+  return {
+    types: [PUT_ANSWER_REQUEST, PUT_ANSWER_OK, PUT_ANSWER_ERR],
+    callAPI: () => request.put(endpoint).send({
+      content
+    }),
+    schema: answerSchema,
+  }
+}
 
 // ------------------------------------
 // Reducer

@@ -30,6 +30,14 @@ export const ADD_QUESTION_REQUEST = 'ADD_QUESTION_REQUEST'
 export const ADD_QUESTION_OK = 'ADD_QUESTION_OK'
 export const ADD_QUESTION_ERR = 'ADD_QUESTION_ERR'
 
+export const DELETE_QUESTION_REQUEST = 'DELETE_QUESTION_REQUEST'
+export const DELETE_QUESTION_OK = 'DELETE_QUESTION_OK'
+export const DELETE_QUESTION_ERR = 'DELETE_QUESTION_ERR'
+
+export const PUT_QUESTION_REQUEST = 'PUT_QUESTION_REQUEST'
+export const PUT_QUESTION_OK = 'PUT_QUESTION_OK'
+export const PUT_QUESTION_ERR = 'PUT_QUESTION_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -99,6 +107,24 @@ export function addQuestion(title, description, courseInstance, pkg, material) {
   }
 }
 
+export function deleteQuestion(qid) {
+  const endpoint = urlJoin(config.apiURL, 'questions', qid)
+  return {
+    types: [DELETE_QUESTION_REQUEST, DELETE_QUESTION_OK, DELETE_QUESTION_ERR],
+    callAPI: () => request.del(endpoint),
+    payload: { qid },
+  }
+}
+
+export function putQuestion(qid, title, description) {
+  const endpoint = urlJoin(config.apiURL, 'questions', qid)
+  return {
+    types: [PUT_QUESTION_REQUEST, PUT_QUESTION_OK, PUT_QUESTION_ERR],
+    callAPI: () => request.put(endpoint).send({ title, description }),
+    payload: { qid },
+    schema: questionSchema,
+  }
+}
 
 // ------------------------------------
 // Reducer
