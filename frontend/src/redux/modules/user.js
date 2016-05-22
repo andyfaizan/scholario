@@ -77,10 +77,10 @@ export function login(email, password) {
                   _id: res.body.user._id,
                   fetchedData: true,
                 }
-                dispatch(loginOk(user, response))
-                dispatch(replace('/dashboard'))
                 dispatch(hide('LOGIN_MODAL'))
                 dispatch(removeRequest('LOGIN_ERR'))
+                dispatch(loginOk(user, response))
+                dispatch(replace('/dashboard'))
               }
             });
   }
