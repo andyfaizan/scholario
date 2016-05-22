@@ -45,6 +45,7 @@ export class LeftSectionTeacherDashboard extends React.Component {
     var displayCards;
     var display;
     var filterBar;
+    var addCourseButton
 
 
     if (this.props.location.pathname === pathCourses) {
@@ -68,9 +69,11 @@ export class LeftSectionTeacherDashboard extends React.Component {
         } else if (this.props.role === teacherRole) {
 
           filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
+          addCourseButton = <AddCourseComponent />
 
           display = [
-             displayCards
+             addCourseButton,
+             displayCards,
           ]
         }
     } else if (this.props.location.pathname === pathConnects) {
@@ -99,7 +102,6 @@ export class LeftSectionTeacherDashboard extends React.Component {
               </Col>
             </Row>
           </Grid>
-          <AddCourseComponent />
 
           {display}
 

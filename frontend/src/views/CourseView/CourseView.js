@@ -78,6 +78,7 @@ export class Course extends React.Component {
           teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
           shortInformation={courseInstance.description}
           participantsNum={courseInstance.participantsNum}
+          userRole={this.props.user ? this.props.user.role : ''}
         />
         <br/>
         <Grid className='container-fluid'>
@@ -135,6 +136,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
+    user: selectors.getUser(state),
     userMetadata: selectors.getUserMetadata(state),
     courseInstance,
     profPkgs,
