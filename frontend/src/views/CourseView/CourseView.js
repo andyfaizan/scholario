@@ -104,6 +104,7 @@ export class Course extends React.Component {
                 </fieldset>
                 <br/>
                 <br/>
+                <br/>
                 <fieldset>
                   <legend><h4>
                     Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
