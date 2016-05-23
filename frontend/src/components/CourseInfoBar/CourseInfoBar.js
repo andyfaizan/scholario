@@ -44,11 +44,11 @@ export class CourseInfoBar extends React.Component {
         marginTop: '4',
       },
       titleStyle: {
-        color: 'black'
+        color: '#26A65B'
       },
       toolbarStyle: {
         backgroundColor: 'white',
-        color:'black'
+        color:'#26A65B'
       },
       buttonStyle: {
         color:'black'
@@ -69,7 +69,7 @@ export class CourseInfoBar extends React.Component {
     var actions
     if (userRole === 'Prof') {
       actions = <ToolbarGroup float='left'>
-                  <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>
+                  <IconButton  style={styles.iconStyle} touch={true}> <Delete color='#26A65B'  /> </IconButton>
                 </ToolbarGroup>
     }
     return (
@@ -78,7 +78,7 @@ export class CourseInfoBar extends React.Component {
        
                   <Toolbar style = {styles.toolbarStyle } >
                     <ToolbarGroup float='right'>
-                    <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
+                    <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='#26A65B'  /> </IconButton>
                     <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
                   </ToolbarGroup>
                   </Toolbar>
@@ -88,6 +88,7 @@ export class CourseInfoBar extends React.Component {
                     actAsExpander={true}
                     showExpandableButton={true}
                     style ={styles.text}
+                    titleColor='#26A65B'
                   />
                   <Divider />
                   <CardText expandable={true}>
@@ -97,8 +98,10 @@ export class CourseInfoBar extends React.Component {
                   </CardText>
                   <CardActions expandable={true} >
                     <div className={classes.actionPosition} >
-                        <Friend />
+                        <Friend color='#26A65B' />
+                        <div className={classes.linkColor} >
                         {this.props.participantsNum}
+                        </div>
                     </div>
                   </CardActions>
 
