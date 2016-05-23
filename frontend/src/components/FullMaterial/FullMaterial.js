@@ -60,6 +60,9 @@ const getFileType = (extension) => {
     case 'docx':
     case 'ppt':
     case 'pptx':
+    case 'xlsx':
+    case 'xls':
+    case 'txt':
     return 'doc'
     break
 

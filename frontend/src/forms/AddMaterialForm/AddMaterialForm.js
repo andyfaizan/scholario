@@ -14,19 +14,6 @@ export class AddMaterial extends React.Component {
     fields: {},
   }
 
-  constructor(props) {
-    super(props)
-    this.getPreview = this.getPreview.bind(this)
-  }
-
-  getPreview = (obj) => {
-    if(obj)
-    {
-      let preview = Object.keys(obj).map(key => obj[key])
-      return preview
-    }
-  }
-
   render() {
     const { fields : {files} } = this.props
 
@@ -49,17 +36,16 @@ export class AddMaterial extends React.Component {
       borderWidth: 2
     }
 
-    var filePreviews = []
-    if(this.props.fields.files && this.props.fields.files.value)
-      filePreviews = this.getPreview(this.props.fields.files.value)
 
+    // TODO: FILE PREVIEW
     return (
       <div>
         <div>
           <div>
             <Dropzone
               { ...files } style={dropStyle} activeStyle={activeStyle}
-              onDrop={ ( filesToUpload, e ) => files.onChange(filesToUpload) }>
+              onDrop={ ( filesToUpload, e ) => files.onChange(filesToUpload) }
+              accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt">
               <div style={{'text-align': 'center'}}>
                 Zieh deine Datein hier hin, oder clicke zum Durchsuchen
               </div>
@@ -70,13 +56,6 @@ export class AddMaterial extends React.Component {
     )
   }
 }
-
-// {this.props.fields.files.value.length > 0 ? <div>
-//   <h2>Uploading {this.props.fields.files.value.length} files...</h2>
-// <div>{
-//     filePreviews
-//   }</div>
-// </div> : null}
 
 AddMaterial = reduxForm({
   form: 'AddMaterial',
