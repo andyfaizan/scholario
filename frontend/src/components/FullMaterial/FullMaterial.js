@@ -46,6 +46,8 @@ const youtubeConfig = {
 }
 
 const getFileType = (extension) => {
+  console.log(extension)
+  if(extension)
   switch (extension.split(".")[1]) {
     case 'pdf':
     case 'doc':
@@ -57,7 +59,9 @@ const getFileType = (extension) => {
 
     case 'mp4':
     case 'webm':
-    return 'video'
+    case 'mp3':
+    case 'wav':
+    return 'av'
     break
 
     case 'jpeg':
@@ -75,12 +79,12 @@ const getFrame = (material) => {
   if(fileType === 'image'){
     return <img src={material.url} style={mediaStyle}/>
   }
-  if(fileType === 'video'){
+  if(fileType === 'av'){
     return (
       <div className={classes.videoStyle}>
         <ReactPlayer
           url={material.url}
-          playing={playing}
+          playing={true}
           // volume={volume}
           // soundcloudConfig={soundcloudConfig}
           // vimeoConfig={vimeoConfig}
@@ -95,7 +99,8 @@ const getFrame = (material) => {
           />
       </div>)
   }
-  return <IFrame src={material.url}/>
+  if(fileType === 'doc')
+    return <IFrame src={material.url}/>
 }
 
 const FullMaterial = ({location, courseInstance, pkg, material, questions, onClickVote}) => (

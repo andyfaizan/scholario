@@ -17,7 +17,6 @@ export class AddMaterial extends React.Component {
   constructor(props) {
     super(props)
     this.getPreview = this.getPreview.bind(this)
-    this.onDrop = this.onDrop.bind(this)
   }
 
   getPreview = (obj) => {
@@ -28,12 +27,28 @@ export class AddMaterial extends React.Component {
     }
   }
 
-  onDrop = (files) => {
-    // console.dir(files)
-  }
-
   render() {
     const { fields : {files} } = this.props
+
+    const dropStyle = {
+      margin: 30,
+      padding: 30,
+      transition: 'all 0.5s',
+      borderRadius: 5,
+      borderColor: 'black',
+      borderStyle: 'dashed',
+      borderWidth: 2
+    }
+
+    const activeStyle = {
+      margin: 30,
+      padding: 30,
+      borderRadius: 8,
+      borderColor: 'black',
+      borderStyle: 'solid',
+      borderWidth: 2
+    }
+
     var filePreviews = []
     if(this.props.fields.files && this.props.fields.files.value)
       filePreviews = this.getPreview(this.props.fields.files.value)
@@ -41,11 +56,11 @@ export class AddMaterial extends React.Component {
     return (
       <div>
         <div>
-          <label>Datein</label>
           <div>
             <Dropzone
-              { ...files } onDrop={this.onDrop}>
-              <div>
+              { ...files } style={dropStyle} activeStyle={activeStyle}
+              onDrop={ ( filesToUpload, e ) => files.onChange(filesToUpload) }>
+              <div style={{'text-align': 'center'}}>
                 Zieh deine Datein hier hin, oder clicke zum Durchsuchen
               </div>
             </Dropzone>
