@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './ImpressumView.scss'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 type Props = {
 

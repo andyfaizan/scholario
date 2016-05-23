@@ -16,6 +16,8 @@ import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
+
 
 type Props = {
   courseName: string,
@@ -69,6 +71,7 @@ export class Course extends React.Component {
 
 
     return (
+    <div>
       <div className={classes.rootCourse}>
         <DashboardToolBar />
         <CourseInfoBar
@@ -111,7 +114,12 @@ export class Course extends React.Component {
           </Row>
         </Grid>
         <br/>
+        
       </div>
+      <div className={classes.footer}>
+      <FooterLanding />
+      </div>
+    </div>
     )
   }
 }

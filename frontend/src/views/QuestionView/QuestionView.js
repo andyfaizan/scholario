@@ -17,6 +17,7 @@ import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
 import classes from './QuestionView.scss'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 
 type Props = {
@@ -110,6 +111,7 @@ export class Question extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
+            <FooterLanding />
       </div>
     )
   }

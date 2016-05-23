@@ -12,6 +12,7 @@ import Col from 'react-bootstrap/lib/Col'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import classes from './DetailQuestionListView.scss'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 type Props = {
 
@@ -78,6 +79,7 @@ export class DetailQuestionList extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
+            <FooterLanding />
       </div>
     )
   }

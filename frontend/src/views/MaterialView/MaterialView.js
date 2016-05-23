@@ -9,6 +9,7 @@ import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import classes from './MaterialView.scss'
 import * as selectors from '../../redux/selectors'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 type Props = {
 
@@ -72,6 +73,7 @@ export class MaterialView extends React.Component {
           material={this.props.material}
           questions={this.props.questions}
         />
+        <FooterLanding />
       </div>
     )
   }

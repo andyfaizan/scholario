@@ -14,6 +14,7 @@ import * as selectors from '../../redux/selectors'
 import { getUser } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 
 class DashboardView extends React.Component {
@@ -55,6 +56,7 @@ class DashboardView extends React.Component {
 
 
     return (
+    <div>
       <div className={classes.dashboardRoot} >
         <DashboardToolBar />
         <TeacherProfileBar
@@ -77,6 +79,11 @@ class DashboardView extends React.Component {
             </Col>
           </Row>
         </Grid>
+        
+      </div>
+      <div className={classes.footer}>
+        <FooterLanding />
+      </div>
       </div>
     )
   }

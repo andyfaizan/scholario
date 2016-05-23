@@ -15,6 +15,7 @@ import { setCurPkg, getPkg } from '../../redux/modules/pkg'
 import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 
 type Props = {
@@ -85,6 +86,7 @@ export class Package extends React.Component {
           </Row>
         </Grid>
         <br/>
+        <FooterLanding />
       </div>
     )
   }
