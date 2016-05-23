@@ -75,20 +75,21 @@ export class TeacherProfileBar extends React.Component {
           <CardHeader
             title={cardTitle}
             subtitle={cardSubtitle}
-            avatar={<Avatar>{nameInitial}</Avatar>}
+            avatar={<Avatar backgroundColor="#26A65B">{nameInitial}</Avatar>}
             actAsExpander={true}
             showExpandableButton={true}
+            titleColor="#26A65B"
           >
           </CardHeader>
           <Divider />
           <CardText expandable={true}>
             {shortInformation}
           </CardText>
-          <CardActions expandable={true} >
-            <FlatButton label="Facebook" linkButton={true} href={facebookUrl}  icon={<ActionHome />} />
-            <FlatButton label="Twitter" linkButton={true} href={twitterUrl}  icon={<ActionHome />} />
-            <FlatButton label="Medium" linkButton={true} href={mediumUrl}  icon={<ActionHome />} />
-            <FlatButton label="Instagram" linkButton={true} href={instagramUrl}  icon={<ActionHome />} />
+          <CardActions  expandable={true} >
+            <FlatButton label="Facebook" linkButton={true} href={facebookUrl} hoverColor="#26A65B" icon={<ActionHome color="#26A65B" />} />
+            <FlatButton label="Twitter" linkButton={true} href={twitterUrl}   hoverColor="#26A65B"  icon={<ActionHome color="#26A65B" />} />
+            <FlatButton label="Medium" linkButton={true} href={mediumUrl}  hoverColor="#26A65B" icon={<ActionHome  color="#26A65B" />} />
+            <FlatButton label="Instagram" linkButton={true} hoverColor="#26A65B" href={instagramUrl}  icon={<ActionHome  color="#26A65B"/>} />
           </CardActions>
         </Card>
 
