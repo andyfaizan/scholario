@@ -92,6 +92,7 @@ export class Course extends React.Component {
                   <legend><h4>
                     Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
                   </h4></legend>
+                  <br/>
                 {profPkgEls}
                 </fieldset>
                 <br/>
@@ -100,6 +101,7 @@ export class Course extends React.Component {
                   <legend><h4>
                     Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
                   </h4></legend>
+                  <br/>
                 {studentPkgEls}
                 </fieldset>
               </div>
