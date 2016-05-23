@@ -76,6 +76,7 @@ const getFileType = (extension) => {
     case 'jpeg':
     case 'jpg':
     case 'png':
+    case 'bmp':
     return 'image'
     break
   }
@@ -88,7 +89,7 @@ const getFrame = (material) => {
   if(fileType === 'image'){
     return <img src={material.url} style={mediaStyle}/>
   }
-  if(fileType === 'av'){
+  if(fileType === 'av' && ReactPlayer.canPlay(material.url)){
     return (
       <div className={classes.videoStyle}>
         <ReactPlayer
