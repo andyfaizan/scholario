@@ -58,6 +58,7 @@ export class Package extends React.Component {
     }
 
     return (
+    <div>
       <div className={classes.dashboardRoot}>
         <DashboardToolBar />
         <CourseInfoBar
@@ -87,8 +88,12 @@ export class Package extends React.Component {
           </Row>
         </Grid>
         <br/>
+      </div>
+      <br/>
+       <div className={classes.footer}>
         <FooterLanding />
       </div>
+    </div>
     )
   }
 }

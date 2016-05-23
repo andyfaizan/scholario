@@ -116,8 +116,9 @@ export class Course extends React.Component {
           </Row>
         </Grid>
         <br/>
-        
+      <br/>
       </div>
+      <br/>
       <div className={classes.footer}>
       <FooterLanding />
       </div>

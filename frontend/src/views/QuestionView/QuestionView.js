@@ -133,8 +133,9 @@ export class Question extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
-
+      <br/>
       </div>
+      <br/>
       <div className ={classes.footer} >
             <FooterLanding />
       </div>

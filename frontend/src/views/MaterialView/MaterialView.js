@@ -64,6 +64,7 @@ export class MaterialView extends React.Component {
 
   render () {
     return (
+    <div>
       <div className={classes.dashboardRoot}>
         <DashboardToolBar />
         <PreviewMaterial
@@ -74,8 +75,13 @@ export class MaterialView extends React.Component {
           recentQuestions={this.props.recentQuestions}
           popularQuestions={this.props.popularQuestions}
         />
+      <br/>
+      </div>
+      <br/>
+       <div className={classes.footer}>
         <FooterLanding />
       </div>
+    </div>
     )
   }
 }

@@ -54,6 +54,7 @@ export class DetailQuestionList extends React.Component {
       />
     )
     return (
+    <div>
       <div className={classes.dashboardRoot}>
       	  <DashboardToolBar />
       	  <CourseInfoBar
@@ -79,8 +80,13 @@ export class DetailQuestionList extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
-            <FooterLanding />
+      <br/>     
       </div>
+      <br/>
+         <div className={classes.footer}>
+            <FooterLanding />
+          </div>
+    </div>
     )
   }
 }
