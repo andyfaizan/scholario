@@ -75,7 +75,7 @@ export class TeacherProfileBar extends React.Component {
           <CardHeader
             title={cardTitle}
             subtitle={cardSubtitle}
-            avatar={<Avatar backgroundColor="#26A65B">{nameInitial}</Avatar>}
+            avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
             actAsExpander={true}
             showExpandableButton={true}
             titleColor="#26A65B"

@@ -75,6 +75,19 @@ export class Question extends React.Component {
       )
     }
 
+    const textStyle = {
+
+      paddingLeft: 70,
+      paddingRight: 70
+
+    }
+
+    const actionPadding = {
+        
+      paddingLeft: 52
+
+    }
+
     return (
       <div>
       <div className={classes.dashboardRoot}>
@@ -100,10 +113,10 @@ export class Question extends React.Component {
                       currentLikes={question.votes ? question.votes.length : null}
                       onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
                     />
-                    <CardText>
+                    <CardText style={textStyle}>
                       {question.description}
                     </CardText>
-                    <CardActions>
+                    <CardActions style={actionPadding}>
                       <FlatButton label="Frage bearbeiten" linkButton={true}
                       hoverColor="#26A65B" />
                       <FlatButton label="Frage löschen" linkButton={true}

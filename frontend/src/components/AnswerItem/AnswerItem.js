@@ -3,6 +3,8 @@ import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
 import CardHeader from 'material-ui/lib/card/card-header'
 import Avatar from 'material-ui/lib/avatar'
+import CardActions from 'material-ui/lib/card/card-actions'
+import FlatButton from 'material-ui/lib/flat-button'
 
 type Props = {
   personWhoAnswered: PropTypes.string,
@@ -18,6 +20,35 @@ export class AnswerItem extends React.Component {
     if (this.props.personWhoAnswered)
       nameInitial = this.props.personWhoAnswered[0]
 
+    const textStyle = {
+
+      paddingLeft: 70,
+      paddingRight: 50
+
+    }
+
+    const actionPadding = {
+        
+      paddingLeft: 52
+
+    }
+
+    const teacherVerify = {
+
+      postion: 'relative',
+      margin:'auto',
+      marginTop: 0,
+      marginLeft:770
+    }
+
+    const StudentVerify = {
+
+      postion: 'relative',
+      margin:'auto',
+      marginTop: 0,
+      marginLeft:10
+    }
+
     return (
       <div>
         <Card>
@@ -26,12 +57,25 @@ export class AnswerItem extends React.Component {
             subtitle={this.props.dateAnswered}
             actAsExpander={false}
             showExpandableButton={false}
-            avatar={<Avatar>{nameInitial}</Avatar>}
-          />
-            <CardText>
+            avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
+            titleColor="#26A65B"
+          >
+            <Avatar  backgroundColor="grey">T</Avatar>
+            <Avatar  backgroundColor="grey">S</Avatar>
+          </CardHeader>
+            <CardText style={textStyle}>
             	{this.props.answerText}
             </CardText>
+          <CardActions style={actionPadding}>
+                      <FlatButton label="Antwort bearbeiten" linkButton={true}
+                      hoverColor="#26A65B" />
+                      <FlatButton label="Antwort löschen" linkButton={true}
+                      hoverColor="#26A65B" />
+                      <FlatButton label="überprüfen Antwort" linkButton={true}
+                      hoverColor="#26A65B" />
+                    </CardActions>
         </Card>
+        
       </div>
     )
   }
