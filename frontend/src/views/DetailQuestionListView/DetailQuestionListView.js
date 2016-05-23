@@ -42,6 +42,7 @@ export class DetailQuestionList extends React.Component {
     const { courseInstance, questions } = this.props
 
     var questionEls = questions.map(q =>
+      <div>
       <QuestionListInDetailsView
         key={q._id}
         questionId={q._id}
@@ -52,6 +53,8 @@ export class DetailQuestionList extends React.Component {
         currentLikes={q.votes.length}
         onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
       />
+      <br/>
+      </div>
     )
     return (
     <div>
