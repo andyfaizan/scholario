@@ -21,6 +21,7 @@ import ArrowBack from 'material-ui/lib/svg-icons/navigation/arrow-back'
 import Questions from '../../containers/Questions'
 import IconButton from 'material-ui/lib/icon-button'
 import { Router, Route, Link } from 'react-router'
+import Snackbar from 'material-ui/lib/snackbar';
 
 const previewStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -79,6 +80,9 @@ const getFileType = (extension) => {
     case 'bmp':
     return 'image'
     break
+
+    default:
+      return ''
   }
 }
 
@@ -112,6 +116,17 @@ const getFrame = (material) => {
   }
   if(fileType === 'doc')
     return <IFrame src={material.url}/>
+
+  return (
+    <div>
+      <img src="https://placekitten.com/600/400" style={mediaStyle}/>
+      <Snackbar
+          open={true}
+          message="Das Material kann leider nicht geöffnet werden"
+          autoHideDuration={4000}
+      />
+    </div>
+  )
 }
 
 const FullMaterial = ({location, courseInstance, pkg, material, questions, onClickVote}) => (
