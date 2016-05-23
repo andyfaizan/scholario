@@ -11,6 +11,7 @@ import { curReducer } from './modules/cur'
 import { questionReducer } from './modules/AskQuestion'
 import { requestReducer } from './modules/request'
 import { pkgReducer } from './modules/AddPkg'
+import { materialReducer } from './modules/materials'
 
 export default combineReducers({
   counter,
@@ -23,6 +24,7 @@ export default combineReducers({
   requests: requestReducer,
   questionReducer,
   pkgReducer,
+  materialReducer,
   //curCourseInstance: curCourseInstanceReducer,
   //curPkg: curPkgReducer,
 

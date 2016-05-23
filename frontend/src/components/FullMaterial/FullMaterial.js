@@ -21,6 +21,7 @@ import ArrowBack from 'material-ui/lib/svg-icons/navigation/arrow-back'
 import Questions from '../../containers/Questions'
 import IconButton from 'material-ui/lib/icon-button'
 import { Router, Route, Link } from 'react-router'
+import Snackbar from 'material-ui/lib/snackbar';
 
 const previewStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -44,18 +45,61 @@ const youtubeConfig = {
     controls: 2
   }
 }
-// //avatar={ <Avatar icon={<ArrowBack />} onClick={console.log("Tapped")}/> }
-const getFrame = (fileType, playing) => {
-  if(fileType === 'image'){
-    return <img src="http://lorempixel.com/800/600/nature/" style={mediaStyle}/>
+
+const fileConfig = {
+  attributes: {
+    controls: true
   }
-  if(fileType === 'video'){
+}
+
+const getFileType = (extension) => {
+  console.log(extension)
+  if(extension)
+  switch (extension.split(".")[1]) {
+    case 'pdf':
+    case 'doc':
+    case 'docx':
+    case 'ppt':
+    case 'pptx':
+    case 'xlsx':
+    case 'xls':
+    case 'txt':
+    return 'doc'
+    break
+
+    case 'mp4':
+    // case 'webm':
+    case 'mp3':
+    // case 'wav':
+    return 'av'
+    break
+
+    case 'jpeg':
+    case 'jpg':
+    case 'png':
+    case 'bmp':
+    return 'image'
+    break
+
+    default:
+      return ''
+  }
+}
+
+const getFrame = (material) => {
+  console.dir(material)
+  var fileType = getFileType(material.ext)
+  if(fileType === 'image'){
+    return <img src={material.url} style={mediaStyle}/>
+  }
+  if(fileType === 'av' && ReactPlayer.canPlay(material.url)){
     return (
       <div className={classes.videoStyle}>
         <ReactPlayer
-          url='https://www.youtube.com/watch?v=XSGBVzeBUbk'
-          playing={playing}
-          // volume={volume}
+          url={material.url}
+          playing={true}
+          fileConfig={fileConfig}
+          volume={0.5}
           // soundcloudConfig={soundcloudConfig}
           // vimeoConfig={vimeoConfig}
           youtubeConfig={youtubeConfig}
@@ -69,7 +113,19 @@ const getFrame = (fileType, playing) => {
           />
       </div>)
   }
-  return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
+  if(fileType === 'doc')
+    return <IFrame src={material.url}/>
+
+  return (
+    <div>
+      <img src="https://placekitten.com/600/400" style={mediaStyle}/>
+      <Snackbar
+          open={true}
+          message="Das Material kann leider nicht geöffnet werden"
+          autoHideDuration={4000}
+      />
+    </div>
+  )
 }
 
 const FullMaterial = ({fileType, playing, location, courseInstance,
@@ -93,7 +149,7 @@ const FullMaterial = ({fileType, playing, location, courseInstance,
       <Row >
         <Col xs={16} md={8}>
           <Card style={previewStyle}>
-            {getFrame(fileType)}
+            {getFrame(material)}
           </Card>
         </Col>
         <Col xs={8} md={4}>
