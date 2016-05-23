@@ -16,6 +16,8 @@ import QuestionListInDetailsView from '../../components/QuestionListInDetailsVie
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
+import CardActions from 'material-ui/lib/card/card-actions'
+import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
@@ -67,13 +69,14 @@ export class Question extends React.Component {
         <AnswerItem
           key={a._id}
           personWhoAnswered={a.user ? `${a.user.firstname} ${a.user.lastname}` : ''}
-          dateAnswered={a.createDate}
+          dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
         />
       )
     }
 
     return (
+      <div>
       <div className={classes.dashboardRoot}>
       	   <DashboardToolBar />
            <CourseInfoBar
@@ -100,6 +103,12 @@ export class Question extends React.Component {
                     <CardText>
                       {question.description}
                     </CardText>
+                    <CardActions>
+                      <FlatButton label="Frage bearbeiten" linkButton={true}
+                      hoverColor="#26A65B" />
+                      <FlatButton label="Frage löschen" linkButton={true}
+                      hoverColor="#26A65B" />
+                    </CardActions>
                   </Card>
                 </Col>
 		      		</Row>
@@ -111,7 +120,11 @@ export class Question extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
+
+      </div>
+      <div className ={classes.footer} >
             <FooterLanding />
+      </div>
       </div>
     )
   }
