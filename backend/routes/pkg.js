@@ -155,6 +155,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
             function (req, res) {
   req.checkQuery('name', 'InvalidName').notEmpty().isAlphanumeric();
   req.checkQuery('courseInstance', 'InvalidCourseID').isMongoId();
+  if (req.query.access) req.checkQuery('access', 'InvalidAccess').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -171,16 +172,30 @@ router.post('/', passport.authenticate('jwt', {session: false}),
       });
     }
 
+    var access = 'public';
+    if (req.query.access) access = req.query.access;
     var pkg = yield new Pkg({
       name: req.query.name,
       courseInstance: req.query.courseInstance,
       owner: req.user._id,
+      access,
       //root: materialRoot,
     }).save()
     var pkgRoot = path.join(courseInstance.pkgsRoot, pkg.id.toString());
 
     fs.mkdirSync(pkgRoot, 0755);
 
+    if (!req.files || req.files.length === 0)
+      return res.status(201).json({
+        _id: pkg._id,
+        name: pkg.name,
+        courseInstance: pkg.courseInstance,
+        owner: pkg.owner,
+        access: pkg.access,
+        materials: [],
+      });
+
+    var materials = []
     var movedNum = 0;
     _.each(req.files, f => {
       var parsed = path.parse(f.originalname);
@@ -189,24 +204,31 @@ router.post('/', passport.authenticate('jwt', {session: false}),
         ext: parsed.ext,
         size: f.size,
         pkg: pkg._id,
-      }).save();
-      var source = fs.createReadStream(f.path);
-      var dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
+      }).save((err, material, numAffected) => {
+        materials.push(material);
+        var source = fs.createReadStream(f.path);
+        var dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
 
-      source.pipe(dest);
-      source.on('end', () => {
-        movedNum++;
-        fs.unlinkSync(f.path);
-        if (movedNum === req.files.length) {
-          return res.status(201).json({
-            err: [],
+        source.pipe(dest);
+        source.on('end', () => {
+          movedNum++;
+          fs.unlinkSync(f.path);
+          if (movedNum === req.files.length) {
+            return res.status(201).json({
+              _id: pkg._id,
+              name: pkg.name,
+              courseInstance: pkg.courseInstance,
+              owner: pkg.owner,
+              access: pkg.access,
+              materials,
+            });
+          }
+        });
+        source.on('error', err => {
+          logger.error(err);
+          return res.status(500).json({
+            err: [{ msg: 'InternalError' }],
           });
-        }
-      });
-      source.on('error', err => {
-        logger.error(err);
-        return res.status(500).json({
-          err: [{ msg: 'InternalError' }],
         });
       });
     });
@@ -234,9 +256,11 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
     var pkg = yield Pkg.findOne({ _id: req.params.pid }).populate('courseInstance').exec();
     var pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
 
+    if (!req.files || req.files.length === 0)
+      return res.status(201).json({});
+
     var movedNum = 0;
     var materials = []
-    console.log(req.files)
     _.each(req.files, f => {
       var parsed = path.parse(f.originalname);
       var material = new Material({
