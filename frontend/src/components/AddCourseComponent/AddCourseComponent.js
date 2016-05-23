@@ -61,8 +61,11 @@ export class AddCourseComponent extends React.Component {
 	  	};
 
 
-    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <AddCircle style={plusButton} color='#ffffff' /></IconButton></div> ;
-
+    const actions = <div>
+                         <IconButton style={buttonStyle} tooltip="In Course"> 
+                           <AddCircle style={plusButton} color='#ffffff' />
+                          </IconButton>
+                    </div> ;
 
     return (
       <div>

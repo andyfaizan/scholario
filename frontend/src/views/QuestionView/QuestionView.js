@@ -117,6 +117,8 @@ export class Question extends React.Component {
                       {question.description}
                     </CardText>
                     <CardActions style={actionPadding}>
+                      <FlatButton label="Beantworte die Frage" linkButton={true}
+                      hoverColor="#26A65B" />
                       <FlatButton label="Frage bearbeiten" linkButton={true}
                       hoverColor="#26A65B" />
                       <FlatButton label="Frage löschen" linkButton={true}

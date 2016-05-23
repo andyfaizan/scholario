@@ -25,7 +25,7 @@ export class QuestionToolBar extends React.Component {
               <CardTitle titleColor='#26A65B' title={TITLE_OF_QUESTIONS} subtitle={SUBTITLE_OF_QUESTIONS} />
                   <CardActions hoverColor='#26A65B' >
                     <FlatButton hoverColor='#26A65B' label="Neue Frage hinzufügen" linkButton={true}  />
-
+                    <FlatButton hoverColor='#26A65B' label="Löschen Alle Fragen" linkButton={true}  />
                   </CardActions>
               </CardText>
         </Card>

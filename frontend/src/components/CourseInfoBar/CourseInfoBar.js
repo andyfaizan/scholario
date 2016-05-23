@@ -103,6 +103,18 @@ export class CourseInfoBar extends React.Component {
                         {this.props.participantsNum}
                         </div>
                     </div>
+                    <FlatButton label="Bearbeiten Kurs" 
+                      hoverColor="#26A65B" />
+                    <FlatButton label="löschen Kurs" 
+                      hoverColor="#26A65B" />
+                    <FlatButton label="Paket bearbeiten" 
+                      hoverColor="#26A65B" />
+                    <FlatButton label="löschen von Paketen" 
+                      hoverColor="#26A65B" />
+                    <FlatButton label="Material bearbeiten" 
+                      hoverColor="#26A65B" />
+                    <FlatButton label="löschen-Material" 
+                      hoverColor="#26A65B" />
                   </CardActions>
 
 
