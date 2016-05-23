@@ -9,6 +9,7 @@ import _ from 'lodash'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import AddPkgComponent from '../../components/AddPkgComponent/AddPkgComponent'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
@@ -46,7 +47,12 @@ export class Course extends React.Component {
     const { courseInstance, profPkgs, studentPkgs } = this.props
     var profPkgEls = []
     var studentPkgEls
+    var addPkgComp 
+
     if (profPkgs) {
+
+      addPkgComp = <AddPkgComponent />;
+
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
@@ -93,6 +99,7 @@ export class Course extends React.Component {
                     Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
                   </h4></legend>
                   <br/>
+                {addPkgComp}
                 {profPkgEls}
                 </fieldset>
                 <br/>
@@ -105,6 +112,7 @@ export class Course extends React.Component {
                 {studentPkgEls}
                 </fieldset>
               </div>
+              <br/>
             </Col>
             <Col xs={8} md={4}>
               <Questions
