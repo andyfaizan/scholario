@@ -45,6 +45,12 @@ const youtubeConfig = {
   }
 }
 
+const fileConfig = {
+  attributes: {
+    controls: true
+  }
+}
+
 const getFileType = (extension) => {
   console.log(extension)
   if(extension)
@@ -58,9 +64,9 @@ const getFileType = (extension) => {
     break
 
     case 'mp4':
-    case 'webm':
+    // case 'webm':
     case 'mp3':
-    case 'wav':
+    // case 'wav':
     return 'av'
     break
 
@@ -85,7 +91,8 @@ const getFrame = (material) => {
         <ReactPlayer
           url={material.url}
           playing={true}
-          // volume={volume}
+          fileConfig={fileConfig}
+          volume={0.5}
           // soundcloudConfig={soundcloudConfig}
           // vimeoConfig={vimeoConfig}
           youtubeConfig={youtubeConfig}
