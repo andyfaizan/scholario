@@ -48,11 +48,32 @@ export function getPkg(pid, setCur = false) {
   }
 }
 
-export function addPkg(name, courseInstance, access) {
-  const endpoint = urlJoin(config.apiURL, 'pkgs')
+export function addPkg(name, courseInstance, access = 'public', files = []) {
+  var endpoint = urlJoin(config.apiURL, 'pkgs')
+
+  if (name) {
+    endpoint = urlJoin(endpoint, `?name=${name}`)
+  }
+
+  if (courseInstance) {
+    endpoint = urlJoin(endpoint, `?courseInstance=${courseInstance}`)
+  }
+
+  if (access) {
+    endpoint = urlJoin(endpoint, `?access=${access}`)
+  }
+
+  var callP = request
+    .post(endpoint)
+    .set('Content-Type', 'multipart/form-data')
+
+  for (var i = 0; i < files.length; i++)
+    callP.attach(files[i])
+
   return {
     types: [ADD_PKG_REQUEST, ADD_PKG_OK, ADD_PKG_ERR],
-    callAPI: () => request.post(endpoint).send({ name, courseInstance, access })
+    callAPI: () =>  callP,
+    schema: pkgSchema,
   }
 }
 
