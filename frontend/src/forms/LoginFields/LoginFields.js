@@ -70,7 +70,7 @@ export class LoginFields extends React.Component {
               hintText='abc@hotmail.com'
               errorText={email.touched && email.error ? email.error : ''}
               floatingLabelStyle={styles.floatingLabelStyle}
-              floatingLabelText='Email or Username'
+              floatingLabelText='Email'
               underlineFocusStyle={styles.focusStyle}
               onKeyDown={this.checkKeyAndSubmit}
               />
@@ -78,15 +78,15 @@ export class LoginFields extends React.Component {
             <TextField
               {...password}
               errorText={password.touched && password.error ? password.error : ''}
-              floatingLabelText='Password'
+              floatingLabelText='Passwort'
               type='password'
               floatingLabelStyle={styles.floatingLabelStyle}
               underlineFocusStyle={styles.focusStyle}
               onKeyDown={this.checkKeyAndSubmit}
               />
+            {/*<br/>
             <br/>
-            <br/>
-            <a className={classes.forgotLink}>Forgot your password ? </a>
+            <a className={classes.forgotLink}>Forgot your password ? </a>*/}
             <br/>
           </div>
       </div>
