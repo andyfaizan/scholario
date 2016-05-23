@@ -43,7 +43,9 @@ export class QuestionItem extends React.Component {
         browserHistory.replace(this.props.questionURL)
       }
 
-    const secondaryText = <div className={styleSecondaryText}>{this.props.datePosted}</div>
+    const date = this.props.datePosted;
+
+    const secondaryText = <div className={styleSecondaryText}>{date.slice(0,10)}</div>
     return (
       <div>
         <ListItem
