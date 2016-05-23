@@ -15,17 +15,16 @@ export class QuestionToolBar extends React.Component {
 
   render () {
 
-  	const TITLE_OF_QUESTIONS = "List of Questions"
-  	const SUBTITLE_OF_QUESTIONS = "Tap of the question to view the answer or post a new question"
+  	const TITLE_OF_QUESTIONS = "Liste aller Fragen"
+  	const SUBTITLE_OF_QUESTIONS = "Klicke auf eine Frage um Antworten zu sehen or stell eine neue Frage"
 
     return (
       <div>
       	<Card>
           <CardText >
-              <CardTitle title={TITLE_OF_QUESTIONS} subtitle={SUBTITLE_OF_QUESTIONS} />
-                  <CardActions >
-                    <FlatButton label="Add New Question" linkButton={true}  />
-                    <FlatButton label="Add Material To Question" linkButton={true}  />
+              <CardTitle titleColor='#26A65B' title={TITLE_OF_QUESTIONS} subtitle={SUBTITLE_OF_QUESTIONS} />
+                  <CardActions hoverColor='#26A65B' >
+                    <FlatButton hoverColor='#26A65B' label="Neue Frage hinzufügen" linkButton={true}  />
 
                   </CardActions>
               </CardText>
