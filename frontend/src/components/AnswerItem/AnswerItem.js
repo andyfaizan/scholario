@@ -36,9 +36,8 @@ export class AnswerItem extends React.Component {
     const teacherVerify = {
 
       postion: 'relative',
-      margin:'auto',
       marginTop: 0,
-      marginLeft:770
+      float:'right'
     }
 
     const StudentVerify = {
@@ -46,8 +45,14 @@ export class AnswerItem extends React.Component {
       postion: 'relative',
       margin:'auto',
       marginTop: 0,
-      marginLeft:10
+      marginRight:10,
+      float:'right'
     }
+
+    const nodeHeader = [
+      <Avatar style={teacherVerify} backgroundColor="grey">T</Avatar>,
+      <Avatar style={StudentVerify} backgroundColor="grey">S</Avatar>
+    ]
 
     return (
       <div>
@@ -59,10 +64,8 @@ export class AnswerItem extends React.Component {
             showExpandableButton={false}
             avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
             titleColor="#26A65B"
-          >
-            <Avatar  backgroundColor="grey">T</Avatar>
-            <Avatar  backgroundColor="grey">S</Avatar>
-          </CardHeader>
+            children={nodeHeader}
+          />
             <CardText style={textStyle}>
             	{this.props.answerText}
             </CardText>
@@ -74,6 +77,8 @@ export class AnswerItem extends React.Component {
                       <FlatButton label="überprüfen Antwort" linkButton={true}
                       hoverColor="#26A65B" />
                     </CardActions>
+          
+            
         </Card>
         
       </div>
