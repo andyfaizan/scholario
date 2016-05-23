@@ -58,10 +58,10 @@ export class RightSectionTeacherDashboard extends React.Component {
             <List>
               <Subheader style={subheader}>
                 <IconButton tooltip={allQuestionsTooltip} style={iconStyles} containerElement={<Link to={linkToQuestionsList}  />}>
-                  <ViewList />
+                  <ViewList color='#26A65B' />
                 </IconButton>
                 <IconButton tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>
-                  <AddBox />
+                  <AddBox color='#26A65B' />
                   {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_question} location={this.props.location} /> : null) : null}
                 </IconButton>
                 Wichtigste Fragen
