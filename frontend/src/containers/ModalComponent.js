@@ -10,6 +10,7 @@ import SignupFields from '../forms/SignupFields/SignupFields'
 import {hide} from '../redux/modules/modal'
 //import { browserHistory } from 'react-router'
 import { login, createUser } from '../redux/modules/user'
+import { removeRequest } from '../redux/modules/request'
 import { browserHistory } from '../history'
 import * as selectors from '../redux/selectors'
 
@@ -44,17 +45,9 @@ export class ModalComponent extends React.Component {
     this.refs.signupForm.submit()
   }
 
-  hideError = () => {
-    this.refs.loginErrorText.style.visibility = 'hidden'
-  }
-
-  showError = () => {
-    this.refs.loginErrorText.style.visibility = 'visible'
-  }
-
   sendLoginRequest = (data) => {
     this.props.onLoginSubmit(data)
-    this.props.hide()
+    // this.props.hide()
     //browserHistory.push('/dashboard')
     //this.props.router.push('/dashboard')
     //this.context.router.push('/dashboard')
@@ -136,8 +129,16 @@ export class ModalComponent extends React.Component {
       fontWeight: 'bold'
     }
 
-    const errorTextStyle = {
+    const errorTextHiddenStyle = {
       visibility: 'hidden',
+      color: 'red',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginTop: '3%'
+    }
+
+    const errorTextShownStyle = {
+      visibility: 'visible',
       color: 'red',
       fontWeight: 'bold',
       textAlign: 'center',
@@ -155,10 +156,10 @@ export class ModalComponent extends React.Component {
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Login' >
           <div>
-            <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest}/>
+            <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest} confirm={this.confirmLogin}/>
           </div>
-          <div ref="loginErrorText" style={errorTextStyle}>
-            Falsches Email oder Kennwort
+          <div ref="loginErrorText" style={this.props.loginErr ? errorTextShownStyle : errorTextHiddenStyle}>
+            Falsche Email oder Kennwort
           </div>
           <div style={buttonStyle}>
           <br/>
@@ -177,11 +178,12 @@ export class ModalComponent extends React.Component {
         </Tab>
         <Tab label='Sign Up' >
           <div>
-            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities} />
+            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities}
+              confirm={this.confirmSignup} />
           </div>
-          <div ref="signupErrorText" style={errorTextStyle}>
-            Falsches Email oder Kennwort
-          </div>
+          {/*<div ref="signupErrorText">
+            Falsche Email oder Kennwort
+          </div>*/}
           <div style={buttonStyle}>
             <RaisedButton
               label='Signup'
@@ -222,12 +224,17 @@ const mapStateToProps = (state) => {
     user: state.user,
     router: state.router,
     universities: selectors.getUniversitiesWithPrograms(state),
+    loginErr: selectors.getRequest(state, 'LOGIN_ERR'),
+    signupErr: selectors.getRequest(state, 'SIGNUP_ERR')
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    hide: () => dispatch(hide('LOGIN_MODAL')),
+    hide: () => {
+      dispatch(hide('LOGIN_MODAL'))
+      dispatch(removeRequest('LOGIN_ERR'))
+    },
     onLoginSubmit: values => {
       dispatch(login(values.email, values.password))
     },

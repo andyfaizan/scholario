@@ -3,15 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {submit} from 'redux-form'
 import {hide} from '../redux/modules/modal'
-import {addQuestion} from '../redux/modules/question'
-import {ADD_QUESTION_MODAL as add_question} from '../redux/modules/modal'
+import {addPkg} from '../redux/modules/pkg'
+import {ADD_PACKAGE_MODAL as add_package} from '../redux/modules/modal'
 import Dialog from 'material-ui/lib/dialog'
 import FlatButton from 'material-ui/lib/flat-button'
 import RaisedButton from 'material-ui/lib/raised-button'
-import AddQuestionForm from '../forms/AddQuestionForm/AddQuestionForm'
+import AddPackageForm from '../forms/AddPackageForm/AddPackageForm'
 import * as selectors from '../redux/selectors'
 
-export class AddQuestionModal extends React.Component {
+export class AddPackageModal extends React.Component {
   static propTypes = {
     modal: PropTypes.object.isRequired,
     hide: PropTypes.func.isRequired,
@@ -21,37 +21,37 @@ export class AddQuestionModal extends React.Component {
   constructor(props) {
     super(props)
     this.create = this.create.bind(this)
-    this.onAddQuestionSubmit = this.onAddQuestionSubmit.bind(this)
+    this.onAddPkgSubmit = this.onAddPkgSubmit.bind(this)
     this.calculateFormProps = this.calculateFormProps.bind(this)
     this.getObjects = this.getObjects.bind(this)
     this.getCourseFromPkg = this.getCourseFromPkg.bind(this)
-    this.getPkgFromMaterial = this.getPkgFromMaterial.bind(this)
+    this.getCourseFromMaterial = this.getCourseFromMaterial.bind(this)
     this.data = this.calculateFormProps()
   }
 
   create = () => {
-    console.log('Create question called')
+    console.log('Create pkg called')
     this.refs.myForm.submit()  // will return a promise
   }
 
-  onAddQuestionSubmit = (data) => {
-    console.log('onAddQuestionSubmit called')
-    this.props.addQuestion(data)
+  onAddPkgSubmit = (data) => {
+    console.log('onAddPkgSubmit called')
+    this.props.addPkg(data)
     this.props.hide()
   }
 
   getCourseFromPkg = (id) => {
     if(this.props.courseInstances)
-    for (var i = 0; i < this.props.courseInstances.length; i++) {
-      for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
-        if(this.props.courseInstances[i].pkgs[j]._id === id){
-          return this.props.courseInstances[i]
+      for (var i = 0; i < this.props.courseInstances.length; i++) {
+        for (var j = 0; j < this.props.courseInstances[i].pkgs.length; j++) {
+          if(this.props.courseInstances[i].pkgs[j]._id === id){
+            return this.props.courseInstances[i]
+          }
         }
       }
-    }
   }
 
-  getPkgFromMaterial = (pkgArray, id) => {
+  getCourseFromMaterial = (pkgArray, id) => {
     for ( var i = 0; i < pkgArray.length; i++ ){
         for (var j = 0; j < pkgArray[i].materials.length; j++) {
           if ( pkgArray[i].materials[j]._id === id ) {
@@ -71,23 +71,18 @@ export class AddQuestionModal extends React.Component {
     return array
   }
 
+
   calculateFormProps = () => {
     var defaultData = {
-      courseInstance : '',
-      pkg: '',
-      material: ''
+      courseInstance : ''
     }
-    if(this.props.courseInstances && this.props.courseInstances.length > 0)
     if(this.props.location){
       let pathArray = this.props.location.pathname.split("/")
       let currentLevel = pathArray[1]
       let id = pathArray[2]
       if(typeof id !== "number")
-        return
-
+        return defaultData
       let currCourseInstance
-      let pkgArray
-      let currPkg
 
       switch (currentLevel) {
         case "course":
@@ -95,16 +90,13 @@ export class AddQuestionModal extends React.Component {
         break;
 
         case "package":
-          defaultData.pkg = id
           currCourseInstance = this.getCourseFromPkg(id)
           defaultData.courseInstance = currCourseInstance._id
         break;
 
         case "material":
-          defaultData.material = id
-          pkgArray = this.getObjects(this.props.allPkgs)
-          currPkg = this.getPkgFromMaterial(pkgArray, id)
-          defaultData.pkg = currPkg._id
+          let pkgArray = this.getObjects(this.props.allPkgs)
+          let currPkg = this.getPkgFromMaterial(pkgArray, id)
           currCourseInstance = this.getCourseFromPkg(currPkg._id)
           defaultData.courseInstance = currCourseInstance._id
         break;
@@ -114,23 +106,27 @@ export class AddQuestionModal extends React.Component {
   }
 
   render() {
-    const title = "Eine Frage stellen"
-    const labelStyle = {
+    const title = "Package Erstellen"
+    const labelStyle1 = {
       color: 'white',
       fontWeight: 'bold'
+    }
+    const labelStyle2 = {
+      color: 'black'
     }
 
     const actions = [
       <FlatButton
-        label="Abbrechen"
-        secondary={false}
+        label="Verwerfen"
+        secondary={true}
+        labelStyle={labelStyle2}
         onTouchTap={this.props.hide}/>,
       <RaisedButton
         // TODO disabled={submitting}
-        label='Erstellen'
+        label='Zustimmen'
         primary={false}
         backgroundColor='#446CB3'
-        labelStyle={labelStyle}
+        labelStyle={labelStyle1}
         onTouchTap={this.create}/>
     ];
 
@@ -143,8 +139,8 @@ export class AddQuestionModal extends React.Component {
           open={this.props.modal.visible}
           autoScrollBodyContent={true}
           autoDetectWindowHeight={true}>
-            <AddQuestionForm ref="myForm"
-            onSubmit={this.onAddQuestionSubmit}
+            <AddPackageForm ref="myForm"
+            onSubmit={this.onAddPkgSubmit}
             courseInstances={this.props.courseInstances}
             allPkgs={this.props.allPkgs}
             defaultData={this.data}
@@ -165,10 +161,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    hide: () => dispatch(hide(add_question)),
-    addQuestion: (data) => {
-        dispatch(addQuestion(data.title, data.description,
-          data.courseInstance, data.pkg, data.material))
+    hide: () => dispatch(hide(add_package)),
+    addPkg: (data) => {
+        dispatch(addPkg(data.name, data.courseInstance,
+          data.access))
     }
   }
 }
@@ -176,4 +172,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps)
-(AddQuestionModal)
+(AddPackageModal)

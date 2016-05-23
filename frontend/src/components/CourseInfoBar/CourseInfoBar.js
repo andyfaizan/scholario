@@ -30,7 +30,8 @@ type Props = {
   courseUrl: PropTypes.string,
   courseFollowers: PropTypes.array,
   participantsNum: PropTypes.number,
-  topFiveUsersProfileLink: PropTypes.array
+  topFiveUsersProfileLink: PropTypes.array,
+  userRole: PropTypes.string,
 }
 
 export class CourseInfoBar extends React.Component {
@@ -63,8 +64,14 @@ export class CourseInfoBar extends React.Component {
       }
     }
 
-    const { semesterInstance } = this.props
+    const { semesterInstance, userRole } = this.props
 
+    var actions
+    if (userRole === 'Prof') {
+      actions = <ToolbarGroup float='left'>
+                  <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>
+                </ToolbarGroup>
+    }
     return (
       <div>
         <Card>
@@ -73,9 +80,6 @@ export class CourseInfoBar extends React.Component {
                     <ToolbarGroup float='right'>
                     <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='black'  /> </IconButton>
                     <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
-                  </ToolbarGroup>
-                   <ToolbarGroup float='left'>
-                 <IconButton  style={styles.iconStyle} touch={true}> <Delete color='black'  /> </IconButton>
                   </ToolbarGroup>
                   </Toolbar>
                   <CardHeader

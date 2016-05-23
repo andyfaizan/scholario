@@ -47,17 +47,25 @@ export class SignupFields extends React.Component {
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     universities: PropTypes.array,
+    confirm: PropTypes.func
     // resetForm: PropTypes.func.isRequired,te
     // submitting: PropTypes.bool.isRequired
   }
 
    constructor(props) {
     super(props);
+    this.checkKeyAndSubmit = this.checkKeyAndSubmit.bind(this)
   }
 
   componentDidMount() {
     this.props.dispatch(getUniversities())
     this.props.dispatch(getPrograms())
+  }
+
+  checkKeyAndSubmit = (e) => {
+    if(e.keyCode === 13){
+      this.props.confirm()
+    }
   }
 
   render () {
@@ -119,21 +127,24 @@ export class SignupFields extends React.Component {
                 errorText={firstname.touched && firstname.error ? firstname.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelText='First Name'
-                underlineFocusStyle={styles.focusStyle} />
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...lastname}
                 hintText='Jobs'
                 errorText={lastname.touched && lastname.error ? lastname.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelText='Last Name'
-                underlineFocusStyle={styles.focusStyle} />
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...email}
                 hintText='abc@gmail.com'
                 errorText={email.touched && email.error ? email.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelText='Email Id'
-                underlineFocusStyle={styles.focusStyle} />
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...password}
                 errorText={password.touched && password.error ? password.error : ''}
@@ -141,13 +152,15 @@ export class SignupFields extends React.Component {
                 type='password'
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit}
                 />
              <SelectFieldWrapper
                 {...university}
                 style = {styles.blocking}
                 floatingLabelText="University"
                 floatingLabelStyle={styles.floatingLabelStyle}
-                underlineFocusStyle={styles.focusStyle}>
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit}>
                 {this.props.universities.map(university =>
                     <MenuItem key={university._id} value={university._id} primaryText={university.name} />
                 )}
@@ -157,7 +170,8 @@ export class SignupFields extends React.Component {
                 style = {styles.blocking}
                 floatingLabelText="Program"
                 floatingLabelStyle={styles.floatingLabelStyle}
-                underlineFocusStyle={styles.focusStyle}>
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit}>
                 { programItems }
                 </SelectFieldWrapper>
               {/*<TextField

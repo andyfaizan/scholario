@@ -9,7 +9,8 @@ import { recommendedCourseInstancesReducer, curCourseInstanceReducer } from './m
 import { curPkgReducer } from './modules/pkg'
 import { curReducer } from './modules/cur'
 import { questionReducer } from './modules/AskQuestion'
-import {requestReducer } from './modules/request'
+import { requestReducer } from './modules/request'
+import { pkgReducer } from './modules/AddPkg'
 
 export default combineReducers({
   counter,
@@ -21,6 +22,7 @@ export default combineReducers({
   curs: curReducer,
   requests: requestReducer,
   questionReducer,
+  pkgReducer,
   //curCourseInstance: curCourseInstanceReducer,
   //curPkg: curPkgReducer,
 

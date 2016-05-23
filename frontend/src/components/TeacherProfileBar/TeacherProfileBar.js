@@ -8,6 +8,7 @@ import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
 import ActionHome from 'material-ui/lib/svg-icons/action/home'
+import Avatar from 'material-ui/lib/avatar'
 
 type Props = {
 
@@ -64,13 +65,17 @@ export class TeacherProfileBar extends React.Component {
     var instagramUrl = '#' ;
     var filterArray = [] ;
 
+    var nameInitial = ''
+    if (this.props.firstNameUser)
+      nameInitial = this.props.firstNameUser[0]
+
     return (
       <div>
         <Card>
           <CardHeader
             title={cardTitle}
             subtitle={cardSubtitle}
-            avatar="http://lorempixel.com/100/100/nature/"
+            avatar={<Avatar>{nameInitial}</Avatar>}
             actAsExpander={true}
             showExpandableButton={true}
           >

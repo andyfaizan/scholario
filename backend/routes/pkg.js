@@ -197,7 +197,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
       source.on('end', () => {
         movedNum++;
         fs.unlinkSync(f.path);
-        if (movedNum === req.files.length - 1) {
+        if (movedNum === req.files.length) {
           return res.status(201).json({
             err: [],
           });
@@ -218,5 +218,62 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   });
 });
 
+router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
+            multer({dest: 'uploads/tmp'}).array('material'),
+            function (req, res) {
+  req.checkParams('pid', 'InvalidPackageId').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  co(function *() {
+    var pkg = yield Pkg.findOne({ _id: req.params.pid }).populate('courseInstance').exec();
+    var pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
+
+    var movedNum = 0;
+    var materials = []
+    console.log(req.files)
+    _.each(req.files, f => {
+      var parsed = path.parse(f.originalname);
+      var material = new Material({
+        name: parsed.name,
+        ext: parsed.ext,
+        size: f.size,
+        pkg: req.params.pid,
+      }).save((err, material, numAffected) => {
+        materials.push(material);
+        var source = fs.createReadStream(f.path);
+        var dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
+
+        source.pipe(dest);
+        source.on('end', () => {
+          movedNum++;
+          fs.unlinkSync(f.path);
+          if (movedNum === req.files.length) {
+            return res.status(201).json({
+              materials,
+            });
+          }
+        });
+        source.on('error', err => {
+          logger.error(err);
+          return res.status(500).json({
+            err: [{ msg: 'InternalError' }],
+          });
+        });
+      });
+    });
+
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
 
 module.exports = router;

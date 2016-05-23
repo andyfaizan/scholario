@@ -7,6 +7,8 @@ import urlJoin from 'url-join'
 import config from '../../config'
 import { userSchema } from '../schemas'
 import { FOLLOW_COURSE_INSTANCE_OK } from './course-instance'
+import { hide } from './modal'
+import { removeRequest } from './request'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -75,14 +77,10 @@ export function login(email, password) {
                   _id: res.body.user._id,
                   fetchedData: true,
                 }
+                dispatch(hide('LOGIN_MODAL'))
+                dispatch(removeRequest('LOGIN_ERR'))
                 dispatch(loginOk(user, response))
-       /*         window.localStorage.setItem('scholario:store', JSON.stringify({*/
-                  //user: user,
-                  //entities: {
-                    //users: response.entities.users,
-                  //},
-                /*}))*/
-                dispatch(push('/dashboard'))
+                dispatch(replace('/dashboard'))
               }
             });
   }

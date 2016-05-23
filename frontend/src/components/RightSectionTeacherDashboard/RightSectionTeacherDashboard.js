@@ -15,7 +15,8 @@ import { Router, Route, Link } from 'react-router'
 
 
 type Props = {
-  questions: PropTypes.array,
+  recentQuestions: PropTypes.array,
+  popularQuestions: PropTypes.array,
   modal: PropTypes.object,
   show: PropTypes.func,
   location: PropTypes.object,
@@ -66,7 +67,7 @@ export class RightSectionTeacherDashboard extends React.Component {
                 Wichtigste Fragen
               </Subheader>
               <div>
-              {this.props.questions? this.props.questions.map(question =>
+              {this.props.popularQuestions ? this.props.popularQuestions.map(question =>
                 <QuestionItem
                   key={question._id}
                   questionStatement={question.title}
@@ -75,13 +76,27 @@ export class RightSectionTeacherDashboard extends React.Component {
                   currentLikes={question.votes.length}
                   onClickVote={() => this.props.onClickVote(question._id)}
                 />
-            ) : null}
+                ) : null
+              }
 
               </div>
             </List>
             <List>
               <Subheader style={subheader}> Neueste Fragen</Subheader>
               <div>
+                {this.props.recentQuestions ? this.props.recentQuestions.map(question =>
+                  <QuestionItem
+                    key={question._id}
+                    questionStatement={question.title}
+                    datePosted={question.createDate}
+                    questionURL={`/question/${question._id}`}
+                    currentLikes={question.votes.length}
+                    onClickVote={() => this.props.onClickVote(question._id)}
+                  />
+                  ) : null
+                }
+
+
               </div>
             </List>
           </CardText>

@@ -81,6 +81,7 @@ export class Course extends React.Component {
           teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
           shortInformation={courseInstance.description}
           participantsNum={courseInstance.participantsNum}
+          userRole={this.props.user ? this.props.user.role : ''}
         />
         <br/>
         <Grid className='container-fluid'>
@@ -89,7 +90,7 @@ export class Course extends React.Component {
               <div>
                 <fieldset>
                   <legend><h4>
-                    Key Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
+                    Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
                   </h4></legend>
                 {profPkgEls}
                 </fieldset>
@@ -97,7 +98,7 @@ export class Course extends React.Component {
                 <br/>
                 <fieldset>
                   <legend><h4>
-                    Materialien von Studenten {courseInstance.course ? courseInstance.course.name : ''}
+                    Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
                   </h4></legend>
                 {studentPkgEls}
                 </fieldset>
@@ -105,7 +106,8 @@ export class Course extends React.Component {
             </Col>
             <Col xs={8} md={4}>
               <Questions
-                questions={this.props.questions}
+                recentQuestions={this.props.recentQuestions}
+                popularQuestions={this.props.popularQuestions}
                 location={this.props.location}
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
                 onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
@@ -142,11 +144,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 
   return {
+    user: selectors.getUser(state),
     userMetadata: selectors.getUserMetadata(state),
     courseInstance,
     profPkgs,
     studentPkgs,
-    questions: selectors.getCurCourseInstanceQuestions(state),
+    recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
+    popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
   }
 }
 

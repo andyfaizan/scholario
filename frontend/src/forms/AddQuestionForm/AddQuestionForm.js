@@ -43,14 +43,20 @@ export class AddQuestion extends React.Component {
       }
     }
 
-    const titleLabel = 'Frage'
+    const titleLabel = 'Problem'
     const titleHint = 'Ein Titel für die Frage'
-    const descriptionLabel = 'Description'
-    const packageLabel = 'Package'
+    const descriptionLabel = 'Text'
+    const packageLabel = 'Paket'
     const courseLabel = 'Kurs'
     const materialLabel = 'Material'
 
     const { fields: { title, description, courseInstance, pkg, material} } = this.props
+
+    var courseItems = []
+    if(this.props.courseInstances && this.props.courseInstances.length > 0){
+      courseItems = this.props.courseInstances
+      .map(c => <MenuItem key={c._id} value={c._id} primaryText={c.course.name} />)
+    }
 
     var packageItems = []
     if (this.props.fields.courseInstance.value && this.props.courseInstances.length > 0) {
@@ -99,8 +105,7 @@ export class AddQuestion extends React.Component {
              floatingLabelStyle={styles.floatingLabelStyle}
              underlineFocusStyle={styles.focusStyle}
              fullWidth={true}>
-             {this.props.courseInstances
-             .map(c => <MenuItem key={c._id} value={c._id} primaryText={c.course.name} />)}
+             { courseItems }
              </SelectFieldWrapper>
           <br/>
            <SelectFieldWrapper

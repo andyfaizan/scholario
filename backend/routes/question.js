@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const co = require('co');
+const _ = require('lodash');
 const logger = require('../logger');
 const utils = require('../utils');
 const User = mongoose.model('User');
@@ -169,7 +170,81 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
   });
 });
 
- 
+router.delete('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('qid', 'InvalidQuestionId').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      err: errors
+    });
+  }
+
+  Question.findOne({ _id: req.params.qid }).then(function (question) {
+    if (!question) {
+      return res.status(404).json({
+        err: [{ msg: 'QuestionNotFound' }],
+      });
+    }
+    if (question.user.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+
+    return question.remove();
+  }).then(function () {
+    return res.status(200).json({
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
+router.put('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('qid', 'InvalidQuestionId').notEmpty().isMongoId();
+  if (req.body.title) req.checkBody('title', 'InvalidTitle').notEmpty().isAscii();
+  if (req.body.description) req.checkBody('description', 'InvalidDescription').notEmpty().isAscii();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.json({
+      err: errors
+    });
+  }
+
+  Question.findOne({ _id: req.params.qid }).then(function (question) {
+    if (!question) {
+      return res.status(404).json({
+        err: [{ msg: 'QuestionNotFound' }],
+      });
+    }
+    if (question.user.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+
+    if (req.body.title) question.title = req.body.title;
+    if (req.body.description) question.description = req.body.description;
+
+    return question.save();
+  }).then(function (question) {
+    return res.status(200).json({
+      title: question.title,
+      description: question.description,
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
 /**
 router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkBody('question', 'Invalide question').notEmpty().isMongoId();
@@ -243,7 +318,6 @@ router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), functio
     }
 
     for (var i = 0; i < question.votes.length; i++) {
-      console.log(question.votes[i].user.toString(), req.user.id.toString());
       if (question.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
           _id: question._id,

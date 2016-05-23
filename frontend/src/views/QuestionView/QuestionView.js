@@ -94,7 +94,7 @@ export class Question extends React.Component {
                       questionStatement={question.title}
                       datePosted={question.createDate}
                       questionUrl={`/question/${question._id}`}
-                      currentLikes={question.votes.length}
+                      currentLikes={question.votes ? question.votes.length : null}
                       onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
                     />
                     <CardText>
@@ -130,4 +130,3 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps
 )(Question)
-

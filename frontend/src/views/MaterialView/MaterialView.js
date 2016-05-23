@@ -71,7 +71,8 @@ export class MaterialView extends React.Component {
           courseInstance={this.props.courseInstance}
           pkg={this.props.pkg}
           material={this.props.material}
-          questions={this.props.questions}
+          recentQuestions={this.props.recentQuestions}
+          popularQuestions={this.props.popularQuestions}
         />
         <FooterLanding />
       </div>
@@ -94,7 +95,8 @@ const mapStateToProps = (state) => {
     pkg,
     material,
     requests: selectors.getRequests(state),
-    questions: selectors.getCurMaterialQuestions(state),
+    recentQuestions: selectors.getCurQuestionsFactory('material', 'date')(state),
+    popularQuestions: selectors.getCurQuestionsFactory('material', 'vote')(state),
   }
 }
 

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import CreateCourseModal from './CreateCourseModal'
 import ModalComponent from './ModalComponent'
 import AddQuestionModal from './AddQuestionModal'
+import AddPackageModal from './AddPackageModal'
 
 /*
 Idea for the Modal hierarchy has been taken from this StackOverflow post:
@@ -14,8 +15,8 @@ The answer is by Dan Abromov himself
 const MODAL_COMPONENTS = {
   'CREATE_COURSE_MODAL': CreateCourseModal,
   'LOGIN_MODAL': ModalComponent,
-  'ADD_QUESTION_MODAL': AddQuestionModal
-  /* other modals */
+  'ADD_QUESTION_MODAL': AddQuestionModal,
+  'ADD_PACKAGE_MODAL': AddPackageModal
 }
 
 const ModalRoot = ({ modalType, location }) => {

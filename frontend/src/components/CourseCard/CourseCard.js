@@ -61,11 +61,11 @@ export class CourseCard extends React.Component {
     //variables for displaying Child Node
     var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
 						<div className={classes.actionFollow} >
-						<IconButton disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="Kurz folgen">
-						<LibraryAdd color='white' /></IconButton>	
+						<IconButton disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="Kurs folgen">
+						<LibraryAdd color='white' /></IconButton>
 						</div>
 						<div className={classes.actionPostionLeft}>
-						<IconButton tooltip="Kurz löschen">
+						<IconButton tooltip="Kurs löschen">
 						<Delete color='white' /></IconButton>
 						</div><div className={classes.actionPosition}>
 						<IconButton containerElement={<Link to={this.props.courseUrl} />} linkButton={true} tooltip="Zum Kurs">
@@ -80,16 +80,16 @@ export class CourseCard extends React.Component {
 	var container =<div key="containerCourse" className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><h6>{this.props.courseTeacher}</h6></div> ;
 
 	const nodePaperCourse = [
-      
+
       heading,
 	  container,
       actionsCourse
-      
+
       ];
 
     return (
           <div>
-            <Paper style={style} zDepth={1} children={nodePaperCourse}  /> 
+            <Paper style={style} zDepth={1} children={nodePaperCourse}  />
           </div>
     )
   }
@@ -102,4 +102,3 @@ const connectToCourseView = () => ({
 
 
 export default CourseCard
-

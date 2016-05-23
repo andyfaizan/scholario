@@ -27,7 +27,7 @@ export class NavBarLandingPage extends React.Component {
       },
       buttonStyle: {
         backgroundColor: 'transparent',
-        marginTop: '7',
+        // marginTop: '7', TODO after adding href, margin is screwed up
         color: 'white'
       },
       loginButton: {
@@ -50,10 +50,8 @@ export class NavBarLandingPage extends React.Component {
         titleStyle={styles.titleStyle}
         title={<span style={styles.title}>Scholario</span>}
         iconElementRight={<div>
-                            <FlatButton label='Home' style={styles.buttonStyle} />
-                            <FlatButton label='Blog' style={styles.buttonStyle} />
-                            <FlatButton label='Lehrer' style={styles.buttonStyle} />
-                            <FlatButton label='Student' style={styles.buttonStyle} />
+                            <FlatButton label='Blog' style={styles.buttonStyle} linkButton={true}
+                              href="http://medium.com/scholario-blog"/>
                             <FlatButton label='EinLoggen' style={styles.loginButton} onClick={this.props.show} />
                             {this.props.modal.visible ? <ModalRoot {...login_modal} /> : null}
                           </div>} />

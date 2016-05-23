@@ -14,8 +14,16 @@ const AnswerSchema = new Schema({
   votes: [{
     user: { type: ObjectId, ref: 'Student' },
     voteDate: { type: Date },
+    value: { type: Number, default: 1 },
   }],
 });
 
+AnswerSchema.pre('remove', function (next) {
+  this.model('Question').update(
+    { answers: this._id },
+    { $pull: { answers: this._id } },
+    next
+  )
+});
 
 mongoose.model('Answer', AnswerSchema);

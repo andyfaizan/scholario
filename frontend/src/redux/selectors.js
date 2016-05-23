@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect'
 import _ from 'lodash'
+import moment from 'moment'
 
 
 
@@ -14,12 +15,14 @@ export const getShallowQuestions = (state) => state.entities.questions
 export const getShallowAnswers = (state) => state.entities.answers
 export const getShallowPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
+export const getCurs = (state) => state.curs
 export const getCurCourseInstanceId = (state) => state.curs.courseInstance
 export const getCurPkgId = (state) => state.curs.pkg
 export const getCurMaterialId = (state) => state.curs.material
 export const getCurQuestionId = (state) => state.curs.question
 export const getRecommendedCourseInstanceIds = (state) => state.recommendedCourseInstances
 export const getRequests = (state) => state.requests
+export const getRequest = (state, type) => state.requests[type]
 
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
@@ -122,23 +125,34 @@ export const getUserQuestions = createSelector(
     .filter((question) => (user.courseInstances.indexOf(question.courseInstance) > -1))
 )
 
-export const getCurCourseInstanceQuestions = createSelector(
-  [getCurCourseInstanceId, getQuestions],
-  (cid, questions) => _.values(questions)
-    .filter((question) => (question.courseInstance === cid))
-)
+function sortQuestionsByDate(a, b) {
+      const c = moment(a.createDate)
+      const d = moment(b.createDate)
+      if (c.isAfter(d)) return -1
+      else if (c.isBefore(d)) return 1
+      else return sortQuestionsByVote(a, b)
+}
 
-export const getCurPkgQuestions = createSelector(
-  [getCurPkgId, getQuestions],
-  (pid, questions) => _.values(questions)
-    .filter((question) => (question.pkg === pid))
-)
+function sortQuestionsByVote(a, b) {
+      if (a.votes.length > b.votes.length) return -1
+      else if (a.votes.length < b.votes.length) return 1
+      else return sortQuestionsByDate(a, b)
+}
 
-export const getCurMaterialQuestions = createSelector(
-  [getCurMaterialId, getQuestions],
-  (mid, questions) => _.values(questions)
-    .filter(question => (question.material === mid))
-)
+export function getCurQuestionsFactory(page, orderBy, limit=5) {
+  var sortF = sortQuestionsByDate
+  if (orderBy === 'date') sortF = sortQuestionsByDate
+  else if (orderBy === 'vote') sortF = sortQuestionsByVote
+
+  return createSelector(
+    [getQuestions, state => getCurs(state)[page]],
+    (questions, id) => _.slice(
+      _.values(questions)
+       .filter((question) => (question[page] === id))
+       .sort(sortF),
+      0, limit)
+  )
+}
 
 export const getCurrentCourseInstanceMaterials = createSelector(
   [getCurCourseInstance, getMaterials, getCourseInstances],

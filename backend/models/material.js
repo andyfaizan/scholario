@@ -17,7 +17,7 @@ const MaterialSchema = new Schema({
   modifiedDate: { type: Date },
 });
 
-MaterialSchema.index({ name: 1, ext: 1, package: 1, }, { unique: true });
+MaterialSchema.index({ name: 1, ext: 1, pkg: 1, }, { unique: true });
 
 MaterialSchema.methods.getPath = function () {
   return new Promise((resolve, reject) => {

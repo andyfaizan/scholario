@@ -25,7 +25,19 @@ export class LoginFields extends React.Component {
 
   static propTypes = {
     fields: PropTypes.object.isRequired,
+    confirm: PropTypes.func
     // resetForm: PropTypes.func.isRequired,te
+  }
+
+  constructor(props){
+    super(props)
+    this.checkKeyAndSubmit = this.checkKeyAndSubmit.bind(this)
+  }
+
+  checkKeyAndSubmit = (e) => {
+    if(e.keyCode === 13){
+      this.props.confirm()
+    }
   }
 
   render () {
@@ -60,6 +72,7 @@ export class LoginFields extends React.Component {
               floatingLabelStyle={styles.floatingLabelStyle}
               floatingLabelText='Email or Username'
               underlineFocusStyle={styles.focusStyle}
+              onKeyDown={this.checkKeyAndSubmit}
               />
             <br/>
             <TextField
@@ -69,6 +82,7 @@ export class LoginFields extends React.Component {
               type='password'
               floatingLabelStyle={styles.floatingLabelStyle}
               underlineFocusStyle={styles.focusStyle}
+              onKeyDown={this.checkKeyAndSubmit}
               />
             <br/>
             <br/>

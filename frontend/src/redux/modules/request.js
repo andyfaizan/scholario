@@ -1,9 +1,19 @@
 import _ from 'lodash'
 
+export const REMOVE_REQUEST = 'REMOVE_REQUEST'
 
+export function removeRequest(requestType) {
+  return {
+    type: REMOVE_REQUEST,
+    request: requestType
+  }
+}
 
 export function requestReducer(state={}, action) {
   if (action.type.endsWith('_REQUEST')) {
+    if(action.type === REMOVE_REQUEST){
+      return _.omit(state, action.request)
+    }
     return Object.assign({}, state, {
       [action.type]: action
     })
@@ -12,7 +22,10 @@ export function requestReducer(state={}, action) {
     return _.omit(state, reqAction)
   } else if (action.type.endsWith('_ERR')) {
     var reqAction = action.type.replace(/_ERR$/, '_REQUEST')
-    return _.omit(state, reqAction)
+    var newState = _.omit(state, reqAction)
+    return Object.assign({}, newState, {
+      [action.type]: action
+    })
   }
   return state
 }
