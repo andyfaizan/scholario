@@ -50,7 +50,7 @@ export class Course extends React.Component {
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded="20/06/2009"
+          dateUploaded={pkg.createDate.slice(0,10)}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
@@ -61,7 +61,7 @@ export class Course extends React.Component {
       studentPkgEls = studentPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded="20/06/2009"
+          dateUploaded={pkg.createDate.slice(0,10)}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
