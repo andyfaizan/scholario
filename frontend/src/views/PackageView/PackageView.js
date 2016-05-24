@@ -56,7 +56,7 @@ export class Package extends React.Component {
       materials = pkg.materials.map(material =>
         <IndependentPackage
           key={material._id} materialTitle={material.name} materialNotifications={10}
-          dateUploaded="20/06/2009"
+          dateUploaded={material.createDate.slice(0,10)}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
         />
