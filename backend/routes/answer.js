@@ -80,9 +80,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       });
     }
 
-    question.answers.push(answer._id);
-    question.save();
-    return res.json({
+    question.answers.push(answer);
+    return question.save();
+  }).then(function (question) {
+    return res.status(201).json({
       _id: question._id,
       answers: question.answers
     });
@@ -151,11 +152,12 @@ router.put('/:aid', passport.authenticate('jwt', {session: false}), function (re
       });
     }
 
-    answer.content = content;
+    answer.content = req.body.content;
 
     return answer.save();
   }).then(function (answer) {
     return res.status(200).json({
+      _id: answer._id,
       content: answer.content,
     });
   }).catch(function (err) {

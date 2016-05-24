@@ -14,6 +14,7 @@ type Props = {
   user: PropTypes.Object,
   courseInstance: PropTypes.Object,
   onClickDelAnswer: PropTypes.func,
+  onClickEditAnswer: PropTypes.func,
   question: PropTypes.Object,
 }
 
@@ -22,7 +23,7 @@ export class AnswerItem extends React.Component {
 
   render () {
     const { personWhoAnswered, user, courseInstance, question, answer,
-      onClickDelAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
+      onClickDelAnswer, onClickEditAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
 
     var nameInitial = ''
     if (personWhoAnswered)
@@ -68,7 +69,7 @@ export class AnswerItem extends React.Component {
     var actions = []
     if (user && personWhoAnswered && user._id === personWhoAnswered._id) {
       actions.push(<FlatButton key='answerEditingButton' label="Antwort bearbeiten" linkButton={true}
-                   hoverColor="#26A65B" />)
+                   onTouchTap={onClickEditAnswer} hoverColor="#26A65B" />)
       actions.push(<FlatButton key='answerDeletingButton' label="Antwort löschen" linkButton={true}
                    onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
     }

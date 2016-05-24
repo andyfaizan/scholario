@@ -19,6 +19,7 @@ const validate = (values) => {
 type Props = {
   handleSubmit: Function,
   fields: Object,
+  initialValues: Object,
 }
 
 export class NewAnswer extends React.Component {
@@ -49,13 +50,13 @@ export class NewAnswer extends React.Component {
       <div>
         <Card>
           <CardHeader
-            title={"Stellen Sie die Antwort"}
+            title={"Frage beantworten"}
           />
           <form onSubmit={handleSubmit}>
           <CardText style={textStyle}>
             <TextField
               {...content}
-              floatingLabelText="In Antwort"
+              floatingLabelText="Deine Antwort"
               multiLine={true}
               rows={2}
               fullWidth={true}
@@ -64,7 +65,7 @@ export class NewAnswer extends React.Component {
             />
           </CardText>
           <CardActions style={actionPadding}>
-            <FlatButton label="Stellen Sie die Antwort" linkButton={true}
+            <FlatButton label="Senden" linkButton={true}
                    onTouchTap={handleSubmit} hoverColor="#26A65B" />
           </CardActions>
           </form>

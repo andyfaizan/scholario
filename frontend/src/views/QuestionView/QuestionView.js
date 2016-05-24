@@ -21,8 +21,8 @@ import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import { postAnswer, deleteAnswer } from '../../redux/modules/answer'
 import Snackbar from 'material-ui/lib/snackbar'
+import { postAnswer, deleteAnswer, putAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
 import Feedback from '../../containers/Feedback'
@@ -38,9 +38,11 @@ export class Question extends React.Component {
   constructor (props) {
     super(props)
     this.toggleNewAnswerForm = this.toggleNewAnswerForm.bind(this)
+    this.editAnswer = this.editAnswer.bind(this)
     this.state = {
       didGetCourseInstance: false,
       showNewAnswerForm: false,
+      answerBeingEdited: null,
     }
   }
 
@@ -69,6 +71,18 @@ export class Question extends React.Component {
   toggleNewAnswerForm (e) {
     this.setState({
       showNewAnswerForm: this.state.showNewAnswerForm ? false : true,
+      answerBeingEdited: null,
+    })
+  }
+
+  editAnswer (answer) {
+    if (!this.state.showNewAnswerForm) {
+      this.setState({
+        showNewAnswerForm: true
+      })
+    }
+    this.setState({
+      answerBeingEdited: answer,
     })
   }
 
@@ -95,6 +109,7 @@ export class Question extends React.Component {
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
+          onClickEditAnswer={(e) => this.editAnswer(a)}
         />
       )
     }
@@ -120,7 +135,14 @@ export class Question extends React.Component {
 
     var newAnswerForm
     if (this.state.showNewAnswerForm) {
-      newAnswerForm = <NewAnswerForm onSubmit={(data) => this.props.dispatch(postAnswer(question._id, data.content))} />
+      if (this.state.answerBeingEdited) {
+        newAnswerForm = <NewAnswerForm
+                         initialValues={this.state.answerBeingEdited}
+                         onSubmit={(data) => this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content))} />
+      } else {
+        newAnswerForm = <NewAnswerForm
+                         onSubmit={(data) => this.props.dispatch(postAnswer(question._id, data.content))} />
+      }
     }
     return (
       <div>
