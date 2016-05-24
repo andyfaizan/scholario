@@ -198,7 +198,6 @@ export class Question extends React.Component {
       <br/>
       </div>
       <br/>
-      <Feedback errorType={voteErrorType} okayType={voteOkayType} message="Gewählt!!! :)"/>
       <Feedback errorType={answerErrorType} okayType={answerOkayType} />
 
       <div className ={classes.footer} >
