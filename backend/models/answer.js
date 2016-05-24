@@ -11,6 +11,7 @@ const AnswerSchema = new Schema({
   user: { type: ObjectId, ref: 'Student' },
   createDate: { type: Date, default: Date.now },
   bestAnswer: { type: Boolean, default: false },
+  satisfyingAnswer: { type: Boolean, default: false},
   votes: [{
     user: { type: ObjectId, ref: 'Student' },
     voteDate: { type: Date },
