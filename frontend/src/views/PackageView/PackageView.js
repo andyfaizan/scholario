@@ -18,9 +18,6 @@ import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
-import Snackbar from 'material-ui/lib/snackbar'
-
-
 
 type Props = {
   packageName: PropTypes.string,
@@ -59,7 +56,7 @@ export class Package extends React.Component {
       materials = pkg.materials.map(material =>
         <IndependentPackage
           key={material._id} materialTitle={material.name} materialNotifications={10}
-          dateUploaded="20/06/2009"
+          dateUploaded={material.createDate.slice(0,10)}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
         />
@@ -98,14 +95,8 @@ export class Package extends React.Component {
           </Row>
         </Grid>
         <br/>
-        <Snackbar
-            open={true}
-            message={"Random message"}
-            autoHideDuration={4000}
-          />
       </div>
-      <Feedback errorType='POST_MATERIAL_ERR' okayType='POST_MATERIAL_OK' />
-
+      {/*<Feedback errorType='POST_MATERIAL_ERR' okayType='POST_MATERIAL_OK' />*/}
       <br/>
        <div className={classes.footer}>
         <FooterLanding />

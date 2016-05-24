@@ -12,13 +12,14 @@ type Props = {
   answerText: PropTypes.string,
   user: PropTypes.Object,
   courseInstance: PropTypes.Object,
+  onClickDelAnswer: PropTypes.func,
 }
 
 export class AnswerItem extends React.Component {
   props: Props
 
   render () {
-    const { personWhoAnswered, user, courseInstance } = this.props
+    const { personWhoAnswered, user, courseInstance, onClickDelAnswer } = this.props
 
     var nameInitial = ''
     if (personWhoAnswered)
@@ -60,13 +61,13 @@ export class AnswerItem extends React.Component {
 
     var actions = []
     if (user && personWhoAnswered && user._id === personWhoAnswered._id) {
-      actions.push(<FlatButton label="Antwort bearbeiten" linkButton={true}
+      actions.push(<FlatButton key='answerEditingButton' label="Antwort bearbeiten" linkButton={true}
                    hoverColor="#26A65B" />)
-      actions.push(<FlatButton label="Antwort löschen" linkButton={true}
-                   hoverColor="#26A65B" />)
+      actions.push(<FlatButton key='answerDeletingButton' label="Antwort löschen" linkButton={true}
+                   onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
     }
     if (user && courseInstance && user.role === 'Prof' && user._id === courseInstance.prof._id) {
-      actions.push(<FlatButton label="überprüfen Antwort" linkButton={true}
+      actions.push(<FlatButton key='answerApprovingButton' label="überprüfen Antwort" linkButton={true}
                    hoverColor="#26A65B" />)
     }
     return (
@@ -81,9 +82,9 @@ export class AnswerItem extends React.Component {
             titleColor="#26A65B"
             children={nodeHeader}
           />
-            <CardText style={textStyle}>
-              {this.props.answerText}
-            </CardText>
+          <CardText style={textStyle}>
+            {this.props.answerText}
+          </CardText>
           <CardActions style={actionPadding}>
             {actions}
           </CardActions>

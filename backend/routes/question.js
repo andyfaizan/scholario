@@ -208,6 +208,8 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
   req.checkParams('qid', 'InvalidQuestionId').notEmpty().isMongoId();
   if (req.body.title) req.checkBody('title', 'InvalidTitle').notEmpty().isAscii();
   if (req.body.description) req.checkBody('description', 'InvalidDescription').notEmpty().isAscii();
+  if (req.body.bestAnswer) req.checkBody('bestAnswer', 'InvalidBestAnswerId').notEmpty().isMongoId();
+  if (req.body.approvedAnswer) req.checkBody('approvedAnswer', 'InvalidApprovedAnswerId').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -216,27 +218,48 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
     });
   }
 
-  Question.findOne({ _id: req.params.qid }).then(function (question) {
+  co(function *() {
+    var question = yield Question.findOne({ _id: req.params.qid });
     if (!question) {
       return res.status(404).json({
         err: [{ msg: 'QuestionNotFound' }],
       });
     }
-    if (question.user.toString() !== req.user.id.toString()) {
-      return res.status(401).json({
-        err: [{ msg: 'PermissionDenied' }],
+    if (req.body.approvedAnswer) {
+      courseInstance = yield CourseInstance.findOne({ _id: question.courseInstance });
+      if (courseInstance.prof.toString() !== req.user.id.toString()) {
+        return res.status(401).json({
+          err: [{ msg: 'PermissionDenied' }],
+        })
+      }
+      var approvedAnswer = yield Answer.findOne({ _id: req.body.approvedAnswer })
+      if (approvedAnswer) question.approvedAnswer = req.body.approvedAnswer;
+      question.save();
+      return res.status(200).json({
+        approvedAnswer: approvedAnswer._id,
+      });
+    } else {
+      if (question.user.toString() !== req.user.id.toString()) {
+        return res.status(401).json({
+          err: [{ msg: 'PermissionDenied' }],
+        });
+      }
+
+      if (req.body.title) question.title = req.body.title;
+      if (req.body.description) question.description = req.body.description;
+      if (req.body.bestAnswer) {
+        var bestAnswer = yield Answer.findOne({ _id: req.body.bestAnswer })
+        if (bestAnswer) question.bestAnswer = req.body.bestAnswer;
+      }
+      question = yield question.save();
+
+      return res.status(200).json({
+        title: question.title,
+        description: question.description,
+        bestAnswer: question.bestAnswer,
+        approvedAnswer: question.approvedAnswer,
       });
     }
-
-    if (req.body.title) question.title = req.body.title;
-    if (req.body.description) question.description = req.body.description;
-
-    return question.save();
-  }).then(function (question) {
-    return res.status(200).json({
-      title: question.title,
-      description: question.description,
-    });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({

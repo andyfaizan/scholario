@@ -10,7 +10,8 @@ const AnswerSchema = new Schema({
   //question: { type: ObjectId, ref: 'Question' },
   user: { type: ObjectId, ref: 'Student' },
   createDate: { type: Date, default: Date.now },
-  bestAnswer: { type: Boolean, default: false },
+  //bestAnswer: { type: Boolean, default: false },
+  //approved: { type: Boolean, default: false },
   votes: [{
     user: { type: ObjectId, ref: 'Student' },
     voteDate: { type: Date },
