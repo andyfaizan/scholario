@@ -77,7 +77,6 @@ export class MaterialView extends React.Component {
         />
       <br/>
       </div>
-      <br/>
        <div className={classes.footer}>
         <FooterLanding />
       </div>
