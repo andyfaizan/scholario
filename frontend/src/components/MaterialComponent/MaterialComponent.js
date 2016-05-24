@@ -11,7 +11,7 @@ import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './MaterialComponent.scss'
 import Edit from 'material-ui/lib/svg-icons/action/track-changes'
-
+import FileDownload from 'material-ui/lib/svg-icons/File/file-download'
 
 type Props = {
 
@@ -162,12 +162,17 @@ export class MaterialComponent extends React.Component {
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
                       <IconButton tooltip="Pkg löschen">
-                        <Delete />
+                        <Delete color="White"/>
                       </IconButton>
                     </div>
                     <div key="editKey" className={classes.editButton}>
                       <IconButton tooltip="Edit Kurz">
-                        <Edit />
+                        <Edit color="White"/>
+                      </IconButton>
+                    </div>
+                    <div key="downloadKey" className={classes.downloadMaterial}>
+                       <IconButton tooltip="Download-Paket">
+                        <FileDownload color="White"/>
                       </IconButton>
                     </div>
                     </div>
