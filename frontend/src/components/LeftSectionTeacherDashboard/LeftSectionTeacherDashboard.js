@@ -53,9 +53,9 @@ export class LeftSectionTeacherDashboard extends React.Component {
         displayCards = this.props.courseInstances.map(ci =>
           <CourseCard
             key={ci._id}
-            titleCourse={ci.course.name}
-            universityCourse={ci.course.university.name}
-            courseTeacher={`${ci.prof.firstname} ${ci.prof.lastname}`}
+            titleCourse={ci.course ? ci.course.name : ''}
+            universityCourse={ci.course ? ci.course.university.name : ''}
+            courseTeacher={ci.prof ? `${ci.prof.firstname} ${ci.prof.lastname}` : ''}
             courseUrl={`/course/${ci._id}`}
             following={ci.following}
             onClickFollow={() => this.props.onClickFollow(ci._id)}

@@ -19,7 +19,8 @@ export class AnswerItem extends React.Component {
   props: Props
 
   render () {
-    const { personWhoAnswered, user, courseInstance, onClickDelAnswer } = this.props
+    const { personWhoAnswered, user, courseInstance,
+      onClickDelAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
 
     var nameInitial = ''
     if (personWhoAnswered)
@@ -65,10 +66,12 @@ export class AnswerItem extends React.Component {
                    hoverColor="#26A65B" />)
       actions.push(<FlatButton key='answerDeletingButton' label="Antwort löschen" linkButton={true}
                    onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
+      actions.push(<FlatButton key='bestAnswerButton' label="gute Antwort" linkButton={true}
+                   onTouchTap={onClickBestAnswer} hoverColor="#26A65B" />)
     }
     if (user && courseInstance && user.role === 'Prof' && user._id === courseInstance.prof._id) {
       actions.push(<FlatButton key='answerApprovingButton' label="überprüfen Antwort" linkButton={true}
-                   hoverColor="#26A65B" />)
+                   onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
     }
     return (
       <div>

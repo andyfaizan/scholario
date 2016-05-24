@@ -117,11 +117,17 @@ export function deleteQuestion(qid) {
   }
 }
 
-export function putQuestion(qid, title, description) {
+export function putQuestion(qid, title = '', description = '', bestAnswer = '', approvedAnswer = '') {
   const endpoint = urlJoin(config.apiURL, 'questions', qid)
+  var data = {}
+  if (title) data.title = title
+  if (description) data.description = description
+  if (bestAnswer) data.bestAnswer = bestAnswer
+  if (approvedAnswer) data.approvedAnswer = approvedAnswer
+
   return {
     types: [PUT_QUESTION_REQUEST, PUT_QUESTION_OK, PUT_QUESTION_ERR],
-    callAPI: () => request.put(endpoint).send({ title, description }),
+    callAPI: () => request.put(endpoint).send(data),
     payload: { qid },
     schema: questionSchema,
   }
