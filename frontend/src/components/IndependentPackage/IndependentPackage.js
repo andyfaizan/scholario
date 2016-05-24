@@ -110,12 +110,16 @@ export class IndependentPackage extends React.Component {
       opacity: 0.9,
     }
 
+    const linkStyle = {
+      color: '#fff',
+      backgroundColor: 'transparent'
+    }
     const dots = "..."
 
     //variables for displaying Child Node
     var heading = <div>
                   <div className={classes.head}>
-                    <Link to={this.props.pkgUrl}>
+                    <Link to={this.props.pkgUrl} style={linkStyle}>
                       <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
                             <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
                       </div>
@@ -139,7 +143,7 @@ export class IndependentPackage extends React.Component {
                         </div>
 
     var download =  <div key="downloadKey" className={classes.downloadPkg}>
-                        <a target="_blank" href={this.props.materialUrl} ><FileDownload color="White"/></a>
+                        <a target="_blank" href={this.props.materialUrl} style={linkStyle} ><FileDownload color="White"/></a>
                     </div>
 
     const nodePaperCourse = [
