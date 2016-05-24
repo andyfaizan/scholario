@@ -10,6 +10,8 @@ import Badge from 'material-ui/lib/badge'
 import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './MaterialComponent.scss'
+import Edit from 'material-ui/lib/svg-icons/action/track-changes'
+import FileDownload from 'material-ui/lib/svg-icons/File/file-download'
 
 type Props = {
 
@@ -154,8 +156,25 @@ export class MaterialComponent extends React.Component {
                     {<h5>{this.props.dateUploaded}</h5>}
                   </div>
 
-    var container = <div key="IndependentPackage" className={classes.container}> 
+    var container = <div>
+                    <div key="IndependentPackage" className={classes.container}> 
                       <h5>{this.props.keywords}</h5>
+                    </div>
+                    <div key="deleteKey" className={classes.deleteButton}>
+                      <IconButton tooltip="Pkg löschen">
+                        <Delete color="White"/>
+                      </IconButton>
+                    </div>
+                    <div key="editKey" className={classes.editButton}>
+                      <IconButton tooltip="Edit Kurz">
+                        <Edit color="White"/>
+                      </IconButton>
+                    </div>
+                    <div key="downloadKey" className={classes.downloadMaterial}>
+                       <IconButton tooltip="Download-Paket">
+                        <FileDownload color="White"/>
+                      </IconButton>
+                    </div>
                     </div>
 
     var notifications = <div key="notifications" className={classes.badge}>

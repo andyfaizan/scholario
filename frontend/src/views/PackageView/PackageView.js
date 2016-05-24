@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/lib/Col'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import AddMaterialComp from '../../components/AddMaterialComp/AddMaterialComp'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { setCurPkg, getPkg } from '../../redux/modules/pkg'
@@ -46,7 +47,12 @@ export class Package extends React.Component {
   render () {
     const { pkg, courseInstance } = this.props
     var materials = []
+    var addMaterial;
+
     if (pkg.materials) {
+
+      addMaterial = <AddMaterialComp />
+
       materials = pkg.materials.map(material =>
         <IndependentPackage
           key={material._id} materialTitle={material.name} materialNotifications={10}
@@ -74,7 +80,8 @@ export class Package extends React.Component {
           <Row >
             <Col xs={16} md={8}>
               <div>
-                {materials}
+               {addMaterial}
+               {materials}
               </div>
             </Col>
             <Col xs={8} md={4}>
