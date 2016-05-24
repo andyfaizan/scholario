@@ -304,7 +304,7 @@ router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), fun
   var errors = req.validationErrors();
   if (errors) {
     return res.json({
-      'err': errors
+      err: errors
     });
   }
 

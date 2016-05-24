@@ -71,6 +71,7 @@ export class Question extends React.Component {
   toggleNewAnswerForm (e) {
     this.setState({
       showNewAnswerForm: this.state.showNewAnswerForm ? false : true,
+      answerBeingEdited: null,
     })
   }
 

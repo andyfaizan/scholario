@@ -44,7 +44,7 @@ export function voteAnswer(aid) {
 }
 
 export function postAnswer(question, content) {
-  const endpoint = urlJoin(config.apiURL, 'questions', question, 'answers')
+  const endpoint = urlJoin(config.apiURL, 'answers')
   return {
     types: [POST_ANSWER_REQUEST, POST_ANSWER_OK, POST_ANSWER_ERR],
     callAPI: () => request.post(endpoint).send({
