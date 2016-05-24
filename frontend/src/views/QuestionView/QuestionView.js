@@ -22,8 +22,10 @@ import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import { postAnswer, deleteAnswer } from '../../redux/modules/answer'
+import Snackbar from 'material-ui/lib/snackbar'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
+import Feedback from '../../containers/Feedback'
 
 
 type Props = {
@@ -74,19 +76,21 @@ export class Question extends React.Component {
     //question item const display
     const questionClickable = true
     const { courseInstance, question, user } = this.props
+    const postErrorType = 'ADD_QUESTION_ERR'
+    const postOkayType = 'ADD_QUESTION_OK'
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
 
     var answerEls = []
     if (question.answers && question.answers.length > 0) {
       answerEls = question.answers.map(a =>
         <AnswerItem
           key={a._id}
-          answer={a}
           personWhoAnswered={a.user}
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
           user={user}
           courseInstance={courseInstance}
-          question={question}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
@@ -165,6 +169,9 @@ export class Question extends React.Component {
 		      	</Grid>
       <br/>
       </div>
+      <br/>
+      <Feedback errorType={postErrorType} okayType={postOkayType} />
+      <Feedback errorType={voteErrorType} okayType={voteOkayType} />
       <div className ={classes.footer} >
             <FooterLanding />
       </div>

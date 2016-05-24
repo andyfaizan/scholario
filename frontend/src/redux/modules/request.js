@@ -19,7 +19,10 @@ export function requestReducer(state={}, action) {
     })
   } else if (action.type.endsWith('_OK')) {
     var reqAction = action.type.replace(/_OK$/, '_REQUEST')
-    return _.omit(state, reqAction)
+    var newState = _.omit(state, reqAction)
+    return Object.assign({}, newState, {
+      [action.type]: action
+    })
   } else if (action.type.endsWith('_ERR')) {
     var reqAction = action.type.replace(/_ERR$/, '_REQUEST')
     var newState = _.omit(state, reqAction)
