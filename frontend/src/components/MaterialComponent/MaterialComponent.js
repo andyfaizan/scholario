@@ -158,6 +158,17 @@ export class MaterialComponent extends React.Component {
 
     var container = <div>
                     <div key="IndependentPackage" className={classes.container}> 
+                      {this.props.keywords}
+                    </div>
+                    <div key="downloadKey" className={classes.downloadMaterial}>
+                       <IconButton tooltip="Download-Paket">
+                        <FileDownload color="White"/>
+                      </IconButton>
+                    </div>
+                    </div>
+
+       var containerOld = <div>
+                    <div key="IndependentPackage" className={classes.container}> 
                       <h5>{this.props.keywords}</h5>
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
