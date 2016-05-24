@@ -52,6 +52,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       description: question.description,
       user: req.user._id,
       courseInstance: question.courseInstance,
+      votes: question.votes,
     });
   }).catch(function (err) {
     logger.error(err);
