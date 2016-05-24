@@ -101,10 +101,8 @@ export class AnswerItem extends React.Component {
                 </div>
 
     const childVars = [
-      
       nodeHeader,
       voting
-
     ]
 
     return (

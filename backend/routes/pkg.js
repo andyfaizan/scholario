@@ -192,6 +192,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
         courseInstance: pkg.courseInstance,
         owner: pkg.owner,
         access: pkg.access,
+        createDate: pkg.createDate,
         materials: [],
       });
 
@@ -220,6 +221,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
               courseInstance: pkg.courseInstance,
               owner: pkg.owner,
               access: pkg.access,
+              createDate: pkg.createDate,
               materials,
             });
           }

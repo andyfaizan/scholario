@@ -105,6 +105,7 @@ export class Question extends React.Component {
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
           answer={a}
+          question={question}
           user={user}
           courseInstance={courseInstance}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
