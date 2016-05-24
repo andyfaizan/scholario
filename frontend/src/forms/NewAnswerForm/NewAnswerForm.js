@@ -19,6 +19,7 @@ const validate = (values) => {
 type Props = {
   handleSubmit: Function,
   fields: Object,
+  initialValues: Object,
 }
 
 export class NewAnswer extends React.Component {
