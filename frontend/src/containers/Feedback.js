@@ -5,7 +5,7 @@ import SnackbarWrapper from '../components/SnackbarWrapper/SnackbarWrapper'
 import * as selectors from '../redux/selectors'
 import { removeRequest } from '../redux/modules/request'
 
-const mapStateToProps = (ownProps, state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     error: selectors.getRequest(state, ownProps.errorType),
     okay: selectors.getRequest(state, ownProps.okayType)

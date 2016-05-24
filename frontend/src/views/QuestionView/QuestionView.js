@@ -25,6 +25,7 @@ import Snackbar from 'material-ui/lib/snackbar'
 import { deleteAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
+import Feedback from '../../containers/Feedback'
 
 
 type Props = {
@@ -47,8 +48,6 @@ export class Question extends React.Component {
     //this.props.dispatch(getCourseInstance(cid))
     this.props.dispatch(setCurQuestion(qid))
     this.props.dispatch(getQuestion(qid))
-    this.refs.snack.open = true
-    console.log("Component did mount - ref = " + this.refs.snack)
   }
 
   componentWillReceiveProps (newProps) {
@@ -69,6 +68,10 @@ export class Question extends React.Component {
     //question item const display
     const questionClickable = true
     const { courseInstance, question, user } = this.props
+    const postErrorType = 'ADD_QUESTION_ERR'
+    const postOkayType = 'ADD_QUESTION_OK'
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
 
     var answerEls = []
     if (question.answers && question.answers.length > 0) {
@@ -102,7 +105,7 @@ export class Question extends React.Component {
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
                     hoverColor="#26A65B"
                   />]
-                  
+
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
                     hoverColor="#26A65B"/>)
@@ -157,12 +160,8 @@ export class Question extends React.Component {
       <br/>
       </div>
       <br/>
-      <Snackbar
-          ref="snack"
-          open={true}
-          message={"Random message"}
-          autoHideDuration={4000}
-        />
+      <Feedback errorType={postErrorType} okayType={postOkayType} />
+      <Feedback errorType={voteErrorType} okayType={voteOkayType} />
       <div className ={classes.footer} >
             <FooterLanding />
       </div>

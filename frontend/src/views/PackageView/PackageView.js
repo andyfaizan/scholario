@@ -46,6 +46,9 @@ export class Package extends React.Component {
 
   render () {
     const { pkg, courseInstance } = this.props
+    const errorType = 'POST_MATERIAL_ERR'
+    const okayType = 'POST_MATERIAL_OK'
+
     var materials = []
     var addMaterial;
 
@@ -96,7 +99,7 @@ export class Package extends React.Component {
         </Grid>
         <br/>
       </div>
-      {/*<Feedback errorType='POST_MATERIAL_ERR' okayType='POST_MATERIAL_OK' />*/}
+      {/*<Feedback errorType={errorType} okayType={okayType} />*/}
       <br/>
        <div className={classes.footer}>
         <FooterLanding />

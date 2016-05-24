@@ -13,6 +13,7 @@ import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import classes from './DetailQuestionListView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
 
 type Props = {
 
@@ -40,6 +41,8 @@ export class DetailQuestionList extends React.Component {
   render () {
 
     const { courseInstance, questions } = this.props
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
 
     var questionEls = questions.map(q =>
       <div>
@@ -83,7 +86,8 @@ export class DetailQuestionList extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
-      <br/>     
+      <br/>
+      <Feedback errorType={voteErrorType} okayType={voteOkayType} />
       </div>
          <div className={classes.footer}>
             <FooterLanding />
