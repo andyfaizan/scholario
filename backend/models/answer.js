@@ -8,12 +8,12 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const AnswerSchema = new Schema({
   content: { type: String, default: '' },
   //question: { type: ObjectId, ref: 'Question' },
-  user: { type: ObjectId, ref: 'Student' },
+  user: { type: ObjectId, ref: 'User' },
   createDate: { type: Date, default: Date.now },
   //bestAnswer: { type: Boolean, default: false },
   //approved: { type: Boolean, default: false },
   votes: [{
-    user: { type: ObjectId, ref: 'Student' },
+    user: { type: ObjectId, ref: 'User' },
     voteDate: { type: Date },
     value: { type: Number, default: 1 },
   }],

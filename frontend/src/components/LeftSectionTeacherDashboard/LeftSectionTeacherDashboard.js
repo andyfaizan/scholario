@@ -68,8 +68,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
           ]
         } else if (this.props.role === teacherRole) {
 
-          filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
-          addCourseButton = <AddCourseComponent />
+          //filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
+          addCourseButton = <AddCourse />
 
           display = [
              addCourseButton,

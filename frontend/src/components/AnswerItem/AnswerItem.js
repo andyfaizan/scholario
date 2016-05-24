@@ -7,19 +7,21 @@ import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 
 type Props = {
+  answer: PropTypes.Object,
   personWhoAnswered: PropTypes.Object,
   dateAnswered: PropTypes.string,
   answerText: PropTypes.string,
   user: PropTypes.Object,
   courseInstance: PropTypes.Object,
   onClickDelAnswer: PropTypes.func,
+  question: PropTypes.Object,
 }
 
 export class AnswerItem extends React.Component {
   props: Props
 
   render () {
-    const { personWhoAnswered, user, courseInstance,
+    const { personWhoAnswered, user, courseInstance, question, answer,
       onClickDelAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
 
     var nameInitial = ''
@@ -46,7 +48,7 @@ export class AnswerItem extends React.Component {
       float:'right'
     }
 
-    const StudentVerify = {
+    const studentVerify = {
 
       postion: 'relative',
       margin:'auto',
@@ -55,10 +57,13 @@ export class AnswerItem extends React.Component {
       float:'right'
     }
 
-    const nodeHeader = [
-      <Avatar style={teacherVerify} backgroundColor="grey">T</Avatar>,
-      <Avatar style={StudentVerify} backgroundColor="grey">S</Avatar>
-    ]
+    const nodeHeader = []
+    if (answer && question && question.approvedAnswer && question.approvedAnswer === answer._id) {
+      nodeHeader.push(<Avatar key='approvedAnswerBadge' style={teacherVerify} backgroundColor="grey">T</Avatar>)
+    }
+    if (answer && question && question.bestAnswer && question.bestAnswer === answer._id) {
+      nodeHeader.push(<Avatar key='bestAnswerBadge' style={studentVerify} backgroundColor="grey">S</Avatar>)
+    }
 
     var actions = []
     if (user && personWhoAnswered && user._id === personWhoAnswered._id) {
@@ -66,10 +71,13 @@ export class AnswerItem extends React.Component {
                    hoverColor="#26A65B" />)
       actions.push(<FlatButton key='answerDeletingButton' label="Antwort löschen" linkButton={true}
                    onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
+    }
+    if (user && question && question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='bestAnswerButton' label="gute Antwort" linkButton={true}
                    onTouchTap={onClickBestAnswer} hoverColor="#26A65B" />)
     }
-    if (user && courseInstance && user.role === 'Prof' && user._id === courseInstance.prof._id) {
+    if (user && courseInstance && courseInstance.prof &&
+        user.role === 'Prof' && user._id === courseInstance.prof._id) {
       actions.push(<FlatButton key='answerApprovingButton' label="überprüfen Antwort" linkButton={true}
                    onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
     }

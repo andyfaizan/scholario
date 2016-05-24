@@ -52,6 +52,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       description: question.description,
       user: req.user._id,
       courseInstance: question.courseInstance,
+      votes: question.votes,
     });
   }).catch(function (err) {
     logger.error(err);
@@ -123,7 +124,7 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
   }
 
   Question.findOne({ _id: req.params.qid})
-    .select('id title description courseInstance pkg material user createDate answers votes')
+    .select('id title description courseInstance pkg material user createDate answers votes bestAnswer approvedAnswer')
         .populate([/*{*/
           //path: 'courseInstance',
           //select: 'name',
@@ -236,6 +237,7 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
       if (approvedAnswer) question.approvedAnswer = req.body.approvedAnswer;
       question.save();
       return res.status(200).json({
+        _id: question._id,
         approvedAnswer: approvedAnswer._id,
       });
     } else {
@@ -254,6 +256,7 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
       question = yield question.save();
 
       return res.status(200).json({
+        _id: question._id,
         title: question.title,
         description: question.description,
         bestAnswer: question.bestAnswer,

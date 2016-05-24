@@ -27,6 +27,13 @@ type Props = {
 export class Package extends React.Component {
   props: Props
 
+  constructor (props) {
+    super(props)
+    this.state = {
+      didGetCourseInstance: false,
+    }
+  }
+
   componentDidMount() {
     const pid = this.props.params.id
     this.props.dispatch(setCurPkg(pid))
@@ -38,7 +45,12 @@ export class Package extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (_.isEmpty(this.props.courseInstance) && newProps && newProps.pkg && newProps.pkg.courseInstance) {
+    if (_.isEmpty(this.props.courseInstance) &&
+        !this.state.didGetCourseInstance &&
+        newProps && newProps.pkg && newProps.pkg.courseInstance) {
+      this.setState({
+        didGetCourseInstance: true,
+      })
       this.props.dispatch(setCurCourseInstance(newProps.pkg.courseInstance))
       this.props.dispatch(getCourseInstance(newProps.pkg.courseInstance))
     }

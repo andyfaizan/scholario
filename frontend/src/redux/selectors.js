@@ -139,17 +139,17 @@ export const getUserQuestions = createSelector(
 )
 
 function sortQuestionsByDate(a, b) {
-      const c = moment(a.createDate)
-      const d = moment(b.createDate)
-      if (c.isAfter(d)) return -1
-      else if (c.isBefore(d)) return 1
-      else return sortQuestionsByVote(a, b)
+  const c = moment(a.createDate)
+  const d = moment(b.createDate)
+  if (c.isAfter(d)) return -1
+  else if (c.isBefore(d)) return 1
+  else return sortQuestionsByVote(a, b)
 }
 
 function sortQuestionsByVote(a, b) {
-      if (a.votes.length > b.votes.length) return -1
-      else if (a.votes.length < b.votes.length) return 1
-      else return sortQuestionsByDate(a, b)
+  if (a.votes.length > b.votes.length) return -1
+  else if (a.votes.length < b.votes.length) return 1
+  else return sortQuestionsByDate(a, b)
 }
 
 export function getCurQuestionsFactory(page, orderBy, limit=5) {
