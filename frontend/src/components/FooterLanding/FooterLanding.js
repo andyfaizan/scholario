@@ -12,15 +12,17 @@ export class FooterLanding extends React.Component {
   render () {
     const impressumLink = '/impressum'
     const linkStyle={
-      backgroundColor: 'white',
-      marginLeft: 20
+      backgroundColor: '#26A65B',
+      color:'white',
+      align:'center'
     }
     return (
-      <div>
-        <Link to={impressumLink} style={linkStyle}>
-          Impressum
-        </Link>
-      </div>
+        <div className={classes.rightContent}>
+          <br/>
+          <Link to={impressumLink} style={linkStyle}>
+            Impressum
+          </Link>
+        </div>
     )
   }
 }
