@@ -29,6 +29,7 @@ export class TeacherProfileBar extends React.Component {
   static propTypes = {
       firstNameUser: PropTypes.string.isRequired,
       lastNameUser: PropTypes.string.isRequired,
+      bio: PropTypes.string.isRequired,
       universityName: PropTypes.string.isRequired,
       programeName: PropTypes.string.isRequired,
       imageUrl: PropTypes.string,
@@ -56,7 +57,7 @@ export class TeacherProfileBar extends React.Component {
     var imageIcon = '' ;
 
     //Variable for Card Text -> Little Bit Bio about the user
-    var shortInformation = 'I am a Professor at Computer Science Department in RWTH Aachen.I am the Chair and founding person of the i9 Media Computing group. I am Human Computer Interaction Maestro.I am a Professor at Computer Science Department in RWTH Aachen.I am the Chair and founding person of the i9 Media Computing group. I am Human Computer Interaction Maestro.I am a Professor at Computer Science Department in RWTH Aachen.I am the Chair and founding person of the i9 Media Computing group. I am Human Computer Interaction Maestro.I am a Professor at Computer Science Department in RWTH Aachen.I am the Chair and founding person of the i9 Media Computing group. I am Human Computer Interaction Maestro.';
+    var shortInformation = this.props.bio;
 
     //Card Action variables for HREF
     var facebookUrl = '#' ;

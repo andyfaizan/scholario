@@ -11,13 +11,14 @@ const opts = {
 };
 
 const UserSchema = new Schema({
-  firstname: { type: String, default: ''},
-  lastname: { type: String, default: ''},
+  firstname: { type: String, default: '' },
+  lastname: { type: String, default: '' },
   //name: { type: String, default: '' },
   email: { type: String, required: true, unique: true, index: true, default: '' },
   username: { type: String, default: '' },
-  password: { type: String, required: true, default: ''},
-  salt: { type: String, default: ''},
+  password: { type: String, required: true, default: '' },
+  bio: { type: String, default: '' },
+  salt: { type: String, default: '' },
   registerDate: { type: Date, default: Date.now },
   verified: { type: Boolean, default: false },
   verificationCode: { type: String, index: true, default: '' },

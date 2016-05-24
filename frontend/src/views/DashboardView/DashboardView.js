@@ -62,6 +62,7 @@ class DashboardView extends React.Component {
         <TeacherProfileBar
           firstNameUser={user ? user.firstname : ''}
           lastNameUser={user ? user.lastname : ''}
+          bio={user ? user.bio : ''}
           universityName={userUniversity ? userUniversity.name : ''}
           programeName={userProgram ? userProgram.name : ''}
         />

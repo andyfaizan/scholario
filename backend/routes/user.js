@@ -93,6 +93,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
       _id: user._id,
       firstname: user.firstname,
       lastname: user.lastname,
+      bio: user.bio,
       role: user.role,
       courseInstances: courseInstances,
       questions: questions,
