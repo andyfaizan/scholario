@@ -14,6 +14,7 @@ import IndependentPackage from '../../components/IndependentPackage/IndependentP
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
+import { show, ADD_PACKAGE_MODAL as add_package } from '../../redux/modules/modal'
 import * as selectors from '../../redux/selectors'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
@@ -83,11 +84,13 @@ export class Course extends React.Component {
 
     if( this.props.user.role == 'Student' ) {
 
-        addPkgStd = <AddPkgComponent />
+        addPkgStd = <AddPkgComponent modal={this.props.modal}
+          show={() => this.props.dispatch(show(add_package))}/>
 
     }else if (this.props.user.role == 'Prof' )
     {
-      addPkgCompProf = <AddPkgComponent />;
+      addPkgCompProf = <AddPkgComponent modal={this.props.modal}
+        show={() => this.props.dispatch(show(add_package))}/>
 
     }else
     {
@@ -183,9 +186,10 @@ const mapStateToProps = (state, ownProps) => {
     studentPkgs,
     recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
     popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
+    modal: state.modal,
   }
 }
 
 export default connect(
-  mapStateToProps,
-)(Course)
+  mapStateToProps)
+(Course)
