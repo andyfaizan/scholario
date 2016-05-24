@@ -10,7 +10,8 @@ const mapStateToProps = (state, ownProps) => {
   let okay = selectors.getRequest(state, ownProps.okayType)
   var currRequest = (error ? error : okay)
   var currRequestType = (error ? ownProps.errorType : ownProps.okayType)
-  var currMessage = (error ? "Oops! Es gibt ein Fehler! :(" : "Und...Fertig! :)")
+  var currMessage = (error ? "Oops! Es gibt ein Fehler! :(" :
+    (ownProps.message ? ownProps.message : "Und...Fertig! :)"))
 
   return {
     request: currRequest,
