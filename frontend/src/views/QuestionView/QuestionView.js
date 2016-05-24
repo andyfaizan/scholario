@@ -61,16 +61,18 @@ export class Question extends React.Component {
   render () {
     //question item const display
     const questionClickable = true
-    const { courseInstance, question } = this.props
+    const { courseInstance, question, user } = this.props
 
     var answerEls = []
     if (question.answers && question.answers.length > 0) {
       answerEls = question.answers.map(a =>
         <AnswerItem
           key={a._id}
-          personWhoAnswered={a.user ? `${a.user.firstname} ${a.user.lastname}` : ''}
+          personWhoAnswered={a.user}
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
+          user={user}
+          courseInstance={courseInstance}
         />
       )
     }
@@ -86,6 +88,15 @@ export class Question extends React.Component {
         
       paddingLeft: 52
 
+    }
+    var actions = [<FlatButton label="Beantworte die Frage" linkButton={true}
+                    hoverColor="#26A65B"
+                  />]
+    if (question.user && user._id === question.user._id) {
+      actions.push(<FlatButton label="Frage bearbeiten" linkButton={true}
+                    hoverColor="#26A65B"/>)
+      actions.push(<FlatButton label="Frage löschen" linkButton={true}
+                    hoverColor="#26A65B"/>)
     }
 
     return (
@@ -117,12 +128,7 @@ export class Question extends React.Component {
                       {question.description}
                     </CardText>
                     <CardActions style={actionPadding}>
-                      <FlatButton label="Beantworte die Frage" linkButton={true}
-                      hoverColor="#26A65B" />
-                      <FlatButton label="Frage bearbeiten" linkButton={true}
-                      hoverColor="#26A65B" />
-                      <FlatButton label="Frage löschen" linkButton={true}
-                      hoverColor="#26A65B" />
+                      {actions}
                     </CardActions>
                   </Card>
                 </Col>
@@ -149,6 +155,7 @@ export class Question extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    user: selectors.getUser(state),
     courseInstance: selectors.getCurCourseInstance(state),
     curCourseInstanceId: selectors.getCurCourseInstanceId(state),
     question: selectors.getCurQuestion(state),
