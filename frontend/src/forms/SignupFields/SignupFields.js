@@ -126,7 +126,7 @@ export class SignupFields extends React.Component {
                 hintText='Steve'
                 errorText={firstname.touched && firstname.error ? firstname.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelText='First Name'
+                floatingLabelText='Vorname'
                 underlineFocusStyle={styles.focusStyle}
                 onKeyDown={this.checkKeyAndSubmit} />
               <TextField
@@ -134,7 +134,7 @@ export class SignupFields extends React.Component {
                 hintText='Jobs'
                 errorText={lastname.touched && lastname.error ? lastname.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelText='Last Name'
+                floatingLabelText='Nachname'
                 underlineFocusStyle={styles.focusStyle}
                 onKeyDown={this.checkKeyAndSubmit} />
               <TextField
@@ -142,13 +142,13 @@ export class SignupFields extends React.Component {
                 hintText='abc@gmail.com'
                 errorText={email.touched && email.error ? email.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelText='Email Id'
+                floatingLabelText='Email'
                 underlineFocusStyle={styles.focusStyle}
                 onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...password}
                 errorText={password.touched && password.error ? password.error : ''}
-                floatingLabelText='Password'
+                floatingLabelText='Passwort'
                 type='password'
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
@@ -157,7 +157,7 @@ export class SignupFields extends React.Component {
              <SelectFieldWrapper
                 {...university}
                 style = {styles.blocking}
-                floatingLabelText="University"
+                floatingLabelText="Hochschule"
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
                 onKeyDown={this.checkKeyAndSubmit}>

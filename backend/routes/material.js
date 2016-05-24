@@ -5,6 +5,7 @@ const passport = require('passport');
 const multer = require('multer');
 const _ = require('lodash');
 const co = require('co');
+const url = require('url');
 const logger = require('../logger');
 const utils = require('../utils');
 const Material = mongoose.model('Material');
@@ -23,21 +24,29 @@ router.get('/:mid', passport.authenticate('jwt', {session: false}), function (re
     });
   }
 
-  Material
-    .findOne({ _id: req.params.mid })
-    .select('name ext size pkg createDate')
-    .populate([{
-      path: 'pkg',
-      select: 'name owner courseInstance createDate',
-    }])
-    .lean(true)
-    .exec()
-    .then(function (material) {
+  co(function *() {
+    var material = yield Material
+      .findOne({ _id: req.params.mid })
+      .select('name ext size pkg createDate')
+      .populate([{
+        path: 'pkg',
+        select: 'name owner courseInstance createDate',
+      }])
+      .lean(true)
+      .exec();
+
     if (!material) {
       return res.status(404).json({
         err: [{ msg: 'MaterialNotFound' }],
       });
     }
+
+    material.url = url.format({
+      protocol: 'http',
+      slashes: true,
+      host: 'uploads.scholario.de',
+      pathname: `/courses/${material.pkg.courseInstance}/${material.pkg._id}/${encodeURIComponent(material.name)}${material.ext}`,
+    });
 
     return res.json(material);
   }).catch(function (err) {

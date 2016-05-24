@@ -154,7 +154,7 @@ export class ModalComponent extends React.Component {
 
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
-        <Tab label='Login' >
+        <Tab label='Einloggen' >
           <div>
             <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest} confirm={this.confirmLogin}/>
           </div>
@@ -166,7 +166,7 @@ export class ModalComponent extends React.Component {
           <RaisedButton
             // TODO disabled={submitting}
             type='submit'
-            label='Login'
+            label='Einloggen'
             primary={false}
             backgroundColor='#446CB3'
             fullWidth={true}
@@ -176,7 +176,7 @@ export class ModalComponent extends React.Component {
         </div>
         <br/>
         </Tab>
-        <Tab label='Sign Up' >
+        <Tab label='Registrieren' >
           <div>
             <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities}
               confirm={this.confirmSignup} />
@@ -186,7 +186,7 @@ export class ModalComponent extends React.Component {
           </div>*/}
           <div style={buttonStyle}>
             <RaisedButton
-              label='Signup'
+              label='Registrieren'
               type='submit'
               primary={false}
               backgroundColor='#446CB3'
