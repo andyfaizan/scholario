@@ -83,6 +83,7 @@ export class Question extends React.Component {
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
         />
+
       )
     }
 

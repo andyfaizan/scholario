@@ -5,6 +5,7 @@ import CardHeader from 'material-ui/lib/card/card-header'
 import Avatar from 'material-ui/lib/avatar'
 import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
+import ThumbsUp from 'material-ui/lib/svg-icons/action/thumb-up'
 
 type Props = {
   answer: PropTypes.Object,
@@ -100,6 +101,7 @@ export class AnswerItem extends React.Component {
             {actions}
           </CardActions>
         </Card>
+        <br/>
       </div>
     )
   }
