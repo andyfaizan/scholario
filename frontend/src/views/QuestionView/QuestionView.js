@@ -14,14 +14,14 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
-import NewAnswerComp from '../../components/NewAnswerComp/NewAnswerComp'
+import NewAnswerForm from '../../forms/NewAnswerForm/NewAnswerForm'
 import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
 import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import { deleteAnswer } from '../../redux/modules/answer'
+import { postAnswer, deleteAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
 
@@ -35,8 +35,10 @@ export class Question extends React.Component {
 
   constructor (props) {
     super(props)
+    this.toggleNewAnswerForm = this.toggleNewAnswerForm.bind(this)
     this.state = {
       didGetCourseInstance: false,
+      showNewAnswerForm: false,
     }
   }
 
@@ -60,6 +62,12 @@ export class Question extends React.Component {
       this.props.dispatch(getCourseInstance(newProps.question.courseInstance))
     }
 
+  }
+
+  toggleNewAnswerForm (e) {
+    this.setState({
+      showNewAnswerForm: this.state.showNewAnswerForm ? false : true,
+    })
   }
 
   render () {
@@ -87,28 +95,28 @@ export class Question extends React.Component {
     }
 
     const textStyle = {
-
       paddingLeft: 70,
       paddingRight: 70
-
     }
-
     const actionPadding = {
-        
       paddingLeft: 52
-
     }
+
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
-                    hoverColor="#26A65B"
+                    onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B"
                   />]
-                  
+
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
                     hoverColor="#26A65B"/>)
       actions.push(<FlatButton key='questionDeletingButton' label="Frage löschen" linkButton={true}
                     onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B"/>)
     }
-    
+
+    var newAnswerForm
+    if (this.state.showNewAnswerForm) {
+      newAnswerForm = <NewAnswerForm onSubmit={(data) => this.props.dispatch(postAnswer(question._id, data.content))} />
+    }
     return (
       <div>
       <div className={classes.dashboardRoot}>
@@ -149,7 +157,7 @@ export class Question extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
-                  <NewAnswerComp />
+                  {newAnswerForm}
                   <br/>
                   {answerEls}
 		      			</Col>
