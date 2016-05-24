@@ -30,7 +30,7 @@ class DashboardView extends React.Component {
  //  }
 
   componentDidMount () {
-    if (this.props.user) {
+    if (this.props.userMetadata) {
       if (!this.props.userMetadata.fetchedData) {
         this.props.getUser()
       } else {
@@ -53,24 +53,24 @@ class DashboardView extends React.Component {
   }
 
   render () {
-
+    const { user, userUniversity, userProgram } = this.props
 
     return (
     <div>
       <div className={classes.dashboardRoot} >
         <DashboardToolBar />
         <TeacherProfileBar
-          firstNameUser={this.props.user.firstname}
-          lastNameUser={this.props.user.lastname}
-          universityName={this.props.userUniversity.name}
-          programeName={this.props.userProgram.name}
+          firstNameUser={user ? user.firstname : ''}
+          lastNameUser={user ? user.lastname : ''}
+          universityName={userUniversity ? userUniversity.name : ''}
+          programeName={userProgram ? userProgram.name : ''}
         />
         <br/>
         <Grid className='container-fluid'>
           <Row >
             <Col xs={24} md={12}>
               <LeftSectionTeacherDashboard
-                role={this.props.user.role}
+                role={user ? user.role : ''}
                 courseInstances={this.props.courseInstances}
                 connects={this.props.connects}
                 location={this.props.location}

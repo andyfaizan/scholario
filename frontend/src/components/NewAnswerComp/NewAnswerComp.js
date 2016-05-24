@@ -6,21 +6,25 @@ import Avatar from 'material-ui/lib/avatar'
 import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 
+
 type Props = {
+
   personWhoAnswered: PropTypes.Object,
   dateAnswered: PropTypes.string,
   answerText: PropTypes.string,
   user: PropTypes.Object,
   courseInstance: PropTypes.Object,
   onClickDelAnswer: PropTypes.func,
-}
 
-export class AnswerItem extends React.Component {
-  props: Props
+};
+
+
+export class NewAnswerComp extends React.Component {
+  props: Props;
 
   render () {
-    const { personWhoAnswered, user, courseInstance,
-      onClickDelAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
+
+  	const { personWhoAnswered, user, courseInstance, onClickDelAnswer } = this.props
 
     var nameInitial = ''
     if (personWhoAnswered)
@@ -66,16 +70,15 @@ export class AnswerItem extends React.Component {
                    hoverColor="#26A65B" />)
       actions.push(<FlatButton key='answerDeletingButton' label="Antwort löschen" linkButton={true}
                    onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
-      actions.push(<FlatButton key='bestAnswerButton' label="gute Antwort" linkButton={true}
-                   onTouchTap={onClickBestAnswer} hoverColor="#26A65B" />)
     }
     if (user && courseInstance && user.role === 'Prof' && user._id === courseInstance.prof._id) {
       actions.push(<FlatButton key='answerApprovingButton' label="überprüfen Antwort" linkButton={true}
-                   onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
+                   hoverColor="#26A65B" />)
     }
+
     return (
       <div>
-        <Card>
+      	<Card>
           <CardHeader
             title={personWhoAnswered ? `${personWhoAnswered.firstname} ${personWhoAnswered.lastname}` : ''}
             subtitle={this.props.dateAnswered}
@@ -97,5 +100,5 @@ export class AnswerItem extends React.Component {
   }
 }
 
-export default AnswerItem
+export default NewAnswerComp
 

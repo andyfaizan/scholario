@@ -36,7 +36,14 @@ export const persistStoreMiddleware = store => next => action => {
     if (action.user)
       state.user = action.user
     delete state.router
-    window.localStorage.setItem('scholario:store', JSON.stringify(state))
+    window.localStorage.setItem('scholario:store', JSON.stringify({
+      user: state.user,
+      entities: {
+        users: {
+          [state.user._id]: state.entities.users[state.user._id],
+        }
+      }
+    }))
     return next(action)
   } else if (action.type === LOGOUT_OK) {
     window.localStorage.setItem('scholario:store', '')

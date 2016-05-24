@@ -14,6 +14,7 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
+import NewAnswerComp from '../../components/NewAnswerComp/NewAnswerComp'
 import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
 import CardActions from 'material-ui/lib/card/card-actions'
@@ -22,7 +23,7 @@ import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Snackbar from 'material-ui/lib/snackbar'
 import { deleteAnswer } from '../../redux/modules/answer'
-import { deleteQuestion } from '../../redux/modules/question'
+import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
 
 
@@ -80,6 +81,8 @@ export class Question extends React.Component {
           user={user}
           courseInstance={courseInstance}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
+          onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
+          onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
         />
       )
     }
@@ -99,6 +102,7 @@ export class Question extends React.Component {
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
                     hoverColor="#26A65B"
                   />]
+                  
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
                     hoverColor="#26A65B"/>)
@@ -144,6 +148,8 @@ export class Question extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
+                  <NewAnswerComp />
+                  <br/>
                   {answerEls}
 		      			</Col>
 		      		</Row>
