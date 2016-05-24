@@ -147,6 +147,7 @@ function sortQuestionsByDate(a, b) {
 }
 
 function sortQuestionsByVote(a, b) {
+  if (!a || !b) return -1
   if (a.votes.length > b.votes.length) return -1
   else if (a.votes.length < b.votes.length) return 1
   else return sortQuestionsByDate(a, b)

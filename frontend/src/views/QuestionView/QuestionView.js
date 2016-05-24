@@ -22,7 +22,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Snackbar from 'material-ui/lib/snackbar'
-import { postAnswer, deleteAnswer, putAnswer } from '../../redux/modules/answer'
+import { postAnswer, deleteAnswer, putAnswer, voteAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
 import Feedback from '../../containers/Feedback'
@@ -104,12 +104,14 @@ export class Question extends React.Component {
           personWhoAnswered={a.user}
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
+          answer={a}
           user={user}
           courseInstance={courseInstance}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
           onClickEditAnswer={(e) => this.editAnswer(a)}
+          onClickVoteAnswer={() => this.props.dispatch(voteAnswer(a._id))}
         />
 
       )
