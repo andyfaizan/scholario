@@ -2,48 +2,34 @@ import React from 'react'
 import Snackbar from 'material-ui/lib/snackbar'
 
 type Props = {
-    error: Object,
-    okay: Object,
-    remove: Function
+    request: Object,
+    remove: Function,
+    requestType: String,
+    message: String
 };
 export class SnackbarWrapper extends React.Component {
   props: Props;
 
-  handleRequestClose(request) {
-    this.props.remove(request)
-  }
-
-
   constructor(props) {
     super(props)
-    this.getMessage = this.getMessage.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
-    this.update = this.update.bind(this)
   }
 
-  update(){
-    if(this.props.error | this.props.okay)
-      return true
-    return false
-  }
-
-  getMessage(){
-    if(this.props.error)
-      return this.props.error.message
-    else if(this.props.okay)
-      return this.props.okay.message
+  handleRequestClose() {
+    if(this.props.request)
+      this.props.remove(this.props.requestType)
   }
 
   render () {
-    const message = this.getMessage()
-    const show = this.update()
     console.dir(this.props)
     return (
       <div>
       <Snackbar
-          open={show}
-          message={message}
+          open={this.props.request ? true : false}
+          message={this.props.requestType ? this.props.message : null}
           autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+          style={{'text-align':'center'}}
         />
       </div>
     )

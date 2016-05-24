@@ -111,7 +111,7 @@ export class Package extends React.Component {
         </Grid>
         <br/>
       </div>
-      {/*<Feedback errorType={errorType} okayType={okayType} />*/}
+      <Feedback errorType={errorType} okayType={okayType} />
       <br/>
        <div className={classes.footer}>
         <FooterLanding />
