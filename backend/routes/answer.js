@@ -156,6 +156,7 @@ router.put('/:aid', passport.authenticate('jwt', {session: false}), function (re
     return answer.save();
   }).then(function (answer) {
     return res.status(200).json({
+      _id: answer._id,
       content: answer.content,
     });
   }).catch(function (err) {
