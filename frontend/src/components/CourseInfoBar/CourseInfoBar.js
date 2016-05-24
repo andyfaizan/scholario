@@ -103,6 +103,7 @@ export class CourseInfoBar extends React.Component {
                         {this.props.participantsNum}
                         </div>
                     </div>
+                    {/*
                     <FlatButton label="Bearbeiten Kurs" 
                       hoverColor="#26A65B" />
                     <FlatButton label="löschen Kurs" 
@@ -115,6 +116,7 @@ export class CourseInfoBar extends React.Component {
                       hoverColor="#26A65B" />
                     <FlatButton label="löschen-Material" 
                       hoverColor="#26A65B" />
+                      */}
                   </CardActions>
 
 
