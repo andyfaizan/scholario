@@ -21,6 +21,8 @@ import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import { deleteAnswer } from '../../redux/modules/answer'
+import { deleteQuestion } from '../../redux/modules/question'
+import { browserHistory } from '../../history'
 
 
 type Props = {
@@ -91,14 +93,14 @@ export class Question extends React.Component {
       paddingLeft: 52
 
     }
-    var actions = [<FlatButton label="Beantworte die Frage" linkButton={true}
+    var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
                     hoverColor="#26A65B"
                   />]
     if (question.user && user._id === question.user._id) {
-      actions.push(<FlatButton label="Frage bearbeiten" linkButton={true}
+      actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
                     hoverColor="#26A65B"/>)
-      actions.push(<FlatButton label="Frage löschen" linkButton={true}
-                    hoverColor="#26A65B"/>)
+      actions.push(<FlatButton key='questionDeletingButton' label="Frage löschen" linkButton={true}
+                    onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B"/>)
     }
 
     return (

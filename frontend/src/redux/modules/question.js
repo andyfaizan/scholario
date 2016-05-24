@@ -132,6 +132,10 @@ export function putQuestion(qid, title, description) {
 // ------------------------------------
 export function questionReducer(state={}, action) {
   switch (action.type) {
+    case DELETE_QUESTION_OK:
+      if (action && action.qid) {
+        return _.omit(state, action.qid)
+      }
     case DELETE_ANSWER_OK:
       if (action && action.aid && action.qid) {
         return Object.assign({}, state, {

@@ -18,8 +18,8 @@ type Props = {
 };
 export class QuestionItem extends React.Component {
   static propTypes = {
-    questionStatement: PropTypes.string.isRequired,
-    datePosted: PropTypes.string.isRequired,
+    questionStatement: PropTypes.string,
+    datePosted: PropTypes.string,
     numberOfVotes: PropTypes.number,
     questionURL: PropTypes.string,
     listItemClickable: PropTypes.bool,
