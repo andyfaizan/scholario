@@ -12,9 +12,11 @@ import MyRawTheme from '../../themes/mainTheme'
 import ThemeManager from 'material-ui/lib/styles/theme-manager'
 import * as selectors from '../../redux/selectors'
 import { getUser } from '../../redux/modules/user'
-import { getRecommendedCourseInstances, followCourse } from '../../redux/modules/course-instance'
+import { getRecommendedCourseInstances, followCourse,
+  FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
 
 
 class DashboardView extends React.Component {
@@ -81,6 +83,10 @@ class DashboardView extends React.Component {
           </Row>
         </Grid>
       <br/>
+      <Feedback
+        errorType={FOLLOW_COURSE_INSTANCE_ERR}
+        okayType={FOLLOW_COURSE_INSTANCE_OK}
+        message="Kurs gefolgt! :)" />
       </div>
       <div className={classes.footer}>
         <FooterLanding />

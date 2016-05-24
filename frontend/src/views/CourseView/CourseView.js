@@ -146,7 +146,7 @@ export class Course extends React.Component {
         <br/>
       <br/>
       </div>
-      {/*<Feedback errorType='ADD_PKG_ERR' okayType='ADD_PKG_OK' />*/}
+      <Feedback errorType='ADD_PKG_ERR' okayType='ADD_PKG_OK' message="Ordner Erstellt!"/>
       <br/>
       <div className={classes.footer}>
         <FooterLanding />
