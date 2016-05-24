@@ -60,6 +60,8 @@ export class Package extends React.Component {
     const { pkg, courseInstance } = this.props
     const errorType = 'POST_MATERIAL_ERR'
     const okayType = 'POST_MATERIAL_OK'
+    const questionOkayType = 'ADD_QUESTION_OK'
+    const questionErrorType = 'ADD_QUESTION_ERR'
 
     var materials = []
     var addMaterial;
@@ -112,6 +114,7 @@ export class Package extends React.Component {
         <br/>
       </div>
       <Feedback errorType={errorType} okayType={okayType} />
+      <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!"/>
       <br/>
        <div className={classes.footer}>
         <FooterLanding />

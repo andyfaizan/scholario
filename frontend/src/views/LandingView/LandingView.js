@@ -4,6 +4,7 @@ import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/lib/divider'
 import Paper from 'material-ui/lib/paper'
+import BonnRhein from './Main.png'
 
 type Props = {
 
@@ -19,17 +20,21 @@ export class LandingView extends React.Component {
       display: 'inline-block'
     }
     return (
+      <div>
       <div className={classes.landing}>
-        <div className='navBar'>
+        <div>
           <NavBarLandingPage />
         </div>
-        <div className={classes.container}>
-
+         <div className={classes.container}>
+           <img className={classes.dash}
+              src={BonnRhein}
+              alt='No Net.' />
         </div>
         <Divider />
-        <div className={classes.footer}>
+      </div>
+      <div className={classes.footer}>
           <FooterLanding />
-        </div>
+      </div>
       </div>
     )
   }

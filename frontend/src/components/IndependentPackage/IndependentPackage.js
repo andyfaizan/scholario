@@ -10,6 +10,7 @@ import Badge from 'material-ui/lib/badge'
 import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './IndependentPackage.scss'
+import FileDownload from 'material-ui/lib/svg-icons/file/file-download'
 
 type Props = {
 
@@ -134,10 +135,16 @@ export class IndependentPackage extends React.Component {
                           />
                         </div>
 
+    var download =  <div key="downloadKey" className={classes.downloadPkg}>
+                       <IconButton tooltip="Download-Paket">
+                        <FileDownload color="White"/>
+                      </IconButton>
+                    </div>
+
     const nodePaperCourse = [
       notifications,
       heading,
-      container
+      download
     ]
 
     return (
