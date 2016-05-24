@@ -11,7 +11,7 @@ import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './MaterialComponent.scss'
 import Edit from 'material-ui/lib/svg-icons/action/track-changes'
-import FileDownload from 'material-ui/lib/svg-icons/File/file-download'
+import FileDownload from 'material-ui/lib/svg-icons/File/File-Download'
 
 type Props = {
 
