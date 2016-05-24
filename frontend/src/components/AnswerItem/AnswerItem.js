@@ -12,13 +12,14 @@ type Props = {
   answerText: PropTypes.string,
   user: PropTypes.Object,
   courseInstance: PropTypes.Object,
+  onClickDelAnswer: PropTypes.func,
 }
 
 export class AnswerItem extends React.Component {
   props: Props
 
   render () {
-    const { personWhoAnswered, user, courseInstance } = this.props
+    const { personWhoAnswered, user, courseInstance, onClickDelAnswer } = this.props
 
     var nameInitial = ''
     if (personWhoAnswered)
@@ -63,7 +64,7 @@ export class AnswerItem extends React.Component {
       actions.push(<FlatButton label="Antwort bearbeiten" linkButton={true}
                    hoverColor="#26A65B" />)
       actions.push(<FlatButton label="Antwort löschen" linkButton={true}
-                   hoverColor="#26A65B" />)
+                   onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
     }
     if (user && courseInstance && user.role === 'Prof' && user._id === courseInstance.prof._id) {
       actions.push(<FlatButton label="überprüfen Antwort" linkButton={true}
