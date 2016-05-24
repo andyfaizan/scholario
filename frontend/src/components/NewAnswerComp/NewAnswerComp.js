@@ -90,16 +90,9 @@ export class NewAnswerComp extends React.Component {
       <div>
       	<Card>
           <CardHeader
-            title={personWhoAnswered ? `${personWhoAnswered.firstname} ${personWhoAnswered.lastname}` : ''}
-            subtitle={this.props.dateAnswered}
-            actAsExpander={false}
-            showExpandableButton={false}
-            avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
-            titleColor="#26A65B"
-            children={nodeHeader}
+            title={"Stellen Sie die Antwort"}
           />
           <CardText style={textStyle}>
-            {this.props.answerText}
 			     <TextField
 				      floatingLabelText="In Antwort"
 				      multiLine={true}
@@ -110,7 +103,8 @@ export class NewAnswerComp extends React.Component {
 				    />
           </CardText>
           <CardActions style={actionPadding}>
-            {actions}
+            <FlatButton key='answerApprovingButton' label="Stellen Sie die Antwort" linkButton={true}
+                   hoverColor="#26A65B" />
           </CardActions>
         </Card>
       </div>
