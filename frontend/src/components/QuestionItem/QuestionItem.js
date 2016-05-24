@@ -14,7 +14,8 @@ type Props = {
 	questionStatement: string,
 	datePosted: string,
 	numberOfVotes: number,
-	questionURL: string
+	questionURL: string,
+  postedBy: string
 };
 export class QuestionItem extends React.Component {
   static propTypes = {
@@ -23,7 +24,8 @@ export class QuestionItem extends React.Component {
     numberOfVotes: PropTypes.number,
     questionURL: PropTypes.string,
     listItemClickable: PropTypes.bool,
-    currentLikes: PropTypes.number
+    currentLikes: PropTypes.number,
+    postedBy: PropTypes.string
   };
 
   render () { 
@@ -39,13 +41,14 @@ export class QuestionItem extends React.Component {
 
            };
 
+
       const touchQuestion = () => {
         browserHistory.push(this.props.questionURL)
       }
 
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}>{date ? date.slice(0,10) : ''}</div>
+    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} posted on {date ? date.slice(0,10) : ''}</div>
     return (
       <div>
         <ListItem
