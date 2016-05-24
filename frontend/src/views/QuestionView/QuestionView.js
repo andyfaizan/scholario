@@ -71,6 +71,7 @@ export class Question extends React.Component {
   toggleNewAnswerForm (e) {
     this.setState({
       showNewAnswerForm: this.state.showNewAnswerForm ? false : true,
+      answerBeingEdited: null,
     })
   }
 
@@ -89,10 +90,11 @@ export class Question extends React.Component {
     //question item const display
     const questionClickable = true
     const { courseInstance, question, user } = this.props
-    const postErrorType = 'ADD_QUESTION_ERR'
-    const postOkayType = 'ADD_QUESTION_OK'
+
     const voteErrorType = 'VOTE_QUESTION_ERR'
     const voteOkayType = 'VOTE_QUESTION_OK'
+    const answerOkayType = 'POST_ANSWER_OK'
+    const answerErrorType = 'POST_ANSWER_ERR'
 
     var answerEls = []
     if (question.answers && question.answers.length > 0) {
@@ -192,8 +194,9 @@ export class Question extends React.Component {
       <br/>
       </div>
       <br/>
-      <Feedback errorType={postErrorType} okayType={postOkayType} />
-      <Feedback errorType={voteErrorType} okayType={voteOkayType} />
+      <Feedback errorType={voteErrorType} okayType={voteOkayType} message="Gewählt!!! :)"/>
+      <Feedback errorType={answerErrorType} okayType={answerOkayType} />
+
       <div className ={classes.footer} >
             <FooterLanding />
       </div>

@@ -80,9 +80,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       });
     }
 
-    question.answers.push(answer._id);
-    question.save();
-    return res.json({
+    question.answers.push(answer);
+    return question.save();
+  }).then(function (question) {
+    return res.status(201).json({
       _id: question._id,
       answers: question.answers
     });

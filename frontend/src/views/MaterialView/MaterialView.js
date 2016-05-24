@@ -10,6 +10,7 @@ import { getUser } from '../../redux/modules/user'
 import classes from './MaterialView.scss'
 import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
 
 type Props = {
 
@@ -63,6 +64,9 @@ export class MaterialView extends React.Component {
   }
 
   render () {
+    const questionOkayType = 'ADD_QUESTION_OK'
+    const questionErrorType = 'ADD_QUESTION_ERR'
+
     return (
     <div>
       <div className={classes.dashboardRoot}>
@@ -76,6 +80,7 @@ export class MaterialView extends React.Component {
           popularQuestions={this.props.popularQuestions}
         />
       <br/>
+      <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!"/>
       </div>
        <div className={classes.footer}>
         <FooterLanding />
