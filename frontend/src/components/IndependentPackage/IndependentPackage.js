@@ -15,6 +15,7 @@ import FileDownload from 'material-ui/lib/svg-icons/file/file-download'
 type Props = {
 
   materialTitle: PropTypes.string,
+  materialUrl: PropTypes.string,
   keywords: PropTypes.array,
   dateUploaded: PropTypes.string,
   materialNotifications: PropTypes.number,
@@ -114,9 +115,11 @@ export class IndependentPackage extends React.Component {
     //variables for displaying Child Node
     var heading = <div>
                   <div className={classes.head}>
+                    <Link to={this.props.pkgUrl}>
                       <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
                             <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
                       </div>
+                    </Link>
                   </div>
                   <div key="headingIndependentPackage" style={divStyle}>
                     {<h5>{this.props.dateUploaded}</h5>}
@@ -136,9 +139,7 @@ export class IndependentPackage extends React.Component {
                         </div>
 
     var download =  <div key="downloadKey" className={classes.downloadPkg}>
-                       <IconButton tooltip="Download-Paket">
-                        <FileDownload color="White"/>
-                      </IconButton>
+                        <a target="_blank" href={this.props.materialUrl} ><FileDownload color="White"/></a>
                     </div>
 
     const nodePaperCourse = [
@@ -148,14 +149,12 @@ export class IndependentPackage extends React.Component {
     ]
 
     return (
-      <Link to={this.props.pkgUrl}>
         <div>
           <Paper style={style} zDepth={2}  children={nodePaperCourse} />
           <Paper style={styleTwo} zDepth={0}  />
           <Paper style={styleThree} zDepth={0}  />
           <Paper style={styleFour} zDepth={5}  />
         </div>
-      </Link>
     )
   }
 }
