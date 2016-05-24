@@ -40,12 +40,12 @@ export class QuestionItem extends React.Component {
            };
 
       const touchQuestion = () => {
-        browserHistory.replace(this.props.questionURL)
+        browserHistory.push(this.props.questionURL)
       }
 
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}>{date.slice(0,10)}</div>
+    const secondaryText = <div className={styleSecondaryText}>{date ? date.slice(0,10) : ''}</div>
     return (
       <div>
         <ListItem
