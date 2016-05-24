@@ -46,6 +46,8 @@ export class Course extends React.Component {
 
   render () {
     const { courseInstance, profPkgs, studentPkgs } = this.props
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
     var profPkgEls = []
     var studentPkgEls
     var addPkgComp

@@ -87,7 +87,7 @@ export class DetailQuestionList extends React.Component {
 		      		</Row>
 		      	</Grid>
       <br/>
-      <Feedback errorType={voteErrorType} okayType={voteOkayType} message="Gewählt!!! :)"/>
+
       </div>
          <div className={classes.footer}>
             <FooterLanding />
