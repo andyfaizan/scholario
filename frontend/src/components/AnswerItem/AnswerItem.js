@@ -6,6 +6,8 @@ import Avatar from 'material-ui/lib/avatar'
 import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 import ThumbsUp from 'material-ui/lib/svg-icons/action/thumb-up'
+import IconButton from 'material-ui/lib/icon-button'
+import classes from './AnswerItem.scss'
 
 type Props = {
   answer: PropTypes.Object,
@@ -60,6 +62,7 @@ export class AnswerItem extends React.Component {
     }
 
     const nodeHeader = []
+
     if (answer && question && question.approvedAnswer && question.approvedAnswer === answer._id) {
       nodeHeader.push(<Avatar key='approvedAnswerBadge' style={teacherVerify} backgroundColor="grey">T</Avatar>)
     }
@@ -83,6 +86,27 @@ export class AnswerItem extends React.Component {
       actions.push(<FlatButton key='answerApprovingButton' label="überprüfen Antwort" linkButton={true}
                    onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
     }
+
+    var voting =<div> 
+                  <div key="thumbs" className={classes.buttonThumbsUp}>
+                     <IconButton >
+                     <ThumbsUp color="#26A65B" />
+                     </IconButton>
+                   </div>
+                  <div key="avatar" className={classes.avatar}>
+                    <Avatar size={25} color="#26A65B" backgroundColor="white">
+                    25
+                    </Avatar>
+                  </div>
+                </div>
+
+    const childVars = [
+      
+      nodeHeader,
+      voting
+
+    ]
+
     return (
       <div>
         <Card>
@@ -93,7 +117,7 @@ export class AnswerItem extends React.Component {
             showExpandableButton={false}
             avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
             titleColor="#26A65B"
-            children={nodeHeader}
+            children={childVars}
           />
           <CardText style={textStyle}>
             {this.props.answerText}

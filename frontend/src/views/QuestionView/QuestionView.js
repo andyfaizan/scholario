@@ -197,7 +197,6 @@ export class Question extends React.Component {
 		      	</Grid>
       <br/>
       </div>
-      <br/>
       <Feedback errorType={answerErrorType} okayType={answerOkayType} />
 
       <div className ={classes.footer} >

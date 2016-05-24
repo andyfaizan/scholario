@@ -82,7 +82,6 @@ class DashboardView extends React.Component {
             </Col>
           </Row>
         </Grid>
-      <br/>
       <Feedback
         errorType={FOLLOW_COURSE_INSTANCE_ERR}
         okayType={FOLLOW_COURSE_INSTANCE_OK}

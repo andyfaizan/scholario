@@ -116,7 +116,6 @@ export class Package extends React.Component {
       </div>
       <Feedback errorType={errorType} okayType={okayType} />
       <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!"/>
-      <br/>
        <div className={classes.footer}>
         <FooterLanding />
       </div>

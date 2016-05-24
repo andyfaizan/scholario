@@ -86,7 +86,6 @@ export class DetailQuestionList extends React.Component {
 		      			</Col>
 		      		</Row>
 		      	</Grid>
-      <br/>
 
       </div>
          <div className={classes.footer}>
