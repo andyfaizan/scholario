@@ -151,7 +151,7 @@ router.put('/:aid', passport.authenticate('jwt', {session: false}), function (re
       });
     }
 
-    answer.content = content;
+    answer.content = req.body.content;
 
     return answer.save();
   }).then(function (answer) {
