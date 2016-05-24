@@ -78,13 +78,11 @@ export class Question extends React.Component {
       answerEls = question.answers.map(a =>
         <AnswerItem
           key={a._id}
-          answer={a}
           personWhoAnswered={a.user}
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
           user={user}
           courseInstance={courseInstance}
-          question={question}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
