@@ -14,7 +14,7 @@ var router = express.Router();
 
 router.post('/', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkBody('title', 'Invalid title').notEmpty();
-  req.checkBody('course', 'Invalid course').notEmpty().isMongoId();
+  req.checkBody('courseInstance', 'Invalid course').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -26,7 +26,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   var question = new Question({
     title: req.body.title,
     description: req.body.description,
-    course: req.body.course,
+    courseInstance: req.body.courseInstance,
     user: req.user,
   });
   question.save();
@@ -47,16 +47,20 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
   }
 
   Question.findOne({ _id: req.params.qid})
-    .select('id title description course user createDate answers votes')
+    .select('id title description courseInstance user createDate answers votes')
         .populate([{
-          path: 'course',
-          select: 'name',
+          path: 'courseInstance',
+          select: 'course semester',
+            populate: {
+              path: 'course',
+              select: 'name',
+            }
         }, {
           path: 'user',
           select: 'firstname lastname',
         }, {
           path: 'answers',
-            select: 'content createDate votes user',
+          select: 'content createDate votes user',
                 populate: {
                   path: 'user',
                   select: 'firstname lastname',
@@ -188,5 +192,75 @@ router.get('/:qid/:aid/votes', passport.authenticate('jwt', {session: false}), f
     });
   });
 });
+
+
+/*===============================
+.select('id title description course user createDate answers votes')
+        .populate([{
+          path: 'course',
+          select: 'name',
+        }, {
+          path: 'user',
+          select: 'firstname lastname',
+        }, {
+          path: 'answers',
+            select: 'content createDate votes user',
+                populate: {
+                  path: 'user',
+                  select: 'firstname lastname',
+                }
+        }])
+        .lean(true)
+*/
+//===============================
+
+router.get('/:qid/:aid/bestanswer', passport.authenticate('jwt', {session: false}), utils.hasPermission('Prof'),
+           function (req,res ) {
+
+Question
+  .findOne({ _id: req.params.qid, answers: { $in: [ req.params.aid ] }})
+  .select('courseInstance answers')
+    .populate([{
+      path: 'courseInstance',
+      select: 'prof',
+        populate: {
+          path: 'prof',
+          select: 'id',
+        }
+    },{
+      path: 'answers',
+      select: 'id bestAnswer',
+    }
+  ])
+  .exec()
+  .then(function (question) {
+    if (!question) {
+      return res.status(404).json({
+       err: [{msg: 'AnswerOrQuestionNotFound'}],
+      });
+    }
+
+    if(question.courseInstance.prof.id == req.user._id) { 
+      Answer.findOne({ _id: req.params.aid }).then(function (answer) {
+        if (!answer) {
+          return res.status(404).json({
+            err: [{msg: 'AnswerNotFound'}],
+          });
+        }
+        answer.bestAnswer = true;
+        answer.save();
+      });
+    }
+    return res.json({
+      err: [],
+    });
+  }).catch(function (err) {
+    return res.json({
+      err: [{'msg': err.message}],
+    });
+  });
+});
+
+router.get('/:qid/:aid/satisfyinganswer', passport.authenticate('jwt', {session: false}), function(req,res) {
 
 module.exports = router;
