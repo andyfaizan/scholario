@@ -108,10 +108,18 @@ export class IndependentPackage extends React.Component {
       opacity: 0.9,
     }
 
+    const dots = "..."
+
     //variables for displaying Child Node
-    var heading = <div key="headingIndependentPackage" style={divStyle}>
-                    <h5>{this.props.materialTitle}</h5>
+    var heading = <div>
+                  <div className={classes.head}>
+                      <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
+                            <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
+                      </div>
+                  </div>
+                  <div key="headingIndependentPackage" style={divStyle}>
                     {<h5>{this.props.dateUploaded}</h5>}
+                  </div>
                   </div>
 
     var container = <div key="IndependentPackage" className={classes.container}> 
