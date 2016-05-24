@@ -6,6 +6,7 @@ import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { questionSchema } from '../schemas'
+import { DELETE_ANSWER_OK } from './answer'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -131,6 +132,15 @@ export function putQuestion(qid, title, description) {
 // ------------------------------------
 export function questionReducer(state={}, action) {
   switch (action.type) {
+    case DELETE_ANSWER_OK:
+      if (action && action.aid && action.qid) {
+        return Object.assign({}, state, {
+          [action.qid]: {
+            ...state[action.qid],
+            answers: _.without(state[action.qid].answers, action.aid),
+          }
+        })
+      }
     default:
       if (action.response && action.response.entities && action.response.entities.questions) {
         return merge({}, state, action.response.entities.questions)

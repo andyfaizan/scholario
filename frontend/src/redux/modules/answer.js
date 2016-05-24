@@ -2,6 +2,7 @@ import { normalize, arrayOf } from 'normalizr'
 import { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
+import _ from 'lodash'
 import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
@@ -53,11 +54,12 @@ export function postAnswer(question, content) {
   }
 }
 
-export function deleteAnswer(aid) {
+export function deleteAnswer(aid, qid) {
   const endpoint = urlJoin(config.apiURL, 'answers', aid)
   return {
     types: [DELETE_ANSWER_REQUEST, DELETE_ANSWER_OK, DELETE_ANSWER_ERR],
     callAPI: () => request.del(endpoint),
+    payload: { aid, qid },
   }
 }
 
@@ -77,6 +79,11 @@ export function putAnswer(aid, content) {
 // ------------------------------------
 export function answerReducer(state={}, action) {
   switch (action.type) {
+    case DELETE_ANSWER_OK:
+      if (action && action.aid) {
+        return _.omit(state, action.aid)
+      }
+      return state
     default:
       if (action.response && action.response.entities && action.response.entities.answers) {
         return merge({}, state, action.response.entities.answers)

@@ -20,6 +20,7 @@ import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import { deleteAnswer } from '../../redux/modules/answer'
 
 
 type Props = {
@@ -73,6 +74,7 @@ export class Question extends React.Component {
           answerText={a.content}
           user={user}
           courseInstance={courseInstance}
+          onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
         />
       )
     }
