@@ -21,7 +21,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import { deleteAnswer } from '../../redux/modules/answer'
-import { deleteQuestion } from '../../redux/modules/question'
+import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
 
 
@@ -77,6 +77,8 @@ export class Question extends React.Component {
           user={user}
           courseInstance={courseInstance}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
+          onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
+          onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
         />
       )
     }

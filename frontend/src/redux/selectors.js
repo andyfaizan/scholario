@@ -26,12 +26,20 @@ export const getRequest = (state, type) => state.requests[type]
 
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
-  (user, universities) => universities[user.universities[0]]
+  (user, universities) => {
+    if (user && user.universities && user.universities.length > 0) return universities[user.universities[0]]
+    return {}
+  }
 )
 
 export const getUserProgram = createSelector(
   [getUser, getPrograms],
-  (user, programs) => programs[user.programs[0]]
+  (user, programs) => {
+    if (user && user.programs && user.programs.length > 0) {
+      return programs[user.programs[0]]
+    }
+    return {}
+  }
 )
 
 export const getCourseInstances = createSelector(
@@ -64,11 +72,16 @@ export const getCurCourseInstance = createSelector(
 
 export const getUserCourseInstances = createSelector(
   [getUser, getCourseInstances],
-  (user, courseInstances) => user.courseInstances.map((id) => {
-    var ci = Object.assign({}, courseInstances[id])
-    ci.following = true
-    return ci
-  })
+  (user, courseInstances) => {
+    if (user && user.courseInstances) {
+      return user.courseInstances.map((id) => {
+        var ci = Object.assign({}, courseInstances[id])
+        ci.following = true
+        return ci
+      })
+    }
+    return []
+  }
 )
 
 export const getRecommendedCourseInstances = createSelector(
@@ -161,12 +174,17 @@ export const getCurrentCourseInstanceMaterials = createSelector(
 
 export const getUserFollowings = createSelector(
   [getUser, getUsers, getUniversities, getPrograms],
-  (user, users, universities, programs) => user.followings.map((id) => {
-    var u = Object.assign({}, users[id])
-    u.university = universities[u.universities[0]]
-    u.program = programs[u.programs[0]]
-    return u
-  })
+  (user, users, universities, programs) => {
+    if (user && user.followings && user.followings.length > 0) {
+      return user.followings.map((id) => {
+        var u = Object.assign({}, users[id])
+        u.university = universities[u.universities[0]]
+        u.program = programs[u.programs[0]]
+        return u
+      })
+    }
+    return []
+  }
 )
 
 export const getUniversitiesWithPrograms = createSelector(
