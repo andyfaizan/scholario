@@ -90,11 +90,11 @@ export class NewAnswerComp extends React.Component {
       <div>
       	<Card>
           <CardHeader
-            title={"Stellen Sie die Antwort"}
+            title={"Antwort"}
           />
           <CardText style={textStyle}>
 			     <TextField
-				      floatingLabelText="In Antwort"
+				      floatingLabelText="Deine Antwort"
 				      multiLine={true}
 				      rows={2}
 				      fullWidth={true}
@@ -103,7 +103,7 @@ export class NewAnswerComp extends React.Component {
 				    />
           </CardText>
           <CardActions style={actionPadding}>
-            <FlatButton key='answerApprovingButton' label="Stellen Sie die Antwort" linkButton={true}
+            <FlatButton key='answerApprovingButton' label="Abschicken" linkButton={true}
                    hoverColor="#26A65B" />
           </CardActions>
         </Card>

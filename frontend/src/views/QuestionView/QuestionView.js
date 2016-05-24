@@ -98,7 +98,7 @@ export class Question extends React.Component {
       paddingLeft: 52
 
     }
-    var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
+    var actions = [<FlatButton key='questionAnsweringButton' label="Frage Beantworte" linkButton={true}
                     hoverColor="#26A65B"
                   />]
                   
