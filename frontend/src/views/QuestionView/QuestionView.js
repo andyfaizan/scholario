@@ -14,16 +14,18 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
-import NewAnswerComp from '../../components/NewAnswerComp/NewAnswerComp'
+import NewAnswerForm from '../../forms/NewAnswerForm/NewAnswerForm'
 import Card from 'material-ui/lib/card/card'
 import CardText from 'material-ui/lib/card/card-text'
 import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import { deleteAnswer } from '../../redux/modules/answer'
+import Snackbar from 'material-ui/lib/snackbar'
+import { postAnswer, deleteAnswer, putAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
+import Feedback from '../../containers/Feedback'
 
 
 type Props = {
@@ -35,8 +37,12 @@ export class Question extends React.Component {
 
   constructor (props) {
     super(props)
+    this.toggleNewAnswerForm = this.toggleNewAnswerForm.bind(this)
+    this.editAnswer = this.editAnswer.bind(this)
     this.state = {
       didGetCourseInstance: false,
+      showNewAnswerForm: false,
+      answerBeingEdited: null,
     }
   }
 
@@ -62,54 +68,81 @@ export class Question extends React.Component {
 
   }
 
+  toggleNewAnswerForm (e) {
+    this.setState({
+      showNewAnswerForm: this.state.showNewAnswerForm ? false : true,
+    })
+  }
+
+  editAnswer (answer) {
+    if (!this.state.showNewAnswerForm) {
+      this.setState({
+        showNewAnswerForm: true
+      })
+    }
+    this.setState({
+      answerBeingEdited: answer,
+    })
+  }
+
   render () {
     //question item const display
     const questionClickable = true
     const { courseInstance, question, user } = this.props
+    const postErrorType = 'ADD_QUESTION_ERR'
+    const postOkayType = 'ADD_QUESTION_OK'
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
 
     var answerEls = []
     if (question.answers && question.answers.length > 0) {
       answerEls = question.answers.map(a =>
         <AnswerItem
           key={a._id}
-          answer={a}
           personWhoAnswered={a.user}
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
           user={user}
           courseInstance={courseInstance}
-          question={question}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
+          onClickEditAnswer={(e) => this.editAnswer(a)}
         />
 
       )
     }
 
     const textStyle = {
-
       paddingLeft: 70,
       paddingRight: 70
-
     }
-
     const actionPadding = {
-        
       paddingLeft: 52
-
     }
-    var actions = [<FlatButton key='questionAnsweringButton' label="Frage Beantworte" linkButton={true}
-                    hoverColor="#26A65B"
+
+    var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
+                    onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B"
                   />]
-                  
+
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
                     hoverColor="#26A65B"/>)
       actions.push(<FlatButton key='questionDeletingButton' label="Frage löschen" linkButton={true}
                     onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B"/>)
     }
-    
+
+    var newAnswerForm
+    if (this.state.showNewAnswerForm) {
+      if (this.state.answerBeingEdited) {
+        newAnswerForm = <NewAnswerForm
+                         initialValues={this.state.answerBeingEdited}
+                         onSubmit={(data) => this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content))} />
+      } else {
+        newAnswerForm = <NewAnswerForm
+                         onSubmit={(data) => this.props.dispatch(postAnswer(question._id, data.content))} />
+      }
+    }
     return (
       <div>
       <div className={classes.dashboardRoot}>
@@ -150,7 +183,7 @@ export class Question extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
-                  <NewAnswerComp />
+                  {newAnswerForm}
                   <br/>
                   {answerEls}
 		      			</Col>
@@ -158,6 +191,9 @@ export class Question extends React.Component {
 		      	</Grid>
       <br/>
       </div>
+      <br/>
+      <Feedback errorType={postErrorType} okayType={postOkayType} />
+      <Feedback errorType={voteErrorType} okayType={voteOkayType} />
       <div className ={classes.footer} >
             <FooterLanding />
       </div>

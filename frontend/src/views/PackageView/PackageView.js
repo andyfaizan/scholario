@@ -17,7 +17,7 @@ import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-
+import Feedback from '../../containers/Feedback'
 
 type Props = {
   packageName: PropTypes.string,
@@ -58,6 +58,9 @@ export class Package extends React.Component {
 
   render () {
     const { pkg, courseInstance } = this.props
+    const errorType = 'POST_MATERIAL_ERR'
+    const okayType = 'POST_MATERIAL_OK'
+
     var materials = []
     var addMaterial;
 
@@ -108,6 +111,8 @@ export class Package extends React.Component {
         </Grid>
         <br/>
       </div>
+      <Feedback errorType={errorType} okayType={okayType} />
+      <br/>
        <div className={classes.footer}>
         <FooterLanding />
       </div>
