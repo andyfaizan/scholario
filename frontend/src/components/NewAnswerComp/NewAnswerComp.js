@@ -5,7 +5,7 @@ import CardHeader from 'material-ui/lib/card/card-header'
 import Avatar from 'material-ui/lib/avatar'
 import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
-
+import TextField from 'material-ui/lib/text-field'
 
 type Props = {
 
@@ -17,7 +17,6 @@ type Props = {
   onClickDelAnswer: PropTypes.func,
 
 };
-
 
 export class NewAnswerComp extends React.Component {
   props: Props;
@@ -76,6 +75,17 @@ export class NewAnswerComp extends React.Component {
                    hoverColor="#26A65B" />)
     }
 
+    const floatingLabel = {
+
+    	color:'#26A65B'
+    }
+
+    const underlineColor = {
+
+  		borderColor:'#446CB3'
+    }
+
+
     return (
       <div>
       	<Card>
@@ -90,6 +100,14 @@ export class NewAnswerComp extends React.Component {
           />
           <CardText style={textStyle}>
             {this.props.answerText}
+			     <TextField
+				      floatingLabelText="In Antwort"
+				      multiLine={true}
+				      rows={2}
+				      fullWidth={true}
+				      floatingLabelStyle={floatingLabel}
+				      underlineFocusStyle={underlineColor}
+				    />
           </CardText>
           <CardActions style={actionPadding}>
             {actions}

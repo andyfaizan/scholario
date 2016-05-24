@@ -106,7 +106,7 @@ export class Question extends React.Component {
       actions.push(<FlatButton key='questionDeletingButton' label="Frage löschen" linkButton={true}
                     onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B"/>)
     }
-
+    
     return (
       <div>
       <div className={classes.dashboardRoot}>
@@ -125,12 +125,14 @@ export class Question extends React.Component {
 		      			<Col xs={24} md={12}>
                   <Card>
                     <QuestionItem
+                      key ={question._id}
                       listItemClickable={questionClickable}
                       questionStatement={question.title}
                       datePosted={question.createDate}
                       questionUrl={`/question/${question._id}`}
                       currentLikes={question.votes ? question.votes.length : null}
                       onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
+                      postedBy={question.user ? question.user.lastname : '' }
                     />
                     <CardText style={textStyle}>
                       {question.description}
