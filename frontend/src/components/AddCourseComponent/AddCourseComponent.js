@@ -12,8 +12,6 @@ export class AddCourseComponent extends React.Component {
   props: Props;
 
 
-
-
   render () {
 
   	const addCourseCompStyle = {
