@@ -137,10 +137,14 @@ export class Question extends React.Component {
       if (this.state.answerBeingEdited) {
         newAnswerForm = <NewAnswerForm
                          initialValues={this.state.answerBeingEdited}
-                         onSubmit={(data) => this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content))} />
+                         onSubmit={(data) => {
+                           this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content)); this.toggleNewAnswerForm()
+                         }} />
       } else {
         newAnswerForm = <NewAnswerForm
-                         onSubmit={(data) => this.props.dispatch(postAnswer(question._id, data.content))} />
+                         onSubmit={(data) => {
+                           this.props.dispatch(postAnswer(question._id, data.content)); this.toggleNewAnswerForm()
+                         }} />
       }
     }
     return (
