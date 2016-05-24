@@ -25,7 +25,7 @@ export class AnswerItem extends React.Component {
   props: Props
 
   render () {
-    const { personWhoAnswered, user, courseInstance, question, answer,
+    const { personWhoAnswered, user, courseInstance, question, answer, onClickVoteAnswer,
       onClickDelAnswer, onClickEditAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
 
     var nameInitial = ''
@@ -87,24 +87,22 @@ export class AnswerItem extends React.Component {
                    onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
     }
 
-    var voting =<div> 
+    var voting =<div>
                   <div key="thumbs" className={classes.buttonThumbsUp}>
-                     <IconButton >
+                     <IconButton onTouchTap={onClickVoteAnswer}>
                      <ThumbsUp color="#26A65B" />
                      </IconButton>
                    </div>
                   <div key="avatar" className={classes.avatar}>
                     <Avatar size={25} color="#26A65B" backgroundColor="white">
-                    25
+                    {answer ? answer.votes.length : 0}
                     </Avatar>
                   </div>
                 </div>
 
     const childVars = [
-      
       nodeHeader,
       voting
-
     ]
 
     return (
