@@ -96,7 +96,6 @@ export class Package extends React.Component {
         </Grid>
         <br/>
       </div>
-      <br/>
        <div className={classes.footer}>
         <FooterLanding />
       </div>

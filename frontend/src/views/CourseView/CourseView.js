@@ -47,11 +47,10 @@ export class Course extends React.Component {
     const { courseInstance, profPkgs, studentPkgs } = this.props
     var profPkgEls = []
     var studentPkgEls
-    var addPkgComp 
+    var addPkgCompProf 
+    var addPkgStd
 
     if (profPkgs) {
-
-      addPkgComp = <AddPkgComponent />;
 
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
@@ -63,7 +62,10 @@ export class Course extends React.Component {
         />
       )
     }
+
     if (studentPkgs) {
+       
+
       studentPkgEls = studentPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
@@ -75,6 +77,18 @@ export class Course extends React.Component {
       )
     }
 
+    if( this.props.user.role == 'Student' ) {
+  
+        addPkgStd = <AddPkgComponent />
+
+    }else if (this.props.user.role == 'Prof' )
+    {
+      addPkgCompProf = <AddPkgComponent />;
+
+    }else
+    {
+      console.log('eroneous user role')
+    }
 
     return (
     <div>
@@ -99,7 +113,7 @@ export class Course extends React.Component {
                     Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
                   </h4></legend>
                   <br/>
-                {addPkgComp}
+                {addPkgCompProf}
                 {profPkgEls}
                 </fieldset>
                 <br/>
@@ -110,6 +124,7 @@ export class Course extends React.Component {
                     Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
                   </h4></legend>
                   <br/>
+                 {addPkgStd}
                 {studentPkgEls}
                 </fieldset>
               </div>
@@ -129,9 +144,8 @@ export class Course extends React.Component {
         <br/>
       <br/>
       </div>
-      <br/>
       <div className={classes.footer}>
-      <FooterLanding />
+        <FooterLanding />
       </div>
     </div>
     )
