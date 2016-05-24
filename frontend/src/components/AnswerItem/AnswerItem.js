@@ -57,7 +57,7 @@ export class AnswerItem extends React.Component {
       postion: 'relative',
       margin:'auto',
       marginTop: 0,
-      marginRight:10,
+      marginRight:0,
       float:'right'
     }
 
