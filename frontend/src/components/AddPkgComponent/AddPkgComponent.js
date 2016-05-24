@@ -11,9 +11,13 @@ import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './AddPkgComponent.scss'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import ModalRoot from '../../containers/ModalRoot'
+import {ADD_PACKAGE_MODAL as add_package} from '../../redux/modules/modal'
+
 
 type Props = {
-
+  modal: Object,
+  show: Function
 };
 
 export class AddPkgComponent extends React.Component {
@@ -168,12 +172,13 @@ export class AddPkgComponent extends React.Component {
 	          <Paper style={styleFive} zDepth={0}  />
 	          <Paper style={styleSix} zDepth={0}  />
 	          <Paper style={styleThree} zDepth={0}  />
-	          <Paper style={styleFour} zDepth={5} children={nodeFileClipper} />
+	          <Paper style={styleFour} zDepth={5} children={nodeFileClipper}
+             onTouchTap={this.props.show}/>
 	        </div>
+          {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_package} /> : null) : null}
       </div>
     )
   }
 }
 
 export default AddPkgComponent
-
