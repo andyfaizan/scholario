@@ -7,18 +7,22 @@ import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 
 type Props = {
-  personWhoAnswered: PropTypes.string,
+  personWhoAnswered: PropTypes.Object,
   dateAnswered: PropTypes.string,
   answerText: PropTypes.string,
+  user: PropTypes.Object,
+  courseInstance: PropTypes.Object,
 }
 
 export class AnswerItem extends React.Component {
   props: Props
 
   render () {
+    const { personWhoAnswered, user, courseInstance } = this.props
+
     var nameInitial = ''
-    if (this.props.personWhoAnswered)
-      nameInitial = this.props.personWhoAnswered[0]
+    if (personWhoAnswered)
+      nameInitial = personWhoAnswered.firstname[0]
 
     const textStyle = {
 
@@ -54,11 +58,22 @@ export class AnswerItem extends React.Component {
       <Avatar style={StudentVerify} backgroundColor="grey">S</Avatar>
     ]
 
+    var actions = []
+    if (user && personWhoAnswered && user._id === personWhoAnswered._id) {
+      actions.push(<FlatButton label="Antwort bearbeiten" linkButton={true}
+                   hoverColor="#26A65B" />)
+      actions.push(<FlatButton label="Antwort löschen" linkButton={true}
+                   hoverColor="#26A65B" />)
+    }
+    if (user && courseInstance && user.role === 'Prof' && user._id === courseInstance.prof._id) {
+      actions.push(<FlatButton label="überprüfen Antwort" linkButton={true}
+                   hoverColor="#26A65B" />)
+    }
     return (
       <div>
         <Card>
           <CardHeader
-            title={this.props.personWhoAnswered}
+            title={personWhoAnswered ? `${personWhoAnswered.firstname} ${personWhoAnswered.lastname}` : ''}
             subtitle={this.props.dateAnswered}
             actAsExpander={false}
             showExpandableButton={false}
@@ -67,20 +82,12 @@ export class AnswerItem extends React.Component {
             children={nodeHeader}
           />
             <CardText style={textStyle}>
-            	{this.props.answerText}
+              {this.props.answerText}
             </CardText>
           <CardActions style={actionPadding}>
-                      <FlatButton label="Antwort bearbeiten" linkButton={true}
-                      hoverColor="#26A65B" />
-                      <FlatButton label="Antwort löschen" linkButton={true}
-                      hoverColor="#26A65B" />
-                      <FlatButton label="überprüfen Antwort" linkButton={true}
-                      hoverColor="#26A65B" />
-                    </CardActions>
-          
-            
+            {actions}
+          </CardActions>
         </Card>
-        
       </div>
     )
   }
