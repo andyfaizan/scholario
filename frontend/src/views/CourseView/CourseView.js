@@ -18,6 +18,7 @@ import * as selectors from '../../redux/selectors'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
 
 
 type Props = {
@@ -47,7 +48,7 @@ export class Course extends React.Component {
     const { courseInstance, profPkgs, studentPkgs } = this.props
     var profPkgEls = []
     var studentPkgEls
-    var addPkgComp 
+    var addPkgComp
 
     if (profPkgs) {
 
@@ -129,6 +130,7 @@ export class Course extends React.Component {
         <br/>
       <br/>
       </div>
+      <Feedback errorType='ADD_PKG_ERR' okayType='ADD_PKG_OK' />
       <br/>
       <div className={classes.footer}>
       <FooterLanding />

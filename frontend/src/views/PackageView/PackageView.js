@@ -17,6 +17,9 @@ import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
+import Snackbar from 'material-ui/lib/snackbar'
+
 
 
 type Props = {
@@ -95,7 +98,14 @@ export class Package extends React.Component {
           </Row>
         </Grid>
         <br/>
+        <Snackbar
+            open={true}
+            message={"Random message"}
+            autoHideDuration={4000}
+          />
       </div>
+      <Feedback errorType='POST_MATERIAL_ERR' okayType='POST_MATERIAL_OK' />
+
       <br/>
        <div className={classes.footer}>
         <FooterLanding />

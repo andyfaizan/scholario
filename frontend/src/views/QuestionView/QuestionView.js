@@ -20,6 +20,7 @@ import CardActions from 'material-ui/lib/card/card-actions'
 import FlatButton from 'material-ui/lib/flat-button'
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Snackbar from 'material-ui/lib/snackbar'
 
 
 type Props = {
@@ -42,6 +43,8 @@ export class Question extends React.Component {
     //this.props.dispatch(getCourseInstance(cid))
     this.props.dispatch(setCurQuestion(qid))
     this.props.dispatch(getQuestion(qid))
+    this.refs.snack.open = true
+    console.log("Component did mount - ref = " + this.refs.snack)
   }
 
   componentWillReceiveProps (newProps) {
@@ -85,7 +88,7 @@ export class Question extends React.Component {
     }
 
     const actionPadding = {
-        
+
       paddingLeft: 52
 
     }
@@ -144,6 +147,12 @@ export class Question extends React.Component {
       <br/>
       </div>
       <br/>
+      <Snackbar
+          ref="snack"
+          open={true}
+          message={"Random message"}
+          autoHideDuration={4000}
+        />
       <div className ={classes.footer} >
             <FooterLanding />
       </div>
