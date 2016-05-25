@@ -18,6 +18,7 @@ type Props = {
   courseInstance: PropTypes.Object,
   onClickDelAnswer: PropTypes.func,
   onClickEditAnswer: PropTypes.func,
+  onClickVoteAnswer: PropTypes.func,
   question: PropTypes.Object,
 }
 
@@ -25,7 +26,7 @@ export class AnswerItem extends React.Component {
   props: Props
 
   render () {
-    const { personWhoAnswered, user, courseInstance, question, answer,
+    const { personWhoAnswered, user, courseInstance, question, answer, onClickVoteAnswer,
       onClickDelAnswer, onClickEditAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
 
     var nameInitial = ''
@@ -89,13 +90,13 @@ export class AnswerItem extends React.Component {
 
     var voting =<div> 
                   <div key="thumbs" className={classes.buttonThumbsUp}>
-                     <IconButton >
+                     <IconButton onTouchTap={onClickVoteAnswer}>
                      <ThumbsUp color="#26A65B" />
                      </IconButton>
                    </div>
                   <div key="avatar" className={classes.avatar}>
                     <Avatar size={25} color="#26A65B" backgroundColor="white">
-                    25
+                      {answer ? answer.votes.length : 0}
                     </Avatar>
                   </div>
                 </div>
