@@ -25,6 +25,7 @@ const ModalRoot = ({ modalType, location }) => {
   if (!modalType) {
     return <span /> // after React v15 you can return null here
   }
+  console.log(modalType)
 
   const SpecificModal = MODAL_COMPONENTS[modalType]
   return <SpecificModal location={location}/>
