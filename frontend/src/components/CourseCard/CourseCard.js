@@ -72,11 +72,11 @@ export class CourseCard extends React.Component {
 						<PageView color='white' />
 						</IconButton></div></div> ;
 
-	var heading = <div key="headingCourses" style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}><Badge
+	var heading = <div key="headingCourses" style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}>{/*<Badge
       badgeContent={10}
       secondary={true}
       badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      ></Badge></div></div>;
+      ></Badge>*/}</div></div>;
 	var container =<div key="containerCourse" className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6><h6>{this.props.courseTeacher}</h6></div> ;
 
 	const nodePaperCourse = [
