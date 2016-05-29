@@ -69,8 +69,8 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -118,8 +118,8 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
 
  var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -176,7 +176,7 @@ router.delete('/:qid', passport.authenticate('jwt', {session: false}), function 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -214,7 +214,7 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -303,7 +303,7 @@ router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), fun
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }

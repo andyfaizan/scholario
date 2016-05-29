@@ -21,8 +21,8 @@ router.get('/:aid/vote', passport.authenticate('jwt', {session: false}), functio
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -61,7 +61,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -100,7 +100,7 @@ router.delete('/:aid', passport.authenticate('jwt', {session: false}), function 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -135,7 +135,7 @@ router.put('/:aid', passport.authenticate('jwt', {session: false}), function (re
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }

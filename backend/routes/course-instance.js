@@ -26,8 +26,8 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -214,8 +214,8 @@ router.get('/:cid/questions', passport.authenticate('jwt', {session: false}), fu
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -277,7 +277,7 @@ router.get('/:cid/follow',
   var errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      'err': errors
+      err: errors
     });
   }
 
@@ -306,7 +306,7 @@ router.get('/:cid/unfollow', passport.authenticate('jwt', {session: false}), uti
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
@@ -336,8 +336,8 @@ router.get('/:cid/pkgs', passport.authenticate('jwt', {session: false}), functio
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 

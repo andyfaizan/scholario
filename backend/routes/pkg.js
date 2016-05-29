@@ -24,7 +24,7 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -153,14 +153,14 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
 router.post('/', passport.authenticate('jwt', {session: false}),
             multer({dest: 'uploads/tmp'}).array('material'),
             function (req, res) {
-  req.checkQuery('name', 'InvalidName').notEmpty().isAlphanumeric();
+  req.checkQuery('name', 'InvalidName').notEmpty().isAscii();
   req.checkQuery('courseInstance', 'InvalidCourseID').isMongoId();
   if (req.query.access) req.checkQuery('access', 'InvalidAccess').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 

@@ -172,7 +172,7 @@ router.post('/forgot-password', function (req, res) {
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
@@ -210,7 +210,7 @@ router.post('/reset-password', function (req, res) {
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
