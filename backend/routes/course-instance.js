@@ -144,7 +144,7 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
  */
 router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
   if (req.query.q) {
-    req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+    req.checkQuery('q', 'InvalidQuery').notEmpty();
   }
 
   if (req.query.program) {
@@ -414,11 +414,11 @@ router.get('/:cid/pkgs', passport.authenticate('jwt', {session: false}), functio
  */
 router.post('/', passport.authenticate('jwt', {session: false}),
             utils.hasPermission('Prof'), function (req, res) {
-  //req.checkBody('name', 'InvalidName').notEmpty().isAscii();
+  //req.checkBody('name', 'InvalidName').notEmpty();
   req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
   req.checkBody('semesterYear', 'InvalidSemesterYear').notEmpty().isInt({ min: 2010, max: 2020 });
   req.checkBody('semesterTerm', 'InvalidSemesterTerm').notEmpty().isIn(['WS', 'SS']);
-  if (req.body.description) req.checkBody('description', 'InvalidDescription').isAscii();
+  if (req.body.description) req.checkBody('description', 'InvalidDescription');
   if (typeof req.body.courseID === 'undefined' &&
       typeof req.body.courseName === 'undefined') {
     return res.status(400).json({
@@ -428,7 +428,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   if (typeof req.body.courseID !== 'undefined') {
     req.checkBody('courseID', 'InvalidCourse').isMongoId();
   } else if (typeof req.body.courseName != 'undefined') {
-    req.checkBody('courseName', 'InvalidCourse').isAscii();
+    req.checkBody('courseName', 'InvalidCourse');
   }
   if (typeof req.body.programID === 'undefined' &&
       typeof req.body.programName === 'undefined') {
@@ -439,7 +439,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   if (typeof req.body.programID != 'undefined') {
     req.checkBody('programID', 'InvalidProgram').isMongoId();
   } else if (typeof req.body.programName != 'undefined') {
-    req.checkBody('programName', 'InvalidProgram').isAscii();
+    req.checkBody('programName', 'InvalidProgram');
   }
 
   var errors = req.validationErrors();

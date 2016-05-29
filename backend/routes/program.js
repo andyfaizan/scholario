@@ -40,7 +40,7 @@ var router = express.Router();
  *
  */
 router.get('/', function (req, res) {
-  if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+  if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {

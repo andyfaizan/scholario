@@ -131,7 +131,7 @@ router.delete('/:aid', passport.authenticate('jwt', {session: false}), function 
 
 router.put('/:aid', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('aid', 'InvalidAnswerId').notEmpty().isMongoId();
-  if (req.body.content) req.checkBody('content', 'InvalidContent').notEmpty().isAscii();
+  if (req.body.content) req.checkBody('content', 'InvalidContent').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {

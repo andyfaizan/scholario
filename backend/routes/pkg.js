@@ -153,7 +153,7 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
 router.post('/', passport.authenticate('jwt', {session: false}),
             multer({dest: 'uploads/tmp'}).array('material'),
             function (req, res) {
-  req.checkQuery('name', 'InvalidName').notEmpty().isAscii();
+  req.checkQuery('name', 'InvalidName').notEmpty();
   req.checkQuery('courseInstance', 'InvalidCourseID').isMongoId();
   if (req.query.access) req.checkQuery('access', 'InvalidAccess').notEmpty();
 
