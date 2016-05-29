@@ -42,7 +42,7 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
           select: 'name',
         }, {
           path: 'program',
-          select: 'name university',
+          select: 'name university degree',
         }],
       }, {
         path: 'prof',
@@ -81,7 +81,7 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
           select: 'name',
         }, {
           path: 'programs',
-          select: 'name university',
+          select: 'name university degree',
         }]
       }])
       .limit(5)
@@ -191,7 +191,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
          select: 'name',
        }, {
          path: 'program',
-         select: 'name university',
+         select: 'name university degree',
        }]
       }])
       .lean(true)
@@ -352,7 +352,7 @@ router.get('/:cid/pkgs', passport.authenticate('jwt', {session: false}), functio
         select: 'name',
       }, {
         path: 'programs',
-        select: 'name university'
+        select: 'name university degree'
       }],
     }])
     .lean(true)

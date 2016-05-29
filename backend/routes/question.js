@@ -94,7 +94,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
           select: 'name',
         }, {
           path: 'programs',
-          select: 'name university',
+          select: 'name university degree',
         }]
       }])
       .sort({ createDate: -1 })
@@ -136,7 +136,7 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
             select: 'name',
           }, {
             path: 'programs',
-            select: 'name university',
+            select: 'name university degree',
           }],
         }, {
           path: 'answers',
@@ -149,7 +149,7 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
                     select: 'name',
                   }, {
                     path: 'programs',
-                    select: 'name university',
+                    select: 'name university degree',
                   }],
                 }
         }])

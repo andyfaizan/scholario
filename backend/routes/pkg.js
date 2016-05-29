@@ -41,7 +41,7 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
           select: 'name',
         }, {
           path: 'programs',
-          select: 'name university',
+          select: 'name university degree',
         }]
       }])
       .lean(true)
