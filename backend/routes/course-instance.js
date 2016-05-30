@@ -84,7 +84,7 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
           select: 'name university degree',
         }]
       }])
-      .limit(5)
+      //.limit(5)
       .lean(true)
       .exec();
 
