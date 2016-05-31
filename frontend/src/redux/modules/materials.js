@@ -50,7 +50,6 @@ export function getMaterial(mid) {
 export function postMaterial(pid, files) {
   var endpoint = urlJoin(config.apiURL, 'pkgs', pid, 'materials')
   var callP = request.post(endpoint)
-  console.dir(files)
   for (var i = 0; i < files.length; i++) {
     callP.attach('material', files[i])
   }
