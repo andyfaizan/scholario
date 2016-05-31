@@ -164,6 +164,11 @@ export class AddPkgComponent extends React.Component {
       heading
     ]
 
+    var addPkgModal
+    if (this.props.modal && this.props.modal.visible &&
+        this.props.modal.modalType === add_package) {
+      addPkgModal = <ModalRoot modalType={add_package} />
+    }
     return (
       <div>
 	        <div>
@@ -175,7 +180,7 @@ export class AddPkgComponent extends React.Component {
 	          <Paper style={styleFour} zDepth={5} children={nodeFileClipper}
              onTouchTap={this.props.show}/>
 	        </div>
-          {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_package} /> : null) : null}
+          {addPkgModal}
       </div>
     )
   }

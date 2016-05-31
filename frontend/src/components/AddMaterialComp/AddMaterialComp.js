@@ -115,6 +115,11 @@ export class AddMaterialComp extends React.Component {
       container
     ]
 
+    var addMaterialModal
+    if (this.props.modal && this.props.modal.visible &&
+        this.props.modal.modalType === add_material) {
+      addMaterialModal = <ModalRoot modalType={add_material} />
+    }
     return (
       <div>
         <div>
@@ -124,7 +129,7 @@ export class AddMaterialComp extends React.Component {
           <Paper style={styleThree} zDepth={0}  />
           <Paper style={styleFour} zDepth={5} />
         </div>
-        {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_material} /> : null) : null}
+        {addMaterialModal}
       </div>
     )
   }

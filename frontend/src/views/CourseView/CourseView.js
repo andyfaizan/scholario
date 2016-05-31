@@ -82,18 +82,13 @@ export class Course extends React.Component {
       )
     }
 
-    if( this.props.user.role == 'Student' ) {
-
-        addPkgStd = <AddPkgComponent modal={this.props.modal}
-          show={() => this.props.dispatch(show(add_package))}/>
-
-    }else if (this.props.user.role == 'Prof' )
-    {
+    if(this.props.user.role == 'Student') {
+      addPkgStd = <AddPkgComponent modal={this.props.modal}
+        show={() => this.props.dispatch(show(add_package))}/>
+    } else if (this.props.user.role == 'Prof' ) {
       addPkgCompProf = <AddPkgComponent modal={this.props.modal}
         show={() => this.props.dispatch(show(add_package))}/>
-
-    }else
-    {
+    } else {
       console.log('eroneous user role')
     }
 

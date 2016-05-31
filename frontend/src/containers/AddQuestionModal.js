@@ -30,7 +30,6 @@ export class AddQuestionModal extends React.Component {
   }
 
   create = () => {
-    console.log('Create question called')
     this.refs.myForm.submit()  // will return a promise
   }
 
@@ -147,7 +146,7 @@ export class AddQuestionModal extends React.Component {
             onSubmit={this.onAddQuestionSubmit}
             courseInstances={this.props.courseInstances}
             allPkgs={this.props.allPkgs}
-            defaultData={this.data}
+            initialValues={this.data}
             getObjects={this.getObjects}/>
         </Dialog>
       </div>
