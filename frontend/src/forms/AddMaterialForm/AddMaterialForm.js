@@ -1,11 +1,15 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
-import Dropzone from 'react-dropzone';
+import Dropzone from 'react-dropzone'
+import LinearProgress from 'material-ui/LinearProgress'
 
 export const fields = [ 'files' ]
 
 type Props = {
   fields: Object,
+  request: Object,
+  addMaterial: Function,
+  pkgId: String
 }
 export class AddMaterial extends React.Component {
   props: Props;
@@ -22,7 +26,7 @@ export class AddMaterial extends React.Component {
       padding: 30,
       transition: 'all 0.5s',
       borderRadius: 5,
-      borderColor: 'black',
+      borderColor: '#27ae60',
       borderStyle: 'dashed',
       borderWidth: 2
     }
@@ -31,9 +35,10 @@ export class AddMaterial extends React.Component {
       margin: 30,
       padding: 30,
       borderRadius: 8,
-      borderColor: 'black',
+      borderColor: '#27ae60',
       borderStyle: 'solid',
-      borderWidth: 2
+      borderWidth: 2,
+      backgroundColor: '#eeeeee'
     }
 
 
@@ -44,12 +49,18 @@ export class AddMaterial extends React.Component {
           <div>
             <Dropzone
               { ...files } style={dropStyle} activeStyle={activeStyle}
-              onDrop={ ( filesToUpload, e ) => files.onChange(filesToUpload) }
+              onDrop={
+                ( filesToUpload, e ) => {
+                  files.onChange(filesToUpload)
+                  this.props.addMaterial(this.props.pkgId, files)
+                }
+              }
               accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt">
               <div style={{'text-align': 'center'}}>
                 Zieh deine Datein hier hin, oder clicke zum Durchsuchen
               </div>
             </Dropzone>
+            {this.props.request ? <LinearProgress mode="indeterminate" />: null}
           </div>
         </div>
       </div>
