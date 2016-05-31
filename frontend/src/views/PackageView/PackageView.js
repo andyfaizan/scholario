@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
+import Bookmarks from '../../components/Bookmarks/Bookmarks'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import AddMaterialComp from '../../components/AddMaterialComp/AddMaterialComp'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
@@ -111,6 +112,9 @@ export class Package extends React.Component {
                 location={this.props.location}
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
               />
+              <br/>
+              <br/>
+              <Bookmarks />
             </Col>
           </Row>
         </Grid>

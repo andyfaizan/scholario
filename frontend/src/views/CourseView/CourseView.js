@@ -140,6 +140,8 @@ export class Course extends React.Component {
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
                 onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
               />
+
+              <br/>
             </Col>
           </Row>
         </Grid>
