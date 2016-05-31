@@ -14,7 +14,6 @@ const validate = (values) => {
     errors.password = 'Mindestens 8 zeichnen'
   }
 
-  console.log(errors)
   return errors
 }
 

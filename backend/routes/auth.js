@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const co = require('co');
+
+const utils = require('../utils');
 const config = require('../config/config');
 const logger = require('../logger');
 const User = mongoose.model('User');
@@ -173,14 +175,14 @@ router.post('/forgot-password', function (req, res) {
   var errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      'err': errors
+      err: errors
     });
   }
 
   User.findOne({ 'email': req.body.email }).then(function (user) {
     if (!user) {
       return res.json({
-        err: [{'msg': 'Email is wrong.'}],
+        err: [{ msg: 'Email is wrong.'}],
       });
     }
 
@@ -195,48 +197,47 @@ router.post('/forgot-password', function (req, res) {
       subject: 'Restart password',
       text: verificationURL,
     };
-    /*mailer.transporter.sendMail(mailOpts).catch(function (err) {*/
-      //console.log(err);
-    /*});*/
-    logger.debug(verificationURL);
+
+    if (utils.getEnv() === 'production') {
+      mailer.transporter.sendMail(mailOpts).catch(function (err) {
+        logger.error(err);
+      });
+    } else if (utils.getEnv() === 'development') {
+      logger.debug(verificationURL);
+    }
 
     return user.save();
   });
 });
 
-router.post('/reset-password', function (req, res) {
-  req.checkBody('code', 'Invalid code').isLength({min: 48, max: 48});
+router.post('/reset-password/:code', function (req, res) {
+  req.checkParams('code', 'Invalid code').isLength({min: 96, max: 96});
   req.checkBody('password', 'Invalid password').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      'err': errors
-    });
-  }
-
-  if (!req.body.code) {
-    return res.json({
-      err: 'Verification code was not provided.',
+      err: errors
     });
   }
 
   User.findOne({ verificationCode: req.params.code }).then(function (user) {
     var timeDiff = moment.duration(moment().diff(moment(user.vcCreated))).asHours();
     if (!user || user.verified || timeDiff > 24) {
-      return res.json({
-        err: 'Code is not valid.',
+      return res.status(400).json({
+        err: [{ msg: 'Code is not valid.' }],
       });
     }
     user.verificationCode = '';
     user.updatePassword(req.body.password).then(function () {
       user.save();
-      return res.json({
+      return res.status(200).json({
         err: '',
       });
     }).catch(function (err) {
-      return res.json({
-        err: err.message,
+      logger.error(err);
+      return res.status(500).json({
+        err: [{ msg: 'InternalError' }],
       });
     });;
   });
