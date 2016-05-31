@@ -21,7 +21,6 @@ export class SnackbarWrapper extends React.Component {
   }
 
   render () {
-    console.dir(this.props)
     return (
       <div>
       <Snackbar
