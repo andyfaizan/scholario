@@ -1,10 +1,8 @@
 import React from 'react'
 import classes from './ForgotPassword.scss'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardHeader from 'material-ui/lib/card/card-header'
-import Divider from 'material-ui/lib/divider'
-import TextField from 'material-ui/lib/text-field'
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
+import Divider from 'material-ui/Divider'
+import TextField from 'material-ui/TextField'
 
 type Props = {
 
@@ -27,7 +25,7 @@ export class ForgotPassword extends React.Component {
 
       borderColor:'#446CB3'
     }
-    
+
     return (
       <div className={classes.rootForgotPass}>
         <div className={classes.forgotPassword}>
