@@ -15,13 +15,13 @@ import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import NewAnswerForm from '../../forms/NewAnswerForm/NewAnswerForm'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import Snackbar from 'material-ui/lib/snackbar'
+import Snackbar from 'material-ui/Snackbar';
 import { postAnswer, deleteAnswer, putAnswer, voteAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'

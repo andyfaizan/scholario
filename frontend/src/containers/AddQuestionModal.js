@@ -5,9 +5,9 @@ import {submit} from 'redux-form'
 import {hide} from '../redux/modules/modal'
 import {addQuestion} from '../redux/modules/question'
 import {ADD_QUESTION_MODAL as add_question} from '../redux/modules/modal'
-import Dialog from 'material-ui/lib/dialog'
-import FlatButton from 'material-ui/lib/flat-button'
-import RaisedButton from 'material-ui/lib/raised-button'
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import AddQuestionForm from '../forms/AddQuestionForm/AddQuestionForm'
 import * as selectors from '../redux/selectors'
 

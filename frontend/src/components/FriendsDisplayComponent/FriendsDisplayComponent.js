@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
-import Paper from 'material-ui/lib/paper'
-import Delete from 'material-ui/lib/svg-icons/action/delete'
-import Friend from 'material-ui/lib/svg-icons/social/person'
-import PageView from 'material-ui/lib/svg-icons/action/pageview'
-import IconButton from 'material-ui/lib/icon-button'
-import Divider from 'material-ui/lib/divider'
+import Paper from 'material-ui/Paper';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Friend from 'material-ui/svg-icons/social/person';
+import PageView from 'material-ui/svg-icons/action/pageview';
+import IconButton from 'material-ui/IconButton';
+import Divider from 'material-ui/Divider';
 
 type Props = {
 

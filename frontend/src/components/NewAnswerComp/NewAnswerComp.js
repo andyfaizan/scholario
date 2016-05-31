@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardHeader from 'material-ui/lib/card/card-header'
-import Avatar from 'material-ui/lib/avatar'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
-import TextField from 'material-ui/lib/text-field'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardHeader from 'material-ui/Card/CardHeader';
+import Avatar from 'material-ui/Avatar';
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 type Props = {
 

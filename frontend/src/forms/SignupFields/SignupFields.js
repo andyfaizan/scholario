@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react'
-import TextField from 'material-ui/lib/text-field'
+import TextField from 'material-ui/TextField';
 import classes from './SignupFields.scss'
-import RaisedButton from 'material-ui/lib/raised-button'
-import Checkbox from 'material-ui/lib/checkbox'
+import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import SelectField from 'material-ui/lib/select-field'
-import MenuItem from 'material-ui/lib/menus/menu-item'
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import { reduxForm } from 'redux-form'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 

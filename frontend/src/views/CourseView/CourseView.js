@@ -16,8 +16,8 @@ import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import { show, ADD_PACKAGE_MODAL as add_package } from '../../redux/modules/modal'
 import * as selectors from '../../redux/selectors'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import AddCircle from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/lib/text-field'
+import TextField from 'material-ui/TextField';
 import classes from './AddPackageForm.scss'
-import MenuItem from 'material-ui/lib/menus/menu-item'
+import MenuItem from 'material-ui/MenuItem';
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import { load } from '../../redux/modules/AddPkg'
 // Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04

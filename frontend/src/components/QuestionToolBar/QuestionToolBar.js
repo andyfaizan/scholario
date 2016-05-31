@@ -1,11 +1,11 @@
 import React from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardTitle from 'material-ui/lib/card/card-title'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardTitle from 'material-ui/Card/CardTitle';
+import AddCircle from 'material-ui/svg-icons/content/add';
 import classes from './QuestionToolBar.scss'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
 
 type Props = {
 

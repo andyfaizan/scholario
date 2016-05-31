@@ -1,10 +1,10 @@
 import React, { PropTypes }  from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import AutoComplete from 'material-ui/lib/auto-complete'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import AutoComplete from 'material-ui/AutoComplete';
 import classes from './DashboardTitleComponent.scss'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import AddCircle from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ModalRoot from '../../containers/ModalRoot'
 
 export class DashboardTitleComponent extends React.Component {

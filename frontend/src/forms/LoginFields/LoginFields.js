@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import TextField from 'material-ui/lib/text-field'
+import TextField from 'material-ui/TextField';
 import classes from './LoginFields.scss'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'

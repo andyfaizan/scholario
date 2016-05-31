@@ -265,6 +265,12 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
 
   co(function *() {
     var pkg = yield Pkg.findOne({ _id: req.params.pid }).populate('courseInstance').exec();
+    if (pkg.owner.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+
     var pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
 
     if (!req.files || req.files.length === 0)

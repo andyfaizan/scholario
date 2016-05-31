@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardHeader from 'material-ui/lib/card/card-header'
-import Avatar from 'material-ui/lib/avatar'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
-import ThumbsUp from 'material-ui/lib/svg-icons/action/thumb-up'
-import IconButton from 'material-ui/lib/icon-button'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardHeader from 'material-ui/Card/CardHeader';
+import Avatar from 'material-ui/Avatar';
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
+import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
+import IconButton from 'material-ui/IconButton';
 import classes from './AnswerItem.scss'
 
 type Props = {

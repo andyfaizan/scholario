@@ -1,7 +1,7 @@
-import Colors from 'material-ui/lib/styles/colors'
-import ColorManipulator from 'material-ui/lib/utils/color-manipulator'
-import Spacing from 'material-ui/lib/styles/spacing'
-import zIndex from 'material-ui/lib/styles/zIndex'
+import Colors from 'material-ui/styles/colors';
+import ColorManipulator from 'material-ui/utils/colorManipulator';
+import Spacing from 'material-ui/styles/spacing';
+import zIndex from 'material-ui/styles/zIndex';
 
 export default {
   spacing: Spacing,
@@ -18,11 +18,11 @@ export default {
     alternateTextColor:  "#1690DB",
     canvasColor:  "#1690DB",
     borderColor:  "#ffffff",
-    disabledColor: ColorManipulator.fade( "#1690DB", 0.3),
+    //disabledColor: ColorManipulator.fade( "#1690DB", 0.3),
     pickerHeaderColor:  "#1690DB",
   },
   card: {
-      titleColor: ColorManipulator.fade( "#ffffff", 0.8),
+      //titleColor: ColorManipulator.fade( "#ffffff", 0.8),
       subtitleColor:"#000000"
   }
 };
