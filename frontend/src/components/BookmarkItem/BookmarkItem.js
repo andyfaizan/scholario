@@ -27,9 +27,17 @@ export class BookmarkItem extends React.Component {
       opacity: 0.2
     }; 
 
+    const border = {
+      
+      color:'#26A65B'
+
+    };
+
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}</div>
+    const secondaryText = <div className={styleSecondaryText}> 
+                              {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}
+                          </div>
 
     return (
       <div>
