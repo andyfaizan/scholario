@@ -11,6 +11,7 @@ import ActionHome from 'material-ui/lib/svg-icons/action/home'
 import Avatar from 'material-ui/lib/avatar'
 import classes from './TeacherProfileBar.scss'
 import TextField from 'material-ui/lib/text-field'
+import ChangePasswordForm from '../../forms/ChangePasswordForm/ChangePasswordForm'
 
 type Props = {
 
@@ -97,14 +98,9 @@ export class TeacherProfileBar extends React.Component {
           <Divider />
           <CardText expandable={true}>
             {/*shortInformation*/}
-            <div >
-              <TextField
-              floatingLabelText="Neue Passwort"  
-              floatingLabelStyle={floatingLabel} 
-              underlineFocusStyle={underlineColor}
-              />
-              <FlatButton label="Veränderung" linkButton={true} hoverColor="#26A65B" />
-            </div>
+            <ChangePasswordForm
+              onSubmit={this.props.onChangePassword}
+            />
           </CardText>
           <CardActions  expandable={true} >
           {/*
