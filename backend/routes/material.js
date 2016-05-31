@@ -27,7 +27,7 @@ router.get('/:mid', passport.authenticate('jwt', {session: false}), function (re
   co(function *() {
     var material = yield Material
       .findOne({ _id: req.params.mid })
-      .select('name ext size pkg createDate')
+      .select('name ext mimetype size pkg createDate')
       .populate([{
         path: 'pkg',
         select: 'name owner courseInstance createDate',
