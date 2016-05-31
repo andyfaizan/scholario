@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectField from 'material-ui/lib/select-field'
+import SelectField from 'material-ui/SelectField';
 
 class SelectFieldWrapper extends React.Component{
   onChange(evt, index, value) {

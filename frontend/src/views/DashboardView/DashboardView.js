@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import ThemeManager from 'material-ui/styles/themeManager';
 import * as selectors from '../../redux/selectors'
 import { getUser } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse,

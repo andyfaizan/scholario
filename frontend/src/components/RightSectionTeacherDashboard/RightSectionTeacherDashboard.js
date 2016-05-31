@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import List from 'material-ui/lib/lists/list'
-import ListItem from 'material-ui/lib/lists/list-item'
-import Divider from 'material-ui/lib/divider'
-import AddBox from 'material-ui/lib/svg-icons/content/add-box'
-import ViewList from 'material-ui/lib/svg-icons/action/view-list'
-import IconButton from 'material-ui/lib/icon-button'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import List from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
+import Divider from 'material-ui/Divider';
+import AddBox from 'material-ui/svg-icons/content/add-box';
+import ViewList from 'material-ui/svg-icons/action/view-list';
+import IconButton from 'material-ui/IconButton';
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
-import Subheader from 'material-ui/lib/Subheader'
+import Subheader from 'material-ui/Subheader';
 import ModalRoot from '../../containers/ModalRoot'
 import {ADD_QUESTION_MODAL as add_question} from '../../redux/modules/modal'
 import { Router, Route, Link } from 'react-router'

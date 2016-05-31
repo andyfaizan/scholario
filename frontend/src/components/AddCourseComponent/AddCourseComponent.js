@@ -1,9 +1,9 @@
 import React from 'react'
-import Paper from 'material-ui/lib/paper'
-import IconButton from 'material-ui/lib/icon-button'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import AddCircle from 'material-ui/svg-icons/content/add';
 import ModalRoot from '../../containers/ModalRoot'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 type Props = {
     openModal: PropTypes.func,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/lib/text-field'
-import FlatButton from 'material-ui/lib/flat-button'
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 export const fields = ['password']
 

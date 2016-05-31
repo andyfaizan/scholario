@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
-import Paper from 'material-ui/lib/paper'
-import Divider from 'material-ui/lib/divider'
-import FontIcon from 'material-ui/lib/font-icon'
-import IconButton from 'material-ui/lib/icon-button'
-import Delete from 'material-ui/lib/svg-icons/action/delete'
-import PageView from 'material-ui/lib/svg-icons/action/pageview'
-import FlatButton from 'material-ui/lib/flat-button'
-import Badge from 'material-ui/lib/badge'
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import Delete from 'material-ui/svg-icons/action/delete';
+import PageView from 'material-ui/svg-icons/action/pageview';
+import FlatButton from 'material-ui/FlatButton';
+import Badge from 'material-ui/Badge';
 import { Router, Route, Link } from 'react-router'
-import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import classes from './AddPkgComponent.scss'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import AddCircle from 'material-ui/svg-icons/content/add';
 import ModalRoot from '../../containers/ModalRoot'
 import {ADD_PACKAGE_MODAL as add_package} from '../../redux/modules/modal'
 
