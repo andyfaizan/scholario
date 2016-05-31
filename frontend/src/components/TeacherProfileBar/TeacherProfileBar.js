@@ -29,7 +29,7 @@ export class TeacherProfileBar extends React.Component {
   static propTypes = {
       firstNameUser: PropTypes.string.isRequired,
       lastNameUser: PropTypes.string.isRequired,
-      bio: PropTypes.string.isRequired,
+      bio: PropTypes.string,
       universityName: PropTypes.string.isRequired,
       programeName: PropTypes.string.isRequired,
       imageUrl: PropTypes.string,
