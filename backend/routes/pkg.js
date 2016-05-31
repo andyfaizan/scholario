@@ -14,6 +14,7 @@ const utils = require('../utils');
 const User = mongoose.model('User');
 const CourseInstance = mongoose.model('CourseInstance');
 const Material = mongoose.model('Material');
+const Bookmark = mongoose.model('Bookmark');
 const Pkg = mongoose.model('Pkg');
 
 var router = express.Router();
@@ -68,7 +69,14 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
       });
     }
 
+    var bookmarks = yield Bookmark
+      .find({ pkg: req.params.pid })
+      .select('title url createDate pkg')
+      .lean(true)
+      .exec();
+
     pkg.materials = materials
+    pkg.bookmarks = bookmarks
     return res.json(pkg);
   });
 /*  Pkg.findOne({ _id: req.params.pid }).then(function (pkg) {*/
@@ -294,6 +302,47 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
       });
     });
 
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
+router.post('/:pid/bookmarks', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('pid', 'InvalidPackageId').notEmpty().isMongoId();
+  req.checkBody('title', 'InvalidTitle').notEmpty();
+  req.checkBody('url', 'InvalidUrl').notEmpty().isURL();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  co(function *() {
+    var pkg = yield Pkg.findOne({ _id: req.params.pid });
+    if (!pkg) {
+      return res.status(404).json({
+        err: [{ msg: 'PkgNotFound' }],
+      });
+    }
+
+    var bookmark = Bookmark({
+      title: req.body.title,
+      url: req.body.url,
+      pkg: pkg,
+    });
+    bookmark = yield bookmark.save();
+    return res.status(201).json({
+      _id: bookmark._id,
+      title: bookmark.title,
+      url: bookmark.url,
+      pkg: bookmark.pkg,
+      createDate: bookmark.createDate,
+    });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
