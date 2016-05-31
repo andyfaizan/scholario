@@ -11,6 +11,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const MaterialSchema = new Schema({
   name: { type: String, required: true, default: '' },
   ext: { type: String, default: '' },
+  mimetype: { type: String, default: '' },
   size: { type: Number, default: 0 },
   pkg: { type: ObjectId, ref: 'Pkg' },
   createDate: { type: Date, default: Date.now },

@@ -56,7 +56,7 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
 
     var materials = yield Material
       .find({ pkg: req.params.pid })
-      .select('name ext size pkg createDate')
+      .select('name ext mimetype size pkg createDate')
       .lean(true)
       .exec();
 
@@ -211,6 +211,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
       var material = new Material({
         name: parsed.name,
         ext: parsed.ext,
+        mimetype: parsed.mimetype,
         size: f.size,
         pkg: pkg._id,
       }).save((err, material, numAffected) => {
@@ -276,6 +277,7 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
       var material = new Material({
         name: parsed.name,
         ext: parsed.ext,
+        mimetype: parsed.mimetype,
         size: f.size,
         pkg: req.params.pid,
       }).save((err, material, numAffected) => {
