@@ -10,6 +10,7 @@ import FontIcon from 'material-ui/lib/font-icon'
 import ActionHome from 'material-ui/lib/svg-icons/action/home'
 import Avatar from 'material-ui/lib/avatar'
 import classes from './TeacherProfileBar.scss'
+import TextField from 'material-ui/lib/text-field'
 
 type Props = {
 
@@ -71,6 +72,16 @@ export class TeacherProfileBar extends React.Component {
     if (this.props.firstNameUser)
       nameInitial = this.props.firstNameUser[0]
 
+    const floatingLabel = {
+
+      color:'#26A65B'
+    }
+
+    const underlineColor = {
+
+      borderColor:'#446CB3'
+    }
+
     return (
       <div>
         <Card>
@@ -87,6 +98,11 @@ export class TeacherProfileBar extends React.Component {
           <CardText expandable={true}>
             {/*shortInformation*/}
             <div >
+              <TextField
+              floatingLabelText="Neue Passwort"  
+              floatingLabelStyle={floatingLabel} 
+              underlineFocusStyle={underlineColor}
+              />
               <FlatButton label="Veränderung" linkButton={true} hoverColor="#26A65B" />
             </div>
           </CardText>
