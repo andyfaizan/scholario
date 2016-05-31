@@ -87,7 +87,6 @@ const getFileType = (extension) => {
 }
 
 const getFrame = (material) => {
-  console.dir(material)
   var fileType = getFileType(material.ext)
   if(fileType === 'image'){
     return <img src={material.url} style={mediaStyle}/>

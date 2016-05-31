@@ -112,4 +112,43 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
   });
 });
 
+router.put('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+  if (req.body.firstname) req.checkBody('firstname', 'InvalidFirstname').notEmpty();
+  if (req.body.lastname) req.checkBody('lastname', 'InvalidLastname').notEmpty();
+  if (req.body.password) req.checkBody('password', 'InvalidPassword').notEmpty();
+  if (req.body.bio) req.checkBody('bio', 'InvalidBio').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  co(function *() {
+    var user = yield User.findOne({ _id: req.user._id });
+
+    if (req.body.firstname) user.firstname = req.body.firstname;
+    if (req.body.lastname) user.lastname = req.body.lastname;
+    if (req.body.bio) user.bio = req.body.bio;
+    if (req.body.password) {
+      yield user.updatePassword(req.body.password);
+    }
+
+    user = yield user.save();
+    return res.status(201).json({
+      _id: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      bio: user.bio,
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
+
 module.exports = router;

@@ -28,6 +28,10 @@ export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST'
 export const CREATE_USER_OK = 'CREATE_USER_OK'
 export const CREATE_USER_ERR = 'CREATE_USER_ERR'
 
+export const PUT_USER_REQUEST = 'PUT_USER_REQUEST'
+export const PUT_USER_OK = 'PUT_USER_OK'
+export const PUT_USER_ERR = 'PUT_USER_ERR'
+
 export const LOGOUT = 'LOGOUT'
 export const LOGOUT_OK = 'LOGOUT_OK'
 
@@ -95,6 +99,22 @@ export function getUser() {
     schema: userSchema,
   }
 }
+
+export function putUser(firstname = '', lastname = '', bio = '', password = '') {
+  const endpoint = urlJoin(config.apiURL, 'user')
+  var data = {}
+  if (firstname) data.firstname = firstname
+  if (lastname) data.lastname = lastname
+  if (bio) data.bio = bio
+  if (password) data.password = password
+
+  return {
+    types: [PUT_USER_REQUEST, PUT_USER_OK, PUT_USER_ERR],
+    callAPI: () => request.put(endpoint).send(data),
+    schema: userSchema,
+  }
+}
+
 export function createUserRequest() {
   return {
     type: CREATE_USER_REQUEST,
