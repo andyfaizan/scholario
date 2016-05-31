@@ -58,7 +58,7 @@ export class Package extends React.Component {
   }
 
   render () {
-    const { pkg, courseInstance } = this.props
+    const { user, pkg, courseInstance } = this.props
     const errorType = 'POST_MATERIAL_ERR'
     const okayType = 'POST_MATERIAL_OK'
     const questionOkayType = 'ADD_QUESTION_OK'
@@ -67,7 +67,9 @@ export class Package extends React.Component {
     var materials = []
     var addMaterial;
 
-    addMaterial = <AddMaterialComp modal={this.props.modal} show={() => this.props.dispatch(show(add_material))} />
+    if (user && pkg && pkg.owner && pkg.owner._id === user._id) {
+      addMaterial = <AddMaterialComp modal={this.props.modal} show={() => this.props.dispatch(show(add_material))} />
+    }
 
     if (pkg.materials) {
       materials = pkg.materials.map(material =>
@@ -126,6 +128,7 @@ export class Package extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    user: selectors.getUser(state),
     userMetadata: selectors.getUserMetadata(state),
     pkg: selectors.getCurPkg(state),
     recentQuestions: selectors.getCurQuestionsFactory('pkg', 'date')(state),
