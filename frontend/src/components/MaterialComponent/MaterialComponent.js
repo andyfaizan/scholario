@@ -22,7 +22,7 @@ type Props = {
   pkgUrl: PropTypes.string
 };
 export class MaterialComponent extends React.Component {
-   
+
   props: Props
 
   render () {
@@ -156,19 +156,19 @@ export class MaterialComponent extends React.Component {
                     {<h5>{this.props.dateUploaded}</h5>}
                   </div>
 
-    var container = <div>
-                    <div key="IndependentPackage" className={classes.container}> 
+    var container = <div key="IndependentPackage">
+                    <div className={classes.container}>
                       {this.props.keywords}
                     </div>
-                    <div key="downloadKey" className={classes.downloadMaterial}>
+                    <div className={classes.downloadMaterial}>
                        <IconButton tooltip="Download-Paket">
                         <FileDownload color="White"/>
                       </IconButton>
                     </div>
                     </div>
 
-       var containerOld = <div>
-                    <div key="IndependentPackage" className={classes.container}> 
+       var containerOld = <div key="IndependentPackage">
+                    <div className={classes.container}>
                       <h5>{this.props.keywords}</h5>
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
@@ -205,7 +205,7 @@ export class MaterialComponent extends React.Component {
 
       heading
     ]
-  
+
     return (
 	    <Link to={this.props.pkgUrl}>
 	        <div>
@@ -222,4 +222,3 @@ export class MaterialComponent extends React.Component {
 }
 
 export default MaterialComponent
-
