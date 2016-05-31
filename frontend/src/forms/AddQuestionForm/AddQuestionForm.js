@@ -19,7 +19,7 @@ export class AddQuestion extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(load(this.props.defaultData))
+    //this.props.dispatch(load(this.props.defaultData))
   }
 
   render() {
@@ -137,15 +137,14 @@ export class AddQuestion extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    initialValues: ownProps.defaultData // will pull state into form's initialValues
+    //initialValues: ownProps.defaultData // will pull state into form's initialValues
   }
 }
 
-AddQuestion = reduxForm({
+export default reduxForm({
   form: 'AddQuestion',
   fields
 },
 mapStateToProps
 )
 (AddQuestion)
-export default AddQuestion

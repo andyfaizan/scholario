@@ -51,6 +51,11 @@ export class RightSectionTeacherDashboard extends React.Component {
     const askQuestion = "Eine Frage stellen"
     const { linkToQuestionsList } = this.props
 
+    var addQuestionModal
+    if (this.props.modal && this.props.modal.visible &&
+        this.props.modal.modalType === add_question) {
+      addQuestionModal = <ModalRoot modalType={add_question} location={this.props.location} />
+    }
     return (
       <div>
         <Card style={border}>
@@ -62,7 +67,7 @@ export class RightSectionTeacherDashboard extends React.Component {
                 </IconButton>
                 <IconButton tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>
                   <AddBox color='#26A65B' />
-                  {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_question} location={this.props.location} /> : null) : null}
+                  {addQuestionModal}
                 </IconButton>
                 Wichtigste Fragen
               </Subheader>
