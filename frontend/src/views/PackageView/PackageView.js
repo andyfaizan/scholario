@@ -18,6 +18,7 @@ import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
+import { show, ADD_MATERIAL_MODAL as add_material } from '../../redux/modules/modal'
 
 type Props = {
   packageName: PropTypes.string,
@@ -66,10 +67,9 @@ export class Package extends React.Component {
     var materials = []
     var addMaterial;
 
+    addMaterial = <AddMaterialComp modal={this.props.modal} show={() => this.props.dispatch(show(add_material))} />
+
     if (pkg.materials) {
-
-      addMaterial = <AddMaterialComp />
-
       materials = pkg.materials.map(material =>
         <IndependentPackage
           key={material._id} materialTitle={material.name} materialNotifications={10}
@@ -131,6 +131,7 @@ const mapStateToProps = (state, ownProps) => {
     recentQuestions: selectors.getCurQuestionsFactory('pkg', 'date')(state),
     popularQuestions: selectors.getCurQuestionsFactory('pkg', 'vote')(state),
     courseInstance: selectors.getCurCourseInstance(state),
+    modal: state.modal,
   }
 }
 

@@ -27,7 +27,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
                         select: 'id name',
                       }, {
                         path: 'programs',
-                        select: 'id name university',
+                        select: 'id name university degree',
                       }]);
 
     if (!user) {
@@ -46,7 +46,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
           select: 'id name',
         }, {
           path: 'program',
-          select: 'id name university',
+          select: 'id name university degree',
         }],
       }, {
         path: 'prof',
@@ -56,7 +56,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
           select: 'name',
         }, {
           path: 'programs',
-          select: 'name university',
+          select: 'name university degree',
         }],
       }],
       lean: true,
@@ -76,7 +76,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
     var followings = yield user.getFollowings({
       populate: [{
         path: 'program',
-        select: 'id name university',
+        select: 'id name university degree',
       }, {
         path: 'university',
         select: 'id name',

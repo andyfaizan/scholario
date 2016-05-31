@@ -135,11 +135,11 @@ export class IndependentPackage extends React.Component {
                     </div>
 
     var notifications = <div key="notifications" className={classes.badge}>
-                          <Badge
+                          {/*<Badge
                             badgeContent={10}
                             secondary={true}
                             badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-                          />
+                          />*/}
                         </div>
 
     var download =  <div key="downloadKey" className={classes.downloadPkg}>
@@ -147,7 +147,7 @@ export class IndependentPackage extends React.Component {
                     </div>
 
     const nodePaperCourse = [
-      notifications,
+      //notifications,
       heading,
       download
     ]

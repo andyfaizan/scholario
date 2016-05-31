@@ -67,7 +67,7 @@ router.post('/login', function (req, res) {
                       select: 'id name',
                     }, {
                       path: 'programs',
-                      select: 'id name university',
+                      select: 'id name university degree',
                     }]);
 
     if (!user) {
@@ -96,7 +96,7 @@ router.post('/login', function (req, res) {
           select: 'name',
         }, {
           path: 'programs',
-          select: 'name university',
+          select: 'name university degree',
         }],
       }],
       lean: true,
@@ -116,7 +116,7 @@ router.post('/login', function (req, res) {
     var followings = yield user.getFollowings({
       populate: [{
         path: 'program',
-        select: 'id name university',
+        select: 'id name university degree',
       }, {
         path: 'university',
         select: 'id name',
@@ -172,7 +172,7 @@ router.post('/forgot-password', function (req, res) {
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }
@@ -210,7 +210,7 @@ router.post('/reset-password', function (req, res) {
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       'err': errors
     });
   }

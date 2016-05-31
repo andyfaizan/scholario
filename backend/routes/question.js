@@ -18,8 +18,8 @@ var router = express.Router();
 
 
 router.post('/', passport.authenticate('jwt', {session: false}), function (req, res) {
-  req.checkBody('title', 'InvalidTitle').notEmpty().isAscii();
-  req.checkBody('description', 'InvalidDescription').notEmpty().isAscii();
+  req.checkBody('title', 'InvalidTitle').notEmpty();
+  req.checkBody('description', 'InvalidDescription').notEmpty();
   req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
   if (req.body.pkg) req.checkBody('pkg', 'InvalidPkg').notEmpty().isMongoId();
   if (req.body.material) req.checkBody('material', 'InvalidMaterial').notEmpty().isMongoId();
@@ -69,8 +69,8 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -94,7 +94,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
           select: 'name',
         }, {
           path: 'programs',
-          select: 'name university',
+          select: 'name university degree',
         }]
       }])
       .sort({ createDate: -1 })
@@ -118,8 +118,8 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
 
  var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -136,7 +136,7 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
             select: 'name',
           }, {
             path: 'programs',
-            select: 'name university',
+            select: 'name university degree',
           }],
         }, {
           path: 'answers',
@@ -149,7 +149,7 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
                     select: 'name',
                   }, {
                     path: 'programs',
-                    select: 'name university',
+                    select: 'name university degree',
                   }],
                 }
         }])
@@ -176,7 +176,7 @@ router.delete('/:qid', passport.authenticate('jwt', {session: false}), function 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -207,14 +207,14 @@ router.delete('/:qid', passport.authenticate('jwt', {session: false}), function 
 
 router.put('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('qid', 'InvalidQuestionId').notEmpty().isMongoId();
-  if (req.body.title) req.checkBody('title', 'InvalidTitle').notEmpty().isAscii();
-  if (req.body.description) req.checkBody('description', 'InvalidDescription').notEmpty().isAscii();
+  if (req.body.title) req.checkBody('title', 'InvalidTitle').notEmpty();
+  if (req.body.description) req.checkBody('description', 'InvalidDescription').notEmpty();
   if (req.body.bestAnswer) req.checkBody('bestAnswer', 'InvalidBestAnswerId').notEmpty().isMongoId();
   if (req.body.approvedAnswer) req.checkBody('approvedAnswer', 'InvalidApprovedAnswerId').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -303,7 +303,7 @@ router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), fun
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }

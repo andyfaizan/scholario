@@ -11,10 +11,14 @@ import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './AddMaterialComp.scss'
 import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import ModalRoot from '../../containers/ModalRoot'
+import {ADD_MATERIAL_MODAL as add_material} from '../../redux/modules/modal'
 
 type Props = {
+  modal: Object,
+  show: Function,
+}
 
-};
 export class AddMaterialComp extends React.Component {
   props: Props;
 
@@ -113,10 +117,14 @@ export class AddMaterialComp extends React.Component {
 
     return (
       <div>
-          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
+        <div>
+          <Paper style={style} zDepth={2}  children={nodePaperCourse}
+            onTouchTap={this.props.show}/>
           <Paper style={styleTwo} zDepth={0}  />
           <Paper style={styleThree} zDepth={0}  />
-          <Paper style={styleFour} zDepth={5}  />
+          <Paper style={styleFour} zDepth={5} />
+        </div>
+        {this.props.modal ? (this.props.modal.visible ? <ModalRoot modalType={add_material} /> : null) : null}
       </div>
     )
   }

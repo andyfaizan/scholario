@@ -189,16 +189,16 @@ export class MaterialComponent extends React.Component {
                     </div>
 
     var notifications = <div key="notifications" className={classes.badge}>
-                          <Badge
+    {/*<Badge
                             badgeContent={10}
                             secondary={true}
                             badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-                          />
+                          />*/}
                         </div>
 
     const nodePaperCourse = [
       container,
-      notifications
+      //notifications
     ]
 
    const nodeFileClipper = [

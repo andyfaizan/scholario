@@ -213,7 +213,7 @@ export const getPkgs = createSelector(
         if (users[res[k].owner])
           res[k].owner = users[res[k].owner]
         //res[k].courseInstance = courseInstances[res[k].courseInstance]
-        res[k].materials = _.values(materials, material => material.pkg === k)
+        res[k].materials = _.values(materials).filter(material => material.pkg === k)
       }
     }
 
