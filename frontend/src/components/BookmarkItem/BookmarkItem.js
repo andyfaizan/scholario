@@ -1,4 +1,3 @@
-import React from 'react'
 import React, { PropTypes } from 'react'
 import ListItem from 'material-ui/List/ListItem';
 import Colors from 'material-ui/styles/colors';
