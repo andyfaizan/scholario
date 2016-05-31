@@ -117,7 +117,7 @@ export class IndependentPackage extends React.Component {
     const dots = "..."
 
     //variables for displaying Child Node
-    var heading = <div>
+    var heading = <div key="headingIndependentPackage">
                   <div className={classes.head}>
                     <Link to={this.props.pkgUrl} style={linkStyle}>
                       <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
@@ -125,12 +125,12 @@ export class IndependentPackage extends React.Component {
                       </div>
                     </Link>
                   </div>
-                  <div key="headingIndependentPackage" style={divStyle}>
+                  <div style={divStyle}>
                     {<h5>{this.props.dateUploaded}</h5>}
                   </div>
                   </div>
 
-    var container = <div key="IndependentPackage" className={classes.container}> 
+    var container = <div key="IndependentPackage" className={classes.container}>
                       <h5>{this.props.keywords}</h5>
                     </div>
 
@@ -164,4 +164,3 @@ export class IndependentPackage extends React.Component {
 }
 
 export default IndependentPackage
-
