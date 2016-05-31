@@ -84,7 +84,7 @@ export class AnswerItem extends React.Component {
     }
     if (user && courseInstance && courseInstance.prof &&
         user.role === 'Prof' && user._id === courseInstance.prof._id) {
-      actions.push(<FlatButton key='answerApprovingButton' label="überprüfen Antwort" linkButton={true}
+      actions.push(<FlatButton key='answerApprovingButton' label="Antwort überprüfen" linkButton={true}
                    onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
     }
 

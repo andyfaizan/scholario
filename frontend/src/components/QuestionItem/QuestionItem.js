@@ -48,7 +48,7 @@ export class QuestionItem extends React.Component {
 
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} posted on {date ? date.slice(0,10) : ''}</div>
+    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}</div>
     return (
       <div>
         <ListItem

@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
+import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/lib/divider'
@@ -12,6 +13,7 @@ type Props = {
 export class LandingView extends React.Component {
 
   render () {
+    
     const style = {
       height: '100',
       width: '100',
@@ -19,6 +21,7 @@ export class LandingView extends React.Component {
       textAlign: 'center',
       display: 'inline-block'
     }
+
     return (
       <div>
       <div className={classes.landing}>
@@ -31,6 +34,9 @@ export class LandingView extends React.Component {
               alt='No Net.' />
         </div>
         <Divider />
+        <div>
+          <ForgotPassword />
+        </div>
       </div>
       <div className={classes.footer}>
           <FooterLanding />
