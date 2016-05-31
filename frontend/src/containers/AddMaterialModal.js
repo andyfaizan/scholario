@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux'
 import {submit} from 'redux-form'
 import {hide} from '../redux/modules/modal'
 import {ADD_MATERIAL_MODAL as add_material} from '../redux/modules/modal'
-import Dialog from 'material-ui/lib/dialog'
-import FlatButton from 'material-ui/lib/flat-button'
-import RaisedButton from 'material-ui/lib/raised-button'
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import AddMaterialForm from '../forms/AddMaterialForm/AddMaterialForm'
 import * as selectors from '../redux/selectors'
 import { postMaterial } from '../redux/modules/materials'

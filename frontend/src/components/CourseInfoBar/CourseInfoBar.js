@@ -1,19 +1,19 @@
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardHeader from 'material-ui/lib/card/card-header'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
-import Divider from 'material-ui/lib/divider'
-import FontIcon from 'material-ui/lib/font-icon'
-import Toolbar from 'material-ui/lib/toolbar/toolbar'
-import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
-import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
-import IconMenu from 'material-ui/lib/menus/icon-menu'
-import IconButton from 'material-ui/lib/icon-button'
-import Delete from 'material-ui/lib/svg-icons/action/delete'
-import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
-import Friend from 'material-ui/lib/svg-icons/social/person'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardHeader from 'material-ui/Card/CardHeader';
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
+import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
+import Toolbar from 'material-ui/Toolbar/Toolbar';
+import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup';
+import ToolbarTitle from 'material-ui/Toolbar/ToolbarTitle';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import Delete from 'material-ui/svg-icons/action/delete';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import Friend from 'material-ui/svg-icons/social/person';
 import classes from './CourseInfoBar.scss'
 import { Router, Route, Link } from 'react-router'
 

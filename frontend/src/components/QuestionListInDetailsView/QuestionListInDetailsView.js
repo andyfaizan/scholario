@@ -1,6 +1,6 @@
 import React from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 
 type Props = {

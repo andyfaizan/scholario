@@ -1,9 +1,9 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
 import classes from './CreateCourseForm.scss'
-import TextField from 'material-ui/lib/text-field'
-import SelectField from 'material-ui/lib/select-field'
-import MenuItem from 'material-ui/lib/menus/menu-item'
+import TextField from 'material-ui/TextField';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 export const fields = ['course', 'teacher', 'assistant', 'semester',
 'subject', 'uni', 'info']

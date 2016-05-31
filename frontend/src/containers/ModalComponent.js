@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import {submit} from 'redux-form'
-import Dialog from 'material-ui/lib/dialog'
-import Tabs from 'material-ui/lib/tabs/tabs'
-import Tab from 'material-ui/lib/tabs/tab'
-import RaisedButton from 'material-ui/lib/raised-button'
+import Dialog from 'material-ui/Dialog';
+import Tabs from 'material-ui/Tabs/Tabs';
+import Tab from 'material-ui/Tabs/Tab';
+import RaisedButton from 'material-ui/RaisedButton';
 import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
 import {hide} from '../redux/modules/modal'

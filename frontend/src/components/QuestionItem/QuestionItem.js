@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
-import ListItem from 'material-ui/lib/lists/list-item'
-import Colors from 'material-ui/lib/styles/colors'
-import ActionQuestionAnswer from 'material-ui/lib/svg-icons/action/question-answer'
-import Avatar from 'material-ui/lib/avatar'
-import IconButton from 'material-ui/lib/icon-button'
-import ThumbsUp from 'material-ui/lib/svg-icons/action/thumb-up'
+import ListItem from 'material-ui/List/ListItem';
+import Colors from 'material-ui/styles/colors';
+import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import classes from './QuestionItem.scss'
 import { Router, Route, Link } from 'react-router'
 import { browserHistory } from '../../history'
