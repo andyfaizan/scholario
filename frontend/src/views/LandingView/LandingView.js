@@ -1,9 +1,11 @@
 import React from 'react'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
+import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import classes from './LandingView.scss'
-import Divider from 'material-ui/lib/divider'
-import Paper from 'material-ui/lib/paper'
+import Divider from 'material-ui/Divider'
+import Paper from 'material-ui/Paper'
+import BonnRhein from './Main.png'
 
 type Props = {
 
@@ -11,6 +13,7 @@ type Props = {
 export class LandingView extends React.Component {
 
   render () {
+    
     const style = {
       height: '100',
       width: '100',
@@ -18,18 +21,26 @@ export class LandingView extends React.Component {
       textAlign: 'center',
       display: 'inline-block'
     }
+
     return (
+      <div>
       <div className={classes.landing}>
-        <div className='navBar'>
+        <div>
           <NavBarLandingPage />
         </div>
-        <div className={classes.container}>
-
+         <div className={classes.container}>
+           <img className={classes.dash}
+              src={BonnRhein}
+              alt='No Net.' /> 
         </div>
         <Divider />
-        <div className={classes.footer}>
-          <FooterLanding />
+        <div>
+          {/*<ForgotPassword /> */}
         </div>
+      </div>
+      <div className={classes.footer}>
+          <FooterLanding />
+      </div>
       </div>
     )
   }

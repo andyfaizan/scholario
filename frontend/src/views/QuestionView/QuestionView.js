@@ -14,16 +14,18 @@ import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
-import NewAnswerComp from '../../components/NewAnswerComp/NewAnswerComp'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
+import NewAnswerForm from '../../forms/NewAnswerForm/NewAnswerForm'
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
 import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import { deleteAnswer } from '../../redux/modules/answer'
+import Snackbar from 'material-ui/Snackbar';
+import { postAnswer, deleteAnswer, putAnswer, voteAnswer } from '../../redux/modules/answer'
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
+import Feedback from '../../containers/Feedback'
 
 
 type Props = {
@@ -35,8 +37,12 @@ export class Question extends React.Component {
 
   constructor (props) {
     super(props)
+    this.toggleNewAnswerForm = this.toggleNewAnswerForm.bind(this)
+    this.editAnswer = this.editAnswer.bind(this)
     this.state = {
       didGetCourseInstance: false,
+      showNewAnswerForm: false,
+      answerBeingEdited: null,
     }
   }
 
@@ -62,10 +68,33 @@ export class Question extends React.Component {
 
   }
 
+  toggleNewAnswerForm (e) {
+    this.setState({
+      showNewAnswerForm: this.state.showNewAnswerForm ? false : true,
+      answerBeingEdited: null,
+    })
+  }
+
+  editAnswer (answer) {
+    if (!this.state.showNewAnswerForm) {
+      this.setState({
+        showNewAnswerForm: true
+      })
+    }
+    this.setState({
+      answerBeingEdited: answer,
+    })
+  }
+
   render () {
     //question item const display
     const questionClickable = true
     const { courseInstance, question, user } = this.props
+
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
+    const answerOkayType = 'POST_ANSWER_OK'
+    const answerErrorType = 'POST_ANSWER_ERR'
 
     var answerEls = []
     if (question.answers && question.answers.length > 0) {
@@ -75,31 +104,32 @@ export class Question extends React.Component {
           personWhoAnswered={a.user}
           dateAnswered={a.createDate.slice(0,10)}
           answerText={a.content}
+          answer={a}
+          question={question}
           user={user}
           courseInstance={courseInstance}
           onClickDelAnswer={() => this.props.dispatch(deleteAnswer(a._id, question._id))}
           onClickBestAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', a._id, ''))}
           onClickApproveAnswer={() => this.props.dispatch(putQuestion(question._id, '', '', '', a._id))}
+          onClickEditAnswer={(e) => this.editAnswer(a)}
+          onClickVoteAnswer={() => this.props.dispatch(voteAnswer(a._id))}
         />
+
       )
     }
 
     const textStyle = {
-
       paddingLeft: 70,
       paddingRight: 70
-
     }
-
     const actionPadding = {
-        
       paddingLeft: 52
-
     }
+
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
-                    hoverColor="#26A65B"
+                    onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B"
                   />]
-                  
+
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
                     hoverColor="#26A65B"/>)
@@ -107,6 +137,21 @@ export class Question extends React.Component {
                     onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B"/>)
     }
 
+    var newAnswerForm
+    if (this.state.showNewAnswerForm) {
+      if (this.state.answerBeingEdited) {
+        newAnswerForm = <NewAnswerForm
+                         initialValues={this.state.answerBeingEdited}
+                         onSubmit={(data) => {
+                           this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content)); this.toggleNewAnswerForm()
+                         }} />
+      } else {
+        newAnswerForm = <NewAnswerForm
+                         onSubmit={(data) => {
+                           this.props.dispatch(postAnswer(question._id, data.content)); this.toggleNewAnswerForm()
+                         }} />
+      }
+    }
     return (
       <div>
       <div className={classes.dashboardRoot}>
@@ -125,12 +170,14 @@ export class Question extends React.Component {
 		      			<Col xs={24} md={12}>
                   <Card>
                     <QuestionItem
+                      key ={question._id}
                       listItemClickable={questionClickable}
                       questionStatement={question.title}
                       datePosted={question.createDate}
                       questionUrl={`/question/${question._id}`}
                       currentLikes={question.votes ? question.votes.length : null}
                       onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
+                      postedBy={question.user ? question.user.lastname : '' }
                     />
                     <CardText style={textStyle}>
                       {question.description}
@@ -145,7 +192,7 @@ export class Question extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
-                  <NewAnswerComp />
+                  {newAnswerForm}
                   <br/>
                   {answerEls}
 		      			</Col>
@@ -153,6 +200,8 @@ export class Question extends React.Component {
 		      	</Grid>
       <br/>
       </div>
+      <Feedback errorType={answerErrorType} okayType={answerOkayType} />
+
       <div className ={classes.footer} >
             <FooterLanding />
       </div>

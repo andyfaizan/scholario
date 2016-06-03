@@ -209,19 +209,4 @@ router.post('/', function (req, res) {
   });
 });
 
-router.put('/', passport.authenticate('jwt', {session: false}), function (req, res) {
-  _.forOwn(req.body, function (v, k) {
-    req.user.set(k, v);
-  });
-  req.user.save().then(function (user) {
-    return res.json({
-      err: [],
-    });
-  }).catch(function (err) {
-    return res.json({
-      err: [{msg: err.message}],
-    });
-  });
-});
-
 module.exports = router;

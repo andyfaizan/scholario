@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/lib/card/card'
-import CardText from 'material-ui/lib/card/card-text'
-import CardHeader from 'material-ui/lib/card/card-header'
-import Avatar from 'material-ui/lib/avatar'
-import CardActions from 'material-ui/lib/card/card-actions'
-import FlatButton from 'material-ui/lib/flat-button'
-
+import Card from 'material-ui/Card/Card';
+import CardText from 'material-ui/Card/CardText';
+import CardHeader from 'material-ui/Card/CardHeader';
+import Avatar from 'material-ui/Avatar';
+import CardActions from 'material-ui/Card/CardActions';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 type Props = {
 
@@ -17,7 +17,6 @@ type Props = {
   onClickDelAnswer: PropTypes.func,
 
 };
-
 
 export class NewAnswerComp extends React.Component {
   props: Props;
@@ -76,23 +75,36 @@ export class NewAnswerComp extends React.Component {
                    hoverColor="#26A65B" />)
     }
 
+    const floatingLabel = {
+
+    	color:'#26A65B'
+    }
+
+    const underlineColor = {
+
+  		borderColor:'#446CB3'
+    }
+
+
     return (
       <div>
       	<Card>
           <CardHeader
-            title={personWhoAnswered ? `${personWhoAnswered.firstname} ${personWhoAnswered.lastname}` : ''}
-            subtitle={this.props.dateAnswered}
-            actAsExpander={false}
-            showExpandableButton={false}
-            avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
-            titleColor="#26A65B"
-            children={nodeHeader}
+            title={"Antwort"}
           />
           <CardText style={textStyle}>
-            {this.props.answerText}
+			     <TextField
+				      floatingLabelText="Deine Antwort"
+				      multiLine={true}
+				      rows={2}
+				      fullWidth={true}
+				      floatingLabelStyle={floatingLabel}
+				      underlineFocusStyle={underlineColor}
+				    />
           </CardText>
           <CardActions style={actionPadding}>
-            {actions}
+            <FlatButton key='answerApprovingButton' label="Abschicken" linkButton={true}
+                   hoverColor="#26A65B" />
           </CardActions>
         </Card>
       </div>

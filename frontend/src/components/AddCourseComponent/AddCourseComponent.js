@@ -1,12 +1,14 @@
 import React from 'react'
-import Paper from 'material-ui/lib/paper'
-import IconButton from 'material-ui/lib/icon-button'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
+import AddCircle from 'material-ui/svg-icons/content/add';
 import ModalRoot from '../../containers/ModalRoot'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 type Props = {
-
+    openModal: PropTypes.func,
+    modal: PropTypes.object,
+    course_modal: PropTypes.string
 };
 export class AddCourseComponent extends React.Component {
   props: Props;
@@ -63,11 +65,13 @@ export class AddCourseComponent extends React.Component {
                          <IconButton style={buttonStyle} tooltip="In Course"> 
                            <AddCircle style={plusButton} color='#ffffff' />
                           </IconButton>
+
                     </div> ;
 
     return (
       <div>
-		<Paper style={style} zDepth={2} onClick={this.props.openModal} children= {actions} />
+        <Paper style={style} zDepth={2} onClick={this.props.openModal} children= {actions} />
+        {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
       </div>
     )
   }

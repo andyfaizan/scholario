@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import TextField from 'material-ui/lib/text-field'
+import TextField from 'material-ui/TextField';
 import classes from './LoginFields.scss'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
@@ -84,10 +84,9 @@ export class LoginFields extends React.Component {
               underlineFocusStyle={styles.focusStyle}
               onKeyDown={this.checkKeyAndSubmit}
               />
-            {/*<br/>
             <br/>
-            <a className={classes.forgotLink}>Forgot your password ? </a>*/}
             <br/>
+            <a className={classes.forgotLink}>Forgot your password ? </a>
           </div>
       </div>
     )

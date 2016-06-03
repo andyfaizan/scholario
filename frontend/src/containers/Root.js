@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+
+const lightMuiTheme = getMuiTheme(lightBaseTheme)
 
 export default class Root extends React.Component {
   static propTypes = {
@@ -34,12 +39,14 @@ export default class Root extends React.Component {
 
   render () {
     return (
-      <Provider store={this.props.store}>
-        <div style={{ height: '100%' }}>
-          {this.content}
-          {this.devTools}
-        </div>
-      </Provider>
+      <MuiThemeProvider muiTheme={lightMuiTheme}>
+        <Provider store={this.props.store}>
+          <div style={{ height: '100%' }}>
+            {this.content}
+            {this.devTools}
+          </div>
+        </Provider>
+      </MuiThemeProvider>
     )
   }
 }

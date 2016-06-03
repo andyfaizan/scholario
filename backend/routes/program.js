@@ -40,7 +40,7 @@ var router = express.Router();
  *
  */
 router.get('/', function (req, res) {
-  if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty().isAscii();
+  if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -53,7 +53,7 @@ router.get('/', function (req, res) {
   if (req.query.q) {
     p = Program.find({ name: { $regex: req.query.q, $options: 'i' } });
   }
-  p.select('id name university')
+  p.select('id name university degree')
    .populate([{
      path: 'university',
      select: 'id name',

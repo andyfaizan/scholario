@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react'
-import Paper from 'material-ui/lib/paper'
-import Divider from 'material-ui/lib/divider'
-import FontIcon from 'material-ui/lib/font-icon'
-import IconButton from 'material-ui/lib/icon-button'
-import Delete from 'material-ui/lib/svg-icons/action/delete'
-import PageView from 'material-ui/lib/svg-icons/action/pageview'
-import FlatButton from 'material-ui/lib/flat-button'
-import Badge from 'material-ui/lib/badge'
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import Delete from 'material-ui/svg-icons/action/delete';
+import PageView from 'material-ui/svg-icons/action/pageview';
+import FlatButton from 'material-ui/FlatButton';
+import Badge from 'material-ui/Badge';
 import { Router, Route, Link } from 'react-router'
-import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import classes from './MaterialComponent.scss'
-import Edit from 'material-ui/lib/svg-icons/action/track-changes'
-import FileDownload from 'material-ui/lib/svg-icons/file/file-download'
+import Edit from 'material-ui/svg-icons/action/track-changes';
+import FileDownload from 'material-ui/svg-icons/file/file-download';
 
 type Props = {
 
@@ -22,7 +22,7 @@ type Props = {
   pkgUrl: PropTypes.string
 };
 export class MaterialComponent extends React.Component {
-   
+
   props: Props
 
   render () {
@@ -156,8 +156,19 @@ export class MaterialComponent extends React.Component {
                     {<h5>{this.props.dateUploaded}</h5>}
                   </div>
 
-    var container = <div>
-                    <div key="IndependentPackage" className={classes.container}> 
+    var container = <div key="IndependentPackage">
+                    <div className={classes.container}>
+                      {this.props.keywords}
+                    </div>
+                    <div className={classes.downloadMaterial}>
+                       <IconButton tooltip="Download-Paket">
+                        <FileDownload color="White"/>
+                      </IconButton>
+                    </div>
+                    </div>
+
+       var containerOld = <div key="IndependentPackage">
+                    <div className={classes.container}>
                       <h5>{this.props.keywords}</h5>
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
@@ -178,23 +189,23 @@ export class MaterialComponent extends React.Component {
                     </div>
 
     var notifications = <div key="notifications" className={classes.badge}>
-                          <Badge
+    {/*<Badge
                             badgeContent={10}
                             secondary={true}
                             badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-                          />
+                          />*/}
                         </div>
 
     const nodePaperCourse = [
       container,
-      notifications
+      //notifications
     ]
 
    const nodeFileClipper = [
 
       heading
     ]
-  
+
     return (
 	    <Link to={this.props.pkgUrl}>
 	        <div>
@@ -211,4 +222,3 @@ export class MaterialComponent extends React.Component {
 }
 
 export default MaterialComponent
-

@@ -1,6 +1,6 @@
 import React from 'react'
-import FlatButton from 'material-ui/lib/flat-button'
-import Divider from 'material-ui/lib/divider'
+import FlatButton from 'material-ui/FlatButton';
+import Divider from 'material-ui/Divider';
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
 import AddCourseComponent from '../../components/AddCourseComponent/AddCourseComponent'
@@ -68,8 +68,8 @@ export class LeftSectionTeacherDashboard extends React.Component {
           ]
         } else if (this.props.role === teacherRole) {
 
-          filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
-          addCourseButton = <AddCourseComponent />
+          //filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
+          addCourseButton = <AddCourse key="addCourse" />
 
           display = [
              addCourseButton,

@@ -10,6 +10,7 @@ const ProgramSchema = new Schema({
   description: { type: String, default: '' },
   university: { type: ObjectId, ref: 'University' },
   createDate: { type: Date, default: Date.now },
+  degree: { type: String, default: '' },
 });
 
 ProgramSchema.index({ name: 1, university: 1 }, { unique: true });

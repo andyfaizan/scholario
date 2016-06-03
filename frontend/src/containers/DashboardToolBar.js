@@ -1,16 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Toolbar from 'material-ui/lib/toolbar/toolbar'
-import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group'
-import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator'
-import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title'
-import IconMenu from 'material-ui/lib/menus/icon-menu'
-import IconButton from 'material-ui/lib/icon-button'
-import FontIcon from 'material-ui/lib/font-icon'
-import NavigationMenu from 'material-ui/lib/svg-icons/navigation/menu'
-import MenuItem from 'material-ui/lib/menus/menu-item'
-import Divider from 'material-ui/lib/divider'
-import FlatButton from 'material-ui/lib/flat-button'
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+import FlatButton from 'material-ui/FlatButton';
 import { Router, Route, Link } from 'react-router'
 import { logout } from '../redux/modules/user'
 

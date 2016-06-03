@@ -1,35 +1,37 @@
 .actionPosition {
 
   position:absolute;
+  float:left;
   margin:auto;
   margin-top: 90px;
-  margin-left:250px;
+
 }
 
 .actionPostionLeft {
   
   position:absolute;
+  float:right;
   margin:auto;
   margin-top: 90px;
-
-
+  margin-left: 250px;
 }
 
 .actionFollow
-{	
+{
   position:absolute;
-  margin:auto;
+  margin:left;
   margin-top: 90px;
   margin-left: 30px;
+
 }
 
 .badge {
 	
 	position:absolute;
-	 float: left;
-  	 margin:auto;
-     margin-top: -45px;
-     margin-left: 270px;
+	float: left;
+  margin:auto;
+  margin-top: -45px;
+  margin-left: 270px;
 }
 
 .actionMain {
@@ -47,8 +49,4 @@
 	padding-top:3px;
 
 
-}
-
-.divTitle {
-  float: left;
 }

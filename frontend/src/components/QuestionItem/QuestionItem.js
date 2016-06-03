@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
-import ListItem from 'material-ui/lib/lists/list-item'
-import Colors from 'material-ui/lib/styles/colors'
-import ActionQuestionAnswer from 'material-ui/lib/svg-icons/action/question-answer'
-import Avatar from 'material-ui/lib/avatar'
-import IconButton from 'material-ui/lib/icon-button'
-import ThumbsUp from 'material-ui/lib/svg-icons/action/thumb-up'
+import ListItem from 'material-ui/List/ListItem';
+import Colors from 'material-ui/styles/colors';
+import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer';
+import Avatar from 'material-ui/Avatar';
+import IconButton from 'material-ui/IconButton';
+import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
 import classes from './QuestionItem.scss'
 import { Router, Route, Link } from 'react-router'
 import { browserHistory } from '../../history'
@@ -14,7 +14,8 @@ type Props = {
 	questionStatement: string,
 	datePosted: string,
 	numberOfVotes: number,
-	questionURL: string
+	questionURL: string,
+  postedBy: string
 };
 export class QuestionItem extends React.Component {
   static propTypes = {
@@ -23,7 +24,8 @@ export class QuestionItem extends React.Component {
     numberOfVotes: PropTypes.number,
     questionURL: PropTypes.string,
     listItemClickable: PropTypes.bool,
-    currentLikes: PropTypes.number
+    currentLikes: PropTypes.number,
+    postedBy: PropTypes.string
   };
 
   render () { 
@@ -39,13 +41,14 @@ export class QuestionItem extends React.Component {
 
            };
 
+
       const touchQuestion = () => {
         browserHistory.push(this.props.questionURL)
       }
 
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}>{date ? date.slice(0,10) : ''}</div>
+    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}</div>
     return (
       <div>
         <ListItem

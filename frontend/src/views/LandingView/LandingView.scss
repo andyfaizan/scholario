@@ -6,7 +6,6 @@
   font-weight: bold;
   background-color: white;
   height: 87%;
-  background: url(../../static/landing.png) no-repeat center center;
   background-size: cover; /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
   -webkit-background-size: cover; /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
   -moz-background-size: cover; /* optional for Firefox 3.6 */
@@ -21,6 +20,12 @@
     background-color: white;
     color: darkslategray;
     height: 10%;
+}
+
+.dash {
+  display: block;
+  width: 100%;
+  
 }
 
 a:link {

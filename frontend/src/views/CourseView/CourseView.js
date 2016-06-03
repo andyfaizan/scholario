@@ -14,10 +14,12 @@ import IndependentPackage from '../../components/IndependentPackage/IndependentP
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
+import { show, ADD_PACKAGE_MODAL as add_package } from '../../redux/modules/modal'
 import * as selectors from '../../redux/selectors'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
-import FloatingActionButton from 'material-ui/lib/floating-action-button'
+import AddCircle from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
 
 
 type Props = {
@@ -45,9 +47,12 @@ export class Course extends React.Component {
 
   render () {
     const { courseInstance, profPkgs, studentPkgs } = this.props
+    const voteErrorType = 'VOTE_QUESTION_ERR'
+    const voteOkayType = 'VOTE_QUESTION_OK'
     var profPkgEls = []
     var studentPkgEls
-    var addPkgCompProf 
+    var addPkgComp
+    var addPkgCompProf
     var addPkgStd
 
     if (profPkgs) {
@@ -55,7 +60,7 @@ export class Course extends React.Component {
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded={pkg.createDate.slice(0,10)}
+          dateUploaded={pkg ? pkg.createDate.slice(0,10) : ''}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
@@ -64,7 +69,7 @@ export class Course extends React.Component {
     }
 
     if (studentPkgs) {
-       
+
 
       studentPkgEls = studentPkgs.map(pkg =>
         <MaterialComponent
@@ -77,16 +82,13 @@ export class Course extends React.Component {
       )
     }
 
-    if( this.props.user.role == 'Student' ) {
-  
-        addPkgStd = <AddPkgComponent />
-
-    }else if (this.props.user.role == 'Prof' )
-    {
-      addPkgCompProf = <AddPkgComponent />;
-
-    }else
-    {
+    if(this.props.user.role == 'Student') {
+      addPkgStd = <AddPkgComponent modal={this.props.modal}
+        show={() => this.props.dispatch(show(add_package))}/>
+    } else if (this.props.user.role == 'Prof' ) {
+      addPkgCompProf = <AddPkgComponent modal={this.props.modal}
+        show={() => this.props.dispatch(show(add_package))}/>
+    } else {
       console.log('eroneous user role')
     }
 
@@ -138,12 +140,15 @@ export class Course extends React.Component {
                 linkToQuestionsList={`/course/${courseInstance._id}/questions`}
                 onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
               />
+
+              <br/>
             </Col>
           </Row>
         </Grid>
         <br/>
       <br/>
       </div>
+      <Feedback errorType='ADD_PKG_ERR' okayType='ADD_PKG_OK' message="Ordner Erstellt!"/>
       <div className={classes.footer}>
         <FooterLanding />
       </div>
@@ -177,9 +182,10 @@ const mapStateToProps = (state, ownProps) => {
     studentPkgs,
     recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
     popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
+    modal: state.modal,
   }
 }
 
 export default connect(
-  mapStateToProps,
-)(Course)
+  mapStateToProps)
+(Course)

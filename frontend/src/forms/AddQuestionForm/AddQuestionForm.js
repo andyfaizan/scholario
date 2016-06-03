@@ -1,8 +1,8 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/lib/text-field'
+import TextField from 'material-ui/TextField';
 import classes from './AddQuestionForm.scss'
-import MenuItem from 'material-ui/lib/menus/menu-item'
+import MenuItem from 'material-ui/MenuItem';
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import { load } from '../../redux/modules/AskQuestion'
 // Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
@@ -19,7 +19,7 @@ export class AddQuestion extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(load(this.props.defaultData))
+    //this.props.dispatch(load(this.props.defaultData))
   }
 
   render() {
@@ -137,15 +137,14 @@ export class AddQuestion extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    initialValues: ownProps.defaultData // will pull state into form's initialValues
+    //initialValues: ownProps.defaultData // will pull state into form's initialValues
   }
 }
 
-AddQuestion = reduxForm({
+export default reduxForm({
   form: 'AddQuestion',
   fields
 },
 mapStateToProps
 )
 (AddQuestion)
-export default AddQuestion

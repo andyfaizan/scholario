@@ -1,20 +1,24 @@
 import React, { PropTypes } from 'react'
-import Paper from 'material-ui/lib/paper'
-import Divider from 'material-ui/lib/divider'
-import FontIcon from 'material-ui/lib/font-icon'
-import IconButton from 'material-ui/lib/icon-button'
-import Delete from 'material-ui/lib/svg-icons/action/delete'
-import PageView from 'material-ui/lib/svg-icons/action/pageview'
-import FlatButton from 'material-ui/lib/flat-button'
-import Badge from 'material-ui/lib/badge'
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
+import Delete from 'material-ui/svg-icons/action/delete';
+import PageView from 'material-ui/svg-icons/action/pageview';
+import FlatButton from 'material-ui/FlatButton';
+import Badge from 'material-ui/Badge';
 import { Router, Route, Link } from 'react-router'
-import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
+import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import classes from './AddMaterialComp.scss'
-import AddCircle from 'material-ui/lib/svg-icons/content/add'
+import AddCircle from 'material-ui/svg-icons/content/add';
+import ModalRoot from '../../containers/ModalRoot'
+import {ADD_MATERIAL_MODAL as add_material} from '../../redux/modules/modal'
 
 type Props = {
+  modal: Object,
+  show: Function,
+}
 
-};
 export class AddMaterialComp extends React.Component {
   props: Props;
 
@@ -111,12 +115,21 @@ export class AddMaterialComp extends React.Component {
       container
     ]
 
+    var addMaterialModal
+    if (this.props.modal && this.props.modal.visible &&
+        this.props.modal.modalType === add_material) {
+      addMaterialModal = <ModalRoot modalType={add_material} />
+    }
     return (
       <div>
-          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
+        <div>
+          <Paper style={style} zDepth={2}  children={nodePaperCourse}
+            onTouchTap={this.props.show}/>
           <Paper style={styleTwo} zDepth={0}  />
           <Paper style={styleThree} zDepth={0}  />
-          <Paper style={styleFour} zDepth={5}  />
+          <Paper style={styleFour} zDepth={5} />
+        </div>
+        {addMaterialModal}
       </div>
     )
   }

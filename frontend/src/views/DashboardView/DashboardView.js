@@ -9,12 +9,15 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import classes from './DashboardView.scss'
 import MyRawTheme from '../../themes/mainTheme'
-import ThemeManager from 'material-ui/lib/styles/theme-manager'
+import ThemeManager from 'material-ui/styles/themeManager';
 import * as selectors from '../../redux/selectors'
 import { getUser } from '../../redux/modules/user'
-import { getRecommendedCourseInstances, followCourse } from '../../redux/modules/course-instance'
+import { getRecommendedCourseInstances, followCourse,
+  FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import Feedback from '../../containers/Feedback'
+import { putUser } from '../../redux/modules/user'
 
 
 class DashboardView extends React.Component {
@@ -62,8 +65,10 @@ class DashboardView extends React.Component {
         <TeacherProfileBar
           firstNameUser={user ? user.firstname : ''}
           lastNameUser={user ? user.lastname : ''}
+          bio={user ? user.bio : ''}
           universityName={userUniversity ? userUniversity.name : ''}
           programeName={userProgram ? userProgram.name : ''}
+          onChangePassword={(data) => this.props.onChangePassword(data.password)}
         />
         <br/>
         <Grid className='container-fluid'>
@@ -79,7 +84,10 @@ class DashboardView extends React.Component {
             </Col>
           </Row>
         </Grid>
-      <br/>
+      <Feedback
+        errorType={FOLLOW_COURSE_INSTANCE_ERR}
+        okayType={FOLLOW_COURSE_INSTANCE_OK}
+        message="Kurs gefolgt! :)" />
       </div>
       <div className={classes.footer}>
         <FooterLanding />
@@ -122,6 +130,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     getQuestions: () => {
       dispatch(getQuestions())
+    },
+    onChangePassword: (password) => {
+      dispatch(putUser('', '', '', password))
     },
   }
 }

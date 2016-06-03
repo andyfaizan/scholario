@@ -21,8 +21,8 @@ router.get('/:aid/vote', passport.authenticate('jwt', {session: false}), functio
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
-      'err': errors
+    return res.status(400).json({
+      err: errors
     });
   }
 
@@ -61,7 +61,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -80,9 +80,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       });
     }
 
-    question.answers.push(answer._id);
-    question.save();
-    return res.json({
+    question.answers.push(answer);
+    return question.save();
+  }).then(function (question) {
+    return res.status(201).json({
       _id: question._id,
       answers: question.answers
     });
@@ -99,7 +100,7 @@ router.delete('/:aid', passport.authenticate('jwt', {session: false}), function 
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -130,11 +131,11 @@ router.delete('/:aid', passport.authenticate('jwt', {session: false}), function 
 
 router.put('/:aid', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('aid', 'InvalidAnswerId').notEmpty().isMongoId();
-  if (req.body.content) req.checkBody('content', 'InvalidContent').notEmpty().isAscii();
+  if (req.body.content) req.checkBody('content', 'InvalidContent').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
-    return res.json({
+    return res.status(400).json({
       err: errors
     });
   }
@@ -151,11 +152,12 @@ router.put('/:aid', passport.authenticate('jwt', {session: false}), function (re
       });
     }
 
-    answer.content = content;
+    answer.content = req.body.content;
 
     return answer.save();
   }).then(function (answer) {
     return res.status(200).json({
+      _id: answer._id,
       content: answer.content,
     });
   }).catch(function (err) {

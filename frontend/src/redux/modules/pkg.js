@@ -65,8 +65,8 @@ export function addPkg(name, courseInstance, access = 'public', files = []) {
 
   var callP = request
     .post(endpoint)
-    .set('Content-Type', 'multipart/form-data')
 
+  if (files.length > 0) callP.set('Content-Type', 'multipart/form-data')
   for (var i = 0; i < files.length; i++)
     callP.attach(files[i])
 
