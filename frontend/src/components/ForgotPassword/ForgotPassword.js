@@ -24,6 +24,8 @@ export class ForgotPassword extends React.Component {
     }
      const floatingLabel = {
 
+      opacity:0.7,
+      fontSize:'80%',
       color:'#26A65B'
     }
 
@@ -68,6 +70,19 @@ export class ForgotPassword extends React.Component {
 
       opacity: 0.8
     }
+
+    var feedbackMessage
+    var feedbackTrue = null
+
+    if( feedbackTrue == 0 ) 
+      feedbackMessage = "Falsche E-Mail-Konto"
+    else if ( feedbackTrue == 1 ) 
+      feedbackMessage = "E-Mail wurde auf Ihr Konto gesendet"
+    else
+      feedbackMessage = ""
+
+
+
     return (
       <div className={classes.rootForgotPass}>
         <div className={classes.forgotPassword}>
@@ -95,6 +110,11 @@ export class ForgotPassword extends React.Component {
                     >
                       <Mail style={sendEmail} color='#446CB3'/>
                     </IconButton>
+                </div>
+                <br/>
+                <br/>
+                <div className={classes.feedback}>
+                  <h4>{feedbackMessage}</h4>
                 </div>
               </CardText>
             </Card>
