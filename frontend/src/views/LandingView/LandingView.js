@@ -2,6 +2,7 @@ import React from 'react'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import SetForgotPasswordForm from '../../forms/SetForgotPasswordForm/SetForgotPasswordForm'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
@@ -29,14 +30,12 @@ export class LandingView extends React.Component {
           <NavBarLandingPage />
         </div>
          <div className={classes.container}>
-           {/*<img className={classes.dash}
+           <img className={classes.dash}
               src={BonnRhein}
-              alt='No Net.' /> */}
+              alt='No Net.' /> 
+           <SetForgotPasswordForm />
         </div>
         <Divider />
-        <div>
-          <ForgotPassword /> 
-        </div>
       </div>
       <div className={classes.footer}>
           <FooterLanding />

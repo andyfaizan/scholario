@@ -1,21 +1,34 @@
 import React from 'react'
-import classes from './ForgotPassword.scss'
+import { reduxForm } from 'redux-form'
+import classes from './SetForgotPasswordForm.scss'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
-import LiveHelp from 'material-ui/svg-icons/communication/live-help'
+import Edit from 'material-ui/svg-icons/image/edit'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
 
+export const fields = []
+
+const validate = (values) => {
+  const errors = {}
+  return errors
+}
 
 type Props = {
-
-};
-
-export class ForgotPassword extends React.Component {
+  handleSubmit: Function,
+  fields: Object,
+}
+export class SetForgotPassword extends React.Component {
   props: Props;
 
-  render () {
+  defaultProps = {
+    fields: {},
+  }
+
+  render() {
+    const { fields, handleSubmit } = this.props
+
     const titleStyle = {
 
         marginTop: 15,
@@ -71,7 +84,7 @@ export class ForgotPassword extends React.Component {
       opacity: 0.8
     }
 
-    var feedbackMessage
+     var feedbackMessage
     var feedbackTrue = null
 
     if( feedbackTrue == 0 ) 
@@ -81,18 +94,17 @@ export class ForgotPassword extends React.Component {
     else
       feedbackMessage = ""
 
-
-
     return (
-      <div className={classes.rootForgotPass}>
+      <form onSubmit={handleSubmit}>
+        <div className={classes.rootForgotPass}>
         <div className={classes.forgotPassword}>
           <div className={classes.inner} >
             <Card>
               <CardHeader
-                title="Passwort vergessen. Bitte geben Sie Ihre E-Mail Addresse"
+                title="Das neue Passwort eingeben"
                 titleStyle={titleStyle}
                 titleColor="#26A65B"
-                avatar={<LiveHelp style={iconStyle}  />}
+                avatar={<Edit style={iconStyle}  />}
               />
               <Divider />
               <CardText>
@@ -121,9 +133,15 @@ export class ForgotPassword extends React.Component {
           </div>
         </div>
       </div>
+      </form>
     )
   }
 }
 
-export default ForgotPassword
+SetForgotPassword = reduxForm({
+  form: 'SetForgotPassword',
+  fields,
+  validate
+})(SetForgotPassword)
 
+export default SetForgotPassword
