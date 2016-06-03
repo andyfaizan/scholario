@@ -12,7 +12,7 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import classes from './AddMaterialComp.scss'
 import AddCircle from 'material-ui/svg-icons/content/add';
 import ModalRoot from '../../containers/ModalRoot'
-import {ADD_MATERIAL_MODAL as add_material} from '../../redux/modules/modal'
+import {ADD_MATERIAL_MODAL as add_material, ADD_BOOKMARK_MODAL as add_bookmark} from '../../redux/modules/modal'
 
 type Props = {
   modal: Object,
@@ -106,7 +106,7 @@ export class AddMaterialComp extends React.Component {
 	}
 
     //variables for displaying Child Node
-    var container = <div key="IndependentPackage" className={classes.container}> 
+    var container = <div key="IndependentPackage" className={classes.container}>
                            <AddCircle style={plusButton} color='#ffffff' />
                     </div>
 
@@ -136,4 +136,3 @@ export class AddMaterialComp extends React.Component {
 }
 
 export default AddMaterialComp
-
