@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField'
 import Edit from 'material-ui/svg-icons/image/edit'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
 export const fields = []
 
@@ -84,13 +85,17 @@ export class SetForgotPassword extends React.Component {
       opacity: 0.8
     }
 
-     var feedbackMessage
+    const buttonStyle = {
+      width:'80%'
+    }
+
+    var feedbackMessage
     var feedbackTrue = null
 
     if( feedbackTrue == 0 ) 
-      feedbackMessage = "Falsche E-Mail-Konto"
+      feedbackMessage = <div className={classes.error}>Passwörter stimmen nicht überein</div>
     else if ( feedbackTrue == 1 ) 
-      feedbackMessage = "E-Mail wurde auf Ihr Konto gesendet"
+      feedbackMessage = <div className={classes.success}>Ihr Passwort wurde geändert</div>
     else
       feedbackMessage = ""
 
@@ -101,7 +106,7 @@ export class SetForgotPassword extends React.Component {
           <div className={classes.inner} >
             <Card>
               <CardHeader
-                title="Das neue Passwort eingeben"
+                title="Setze dein Passwort zurück"
                 titleStyle={titleStyle}
                 titleColor="#26A65B"
                 avatar={<Edit style={iconStyle}  />}
@@ -110,18 +115,26 @@ export class SetForgotPassword extends React.Component {
               <CardText>
                 <div className={classes.containingEmail}>
                   <TextField
-                    floatingLabelText="Deine Email Addresse"
+                    floatingLabelText="Das neue Passwort eingeben"
                     fullWidth={false}
                     floatingLabelStyle={floatingLabel}
                     underlineFocusStyle={underlineColor}
                     style={textFieldStyle}
+                     type="password"
                   />
-                    <IconButton
-                      iconStyle={medium}
-                      style={mediumIcon}
-                    >
-                      <Mail style={sendEmail} color='#446CB3'/>
-                    </IconButton>
+                  <TextField
+                    floatingLabelText="Geben Sie Ihr neues Passwort noch Einmal"
+                    fullWidth={false}
+                    floatingLabelStyle={floatingLabel}
+                    underlineFocusStyle={underlineColor}
+                    style={textFieldStyle}
+                     type="password"
+                  />
+                </div>
+                <br/>
+                <br/>
+                <div className={classes.containingEmail}>
+                  <RaisedButton label="zurückstellen" primary={false} labelColor="#ffffff" backgroundColor="#446CB3" style={buttonStyle}/>
                 </div>
                 <br/>
                 <div className={classes.feedback}>

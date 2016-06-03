@@ -33,10 +33,13 @@ export class LandingView extends React.Component {
            <img className={classes.dash}
               src={BonnRhein}
               alt='No Net.' /> 
-           <SetForgotPasswordForm />
+           
         </div>
         <Divider />
       </div>
+      <div>
+        <SetForgotPasswordForm />
+        </div>
       <div className={classes.footer}>
           <FooterLanding />
       </div>

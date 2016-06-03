@@ -75,9 +75,9 @@ export class ForgotPassword extends React.Component {
     var feedbackTrue = null
 
     if( feedbackTrue == 0 ) 
-      feedbackMessage = "Falsche E-Mail-Konto"
+      feedbackMessage =<div className={classes.error}>Falsche E-Mail-Konto</div>
     else if ( feedbackTrue == 1 ) 
-      feedbackMessage = "E-Mail wurde auf Ihr Konto gesendet"
+      feedbackMessage = <div className={classes.success}>E-Mail wurde auf Ihr Konto gesendet</div>
     else
       feedbackMessage = ""
 
