@@ -39,6 +39,23 @@ export class CourseCard extends React.Component {
       overflow: 'inherit'
     }
 
+    const contentStyle = {
+      float: 'left',
+      width: 300,
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: 13
+    }
+
+    const actionStyle = {
+      float: 'left',
+      width: 300,
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: 13
+    }
+
+
     const divStyle = {
       textAlign: 'center',
     }
@@ -75,24 +92,37 @@ export class CourseCard extends React.Component {
                             </div>
                           </div> ;
 
-  var heading = <div key="headingCourses" style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}>{/*<Badge
-      badgeContent={10}
-      secondary={true}
-      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      ></Badge>*/}</div></div>;
+  var heading =
+    <div key="headingCourses" style={divStyle}>
+      <h4>{this.props.titleCourse}</h4>
+        <div className={classes.badge}>
+        {/*<Badge
+          badgeContent={10}
+          secondary={true}
+          badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+          ></Badge>*/}
+        </div>
+      </div>
   var container =<div key="containerCourse" className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6></div> ;
 
   const nodePaperCourse = [
 
       heading,
-      container,
-      actionsCourse
-
+      container
       ];
+
+  const cardActions = [
+    actionsCourse
+  ]
 
     return (
           <div>
-            <Paper style={style} zDepth={1} children={nodePaperCourse}  />
+              <Paper style={style} zDepth={1}>
+                <Link to={this.props.courseUrl}>
+                  <Paper style={contentStyle} zDepth={0} children={nodePaperCourse} />
+                </Link>
+                <Paper style={actionStyle} zDepth={0} children={cardActions} />
+              </Paper>
           </div>
     )
   }
