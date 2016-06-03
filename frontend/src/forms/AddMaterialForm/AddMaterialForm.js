@@ -52,7 +52,7 @@ export class AddMaterial extends React.Component {
               onDrop={
                 ( filesToUpload, e ) => {
                   files.onChange(filesToUpload)
-                  this.props.addMaterial(this.props.pkgId, files)
+                  this.props.addMaterial(this.props.pkgId, filesToUpload)
                 }
               }
               accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt">
