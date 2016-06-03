@@ -16,6 +16,7 @@ import MaterialView from 'views/MaterialView/MaterialView'
 import DetailQuestionListView from 'views/DetailQuestionListView/DetailQuestionListView'
 import QuestionView from 'views/QuestionView/QuestionView'
 import PackageView from 'views/PackageView/PackageView'
+import ForgotPasswordView from 'views/ForgotPasswordView/ForgotPasswordView'
 import ImpressumView from 'views/ImpressumView/ImpressumView'
 
 export default (store) => (
@@ -24,6 +25,8 @@ export default (store) => (
     <Route component={Dashboard}>
       <Route path='dashboard' component={DashboardView} />
       <Route path='connects' component={DashboardView}/>
+      <Route path='forgetPassword' component={ForgotPasswordView}/>
+      <Route path='resetPassword' component={ForgotPasswordView}/>
       <Route path='course/:id' component={CourseView} />
       <Route path='course/:id/questions' component={DetailQuestionListView} />
       <Route path='package/:id' component={PackageView} />
