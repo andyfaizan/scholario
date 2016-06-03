@@ -1,21 +1,35 @@
 import React from 'react'
-import classes from './ForgotPassword.scss'
+import { reduxForm } from 'redux-form'
+import classes from './SetForgotPasswordForm.scss'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
-import LiveHelp from 'material-ui/svg-icons/communication/live-help'
+import Edit from 'material-ui/svg-icons/image/edit'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
+import RaisedButton from 'material-ui/RaisedButton'
 
+export const fields = []
+
+const validate = (values) => {
+  const errors = {}
+  return errors
+}
 
 type Props = {
-
-};
-
-export class ForgotPassword extends React.Component {
+  handleSubmit: Function,
+  fields: Object,
+}
+export class SetForgotPassword extends React.Component {
   props: Props;
 
-  render () {
+  defaultProps = {
+    fields: {},
+  }
+
+  render() {
+    const { fields, handleSubmit } = this.props
+
     const titleStyle = {
 
         marginTop: 15,
@@ -71,45 +85,56 @@ export class ForgotPassword extends React.Component {
       opacity: 0.8
     }
 
+    const buttonStyle = {
+      width:'80%'
+    }
+
     var feedbackMessage
     var feedbackTrue = null
 
     if( feedbackTrue == 0 ) 
-      feedbackMessage =<div className={classes.error}>Falsche E-Mail-Konto</div>
+      feedbackMessage = <div className={classes.error}>Passwörter stimmen nicht überein</div>
     else if ( feedbackTrue == 1 ) 
-      feedbackMessage = <div className={classes.success}>E-Mail wurde auf Ihr Konto gesendet</div>
+      feedbackMessage = <div className={classes.success}>Ihr Passwort wurde geändert</div>
     else
       feedbackMessage = ""
 
-
-
     return (
-      <div className={classes.rootForgotPass}>
+      <form onSubmit={handleSubmit}>
+        <div className={classes.rootForgotPass}>
         <div className={classes.forgotPassword}>
           <div className={classes.inner} >
             <Card>
               <CardHeader
-                title="Passwort vergessen. Bitte geben Sie Ihre E-Mail Addresse"
+                title="Setze dein Passwort zurück"
                 titleStyle={titleStyle}
                 titleColor="#26A65B"
-                avatar={<LiveHelp style={iconStyle}  />}
+                avatar={<Edit style={iconStyle}  />}
               />
               <Divider />
               <CardText>
                 <div className={classes.containingEmail}>
                   <TextField
-                    floatingLabelText="Deine Email Addresse"
+                    floatingLabelText="Das neue Passwort eingeben"
                     fullWidth={false}
                     floatingLabelStyle={floatingLabel}
                     underlineFocusStyle={underlineColor}
                     style={textFieldStyle}
+                     type="password"
                   />
-                    <IconButton
-                      iconStyle={medium}
-                      style={mediumIcon}
-                    >
-                      <Mail style={sendEmail} color='#446CB3'/>
-                    </IconButton>
+                  <TextField
+                    floatingLabelText="Geben Sie Ihr neues Passwort noch Einmal"
+                    fullWidth={false}
+                    floatingLabelStyle={floatingLabel}
+                    underlineFocusStyle={underlineColor}
+                    style={textFieldStyle}
+                     type="password"
+                  />
+                </div>
+                <br/>
+                <br/>
+                <div className={classes.containingEmail}>
+                  <RaisedButton label="zurückstellen" primary={false} labelColor="#ffffff" backgroundColor="#446CB3" style={buttonStyle}/>
                 </div>
                 <br/>
                 <div className={classes.feedback}>
@@ -121,9 +146,15 @@ export class ForgotPassword extends React.Component {
           </div>
         </div>
       </div>
+      </form>
     )
   }
 }
 
-export default ForgotPassword
+SetForgotPassword = reduxForm({
+  form: 'SetForgotPassword',
+  fields,
+  validate
+})(SetForgotPassword)
 
+export default SetForgotPassword
