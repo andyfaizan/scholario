@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const co = require('co');
 
 const utils = require('../utils');
+const mailer = require('../mailer');
 const config = require('../config/config');
 const logger = require('../logger');
 const User = mongoose.model('User');
@@ -207,6 +208,14 @@ router.post('/forgot-password', function (req, res) {
     }
 
     return user.save();
+  }).then(function (user) {
+    return res.status(200).json({
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    })
   });
 });
 
