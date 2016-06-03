@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import LiveHelp from 'material-ui/svg-icons/communication/live-help'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
+import ForgotPasswordForm from '../../forms/ForgotPasswordForm/ForgotPasswordForm'
 
 
 type Props = {
@@ -97,19 +98,7 @@ export class ForgotPassword extends React.Component {
               <Divider />
               <CardText>
                 <div className={classes.containingEmail}>
-                  <TextField
-                    floatingLabelText="Deine Email Addresse"
-                    fullWidth={false}
-                    floatingLabelStyle={floatingLabel}
-                    underlineFocusStyle={underlineColor}
-                    style={textFieldStyle}
-                  />
-                    <IconButton
-                      iconStyle={medium}
-                      style={mediumIcon}
-                    >
-                      <Mail style={sendEmail} color='#446CB3'/>
-                    </IconButton>
+                  <ForgotPasswordForm onSubmit={this.props.onSubmitForgotPassword} />
                 </div>
                 <br/>
                 <div className={classes.feedback}>

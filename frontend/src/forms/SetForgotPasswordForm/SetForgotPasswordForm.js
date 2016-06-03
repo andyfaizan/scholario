@@ -9,10 +9,20 @@ import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
-export const fields = []
+export const fields = ['password', 'confirmPassword']
 
 const validate = (values) => {
   const errors = {}
+
+  if (!values.password) {
+    errors.password = 'Erforderlich'
+  } else if (values.password.length < 8) {
+    errors.password = 'Mindestens 8 zeichnen'
+  } else if (values.password !== values.confirmPassword) {
+    errors.password = 'Die Passwörter Stimmen nicht überein'
+  }
+
+
   return errors
 }
 
@@ -28,7 +38,7 @@ export class SetForgotPassword extends React.Component {
   }
 
   render() {
-    const { fields, handleSubmit } = this.props
+    const { fields: { password, confirmPassword }, handleSubmit } = this.props
 
     const titleStyle = {
 
@@ -115,6 +125,8 @@ export class SetForgotPassword extends React.Component {
               <CardText>
                 <div className={classes.containingEmail}>
                   <TextField
+                    {...password}
+                    errorText={password.touched && password.error ? password.error : ''}
                     floatingLabelText="Das neue Passwort eingeben"
                     fullWidth={false}
                     floatingLabelStyle={floatingLabel}
@@ -123,6 +135,7 @@ export class SetForgotPassword extends React.Component {
                      type="password"
                   />
                   <TextField
+                    {...confirmPassword}
                     floatingLabelText="Geben Sie Ihr neues Passwort noch Einmal"
                     fullWidth={false}
                     floatingLabelStyle={floatingLabel}
@@ -134,7 +147,15 @@ export class SetForgotPassword extends React.Component {
                 <br/>
                 <br/>
                 <div className={classes.containingEmail}>
-                  <RaisedButton label="zurückstellen" primary={false} labelColor="#ffffff" backgroundColor="#446CB3" style={buttonStyle}/>
+                  <RaisedButton
+                    label="zurückstellen"
+                    primary={false}
+                    labelColor="#ffffff"
+                    backgroundColor="#446CB3"
+                    style={buttonStyle}
+                    linkButton={true}
+                    onTouchTap={handleSubmit}
+                  />
                 </div>
                 <br/>
                 <div className={classes.feedback}>

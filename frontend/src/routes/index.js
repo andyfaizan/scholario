@@ -25,8 +25,8 @@ export default (store) => (
     <Route component={Dashboard}>
       <Route path='dashboard' component={DashboardView} />
       <Route path='connects' component={DashboardView}/>
-      <Route path='forgetPassword' component={ForgotPasswordView}/>
-      <Route path='resetPassword' component={ForgotPasswordView}/>
+      <Route path='forgot-password' component={ForgotPasswordView}/>
+      <Route path='reset-password/:code' component={ForgotPasswordView}/>
       <Route path='course/:id' component={CourseView} />
       <Route path='course/:id/questions' component={DetailQuestionListView} />
       <Route path='package/:id' component={PackageView} />

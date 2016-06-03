@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import {submit} from 'redux-form'
+import { push } from 'react-router-redux'
 import Dialog from 'material-ui/Dialog';
 import Tabs from 'material-ui/Tabs/Tabs';
 import Tab from 'material-ui/Tabs/Tab';
@@ -156,7 +157,12 @@ export class ModalComponent extends React.Component {
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
         <Tab label='Einloggen' >
           <div>
-            <LoginFields ref="loginForm" onSubmit={this.sendLoginRequest} confirm={this.confirmLogin}/>
+            <LoginFields
+              ref="loginForm"
+              onSubmit={this.sendLoginRequest}
+              confirm={this.confirmLogin}
+              onClickForgotPassword={() => { this.props.hide(); this.props.push('/forgot-password') }}
+            />
           </div>
           <div ref="loginErrorText" style={this.props.loginErr ? errorTextShownStyle : errorTextHiddenStyle}>
             Falsche Email oder Kennwort
@@ -244,6 +250,7 @@ const mapDispatchToProps = (dispatch) => {
         values.password, 'student', values.university, values.program,
       ))
     },
+    push: path => dispatch(push(path)),
   }
 }
 

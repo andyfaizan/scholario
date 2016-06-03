@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
@@ -6,6 +7,7 @@ import SetForgotPasswordForm from '../../forms/SetForgotPasswordForm/SetForgotPa
 import classes from './ForgotPasswordView.scss'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
+import { forgotPassword, resetPassword } from '../../redux/modules/user'
 
 type Props = {
 
@@ -17,22 +19,18 @@ export class ForgotPasswordView extends React.Component {
 
   render () {
 
-  	const pathForgotPass = '/forgetPassword' ;
-    const pathResetPass = '/resetPassword';
+    const pathForgotPass = '/forgot-password' ;
+    const pathResetPass = '/reset-password';
     var displayCard
 
-  	if (this.props.location.pathname === pathForgotPass) {
-
-  		displayCard = <ForgotPassword />
-
-  	}else if(this.props.location.pathname === pathCourses){
-
-  		displayCard = <SetForgotPasswordForm />
-
-  	}else{
-  		console.log('Invalid pathname')
-  		displayCard =null
-  	}
+    if (this.props.location.pathname === pathForgotPass) {
+      displayCard = <ForgotPassword onSubmitForgotPassword={(data) => this.props.dispatch(forgotPassword(data.email))} />
+    } else if (this.props.location.pathname.startsWith(pathResetPass)) {
+      displayCard = <SetForgotPasswordForm onSubmit={(data) => this.props.dispatch(resetPassword(this.props.params.code, data.password))} />
+    } else {
+      console.log('Invalid pathname')
+      displayCard = null
+    }
 
     return (
       <div>
@@ -41,9 +39,7 @@ export class ForgotPasswordView extends React.Component {
           <NavBarLandingPage />
         </div>
          <div className={classes.container}>
-          
-          {displayCard} 
-          
+          {displayCard}
         </div>
         <Divider />
       </div>
@@ -57,4 +53,5 @@ export class ForgotPasswordView extends React.Component {
   }
 }
 
-export default ForgotPasswordView
+export default connect(
+)(ForgotPasswordView)

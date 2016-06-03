@@ -35,6 +35,14 @@ export const PUT_USER_ERR = 'PUT_USER_ERR'
 export const LOGOUT = 'LOGOUT'
 export const LOGOUT_OK = 'LOGOUT_OK'
 
+export const FORGOT_PASSWORD_REQUEST = 'FORGOT_PASSWORD_REQUEST'
+export const FORGOT_PASSWORD_OK = 'FORGOT_PASSWORD_OK'
+export const FORGOT_PASSWORD_ERR = 'FORGOT_PASSWORD_ERR'
+
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST'
+export const RESET_PASSWORD_OK = 'RESET_PASSWORD_OK'
+export const RESET_PASSWORD_ERR = 'RESET_PASSWORD_ERR'
+
 export const FOLLOW_USER_REQUEST = 'FOLLOW_USER_REQUEST'
 export const FOLLOW_USER_OK = 'FOLLOW_USER_OK'
 export const FOLLOW_USER_ERR = 'FOLLOW_USER_ERR'
@@ -182,6 +190,24 @@ export function logoutOk() {
       entities: {}
     },
     user: {},
+  }
+}
+
+export function forgotPassword(email) {
+  const endpoint = urlJoin(config.apiURL, 'auth', 'forgot-password')
+  return {
+    types: [FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_OK, FORGOT_PASSWORD_ERR],
+    callAPI: () => request.post(endpoint).send({ email }),
+    payload: { email },
+  }
+}
+
+export function resetPassword(code, password) {
+  const endpoint = urlJoin(config.apiURL, 'auth', 'reset-password', code)
+  return {
+    types: [RESET_PASSWORD_REQUEST, RESET_PASSWORD_OK, RESET_PASSWORD_ERR],
+    callAPI: () => request.post(endpoint).send({ password }),
+    payload: { code },
   }
 }
 
