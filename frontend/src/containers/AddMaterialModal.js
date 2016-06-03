@@ -23,7 +23,7 @@ export class AddMaterialModal extends React.Component {
     this.onAddMaterialSubmit = this.onAddMaterialSubmit.bind(this)
   }
 
-  create = () => {
+  /*create = () => {
     console.log('Create material called')
     this.refs.myForm.submit()  // will return a promise
   }
@@ -32,7 +32,7 @@ export class AddMaterialModal extends React.Component {
     console.log('onAddMaterialSubmit called')
     //this.props.addMaterial(this.props.pkgId, data)
     this.props.hide()
-  }
+  }*/
 
   render() {
     const title = "Material Hinzufügen"
@@ -44,15 +44,17 @@ export class AddMaterialModal extends React.Component {
       color: 'black'
     }
 
+  /*<FlatButton
+      label="Abbrechen"
+      secondary={true}
+      disabled={this.props.request ? true : false}
+      labelStyle={labelStyle2}
+      onTouchTap={this.props.hide}/>,
+    */
     const actions = [
-      <FlatButton
-        label="Abbrechen"
-        secondary={true}
-        labelStyle={labelStyle2}
-        onTouchTap={this.props.hide}/>,
       <RaisedButton
-        // TODO disabled={submitting}
-        label='Hochladen'
+        disabled={this.props.request ? true : false}
+        label='Fertig'
         primary={false}
         backgroundColor='#446CB3'
         labelStyle={labelStyle1}
