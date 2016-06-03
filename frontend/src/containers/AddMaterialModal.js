@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddMaterialForm from '../forms/AddMaterialForm/AddMaterialForm'
 import * as selectors from '../redux/selectors'
-import { postMaterial } from '../redux/modules/materials'
+import { postMaterial, POST_MATERIAL_REQUEST, POST_MATERIAL_OK } from '../redux/modules/materials'
 
 export class AddMaterialModal extends React.Component {
   static propTypes = {
@@ -23,16 +23,16 @@ export class AddMaterialModal extends React.Component {
     this.onAddMaterialSubmit = this.onAddMaterialSubmit.bind(this)
   }
 
-  create = () => {
+  /*create = () => {
     console.log('Create material called')
     this.refs.myForm.submit()  // will return a promise
   }
 
   onAddMaterialSubmit = (data) => {
     console.log('onAddMaterialSubmit called')
-    this.props.addMaterial(this.props.pkgId, data)
+    //this.props.addMaterial(this.props.pkgId, data)
     this.props.hide()
-  }
+  }*/
 
   render() {
     const title = "Material Hinzufügen"
@@ -44,19 +44,21 @@ export class AddMaterialModal extends React.Component {
       color: 'black'
     }
 
+  /*<FlatButton
+      label="Abbrechen"
+      secondary={true}
+      disabled={this.props.request ? true : false}
+      labelStyle={labelStyle2}
+      onTouchTap={this.props.hide}/>,
+    */
     const actions = [
-      <FlatButton
-        label="Abbrechen"
-        secondary={true}
-        labelStyle={labelStyle2}
-        onTouchTap={this.props.hide}/>,
       <RaisedButton
-        // TODO disabled={submitting}
-        label='Hochladen'
+        disabled={this.props.request ? true : false}
+        label='Fertig'
         primary={false}
         backgroundColor='#446CB3'
         labelStyle={labelStyle1}
-        onTouchTap={this.create}/>
+        onTouchTap={this.props.hide}/>
     ];
 
     return (
@@ -69,7 +71,9 @@ export class AddMaterialModal extends React.Component {
           autoScrollBodyContent={true}
           autoDetectWindowHeight={true}>
             <AddMaterialForm ref="myForm"
-            onSubmit={this.onAddMaterialSubmit} />
+            request={this.props.request}
+            addMaterial={this.props.addMaterial}
+            pkgId={this.props.pkgId} />
         </Dialog>
       </div>
     )
@@ -79,7 +83,9 @@ export class AddMaterialModal extends React.Component {
 const mapStateToProps = (state) => {
   return {
     modal: state.modal,
-    pkgId: selectors.getCurPkgId(state)
+    pkgId: selectors.getCurPkgId(state),
+    request: selectors.getRequest(state, POST_MATERIAL_REQUEST),
+    postOk: selectors.getRequest(state, POST_MATERIAL_OK)
   }
 }
 
@@ -87,7 +93,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     hide: () => dispatch(hide(add_material)),
     addMaterial: (pkgId, data) => {
-        dispatch(postMaterial(pkgId, data.files))
+        dispatch(postMaterial(pkgId, data))
     }
   }
 }

@@ -114,7 +114,9 @@ export class Package extends React.Component {
               />
               <br/>
               <br/>
-              <Bookmarks />
+              <Bookmarks
+                bookmarks={this.props.pkg.bookmarks}
+              />
             </Col>
           </Row>
         </Grid>

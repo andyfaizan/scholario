@@ -15,6 +15,7 @@ export const getShallowQuestions = (state) => state.entities.questions
 export const getShallowAnswers = (state) => state.entities.answers
 export const getShallowPkgs = (state) => state.entities.pkgs
 export const getMaterials = (state) => state.entities.materials
+export const getBookmarks = (state) => state.entities.bookmarks
 export const getCurs = (state) => state.curs
 export const getCurCourseInstanceId = (state) => state.curs.courseInstance
 export const getCurPkgId = (state) => state.curs.pkg
@@ -204,8 +205,8 @@ export const getUniversitiesWithPrograms = createSelector(
 )
 
 export const getPkgs = createSelector(
-  [getShallowPkgs, getCourseInstances, getUsers, getMaterials],
-  (shallowPkgs, courseInstances, users, materials) => {
+  [getShallowPkgs, getCourseInstances, getUsers, getMaterials, getBookmarks],
+  (shallowPkgs, courseInstances, users, materials, bookmarks) => {
     var res = {}
     for (var k in shallowPkgs) {
       if (shallowPkgs.hasOwnProperty(k)) {
@@ -214,6 +215,7 @@ export const getPkgs = createSelector(
           res[k].owner = users[res[k].owner]
         //res[k].courseInstance = courseInstances[res[k].courseInstance]
         res[k].materials = _.values(materials).filter(material => material.pkg === k)
+        res[k].bookmarks = _.values(bookmarks).filter(bookmark => bookmark.pkg === k)
       }
     }
 
