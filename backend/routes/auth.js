@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const co = require('co');
+const crypto = require('crypto');
 
 const utils = require('../utils');
 const mailer = require('../mailer');
