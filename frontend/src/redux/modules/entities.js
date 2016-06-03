@@ -9,6 +9,7 @@ import { questionReducer } from './question'
 import { answerReducer } from './answer'
 import { pkgReducer } from './pkg'
 import { materialReducer } from './materials'
+import { bookmarkReducer } from './bookmark'
 
 
 const entities = combineReducers({
@@ -21,6 +22,7 @@ const entities = combineReducers({
   answers: answerReducer,
   pkgs: pkgReducer,
   materials: materialReducer,
+  bookmarks: bookmarkReducer,
 })
 
 export default entities
