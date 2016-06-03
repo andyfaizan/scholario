@@ -19,8 +19,8 @@ export class AddMaterialModal extends React.Component {
 
   constructor(props) {
     super(props)
-    this.create = this.create.bind(this)
-    this.onAddMaterialSubmit = this.onAddMaterialSubmit.bind(this)
+    //this.create = this.create.bind(this)
+    //this.onAddMaterialSubmit = this.onAddMaterialSubmit.bind(this)
   }
 
   /*create = () => {
