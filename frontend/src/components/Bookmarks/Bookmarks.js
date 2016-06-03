@@ -42,6 +42,17 @@ export class Bookmarks extends React.Component {
     const allBookmarks = "Alle Lesezeichen"
     const allBookmarksAdd = "Eine Lesezeichen stellen"
 
+    var bookmarks
+    if (this.props.bookmarks) {
+      bookmarks = this.props.bookmarks.map(bookmark =>
+        <BookmarkItem
+          key={bookmark._id}
+          bookmarkLabel={bookmark.title}
+          bookmarkURL={bookmark.url}
+          datePosted={bookmark.createDate}
+        />
+      )
+    }
     return (
       <div>
       	<Card style={border}>
@@ -58,7 +69,7 @@ export class Bookmarks extends React.Component {
               </Subheader>
               <div>
                 {/*we could add bookmarkItems here */}
-                <BookmarkItem />
+                {bookmarks}
               </div>
             </List>
           </CardText>
