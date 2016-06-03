@@ -31,6 +31,7 @@ export class AddBookmarkModal extends React.Component {
   onAddBookmarkSubmit(data) {
     console.log("onAddBookmarkSubmit called")
     this.props.postBookmark(this.props.pkgId, data)
+    this.props.hide()
   }
 
   render() {

@@ -120,10 +120,6 @@ export class AddMaterialComp extends React.Component {
         this.props.modal.modalType === add_material) {
       addMaterialModal = <ModalRoot modalType={add_material} />
     }
-    if (this.props.modal && this.props.modal.visible &&
-        this.props.modal.modalType === add_bookmark) {
-      addMaterialModal = <ModalRoot modalType={add_bookmark} />
-    }
     return (
       <div>
         <div>
