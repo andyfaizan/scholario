@@ -6,6 +6,7 @@ import ModalComponent from './ModalComponent'
 import AddQuestionModal from './AddQuestionModal'
 import AddPackageModal from './AddPackageModal'
 import AddMaterialModal from './AddMaterialModal'
+import AddBookmarkModal from './AddBookmarkModal'
 
 /*
 Idea for the Modal hierarchy has been taken from this StackOverflow post:
@@ -19,6 +20,7 @@ const MODAL_COMPONENTS = {
   'ADD_QUESTION_MODAL': AddQuestionModal,
   'ADD_PACKAGE_MODAL': AddPackageModal,
   'ADD_MATERIAL_MODAL': AddMaterialModal,
+  'ADD_BOOKMARK_MODAL': AddBookmarkModal
 }
 
 const ModalRoot = ({ modalType, location }) => {
