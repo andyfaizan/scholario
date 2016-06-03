@@ -38,7 +38,6 @@ export class LandingView extends React.Component {
         <Divider />
       </div>
       <div>
-        <SetForgotPasswordForm />
         </div>
       <div className={classes.footer}>
           <FooterLanding />
