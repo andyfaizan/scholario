@@ -16,6 +16,8 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 // Own modules
 const config = require('./config/config');
 const logger = require('./logger');
+const mailer = require('./mailer');
+const utils = require('./utils');
 
 const port = process.env.PORT || 3000;
 const models = join(__dirname, 'models');
@@ -122,6 +124,34 @@ app.get('/email-verification/:code', function (req, res) {
       }]
     });
   });
+});
+
+apiRouter.post('/feedback', function (req, res) {
+  req.checkBody('title', 'InvalidTitle').notEmpty();
+  req.checkBody('content', 'InvalidContent').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      'err': errors
+    });
+  }
+
+  var mailOpts = {
+    from: '"Scholario" <noreply@scholario.de>',
+    to: 'info@scholario.de',
+    subject: `[Feedback] ${req.body.title}`,
+    text: req.body.content,
+  };
+
+  if (utils.getEnv() === 'production') {
+    mailer.transporter.sendMail(mailOpts).catch(function (err) {
+      logger.error(err);
+    });
+  } else if (utils.getEnv() === 'development') {
+    logger.debug(req.body.title, req.body.content);
+  }
+  return res.json({});
 });
 
 // Test api
