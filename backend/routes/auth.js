@@ -3,8 +3,11 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const co = require('co');
+const crypto = require('crypto');
+const moment = require('moment');
 
 const utils = require('../utils');
+const mailer = require('../mailer');
 const config = require('../config/config');
 const logger = require('../logger');
 const User = mongoose.model('User');
@@ -190,7 +193,7 @@ router.post('/forgot-password', function (req, res) {
     var verificationCode = buffer.toString('hex');
     user.verificationCode = verificationCode;
     user.vcCreated = Date.now();
-    var verificationURL = `http://scholario.de/forgot-password/${verificationCode}`;
+    var verificationURL = `http://scholario.de/reset-password/${verificationCode}`;
     var mailOpts = {
       from: '"Scholario" <noreply@scholario.de>',
       to: user.email,
@@ -207,6 +210,14 @@ router.post('/forgot-password', function (req, res) {
     }
 
     return user.save();
+  }).then(function (user) {
+    return res.status(200).json({
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    })
   });
 });
 
@@ -223,14 +234,16 @@ router.post('/reset-password/:code', function (req, res) {
 
   User.findOne({ verificationCode: req.params.code }).then(function (user) {
     var timeDiff = moment.duration(moment().diff(moment(user.vcCreated))).asHours();
-    if (!user || user.verified || timeDiff > 24) {
+    if (!user || timeDiff > 24) {
       return res.status(400).json({
         err: [{ msg: 'Code is not valid.' }],
       });
     }
+
     user.verificationCode = '';
     user.updatePassword(req.body.password).then(function () {
-      user.save();
+      return user.save();
+    }).then(function (user) {
       return res.status(200).json({
         err: '',
       });
@@ -240,8 +253,12 @@ router.post('/reset-password/:code', function (req, res) {
         err: [{ msg: 'InternalError' }],
       });
     });;
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
   });
-
 });
 
 module.exports = router;

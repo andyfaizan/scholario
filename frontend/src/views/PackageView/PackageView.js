@@ -19,7 +19,7 @@ import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
-import { show, ADD_MATERIAL_MODAL as add_material } from '../../redux/modules/modal'
+import { show, ADD_MATERIAL_MODAL as add_material, ADD_BOOKMARK_MODAL as add_bookmark } from '../../redux/modules/modal'
 
 type Props = {
   packageName: PropTypes.string,
@@ -114,7 +114,11 @@ export class Package extends React.Component {
               />
               <br/>
               <br/>
-              <Bookmarks />
+              <Bookmarks
+                bookmarks={this.props.pkg.bookmarks}
+                modal={this.props.modal}
+                show={() => this.props.dispatch(show(add_bookmark))}
+              />
             </Col>
           </Row>
         </Grid>

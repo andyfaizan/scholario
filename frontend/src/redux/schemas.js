@@ -37,6 +37,10 @@ export const materialSchema = new Schema('materials', {
   idAttribute: '_id'
 })
 
+export const bookmarkSchema = new Schema('bookmarks', {
+  idAttribute: '_id'
+})
+
 userSchema.define({
   courseInstances: arrayOf(courseInstanceSchema),
   universities: arrayOf(universitySchema),
@@ -75,8 +79,13 @@ pkgSchema.define({
   courseInstance: courseInstanceSchema,
   owner: userSchema,
   materials: arrayOf(materialSchema),
+  bookmarks: arrayOf(bookmarkSchema),
 })
 
 materialSchema.define({
+  pkg: pkgSchema,
+})
+
+bookmarkSchema.define({
   pkg: pkgSchema,
 })

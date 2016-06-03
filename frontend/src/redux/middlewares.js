@@ -6,7 +6,7 @@ import { LOGIN_OK, LOGOUT_OK } from './modules/user'
 
 
 export const authMiddleware = store => next => action => {
-  const allowedPaths = [ '/', '/impressum' ]
+  const allowedPaths = [ '/', '/impressum', '/forgot-password']
   if (action.type === LOCATION_CHANGE) {
     if (store.getState().user && store.getState().user.token) {
       if (action.payload.pathname === '/') {
@@ -15,6 +15,7 @@ export const authMiddleware = store => next => action => {
       }
       return next(action)
     } else {
+      if (action.payload.pathname.startsWith('/reset-password')) return next(action)
       if (allowedPaths.indexOf(action.payload.pathname) !== -1) {
           return next(action)
       }

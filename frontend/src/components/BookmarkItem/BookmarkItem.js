@@ -41,13 +41,15 @@ export class BookmarkItem extends React.Component {
 
     return (
       <div>
-      	<ListItem
-          leftIcon={<ActionQuestionAnswer color="#26A65B"/>}
-          primaryText= {this.props.bookmarkLabel}
-          secondaryText={secondaryText}
-          innerDivStyle={{color:'#26A65B'}}
-          style={border}
-        />
+        <a target="_blank" href={this.props.bookmarkURL}>
+          <ListItem
+            leftIcon={<ActionQuestionAnswer color="#26A65B"/>}
+            primaryText= {this.props.bookmarkLabel}
+            secondaryText={secondaryText}
+            innerDivStyle={{color:'#26A65B'}}
+            style={border}
+          />
+        </a>
       </div>
     )
   }

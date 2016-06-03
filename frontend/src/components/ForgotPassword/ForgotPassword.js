@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField'
 import LiveHelp from 'material-ui/svg-icons/communication/live-help'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
+import ForgotPasswordForm from '../../forms/ForgotPasswordForm/ForgotPasswordForm'
 
 
 type Props = {
@@ -24,6 +25,8 @@ export class ForgotPassword extends React.Component {
     }
      const floatingLabel = {
 
+      opacity:0.7,
+      fontSize:'80%',
       color:'#26A65B'
     }
 
@@ -68,6 +71,20 @@ export class ForgotPassword extends React.Component {
 
       opacity: 0.8
     }
+
+    var feedbackMessage
+    var feedbackTrue = this.props.feedbackTrue
+
+    console.log(feedbackTrue)
+    if(feedbackTrue == 0)
+      feedbackMessage =<div className={classes.error}>Falsche E-Mail-Konto</div>
+    else if (feedbackTrue == 1)
+      feedbackMessage = <div className={classes.success}>E-Mail wurde auf Ihr Konto gesendet</div>
+    else
+      feedbackMessage = ""
+
+
+
     return (
       <div className={classes.rootForgotPass}>
         <div className={classes.forgotPassword}>
@@ -82,20 +99,13 @@ export class ForgotPassword extends React.Component {
               <Divider />
               <CardText>
                 <div className={classes.containingEmail}>
-                  <TextField
-                    floatingLabelText="Deine Email Addresse"
-                    fullWidth={false}
-                    floatingLabelStyle={floatingLabel}
-                    underlineFocusStyle={underlineColor}
-                    style={textFieldStyle}
-                  />
-                    <IconButton
-                      iconStyle={medium}
-                      style={mediumIcon}
-                    >
-                      <Mail style={sendEmail} color='#446CB3'/>
-                    </IconButton>
+                  <ForgotPasswordForm onSubmit={this.props.onSubmitForgotPassword} />
                 </div>
+                <br/>
+                <div className={classes.feedback}>
+                  <h4>{feedbackMessage}</h4>
+                </div>
+                <br/>
               </CardText>
             </Card>
           </div>

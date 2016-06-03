@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import classes from './LoginFields.scss'
 import { reduxForm } from 'redux-form'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 export const fields = [ 'email' , 'password' ]
 
@@ -86,7 +87,7 @@ export class LoginFields extends React.Component {
               />
             <br/>
             <br/>
-            <a className={classes.forgotLink}>Forgot your password ? </a>
+            <a onTouchTap={this.props.onClickForgotPassword} className={classes.forgotLink}>Passwort vergessen? </a>
           </div>
       </div>
     )
