@@ -6,14 +6,10 @@ import ModalRoot from '../../containers/ModalRoot'
 import FloatingActionButton from 'material-ui/lib/floating-action-button'
 
 type Props = {
-  openModal: Function,
-  modal: Object,
-  course_modal: String
+
 };
 export class AddCourseComponent extends React.Component {
   props: Props;
-
-
 
 
   render () {
@@ -31,18 +27,19 @@ export class AddCourseComponent extends React.Component {
 	  alignItems: 'center',
 	  borderStyle: 'solid',
 	  borderWidth: 1,
-	  borderColor: '#E74C3C'
+	  borderColor: '#446CB3'
 
 	};
 
 	const style = {
-	float: 'left',	
-  height: 170,
-  width: 170,
-  margin: 8.5,
-  textAlign: 'center',
-  display: 'inline-block',
-  backgroundColor: '#E74C3C'
+	  float: 'left',	
+	  height: 170,
+	  width: 170,
+	  margin: 8.5,
+	  textAlign: 'center',
+	  display: 'inline-block',
+	  borderRadius: 13,
+	  backgroundColor: '#446CB3'
 
 };
 
@@ -62,13 +59,15 @@ export class AddCourseComponent extends React.Component {
 	  	};
 
 
-    const actions = <div><IconButton style={buttonStyle} tooltip="Add Course"> <AddCircle style={plusButton} color='#ffffff' /></IconButton></div> ;
-
+    const actions = <div>
+                         <IconButton style={buttonStyle} tooltip="In Course"> 
+                           <AddCircle style={plusButton} color='#ffffff' />
+                          </IconButton>
+                    </div> ;
 
     return (
       <div>
-		<Paper style={style} zDepth={2} onClick={this.props.openModal} circle={true} children= {actions} />
-        {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
+		<Paper style={style} zDepth={2} onClick={this.props.openModal} children= {actions} />
       </div>
     )
   }

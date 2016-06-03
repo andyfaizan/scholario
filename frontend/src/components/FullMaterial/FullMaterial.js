@@ -16,6 +16,12 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import ReactPlayer from 'react-player'
 import classes from './FullMaterial.scss'
+import Avatar from 'material-ui/lib/avatar'
+import ArrowBack from 'material-ui/lib/svg-icons/navigation/arrow-back'
+import Questions from '../../containers/Questions'
+import IconButton from 'material-ui/lib/icon-button'
+import { Router, Route, Link } from 'react-router'
+import Snackbar from 'material-ui/lib/snackbar';
 
 const previewStyle = {
   backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -40,20 +46,63 @@ const youtubeConfig = {
   }
 }
 
-const getFrame = (fileType, playing) => {
-  if(fileType === 'image'){
-    return <img src="http://lorempixel.com/400/300/nature/" style={mediaStyle}/>
+const fileConfig = {
+  attributes: {
+    controls: true
   }
-  if(fileType === 'video'){
+}
+
+const getFileType = (extension) => {
+  console.log(extension)
+  if(extension)
+  switch (extension.split(".")[1]) {
+    case 'pdf':
+    case 'doc':
+    case 'docx':
+    case 'ppt':
+    case 'pptx':
+    case 'xlsx':
+    case 'xls':
+    case 'txt':
+    return 'doc'
+    break
+
+    case 'mp4':
+    // case 'webm':
+    case 'mp3':
+    // case 'wav':
+    return 'av'
+    break
+
+    case 'jpeg':
+    case 'jpg':
+    case 'png':
+    case 'bmp':
+    return 'image'
+    break
+
+    default:
+      return ''
+  }
+}
+
+const getFrame = (material) => {
+  console.dir(material)
+  var fileType = getFileType(material.ext)
+  if(fileType === 'image'){
+    return <img src={material.url} style={mediaStyle}/>
+  }
+  if(fileType === 'av' && ReactPlayer.canPlay(material.url)){
     return (
       <div className={classes.videoStyle}>
         <ReactPlayer
-          url='http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
-          playing={playing}
-          // volume={volume}
+          url={material.url}
+          playing={true}
+          fileConfig={fileConfig}
+          volume={0.5}
           // soundcloudConfig={soundcloudConfig}
           // vimeoConfig={vimeoConfig}
-          // youtubeConfig={youtubeConfig}
+          youtubeConfig={youtubeConfig}
           // onPlay={() => this.setState({ playing: true })}
           // onPause={() => this.setState({ playing: false })}
           // onBuffer={() => console.log('onBuffer')}
@@ -64,30 +113,58 @@ const getFrame = (fileType, playing) => {
           />
       </div>)
   }
-  return <IFrame src="msxnet.org/orwell/print/animal_farm.pdf"/>
+  if(fileType === 'doc')
+    return <IFrame src={material.url}/>
+
+  return (
+    <div>
+      <img src="https://placekitten.com/600/400" style={mediaStyle}/>
+      <Snackbar
+          open={true}
+          message="Das Material kann leider nicht geöffnet werden"
+          autoHideDuration={4000}
+      />
+    </div>
+  )
 }
 
-const FullMaterial = ({fileType}) => (
+const FullMaterial = ({fileType, playing, location, courseInstance,
+                       pkg, material, recentQuestions, popularQuestions, onClickVote}) => (
+  <div>
   <Card>
     <CardHeader
-      title="Game Theory"
-      subtitle="Basics of Economics"
-      avatar="http://lorempixel.com/100/100/nature/"
-      />
-    <Grid fluid={true}>
+      title={courseInstance.course ? courseInstance.course.name : ''}
+      subtitle={pkg.name}
+      avatar={
+        <IconButton tooltip="Back to Package"
+        containerElement={<Link to={`/package/${pkg._id}`}/>}>
+          <ArrowBack />
+        </IconButton>
+      }
+    />
+  </Card>
+  <br/>
+  <br/>
+  <Grid fluid={true}>
       <Row >
-        <Col xs={20} md={8}>
+        <Col xs={16} md={8}>
           <Card style={previewStyle}>
-            {getFrame(fileType)}
+            {getFrame(material)}
           </Card>
         </Col>
-        <Col xs={4} md={4}>
-          <RightSectionTeacherDashboard questions={[]}/>
+        <Col xs={8} md={4}>
+          <Questions
+            recentQuestions={recentQuestions}
+            popularQuestions={popularQuestions}
+            location={location}
+            linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+            onClickVote={(qid) => onClickVote(qid)}
+          />
         </Col>
       </Row>
     </Grid>
-  </Card>
-);
+  </div>
+)
 
 FullMaterial.propTypes = {}
 

@@ -10,77 +10,202 @@ import Badge from 'material-ui/lib/badge'
 import { Router, Route, Link } from 'react-router'
 import NotificationsIcon from 'material-ui/lib/svg-icons/social/notifications'
 import classes from './MaterialComponent.scss'
+import Edit from 'material-ui/lib/svg-icons/action/track-changes'
+import FileDownload from 'material-ui/lib/svg-icons/file/file-download'
 
 type Props = {
 
-	materialTitle: string,
-	keywords:array,
-	dateUploaded:string,
-	semesterInstance: string,
-	materialNotifications: number
-
+  materialTitle: PropTypes.string,
+  keywords: PropTypes.array,
+  dateUploaded: PropTypes.string,
+  materialNotifications: PropTypes.number,
+  pkgUrl: PropTypes.string
 };
 export class MaterialComponent extends React.Component {
    
-   static propTypes = {
-    materialTitle: PropTypes.string,
-    keywords: PropTypes.array,
-    dateUploaded: PropTypes.string,
-    semesterInstance: PropTypes.string,
-    materialNotifications:PropTypes.number
-  };
+  props: Props
+
   render () {
-
   	//inline styling variables for certain components ...
-	const style = {
-	  float: 'left',
-	  height: 170,
-	  width: 300,
-	  margin: 8.5,
-	  backgroundColor: '#FFA400',
-	  color: '#ffffff',
-	  borderRadius: 13,
-	  overflow: 'inherit',
-	  alignItems: 'center'
+    const style = {
+      float: 'left',
+      height: 172,
+      width: 220,
+      margin: 8.5,
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+    }
 
-	};
+    const styleTwo = {
+      float: 'left',
+      height: 30,
+      width: 220,
+      margin: 8.5,
+      backgroundColor: '#ffffff',
+      color: '#ffffff',
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
+      marginTop: 150,
+      marginLeft: -229,
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor:'#446CB3',
+    }
 
-	const divStyle = {
-		textAlign: 'center',
-		color: '#ffffff'
+    const styleThree = {
+      float: 'left',
+      height: 30,
+      width: 220,
+      margin: 8.5,
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
+      marginTop: 144,
+      marginLeft: -229,
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#446CB3',
+    }
 
-	};
+    const styleFour = {
+      float: 'left',
+      height: 80,
+      width: 220,
+      margin: 8.5,
+      backgroundColor:'#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
+      marginTop: 8,
+      marginLeft: -229,
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#446CB3',
+      opacity: 1.0,
+      borderBottomLeftRadius: 50,
+      borderBottomRightRadius:50
+    }
 
-	//variables for displaying Child Node
-	var heading = <div key="headingMaterials" style={divStyle}><h4>{this.props.materialTitle}</h4>
-				  <div className={classes.badge}><Badge
-      			badgeContent={this.props.materialNotifications}
-      			secondary={true}
-      			badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      			></Badge></div></div>;
+    const styleFive = {
+      float: 'left',
+      height: 30,
+      width: 220,
+      margin: 8.5,
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
+      marginTop: 148,
+      marginLeft: -229,
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#446CB3',
+    }
 
-    var actionsCourse = <div key="actionMaterialsDiv" className={classes.actionMain} >
-    					<div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> 
-    					<Delete color='#ffffff' /> </IconButton></div><div className={classes.actionPosition}>
-						<IconButton linkButton={true} tooltip="Go to Detail Course">
-						<PageView color='#ffffff' />
-						</IconButton></div></div> ;
+    const styleSix = {
+      float: 'left',
+      height: 30,
+      width: 220,
+      margin: 8.5,
+      backgroundColor: '#ffffff',
+      color: '#ffffff',
+      borderBottomLeftRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
+      marginTop: 147,
+      marginLeft: -229,
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#446CB3',
+    }
 
-	var container =<div key="containerMaterial" className={classes.container}> 
-				   <h5>Keywords: {this.props.keywords}</h5>
-				   <h6>Semester Instance:{this.props.semesterInstance}</h6>
-				   <h6>Date Uploaded: {this.props.dateUploaded}</h6></div> ;
 
-	const nodePaperCourse = [
-      heading,
-	  container,
-	  actionsCourse
-      ];
+    const divStyle = {
+      textAlign: 'center',
+      color: '#ffffff',
+      marginLeft:5,
+      marginTop: -7,
+      opacity: 0.9,
+    }
 
+    //variables for displaying Child Node
+    var heading = <div key="headingIndependentPackage" style={divStyle}>
+                    <h5>{this.props.materialTitle}</h5>
+                    {<h5>{this.props.dateUploaded}</h5>}
+                  </div>
+
+    var container = <div>
+                    <div key="IndependentPackage" className={classes.container}> 
+                      <h5>{this.props.keywords}</h5>
+                    </div>
+                    <div key="deleteKey" className={classes.deleteButton}>
+                      <IconButton tooltip="Pkg löschen">
+                        <Delete color="White"/>
+                      </IconButton>
+                    </div>
+                    <div key="editKey" className={classes.editButton}>
+                      <IconButton tooltip="Edit Kurz">
+                        <Edit color="White"/>
+                      </IconButton>
+                    </div>
+                    <div key="downloadKey" className={classes.downloadMaterial}>
+                       <IconButton tooltip="Download-Paket">
+                        <FileDownload color="White"/>
+                      </IconButton>
+                    </div>
+                    </div>
+
+    var notifications = <div key="notifications" className={classes.badge}>
+                          <Badge
+                            badgeContent={10}
+                            secondary={true}
+                            badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+                          />
+                        </div>
+
+    const nodePaperCourse = [
+      container,
+      notifications
+    ]
+
+   const nodeFileClipper = [
+
+      heading
+    ]
+  
     return (
-      <div>
-        <Paper style={style} zDepth={1} children={nodePaperCourse}  />   
-      </div>
+	    <Link to={this.props.pkgUrl}>
+	        <div>
+	          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
+	          <Paper style={styleTwo} zDepth={0}  />
+	          <Paper style={styleFive} zDepth={0}  />
+	          <Paper style={styleSix} zDepth={0}  />
+	          <Paper style={styleThree} zDepth={0}  />
+	          <Paper style={styleFour} zDepth={5} children={nodeFileClipper} />
+	        </div>
+	      </Link>
     )
   }
 }

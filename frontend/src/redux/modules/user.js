@@ -3,7 +3,12 @@ import { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
+import urlJoin from 'url-join'
+import config from '../../config'
 import { userSchema } from '../schemas'
+import { FOLLOW_COURSE_INSTANCE_OK } from './course-instance'
+import { hide } from './modal'
+import { removeRequest } from './request'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -15,7 +20,10 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_OK = 'LOGIN_OK'
 export const LOGIN_ERR = 'LOGIN_ERR'
 
-//export const REQUEST_SIGNUP = 'REQUEST_SIGNUP'
+export const GET_USER_REQUEST = 'GET_USER_REQUEST'
+export const GET_USER_OK = 'GET_USER_OK'
+export const GET_USER_ERR = 'GET_USER_ERR'
+
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST'
 export const CREATE_USER_OK = 'CREATE_USER_OK'
 export const CREATE_USER_ERR = 'CREATE_USER_ERR'
@@ -67,20 +75,26 @@ export function login(email, password) {
                 const user = {
                   token: res.body.user.token,
                   _id: res.body.user._id,
+                  fetchedData: true,
                 }
+                dispatch(hide('LOGIN_MODAL'))
+                dispatch(removeRequest('LOGIN_ERR'))
                 dispatch(loginOk(user, response))
-       /*         window.localStorage.setItem('scholario:store', JSON.stringify({*/
-                  //user: user,
-                  //entities: {
-                    //users: response.entities.users,
-                  //},
-                /*}))*/
-                dispatch(push('/dashboard'))
+                dispatch(replace('/dashboard'))
               }
             });
   }
 }
 
+export function getUser() {
+  var endpoint = urlJoin(config.apiURL, 'user')
+
+  return {
+    types: [GET_USER_REQUEST, GET_USER_OK, GET_USER_ERR],
+    callAPI: () => request.get(endpoint),
+    schema: userSchema,
+  }
+}
 export function createUserRequest() {
   return {
     type: CREATE_USER_REQUEST,
@@ -203,6 +217,19 @@ export function loginReducer(state=initialState, action) {
 
 export function userReducer(state={}, action) {
   switch (action.type) {
+    case FOLLOW_COURSE_INSTANCE_OK:
+      let cid = action.cid
+      let uid = action.uid
+      if (state[uid]) {
+        let u = Object.assign({}, state[uid], {
+          courseInstances: [
+            ...state[uid].courseInstances,
+            cid
+          ],
+        })
+        return Object.assign({}, state, { [uid]: u })
+      }
+
     default:
       if (action.response && action.response.entities && action.response.entities.users) {
         return merge({}, state, action.response.entities.users)

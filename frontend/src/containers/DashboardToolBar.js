@@ -33,7 +33,7 @@ export class DashboardToolBar extends React.Component {
         color: 'white'
       },
       toolbarStyle: {
-        backgroundColor: '#1abc9c',
+        backgroundColor: '#26A65B',
         color:'white'
       },
       buttonStyle: {
@@ -41,6 +41,10 @@ export class DashboardToolBar extends React.Component {
       },
       separator: {
         backgroundColor:'white'
+      },
+      link: {
+        backgroundColor: '#26A65B',
+        color: '#26A65B'
       }
     }
 
@@ -48,20 +52,21 @@ export class DashboardToolBar extends React.Component {
       <div>
          <Toolbar style={styles.toolbarStyle}>
           <ToolbarGroup float='right'>
-            <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
+                <Link to='/dashboard' style={styles.link} >
+                <ToolbarTitle text='Scholario' style={styles.titleStyle}/>
+                </Link>
           </ToolbarGroup>
           <ToolbarGroup float='left'>
-            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/dashboard' />} label="Courses" >
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/dashboard' />} label="Kurse" >
             </FlatButton>
-            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/connects' />} label="Connects">
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/connects' />} label="Netzwerk">
             </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>
-            <ToolbarSeparator style={styles.separator} />
             <IconMenu style={styles.iconStyle}
             iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
-                <MenuItem primaryText="User Settings" />
-                <MenuItem primaryText="Feed Settings" />
+                <MenuItem primaryText="Benutzer Einstellungen" />
+                <MenuItem primaryText="Feed Einstellungen" />
                 <MenuItem primaryText="Logout" onTouchTap={this.props.logout} />
              </IconMenu>
           </ToolbarGroup>

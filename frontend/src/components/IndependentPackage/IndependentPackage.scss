@@ -17,11 +17,10 @@
 
 .badge {
 	
-	position:absolute;
-	float: left;
+	position:relative;
   	margin:auto;
-    margin-top: -45px;
-    margin-left: 270px;
+    margin-top: 10px;
+    margin-left: 118px;
 }
 
 .actionMain {
@@ -31,16 +30,46 @@
 }
 
 .container {
-	
-	position:absolute;
-	opacity: 1.0;
+
+	opacity: 0.6;
 	padding-right:3px ;
 	padding-left:3px;
 	padding-top:3px;
+	margin-left: 5px;
+	text-align:center;
 
 
 }
 
 .divTitle {
   float: left;
+}
+
+.head {
+	
+	text-align:center;
+	margin-Top:0px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }

@@ -13,115 +13,142 @@ import classes from './IndependentPackage.scss'
 
 type Props = {
 
-	materialTitle: string,
-	keywords:array,
-	dateUploaded:string,
-	semesterInstance: string,
-	materialNotifications: number
+  materialTitle: PropTypes.string,
+  keywords: PropTypes.array,
+  dateUploaded: PropTypes.string,
+  materialNotifications: PropTypes.number,
+  pkgUrl: PropTypes.string,
+}
 
-};
 export class IndependentPackage extends React.Component {
-   
-   static propTypes = {
-    materialTitle: PropTypes.string,
-    keywords: PropTypes.array,
-    dateUploaded: PropTypes.string,
-    semesterInstance: PropTypes.string,
-    materialNotifications:PropTypes.number
-  };
+  props: Props
+
   render () {
 
-  	//inline styling variables for certain components ...
-	const style = {
-	  float: 'left',
-	  height: 172,
-	  width: 170,
-	  margin: 8.5,
-	  backgroundColor: '#F9690E',
-	  color: '#ffffff',
-	  borderTopRightRadius: 30,
-	  borderBottomRightRadius:30,
-	  overflow: 'inherit',
-	  alignItems: 'center'
+    //inline styling variables for certain components ...
+    const style = {
+      float: 'left',
+      height: 172,
+      width: 170,
+      margin: 8.5,
+      backgroundColor: '#446CB3 ',
+      color: '#ffffff',
+      borderTopRightRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+    }
 
-	};
-
-	const styleTwo = {
-	  float: 'left',
-	  height: 170,
-	  width: 25,
-	  margin: 8.5,
-	  backgroundColor: '#ffffff',
-	  color: '#ffffff',
-	  borderTopRightRadius: 30,
-	  borderBottomRightRadius:30,
-	  overflow: 'inherit',
-	  alignItems: 'center',
-	  postion: 'absolute',
-	  margin:'auto',
+    const styleTwo = {
+      float: 'left',
+      height: 170,
+      width: 25,
+      margin: 8.5,
+      backgroundColor: '#ffffff',
+      color: '#ffffff',
+      borderTopRightRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
       marginTop: 9,
       marginLeft: -34,
       borderStyle: 'solid',
-	  borderWidth: 1,
-	  borderColor: '#F9690E'
+      borderWidth: 1,
+      borderColor: '#446CB3 ',
+    }
 
-	};
-
-const styleThree = {
-	  float: 'left',
-	  height: 170,
-	  width: 22,
-	  margin: 8.5,
-	  backgroundColor: '#F9690E',
-	  color: '#ffffff',
-	  borderTopRightRadius: 30,
-	  borderBottomRightRadius:30,
-	  overflow: 'inherit',
-	  alignItems: 'center',
-	  postion: 'absolute',
-	  margin:'auto',
+    const styleThree = {
+      float: 'left',
+      height: 170,
+      width: 22,
+      margin: 8.5,
+      backgroundColor: '#446CB3 ',
+      color: '#ffffff',
+      borderTopRightRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
       marginTop: 9,
       marginLeft: -36,
       borderStyle: 'solid',
-	  borderWidth: 1,
-	  borderColor: '#F9690E',
+      borderWidth: 1,
+      borderColor: '#446CB3 ',
+    }
 
-	};
+    const styleFour = {
+      float: 'left',
+      height: 172,
+      width: 10,
+      margin: 8.5,
+      backgroundColor: '#000000',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+      postion: 'absolute',
+      margin:'auto',
+      marginTop: 9,
+      marginLeft: -179,
+      borderStyle: 'solid',
+      borderWidth: 1,
+      borderColor: '#000000',
+      opacity: 0.7,
+    }
 
 
-	const divStyle = {
-		textAlign: 'center',
-		color: '#ffffff'
 
-	};
+    const divStyle = {
+      textAlign: 'center',
+      color: '#ffffff',
+      marginLeft:5,
+      marginTop: -7,
+      opacity: 0.9,
+    }
 
-	//variables for displaying Child Node
-	var heading = <div key="headingMaterials" style={divStyle}><h4>{this.props.materialTitle}</h4>
-				  <div className={classes.badge}></div></div>;
+    const dots = "..."
 
-    var actionsCourse = <div key="actionMaterialsDiv" className={classes.actionMain} >
-    					<div className={classes.actionPostionLeft}><IconButton tooltip="Delete Course"> 
-    					<Delete color='#ffffff' /> </IconButton></div><div className={classes.actionPosition}>
-						<IconButton linkButton={true} tooltip="Go to Detail Course">
-						<PageView color='#ffffff' />
-						</IconButton></div></div> ;
+    //variables for displaying Child Node
+    var heading = <div>
+                  <div className={classes.head}>
+                      <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
+                            <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
+                      </div>
+                  </div>
+                  <div key="headingIndependentPackage" style={divStyle}>
+                    {<h5>{this.props.dateUploaded}</h5>}
+                  </div>
+                  </div>
 
-	var container =<div key="containerMaterial" className={classes.container}> 
-				   <h5>Keywords: {this.props.keywords}</h5>	
-				   <h6>Semester Instance:{this.props.semesterInstance}</h6>
-				   <h6>Date Uploaded: {this.props.dateUploaded}</h6></div> ;
+    var container = <div key="IndependentPackage" className={classes.container}> 
+                      <h5>{this.props.keywords}</h5>
+                    </div>
 
-	const nodePaperCourse = [
-      heading
-    ];
+    var notifications = <div key="notifications" className={classes.badge}>
+                          <Badge
+                            badgeContent={10}
+                            secondary={true}
+                            badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+                          />
+                        </div>
+
+    const nodePaperCourse = [
+      notifications,
+      heading,
+      container
+    ]
 
     return (
-      <div>
-        <Paper style={style} zDepth={2} children={nodePaperCourse}  /> 
-        <Paper style={styleTwo} zDepth={0}  />   
-        <Paper style={styleThree} zDepth={0}  />   
- 
-      </div>
+      <Link to={this.props.pkgUrl}>
+        <div>
+          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
+          <Paper style={styleTwo} zDepth={0}  />
+          <Paper style={styleThree} zDepth={0}  />
+          <Paper style={styleFour} zDepth={5}  />
+        </div>
+      </Link>
     )
   }
 }

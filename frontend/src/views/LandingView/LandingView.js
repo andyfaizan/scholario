@@ -24,11 +24,10 @@ export class LandingView extends React.Component {
           <NavBarLandingPage />
         </div>
         <div className={classes.container}>
-          <Paper style={style} zDepth={1} circle={true} />
+
         </div>
         <Divider />
         <div className={classes.footer}>
-          <br/>
           <FooterLanding />
         </div>
       </div>

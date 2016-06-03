@@ -6,7 +6,7 @@ import { LOGIN_OK, LOGOUT_OK } from './modules/user'
 
 
 export const authMiddleware = store => next => action => {
-  const allowedPaths = [ '/' ]
+  const allowedPaths = [ '/', '/impressum' ]
   if (action.type === LOCATION_CHANGE) {
     if (store.getState().user && store.getState().user.token) {
       if (action.payload.pathname === '/') {
@@ -36,7 +36,14 @@ export const persistStoreMiddleware = store => next => action => {
     if (action.user)
       state.user = action.user
     delete state.router
-    window.localStorage.setItem('scholario:store', JSON.stringify(state))
+    window.localStorage.setItem('scholario:store', JSON.stringify({
+      user: state.user,
+      entities: {
+        users: {
+          [state.user._id]: state.entities.users[state.user._id],
+        }
+      }
+    }))
     return next(action)
   } else if (action.type === LOGOUT_OK) {
     window.localStorage.setItem('scholario:store', '')
@@ -83,10 +90,19 @@ export const callAPIMiddleware = ({dispatch, getState}) => {
     }))
 
     return callAPI().set('Authorization', `JWT ${getState().user.token}`).end().then(
-      response => dispatch(Object.assign({}, payload, {
-        response: schema ? normalize(response.body, schema) : response.body,
-        type: successType
-      })),
+      response => {
+        var data = response.body
+        if (schema) {
+          data = normalize(response.body, schema)
+        }
+
+        var action = Object.assign({}, payload, {
+          response: data,
+          type: successType,
+        })
+        if (data.result) action.result = data.result
+        dispatch(action)
+      },
       error => dispatch(Object.assign({}, payload, {
         error,
         type: failureType

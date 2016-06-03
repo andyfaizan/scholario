@@ -18,10 +18,10 @@
 .badge {
 	
 	position:absolute;
-	float: left;
   	margin:auto;
-    margin-top: -45px;
-    margin-left: 270px;
+    margin-top: 10px;
+    margin-left: 172px;
+    opacity: 1.0;
 }
 
 .actionMain {
@@ -31,14 +31,38 @@
 }
 
 .container {
-	
-	position:absolute;
-	opacity: 1.0;
+
+	opacity: 0.6;
 	padding-right:3px ;
 	padding-left:3px;
-	padding-top:3px;
+	padding-top:90px;
+	margin-left: 5px;
+	text-align:center;
 
+}
 
+.deleteButton {
+
+position: absolute;
+margin-left: 0px;
+margin-top: 0px;
+opacity: 0.8;
+  
+}
+
+.downloadMaterial
+{
+  position: absolute;
+  margin-left: 40px;
+  margin-top:0px;
+  opacity:0.8;
+}
+.editButton {
+  
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 0px;
+  opacity: 0.8;
 }
 
 .divTitle {

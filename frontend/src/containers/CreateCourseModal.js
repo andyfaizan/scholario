@@ -46,14 +46,14 @@ export class CreateCourseModal extends React.Component {
 
     const actions = [
       <FlatButton
-        label="Cancel"
-        secondary={true}
+        label="Abbrechen"
+        secondary={false}
         onTouchTap={this.props.hide}/>,
       <RaisedButton
         // TODO disabled={submitting}
-        label='Create'
+        label='Erstellen'
         primary={false}
-        backgroundColor='#f1c40f'
+        backgroundColor='#446CB3'
         labelStyle={labelStyle}
         onTouchTap={this.create}/>
     ];

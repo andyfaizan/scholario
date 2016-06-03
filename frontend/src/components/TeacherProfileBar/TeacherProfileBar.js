@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react'
 import Card from 'material-ui/lib/card/card'
 import CardActions from 'material-ui/lib/card/card-actions'
 import CardHeader from 'material-ui/lib/card/card-header'
-import CardMedia from 'material-ui/lib/card/card-media'
 import CardTitle from 'material-ui/lib/card/card-title'
 import FlatButton from 'material-ui/lib/flat-button'
 import CardText from 'material-ui/lib/card/card-text'
 import Divider from 'material-ui/lib/divider'
 import FontIcon from 'material-ui/lib/font-icon'
 import ActionHome from 'material-ui/lib/svg-icons/action/home'
+import Avatar from 'material-ui/lib/avatar'
 
 type Props = {
 
@@ -65,26 +65,31 @@ export class TeacherProfileBar extends React.Component {
     var instagramUrl = '#' ;
     var filterArray = [] ;
 
+    var nameInitial = ''
+    if (this.props.firstNameUser)
+      nameInitial = this.props.firstNameUser[0]
+
     return (
       <div>
         <Card>
           <CardHeader
             title={cardTitle}
             subtitle={cardSubtitle}
-            avatar="http://lorempixel.com/100/100/nature/"
+            avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
             actAsExpander={true}
             showExpandableButton={true}
+            titleColor="#26A65B"
           >
           </CardHeader>
           <Divider />
           <CardText expandable={true}>
             {shortInformation}
           </CardText>
-          <CardActions expandable={true} >
-            <FlatButton label="Facebook" linkButton={true} href={facebookUrl}  icon={<ActionHome />} />
-            <FlatButton label="Twitter" linkButton={true} href={twitterUrl}  icon={<ActionHome />} />
-            <FlatButton label="Medium" linkButton={true} href={mediumUrl}  icon={<ActionHome />} />
-            <FlatButton label="Instagram" linkButton={true} href={instagramUrl}  icon={<ActionHome />} />
+          <CardActions  expandable={true} >
+            <FlatButton label="Facebook" linkButton={true} href={facebookUrl} hoverColor="#26A65B" icon={<ActionHome color="#26A65B" />} />
+            <FlatButton label="Twitter" linkButton={true} href={twitterUrl}   hoverColor="#26A65B"  icon={<ActionHome color="#26A65B" />} />
+            <FlatButton label="Medium" linkButton={true} href={mediumUrl}  hoverColor="#26A65B" icon={<ActionHome  color="#26A65B" />} />
+            <FlatButton label="Instagram" linkButton={true} hoverColor="#26A65B" href={instagramUrl}  icon={<ActionHome  color="#26A65B"/>} />
           </CardActions>
         </Card>
 

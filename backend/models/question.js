@@ -9,12 +9,17 @@ const QuestionSchema = new Schema({
   title: { type: String, default: '' },
   description: { type: String, default: '' },
   courseInstance: { type: ObjectId, ref: 'CourseInstance' },
+  pkg: { type: ObjectId, ref: 'Pkg' },
+  material: { type: ObjectId, ref: 'Material' },
   user: { type: ObjectId, ref: 'Student' },
   createDate: { type: Date, default: Date.now },
+  bestAnswer: { type: ObjectId, ref: 'Answer' },
+  approvedAnswer: { type: ObjectId, ref: 'Answer' },
   answers: [{ type: ObjectId, ref: 'Answer' }],
   votes: [{
     user: { type: ObjectId, ref: 'Student' },
     voteDate: { type: Date },
+    value: { type: Number, default: 1 },
   }],
 });
 

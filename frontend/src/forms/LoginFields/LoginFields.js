@@ -25,7 +25,19 @@ export class LoginFields extends React.Component {
 
   static propTypes = {
     fields: PropTypes.object.isRequired,
+    confirm: PropTypes.func
     // resetForm: PropTypes.func.isRequired,te
+  }
+
+  constructor(props){
+    super(props)
+    this.checkKeyAndSubmit = this.checkKeyAndSubmit.bind(this)
+  }
+
+  checkKeyAndSubmit = (e) => {
+    if(e.keyCode === 13){
+      this.props.confirm()
+    }
   }
 
   render () {
@@ -36,11 +48,11 @@ export class LoginFields extends React.Component {
       },
       underlineStyle:
       {
-        borderColor: '#f1c40f'
+        borderColor: '#446CB3'
       },
       focusStyle:
       {
-        borderColor: '#f1c40f'
+        borderColor: '#446CB3'
       },
       floatingLabelStyle:
       {
@@ -58,21 +70,23 @@ export class LoginFields extends React.Component {
               hintText='abc@hotmail.com'
               errorText={email.touched && email.error ? email.error : ''}
               floatingLabelStyle={styles.floatingLabelStyle}
-              floatingLabelText='Email or Username'
+              floatingLabelText='Email'
               underlineFocusStyle={styles.focusStyle}
+              onKeyDown={this.checkKeyAndSubmit}
               />
             <br/>
             <TextField
               {...password}
               errorText={password.touched && password.error ? password.error : ''}
-              floatingLabelText='Password'
+              floatingLabelText='Passwort'
               type='password'
               floatingLabelStyle={styles.floatingLabelStyle}
               underlineFocusStyle={styles.focusStyle}
+              onKeyDown={this.checkKeyAndSubmit}
               />
+            {/*<br/>
             <br/>
-            <br/>
-            <a className={classes.forgotLink}>Forgot your password ? </a>
+            <a className={classes.forgotLink}>Forgot your password ? </a>*/}
             <br/>
           </div>
       </div>

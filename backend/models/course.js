@@ -6,7 +6,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 
-const curYear = () => moment().years()
+const curYear = () => moment().year()
 
 const CourseSchema = new Schema({
   name: { type: String, default: '' },
@@ -17,13 +17,15 @@ const CourseSchema = new Schema({
 
 const CourseInstanceSchema = new Schema({
   course: { type: ObjectId, ref: 'Course' },
+  description: { type: String, default: '' },
   prof: { type: ObjectId, ref: 'Prof' },
+  assistants: [{ type: ObjectId, ref: 'User' }],
   semester: {
     year: { type: Number, default: curYear, min: 2010, max: 2020 },
     term: { type: String, default: 'WS' },
   },
   participants: [{ type: ObjectId, ref: 'Student' }], // Duplicate with user.courses
-  materialsRoot: { type: String, default: '' },
+  pkgsRoot: { type: String, default: '' },
 });
 
 

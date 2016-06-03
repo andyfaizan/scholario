@@ -12,6 +12,7 @@ const User = mongoose.model('User');
 const Course = mongoose.model('Course');
 const CourseInstance = mongoose.model('CourseInstance');
 const Question = mongoose.model('Question');
+const Pkg = mongoose.model('Pkg');
 const Material = mongoose.model('Material');
 const University = mongoose.model('University');
 const Program = mongoose.model('Program');
@@ -32,7 +33,7 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
 
   co(function *() {
     var course = yield CourseInstance.findOne({ _id: req.params.cid })
-      .select('prof semester course')
+      .select('description prof assistants semester course participants')
       .populate([{
         path: 'course',
         select: 'name university program',
@@ -48,7 +49,7 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
         select: 'firstname lastname role universities programs'
       }])
       .lean(true)
-      .exec()
+      .exec();
 
     if (!course) {
       return res.status(404).json({
@@ -67,9 +68,9 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
       }])
       .limit(5)
       .lean(true)
-      .exec()
+      .exec();
 
-    var materials = yield Material
+    var pkgs = yield Pkg
       .find({ courseInstance: course._id })
       .select('name owner courseInstance createDate')
       .populate([{
@@ -85,13 +86,14 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
       }])
       .limit(5)
       .lean(true)
-      .exec()
+      .exec();
 
-    course.questions = questions
-    course.materials = materials
+    course.questions = questions;
+    course.pkgs = pkgs;
+    course.participantsNum = course.participants.length;
     return res.status(200).json(course);
   }).catch(function (err) {
-    logger.error(err)
+    logger.error(err);
     return res.json({
       err: err.message,
     });
@@ -329,7 +331,7 @@ router.get('/:cid/unfollow', passport.authenticate('jwt', {session: false}), uti
   });
 });
 
-router.get('/:cid/materials', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:cid/pkgs', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('cid', 'Invalid course id').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
@@ -339,30 +341,36 @@ router.get('/:cid/materials', passport.authenticate('jwt', {session: false}), fu
     });
   }
 
-  Material.find({ courseInstance: req.params.cid }).populate('owner').then(function (materials) {
-    if (!materials) {
+  Pkg
+    .find({ courseInstance: req.params.cid })
+    .select('name owner courseInstance, createDate')
+    .populate([{
+      path: 'owner',
+      select: 'firstname lastname universities programs',
+      populate: [{
+        path: 'universities',
+        select: 'name',
+      }, {
+        path: 'programs',
+        select: 'name university'
+      }],
+    }])
+    .lean(true)
+    .exec()
+    .then(function (pkgs) {
+    if (!pkgs) {
       return res.status(404).json({
-        err: [{msg: 'Materials not found'}],
+        err: [{ msg: 'PkgsNotFound' }],
       });
     }
-    var data = [];
-    for (var i = 0; i < materials.length; i++) {
-      data.push({
-        id: materials[i].id,
-        name: materials[i].name,
-        createdBy: {
-          id: materials[i].owner.id,
-          name: materials[i].owner.name,
-        },
-      });
-    }
-    return res.json({
-      'materials': data,
+
+    return res.status(201).json({
+      pkgs,
     });
   }).catch(function (err) {
     logger.error(err.message);
     return res.status(500).json({
-      err: [{msg: 'Sorry, there was an error, please try again'}],
+      err: [{ msg: 'InternalError' }],
     });
   });
 });
@@ -410,13 +418,14 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
   req.checkBody('semesterYear', 'InvalidSemesterYear').notEmpty().isInt({ min: 2010, max: 2020 });
   req.checkBody('semesterTerm', 'InvalidSemesterTerm').notEmpty().isIn(['WS', 'SS']);
+  if (req.body.description) req.checkBody('description', 'InvalidDescription').isAscii();
   if (typeof req.body.courseID === 'undefined' &&
       typeof req.body.courseName === 'undefined') {
     return res.status(400).json({
       err: [{ msg: 'InvalidCourse' }],
     });
   }
-  if (typeof req.body.courseID != 'undefined') {
+  if (typeof req.body.courseID !== 'undefined') {
     req.checkBody('courseID', 'InvalidCourse').isMongoId();
   } else if (typeof req.body.courseName != 'undefined') {
     req.checkBody('courseName', 'InvalidCourse').isAscii();
@@ -488,6 +497,7 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     }
 
     var courseInstance = CourseInstance({
+      description: req.body.description,
       course: course,
       prof: req.user,
       semester: {
@@ -497,21 +507,20 @@ router.post('/', passport.authenticate('jwt', {session: false}),
     });
     courseInstance = yield courseInstance.save();
 
-    var materialsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', courseInstance.id);
-    fs.mkdir(materialsRoot, 0755, function (err, dir) {
+    var pkgsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', courseInstance.id);
+    fs.mkdir(pkgsRoot, 0755, function (err, dir) {
       if (err) {
-        logger.error(err.message);
+        logger.error(err);
         return res.status(500).json({
           err: [{msg: 'InternalError'}],
         });
       }
-      courseInstance.materialsRoot = materialsRoot;
+      courseInstance.pkgsRoot = pkgsRoot;
       courseInstance.save();
       return res.json({
         err: [],
       });
     });
-
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({

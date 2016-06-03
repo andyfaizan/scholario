@@ -23,7 +23,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 var initialState, localStore = window.localStorage.getItem('scholario:store')
 if (localStore && typeof localStore !== 'undefined') {
   initialState = JSON.parse(localStore)
+  if (initialState.user) {
+    initialState.user.fetchedData = false
+  }
 }
+
 const store = configureStore(initialState, browserHistory)
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: (state) => state.router

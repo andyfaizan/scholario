@@ -15,7 +15,7 @@ import { getUniversities } from '../../redux/modules/university'
 import { getPrograms } from '../../redux/modules/program'
 
 var request = require('superagent');
-export const fields = [ 'firstname', 'lastname', 'role', 'email' , 'password', 'university', 'program' ]
+export const fields = [ 'firstname', 'lastname', 'email' , 'password', 'university', 'program' ]
 
 const validate = (values) => {
   const errors = {}
@@ -35,9 +35,9 @@ const validate = (values) => {
   if (!values.lastname) {
     errors.lastname = 'Geben Sie Ihr Nachname ein'
   }
-  if (!values.role) {
-    errors.role = 'Geben Sie Ihr Role ein'
-  }
+  //if (!values.role) {
+    //errors.role = 'Geben Sie Ihr Role ein'
+  //}
   return errors
 }
 
@@ -47,12 +47,14 @@ export class SignupFields extends React.Component {
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     universities: PropTypes.array,
+    confirm: PropTypes.func
     // resetForm: PropTypes.func.isRequired,te
     // submitting: PropTypes.bool.isRequired
   }
 
    constructor(props) {
     super(props);
+    this.checkKeyAndSubmit = this.checkKeyAndSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -60,23 +62,29 @@ export class SignupFields extends React.Component {
     this.props.dispatch(getPrograms())
   }
 
+  checkKeyAndSubmit = (e) => {
+    if(e.keyCode === 13){
+      this.props.confirm()
+    }
+  }
+
   render () {
       const styles = {
         errorStyle:
         {
-          backgroundColor: '#9fa8a3'
+          backgroundColor: '#e74c3c'
         },
         underlineStyle:
         {
-          borderColor: '#e3e0cf'
+          borderColor: '#446CB3'
         },
         focusStyle:
         {
-          borderColor: '#e3e0cf'
+          borderColor: '#446CB3'
         },
         floatingLabelStyle:
         {
-          color: '#9fa8a3'
+          color: '#27ae60'
         },
         labelStyle:
         {
@@ -99,7 +107,7 @@ export class SignupFields extends React.Component {
         }
       }
       var i = 0 ;
-      const { fields: { email, password, firstname, lastname, role, university, program } } = this.props
+      const { fields: { email, password, firstname, lastname, university, program } } = this.props
 
       var programItems = []
       if (this.props.fields.university.value) {
@@ -118,36 +126,41 @@ export class SignupFields extends React.Component {
                 hintText='Steve'
                 errorText={firstname.touched && firstname.error ? firstname.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelText='First Name'
-                underlineFocusStyle={styles.focusStyle} />
+                floatingLabelText='Vorname'
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...lastname}
                 hintText='Jobs'
                 errorText={lastname.touched && lastname.error ? lastname.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelText='Last Name'
-                underlineFocusStyle={styles.focusStyle} />
+                floatingLabelText='Nachname'
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...email}
                 hintText='abc@gmail.com'
                 errorText={email.touched && email.error ? email.error : ''}
                 floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelText='Email Id'
-                underlineFocusStyle={styles.focusStyle} />
+                floatingLabelText='Email'
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit} />
               <TextField
                 {...password}
                 errorText={password.touched && password.error ? password.error : ''}
-                floatingLabelText='Password'
+                floatingLabelText='Passwort'
                 type='password'
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit}
                 />
              <SelectFieldWrapper
                 {...university}
                 style = {styles.blocking}
-                floatingLabelText="University"
+                floatingLabelText="Hochschule"
                 floatingLabelStyle={styles.floatingLabelStyle}
-                underlineFocusStyle={styles.focusStyle}>
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit}>
                 {this.props.universities.map(university =>
                     <MenuItem key={university._id} value={university._id} primaryText={university.name} />
                 )}
@@ -157,17 +170,18 @@ export class SignupFields extends React.Component {
                 style = {styles.blocking}
                 floatingLabelText="Program"
                 floatingLabelStyle={styles.floatingLabelStyle}
-                underlineFocusStyle={styles.focusStyle}>
+                underlineFocusStyle={styles.focusStyle}
+                onKeyDown={this.checkKeyAndSubmit}>
                 { programItems }
                 </SelectFieldWrapper>
-              <TextField
+              {/*<TextField
                 {...role}
                 hintText='student oder prof'
                 errorText={role.touched && role.error ? role.error : ''}
                 floatingLabelText='Role'
                 floatingLabelStyle={styles.floatingLabelStyle}
                 underlineFocusStyle={styles.focusStyle}
-                />
+                />*/}
               {/*TODO Why Checkboxes and not Radiobuttons?*/}
               {/*<Grid>
                 <Row className='show-grid'>

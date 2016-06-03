@@ -52,11 +52,11 @@ export class CreateCourse extends React.Component {
       },
       underlineStyle:
       {
-        borderColor: '#f1c40f'
+        borderColor: '#446CB3'
       },
       focusStyle:
       {
-        borderColor: '#f1c40f'
+        borderColor: '#446CB3'
       },
       floatingLabelStyle:
       {
@@ -66,14 +66,14 @@ export class CreateCourse extends React.Component {
 
     const courseHint = 'Kursname'
     const courseLabel = 'Kurs'
-    const teacherLabel = 'Name des Lehrers'
+    const teacherLabel = 'Lehrer'
     const teacherHint = 'Lehrer'
-    const assistantHint = 'Name des Mitarbeiters'
-    const assistantLabel = 'Assistant'
+    const assistantHint = 'Mitarbeiter'
+    const assistantLabel = 'Assistent'
     const subjectHint = 'Fach'
-    const subjectLabel = 'Subject'
+    const subjectLabel = 'Fachbereich'
     const uniHint = 'Uni'
-    const uniLabel = 'Uni'
+    const uniLabel = 'Hochschule'
     const infoLabel = 'Information'
 
     const { fields: { course, teacher, assistant, semester, subject, uni, info }, handleChange } = this.props

@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/lib/flat-button'
 import Divider from 'material-ui/lib/divider'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
+import AddCourseComponent from '../../components/AddCourseComponent/AddCourseComponent'
 import AddCourse from '../../containers/DashboardTitleContainer'
 //import DashboardTitleComponent from '../../components/DashboardTitleComponent/DashboardTitleComponent'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -14,11 +15,12 @@ type Props = {
   role: React.PropTypes.string,
   courseInstances: React.PropTypes.array,
   location: React.PropTypes.object,
-  connects: React.PropTypes.array
-};
+  connects: React.PropTypes.array,
+  onClickFollow: React.PropTypes.func.isRequired,
+}
 
 export class LeftSectionTeacherDashboard extends React.Component {
-  props: Props;
+  props: Props
 
   render () {
     //paths to routes on dashboard view for material and connects
@@ -42,26 +44,36 @@ export class LeftSectionTeacherDashboard extends React.Component {
 
     var displayCards;
     var display;
+    var filterBar;
+    var addCourseButton
+
 
     if (this.props.location.pathname === pathCourses) {
         //display cards filled up for courses....
         displayCards = this.props.courseInstances.map(ci =>
           <CourseCard
             key={ci._id}
-            titleCourse={ci.course.name}
-            universityCourse={ci.course.university.name}
-            courseTeacher={`${ci.prof.firstname} ${ci.prof.lastname}`}
+            titleCourse={ci.course ? ci.course.name : ''}
+            universityCourse={ci.course ? ci.course.university.name : ''}
+            courseTeacher={ci.prof ? `${ci.prof.firstname} ${ci.prof.lastname}` : ''}
             courseUrl={`/course/${ci._id}`}
+            following={ci.following}
+            onClickFollow={() => this.props.onClickFollow(ci._id)}
           />
         )
 
         if (this.props.role === studentRole) {
           display = [
-            displayCards,
+            displayCards
           ]
         } else if (this.props.role === teacherRole) {
+
+          filterBar = <AddCourse title="Courses" whichFilter="courseFilter" /> ;
+          addCourseButton = <AddCourseComponent />
+
           display = [
-             displayCards
+             addCourseButton,
+             displayCards,
           ]
         }
     } else if (this.props.location.pathname === pathConnects) {
@@ -86,11 +98,10 @@ export class LeftSectionTeacherDashboard extends React.Component {
           <Grid>
             <Row>
               <Col>
-              <AddCourse title="Courses" whichFilter="courseFilter" />
+                {filterBar}
               </Col>
             </Row>
           </Grid>
-
 
           {display}
 
