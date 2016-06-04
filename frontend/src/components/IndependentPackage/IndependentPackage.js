@@ -41,6 +41,30 @@ export class IndependentPackage extends React.Component {
       alignItems: 'center',
     }
 
+    const mainStyle = {
+      float: 'left',
+      height: 140,
+      width: 170,
+      backgroundColor: '#446CB3 ',
+      color: '#ffffff',
+      borderTopRightRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+    }
+
+    const linkContainerStyle = {
+      float: 'left',
+      height: 32,
+      width: 170,
+      backgroundColor: '#446CB3 ',
+      color: '#ffffff',
+      borderTopRightRadius: 30,
+      borderBottomRightRadius:30,
+      overflow: 'inherit',
+      alignItems: 'center',
+    }
+
     const styleTwo = {
       float: 'left',
       height: 170,
@@ -148,18 +172,24 @@ export class IndependentPackage extends React.Component {
 
     const nodePaperCourse = [
       //notifications,
-      heading,
+      heading
+    ]
+
+    const downloadAsChild = [
       download
     ]
 
     return (
         <div>
-        <Link to={this.props.pkgUrl} style={linkStyle}>
-          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
-          <Paper style={styleTwo} zDepth={0}  />
-          <Paper style={styleThree} zDepth={0}  />
-          <Paper style={styleFour} zDepth={5}  />
-        </Link>
+        <Paper style={style} zDepth={2}>
+          <Link to={this.props.pkgUrl} style={linkStyle}>
+            <Paper style={mainStyle}  children={nodePaperCourse} />
+          </Link>
+          <Paper style={linkContainerStyle} children={downloadAsChild}/>
+        </Paper>
+        <Paper style={styleTwo} zDepth={0} />
+        <Paper style={styleThree} zDepth={0}  />
+        <Paper style={styleFour} zDepth={5}  />
         </div>
 
     )
