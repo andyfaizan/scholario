@@ -108,6 +108,8 @@ export class IndependentPackage extends React.Component {
       marginLeft:5,
       marginTop: -7,
       opacity: 0.9,
+      height: 90,
+      textDecoration: 'none'
     }
 
     const linkStyle = {
@@ -118,16 +120,14 @@ export class IndependentPackage extends React.Component {
 
     //variables for displaying Child Node
     var heading = <div key="headingIndependentPackage">
-                  <div className={classes.head}>
-                    <Link to={this.props.pkgUrl} style={linkStyle}>
-                      <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
-                            <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
-                      </div>
-                    </Link>
-                  </div>
-                  <div style={divStyle}>
-                    {<h5>{this.props.dateUploaded}</h5>}
-                  </div>
+                    <div className={classes.head}>
+                        <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
+                              <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
+                        </div>
+                    </div>
+                    <div style={divStyle}>
+                      {<h5>{this.props.dateUploaded}</h5>}
+                    </div>
                   </div>
 
     var container = <div key="IndependentPackage" className={classes.container}>
@@ -154,11 +154,14 @@ export class IndependentPackage extends React.Component {
 
     return (
         <div>
+        <Link to={this.props.pkgUrl} style={linkStyle}>
           <Paper style={style} zDepth={2}  children={nodePaperCourse} />
           <Paper style={styleTwo} zDepth={0}  />
           <Paper style={styleThree} zDepth={0}  />
           <Paper style={styleFour} zDepth={5}  />
+        </Link>
         </div>
+
     )
   }
 }
