@@ -42,6 +42,7 @@ export class CourseCard extends React.Component {
     const contentStyle = {
       float: 'left',
       width: 300,
+      height: 130,
       backgroundColor: '#446CB3',
       color: 'white',
       borderRadius: 13
