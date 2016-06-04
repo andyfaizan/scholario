@@ -9,7 +9,7 @@ import classes from './ForgotPasswordView.scss'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
 import * as selectors from '../../redux/selectors'
-import { forgotPassword, resetPassword, FORGOT_PASSWORD_OK, RESET_PASSWORD_OK } from '../../redux/modules/user'
+import { forgotPassword, resetPassword, FORGOT_PASSWORD_OK, RESET_PASSWORD_OK, FORGOT_PASSWORD_ERR, RESET_PASSWORD_ERR } from '../../redux/modules/user'
 import { removeRequest } from '../../redux/modules/request'
 
 type Props = {
@@ -21,7 +21,7 @@ export class ForgotPasswordView extends React.Component {
 
 
   render () {
-    const { forgotPasswordOk, resetPasswordOk } = this.props
+    const { forgotPasswordOk, forgotPasswordErr, resetPasswordOk } = this.props
 
     const pathForgotPass = '/forgot-password' ;
     const pathResetPass = '/reset-password';
