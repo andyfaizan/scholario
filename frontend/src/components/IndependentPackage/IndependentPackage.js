@@ -108,6 +108,8 @@ export class IndependentPackage extends React.Component {
       marginLeft:5,
       marginTop: -7,
       opacity: 0.9,
+      height: 90,
+      textDecoration: 'none'
     }
 
     const linkStyle = {
@@ -118,14 +120,14 @@ export class IndependentPackage extends React.Component {
 
     //variables for displaying Child Node
     var heading = <div key="headingIndependentPackage">
-                  <div className={classes.head}>
-                      <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
-                            <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
-                      </div>
-                  </div>
-                  <div style={divStyle}>
-                    {<h5>{this.props.dateUploaded}</h5>}
-                  </div>
+                    <div className={classes.head}>
+                        <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
+                              <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
+                        </div>
+                    </div>
+                    <div style={divStyle}>
+                      {<h5>{this.props.dateUploaded}</h5>}
+                    </div>
                   </div>
 
     var container = <div key="IndependentPackage" className={classes.container}>
