@@ -20,6 +20,7 @@ type Props = {
   dateUploaded: PropTypes.string,
   materialNotifications: PropTypes.number,
   pkgUrl: PropTypes.string,
+  ext: PropTypes.string
 }
 
 export class IndependentPackage extends React.Component {
