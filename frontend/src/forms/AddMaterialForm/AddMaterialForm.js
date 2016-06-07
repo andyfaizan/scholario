@@ -51,11 +51,13 @@ export class AddMaterial extends React.Component {
               { ...files } style={dropStyle} activeStyle={activeStyle}
               onDrop={
                 ( filesToUpload, e ) => {
-                  files.onChange(filesToUpload)
-                  this.props.addMaterial(this.props.pkgId, filesToUpload)
+                  var correctFiles = []
+                  filesToUpload.map((file) => file.size < 100*1024*1024 ? correctFiles.push(file) : null)
+                  files.onChange(correctFiles)
+                  this.props.addMaterial(this.props.pkgId, correctFiles)
                 }
               }
-              accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt">
+              accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt, .ogg">
               <div style={{'text-align': 'center'}}>
                 Zieh deine Datein hier hin, oder clicke zum Durchsuchen
               </div>
