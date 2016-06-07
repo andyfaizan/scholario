@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import DashboardToolBar from '../../containers/DashboardToolBar'
-import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
+import TeacherProfileBar from '../../containers/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
 import Questions from '../../containers/Questions'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -17,7 +17,6 @@ import { getRecommendedCourseInstances, followCourse,
 import { getQuestions } from '../../redux/modules/question'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
-import { putUser, PUT_USER_OK, PUT_USER_ERR } from '../../redux/modules/user'
 
 
 class DashboardView extends React.Component {
@@ -60,10 +59,6 @@ class DashboardView extends React.Component {
       putUserOk, putUserErr,
     } = this.props
 
-    var changePasswordFeedback = -1
-    if (putUserOk) changePasswordFeedback = 0
-    else if (putUserErr) changePasswordFeedback = 1
-
     return (
     <div>
       <div className={classes.dashboardRoot} >
@@ -74,8 +69,6 @@ class DashboardView extends React.Component {
           bio={user ? user.bio : ''}
           universityName={userUniversity ? userUniversity.name : ''}
           programeName={userProgram ? userProgram.name : ''}
-          onChangePassword={(data) => this.props.onChangePassword(data.password)}
-          changePasswordFeedback={changePasswordFeedback}
         />
         <br/>
         <Grid className='container-fluid'>
@@ -118,8 +111,6 @@ const mapStateToProps = (state) => {
     courseInstances,
     questions: selectors.getUserQuestions(state),
     connects: selectors.getUserFollowings(state),
-    putUserOk: selectors.getRequest(state, PUT_USER_OK),
-    putUserErr: selectors.getRequest(state, PUT_USER_ERR),
   }
 }
 
@@ -139,9 +130,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     getQuestions: () => {
       dispatch(getQuestions())
-    },
-    onChangePassword: (password) => {
-      dispatch(putUser('', '', '', password))
     },
   }
 }
