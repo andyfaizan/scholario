@@ -9,7 +9,7 @@ import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
-export const fields = []
+export const fields = ['subject', 'content']
 
 const validate = (values) => {
   const errors = {}
@@ -28,7 +28,7 @@ export class FeedbackForm extends React.Component {
   }
 
   render() {
-    const { fields, handleSubmit } = this.props
+    const { fields: { subject, content }, handleSubmit } = this.props
 
      const titleStyle = {
 
@@ -90,11 +90,11 @@ export class FeedbackForm extends React.Component {
     }
 
     var feedbackMessage
-    var feedbackTrue = null
+    var feedbackTrue = this.props.feedbackTrue
 
-    if( feedbackTrue == 0 ) 
+    if( feedbackTrue == 0 )
       feedbackMessage = <div className={classes.error}>There is an error submiting Form</div>
-    else if ( feedbackTrue == 1 ) 
+    else if ( feedbackTrue == 1 )
       feedbackMessage = <div className={classes.success}>Feedback-Formular wurde eingestellt</div>
     else
       feedbackMessage = ""
@@ -115,8 +115,17 @@ export class FeedbackForm extends React.Component {
                   <CardText>
                     <div className={classes.containingEmail}>
                       <TextField
+                        {...subject}
+                        floatingLabelText="Subject"
+                        fullWidth={false}
+                        floatingLabelStyle={floatingLabel}
+                        underlineFocusStyle={underlineColor}
+                        style={textFieldStyle}
+                      />
+                      <TextField
+                        {...content}
                         floatingLabelText="Feedback zu unsere website"
-                        hintText="Schoalrio ist eine gute website"
+                        hintText="Scholario ist eine gute website"
                         fullWidth={false}
                         floatingLabelStyle={floatingLabel}
                         underlineFocusStyle={underlineColor}

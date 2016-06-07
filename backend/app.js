@@ -126,8 +126,8 @@ app.get('/email-verification/:code', function (req, res) {
   });
 });
 
-apiRouter.post('/feedback', function (req, res) {
-  req.checkBody('title', 'InvalidTitle').notEmpty();
+apiRouter.post('/feedback', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkBody('subject', 'InvalidSubject').notEmpty();
   req.checkBody('content', 'InvalidContent').notEmpty();
 
   var errors = req.validationErrors();
@@ -137,21 +137,34 @@ apiRouter.post('/feedback', function (req, res) {
     });
   }
 
-  var mailOpts = {
-    from: '"Scholario" <noreply@scholario.de>',
-    to: 'info@scholario.de',
-    subject: `[Feedback] ${req.body.title}`,
-    text: req.body.content,
-  };
+  const Feedback = mongoose.model('Feedback');
 
-  if (utils.getEnv() === 'production') {
-    mailer.transporter.sendMail(mailOpts).catch(function (err) {
-      logger.error(err);
+  var feedback = Feedback({
+    subject: req.body.subject,
+    content: req.body.content,
+    user: req.user,
+  }).save().then(function (feedback) {
+    var mailOpts = {
+      from: '"Scholario" <noreply@scholario.de>',
+      to: 'info@scholario.de',
+      subject: `[Feedback] ${req.body.subject}`,
+      text: req.body.content,
+    };
+
+    if (utils.getEnv() === 'production') {
+      mailer.transporter.sendMail(mailOpts).catch(function (err) {
+        logger.error(err);
+      });
+    } else if (utils.getEnv() === 'development') {
+      logger.debug(req.body.subject, req.body.content);
+    }
+    return res.json({});
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
     });
-  } else if (utils.getEnv() === 'development') {
-    logger.debug(req.body.title, req.body.content);
-  }
-  return res.json({});
+  });
 });
 
 // Test api

@@ -14,11 +14,12 @@ import { getRecommendedCourseInstances, followCourse,
   FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
 import Feedback from '../../containers/Feedback'
-import { putUser } from '../../redux/modules/user'
+import { putUser, postFeedback, POST_FEEDBACK_OK, POST_FEEDBACK_ERR } from '../../redux/modules/user'
 
 type Props = {
 
-};
+}
+
 export class FeedbackView extends React.Component {
   props: Props;
 
@@ -26,89 +27,65 @@ export class FeedbackView extends React.Component {
     if (this.props.userMetadata) {
       if (!this.props.userMetadata.fetchedData) {
         this.props.getUser()
-      } else {
-        if (this.props.user.courseInstances.length === 0) {
-          console.log('here')
-          this.props.getRecommendedCourseInstances('', this.props.user.program)
-        }
       }
-      this.props.getQuestions()
     }
   }
-
-  componentWillReceiveProps(nextProps) {
-    // TODO
-    if (this.props.courseInstances.length === 0 &&
-        nextProps.courseInstances.length === 0) {
-      console.log('here2')
-      this.props.getRecommendedCourseInstances('', this.props.user.program)
-    }
-  }
-
-
 
   render () {
-  	const { user, userUniversity, userProgram } = this.props
+    const { user, userUniversity, userProgram, feedbackOk, feedbackErr } = this.props
+
+    var feedbackTrue = -1
+    if (feedbackOk) feedbackTrue = 1
+    else if (feedbackErr) feedbackTrue = 0
 
     return (
       <div>
-      	<div  className={classes.root} >
-      	  <DashboardToolBar />
-      	  <TeacherProfileBar
-          firstNameUser={user ? user.firstname : ''}
-          lastNameUser={user ? user.lastname : ''}
-          bio={user ? user.bio : ''}
-          universityName={userUniversity ? userUniversity.name : ''}
-          programeName={userProgram ? userProgram.name : ''}
-          onChangePassword={(data) => this.props.onChangePassword(data.password)}
-        />
-        <br/>
-        <FeedbackForm />
-      	</div>
-	    <div className={classes.footer}>
-	        <FooterLanding />
-	    </div>
+        <div  className={classes.root} >
+          <DashboardToolBar />
+          <TeacherProfileBar
+            firstNameUser={user ? user.firstname : ''}
+            lastNameUser={user ? user.lastname : ''}
+            bio={user ? user.bio : ''}
+            universityName={userUniversity ? userUniversity.name : ''}
+            programeName={userProgram ? userProgram.name : ''}
+            onChangePassword={(data) => this.props.onChangePassword(data.password)}
+          />
+          <br/>
+          <FeedbackForm
+            feedbackTrue={feedbackTrue}
+            onSubmit={(data) => this.props.postFeedback(data)}
+          />
+        </div>
+        <div className={classes.footer}>
+          <FooterLanding />
+        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
-  var courseInstances = selectors.getUserCourseInstances(state)
-  if (courseInstances.length === 0) {
-    courseInstances = selectors.getRecommendedCourseInstances(state)
-  }
   return {
     user: selectors.getUser(state),
     userMetadata: selectors.getUserMetadata(state),
     userUniversity: selectors.getUserUniversity(state),
     userProgram: selectors.getUserProgram(state),
-    courseInstances,
-    questions: selectors.getUserQuestions(state),
-    connects: selectors.getUserFollowings(state),
+    feedbackOk: selectors.getRequest(state, POST_FEEDBACK_OK),
+    feedbackErr: selectors.getRequest(state, POST_FEEDBACK_ERR),
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: values => {
-      dispatch(requestLogin(values.email, values.password))
-    },
     getUser: () => {
       dispatch(getUser())
-    },
-    getRecommendedCourseInstances: (substring, program) => {
-      dispatch(getRecommendedCourseInstances(substring, program))
-    },
-    followCourse: (uid, cid) => {
-      dispatch(followCourse(uid, cid))
-    },
-    getQuestions: () => {
-      dispatch(getQuestions())
     },
     onChangePassword: (password) => {
       dispatch(putUser('', '', '', password))
     },
+    postFeedback: (data) => {
+      dispatch(postFeedback(data.subject, data.content))
+    }
   }
 }
 
