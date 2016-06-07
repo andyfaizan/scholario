@@ -49,6 +49,8 @@ export class AddQuestion extends React.Component {
     const packageLabel = 'Paket'
     const courseLabel = 'Kurs'
     const materialLabel = 'Material'
+    const titleLimit = 150
+    const descriptionLimit = 1000
 
     const { fields: { title, description, courseInstance, pkg, material} } = this.props
 
@@ -86,6 +88,7 @@ export class AddQuestion extends React.Component {
             floatingLabelText={titleLabel}
             underlineFocusStyle={styles.focusStyle}
             fullWidth={true}
+            maxLength={titleLimit}
             />
           <br/>
           <TextField
@@ -96,6 +99,7 @@ export class AddQuestion extends React.Component {
             fullWidth={true}
             multiLine={true}
             rows={4}
+            maxLength={descriptionLimit}
             />
           <br/>
           <SelectFieldWrapper
