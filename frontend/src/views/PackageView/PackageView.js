@@ -95,6 +95,7 @@ export class Package extends React.Component {
           teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
           shortInformation={courseInstance.description}
           participantsNum={courseInstance.participantsNum}
+          pkgName={this.props.pkg.name}
         />
         <br/>
         <Grid className='container-fluid'>

@@ -32,6 +32,7 @@ type Props = {
   participantsNum: PropTypes.number,
   topFiveUsersProfileLink: PropTypes.array,
   userRole: PropTypes.string,
+  pkgName: PropTypes.string
 }
 
 export class CourseInfoBar extends React.Component {
@@ -44,7 +45,9 @@ export class CourseInfoBar extends React.Component {
         marginTop: '4',
       },
       titleStyle: {
-        color: '#26A65B'
+        color: '#26A65B',
+        fontSize: '160%',
+    
       },
       toolbarStyle: {
         backgroundColor: 'white',
@@ -59,12 +62,14 @@ export class CourseInfoBar extends React.Component {
       text: {
         position:'relative',
         marginRight: 5,
-        marginLeft: 20,
+        marginLeft: 48,
         color: 'green'
       }
     }
 
     const { semesterInstance, userRole } = this.props
+    var labelForPkgName
+    var courseName 
 
     var actions
     if (userRole === 'Prof') {
@@ -72,14 +77,32 @@ export class CourseInfoBar extends React.Component {
                   <IconButton  style={styles.iconStyle} touch={true}> <Delete color='#26A65B'  /> </IconButton>
                 </ToolbarGroup>
     }
+
+    if( this.props.pkgName ){
+      labelForPkgName = this.props.pkgName
+      courseName = this.props.courseTitle + " :" 
+    }
+    else{
+      labelForPkgName =""
+      courseName = this.props.courseTitle
+    }
+
     return (
       <div>
         <Card>
        
                   <Toolbar style = {styles.toolbarStyle } >
-                    <ToolbarGroup float='right'>
-                    <IconButton containerElement= {<Link to={this.props.courseUrl}  />} linkButton={true} style={styles.iconStyle} > <NavigationMenu color='#26A65B'  /> </IconButton>
-                    <ToolbarTitle text={this.props.courseTitle} style={styles.titleStyle}/>
+                    <ToolbarGroup float='left'>
+                    
+                     <FlatButton containerElement= {<Link to={this.props.courseUrl }  />} 
+                        labelStyle={styles.titleStyle} label={courseName}
+                        primary={false} 
+                     />
+                     <div className={classes.pkgName}>
+                       <FlatButton label={labelForPkgName} labelStyle={styles.titleStyle}
+                          primary={false} 
+                       />
+                     </div>
                   </ToolbarGroup>
                   </Toolbar>
                   <CardHeader
