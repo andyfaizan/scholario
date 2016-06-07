@@ -80,6 +80,7 @@ const pkgRouter = require('./routes/pkg');
 const materialRouter = require('./routes/material');
 const universityRouter = require('./routes/university');
 const programRouter = require('./routes/program');
+const bookmarkRouter = require('./routes/bookmark');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/users', usersRouter);
@@ -91,6 +92,7 @@ apiRouter.use('/pkgs', pkgRouter);
 apiRouter.use('/materials', materialRouter);
 apiRouter.use('/universities', universityRouter);
 apiRouter.use('/programs', programRouter);
+apiRouter.use('/bookmarks', bookmarkRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
