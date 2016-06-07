@@ -45,6 +45,7 @@ export class Package extends React.Component {
     if (!this.props.userMetadata.fetchedData) {
       this.props.dispatch(getUser())
     }
+
   }
 
   componentWillReceiveProps(newProps) {
@@ -58,6 +59,8 @@ export class Package extends React.Component {
       this.props.dispatch(getCourseInstance(newProps.pkg.courseInstance))
     }
   }
+
+
 
   render () {
     const { user, pkg, courseInstance } = this.props
@@ -97,8 +100,8 @@ export class Package extends React.Component {
           dateUploaded={material.createDate.slice(0,10)}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
-        />
-        
+          ext={material.ext}
+        />        
       )
     }
 
@@ -124,19 +127,6 @@ export class Package extends React.Component {
                {/*addMaterial*/}
                {/*materials*/}
                {materialsNew}
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-                              <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
-
               </div>
             </Col>
             <Col xs={8} md={4}>

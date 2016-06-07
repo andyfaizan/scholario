@@ -73,11 +73,14 @@ opacity: 0.8;
   
    align-content: center;
    color: #446CB3;
-   width:60px;
-   height:60px;
    margin-left:5px;
    margin-top: 20px;
    opacity: 0.9;
+}
+
+.posImg
+{
+  margin-left:58px;
 }
 
 .tooltip {
@@ -112,4 +115,10 @@ opacity: 0.8;
   /*margin-top: 80px;*/
   margin-top: -1.4em;
   margin-left: 140px;
+}
+
+.imgStyle{
+  display: block;
+  width: 34%;
+  margin-top: 1.5rem;
 }

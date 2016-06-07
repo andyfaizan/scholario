@@ -12,6 +12,17 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import classes from './Pkg.scss'
 import Edit from 'material-ui/svg-icons/action/track-changes';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
+import Pdf from './pdf.png'
+import Bmp from './bmp.png'
+import Doc from './doc.png'
+import Jpg from './jpg.png'
+import MpFour from './mp4.png'
+import MpThree from './mp3.png'
+import Png from './png.png'
+import Ppt from './ppt.png'
+import Txt from './txt.png'
+import Xls from './xls.png'
+import Folder from './folder.png'
 
 
 type Props = {
@@ -84,8 +95,9 @@ export class Pkg extends React.Component {
       textAlign: 'center',
       color: '#446CB3',
       marginLeft:5,
-      marginTop: 20,
+      marginTop: 30,
       opacity: 0.9,
+      alignContent:'center'
 
     }
 
@@ -98,7 +110,84 @@ export class Pkg extends React.Component {
     var preparedTitle
     var preparedIcon
 
-    preparedIcon = <Delete color='#26A65B' />
+    if( this.props.ext == '.bmp')
+    {
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Bmp}
+              		   alt='bmp' />
+              		   </div>
+
+    }else if(this.props.ext == '.doc' || this.props.ext == '.docx' ){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Doc}
+              		   alt='doc' />
+              		   </div>
+
+    }else if (this.props.ext == '.jpg' || this.props.ext == '.jpeg'){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Jpg}
+              		   alt='jpg' />
+              		   </div>
+
+    }else if(this.props.ext == '.mp3'){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={MpThree}
+              		   alt='mp3' />
+              		   </div>
+
+    }else if(this.props.ext == '.mp4' ){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={MpFour}
+              		   alt='mp4' />
+              		   </div>
+
+    }else if(this.props.ext == '.pdf'){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Pdf}
+              		   alt='pdf' />
+              		   </div>
+
+    }else if(this.props.ext == '.png'){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Png}
+              		   alt='png' />
+              		   </div>
+
+    }else if(this.props.ext == '.ppt' || this.props.ext == '.pptx'){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Ppt}
+              		   alt='ppt' />
+              		   </div>
+
+    }else if(this.props.ext == '.txt'){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Txt}
+              		   alt='txt' />
+              		   </div>
+
+    }else if(this.props.ext == '.xls' || this.props.ext == '.xlsx' ){
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Xls}
+              		   alt='xls' />
+              		   </div>
+
+    }else{
+
+    	preparedIcon = <div className={classes.posImg}><img className={classes.imgStyle}
+              		   src={Folder}
+              		   alt='alt file' />
+              		   </div>
+    }
+    
     //variables for displaying Child Node
 
     var heading = <div key="headingIndependentPackage" style={divStyle}>
