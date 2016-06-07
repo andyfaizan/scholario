@@ -96,7 +96,7 @@ const getFrame = (material) => {
       <div className={classes.videoStyle}>
         <ReactPlayer
           url={material.url}
-          playing={true}
+          playing={false}
           fileConfig={fileConfig}
           volume={0.5}
           // soundcloudConfig={soundcloudConfig}
