@@ -1,5 +1,6 @@
 import { normalize, arrayOf } from 'normalizr'
 import { merge } from 'lodash'
+import _ from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'

@@ -1,5 +1,6 @@
 import { normalize, arrayOf } from 'normalizr'
 import { merge } from 'lodash'
+import _ from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
@@ -21,6 +22,10 @@ export const GET_MATERIAL_ERR = 'GET_MATERIAL_ERR'
 export const POST_MATERIAL_REQUEST = 'POST_MATERIAL_REQUEST'
 export const POST_MATERIAL_OK = 'POST_MATERIAL_OK'
 export const POST_MATERIAL_ERR = 'POST_MATERIAL_ERR'
+
+export const DELETE_MATERIAL_REQUEST = 'DELETE_MATERIAL_REQUEST'
+export const DELETE_MATERIAL_OK = 'DELETE_MATERIAL_OK'
+export const DELETE_MATERIAL_ERR = 'DELETE_MATERIAL_ERR'
 
 // ------------------------------------
 // Actions
@@ -61,11 +66,25 @@ export function postMaterial(pid, files) {
   }
 }
 
+export function deleteMaterial(mid, pid) {
+  const endpoint = urlJoin(config.apiURL, 'materials', mid)
+
+  return {
+    types: [DELETE_MATERIAL_REQUEST, DELETE_MATERIAL_OK, DELETE_MATERIAL_ERR],
+    callAPI: () => request.del(endpoint),
+    payload: { mid, pid },
+  }
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export function materialReducer(state={}, action) {
   switch (action.type) {
+    case DELETE_MATERIAL_OK:
+      if (action && action.mid) {
+        return _.omit(state, action.mid)
+      }
     default:
       if (action.response && action.response.entities && action.response.entities.materials) {
         return merge({}, state, action.response.entities.materials)
