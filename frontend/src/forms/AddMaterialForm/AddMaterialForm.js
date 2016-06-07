@@ -86,7 +86,8 @@ export class AddMaterial extends React.Component {
                 }
               }
               disableClick={this.props.request ? true : false}
-              accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt, .ogg">
+              //accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt, .ogg">
+              accept="image/*, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
               <div className={classes.containerStyle}>
                 {showFiles ?
                   this.previewFiles(correctFiles) :
