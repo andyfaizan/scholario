@@ -58,6 +58,8 @@ export class DashboardToolBar extends React.Component {
             </FlatButton>
             <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/connects' />} label="Netzwerk">
             </FlatButton>
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/feedback' />} label="Feedback">
+            </FlatButton>
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>
             <IconMenu style={styles.iconStyle}

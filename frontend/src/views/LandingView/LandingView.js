@@ -5,7 +5,6 @@ import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import SetForgotPasswordForm from '../../forms/SetForgotPasswordForm/SetForgotPasswordForm'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/Divider'
-import Paper from 'material-ui/Paper'
 import BonnRhein from './Main.png'
 
 type Props = {
