@@ -76,7 +76,7 @@ export class AddMaterialModal extends React.Component {
             pkgId={this.props.pkgId} />
 
             <div style={{"margin-left":"30px"}}>
-              <strong>Max file size : 100 MB</strong>
+              <strong>Max file size : 800 MB</strong>
             </div>
         </Dialog>
       </div>
