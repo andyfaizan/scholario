@@ -4,7 +4,7 @@ import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfile
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import SetForgotPasswordForm from '../../forms/SetForgotPasswordForm/SetForgotPasswordForm'
+import FeedbackForm from '../../forms/FeedbackForm/FeedbackForm'
 import classes from './FeedbackView.scss'
 import Divider from 'material-ui/Divider'
 import DashboardToolBar from '../../containers/DashboardToolBar'
@@ -63,6 +63,7 @@ export class FeedbackView extends React.Component {
           onChangePassword={(data) => this.props.onChangePassword(data.password)}
         />
         <br/>
+        <FeedbackForm />
       	</div>
 	    <div className={classes.footer}>
 	        <FooterLanding />
