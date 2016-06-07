@@ -53,7 +53,6 @@ const fileConfig = {
 }
 
 const getFileType = (extension) => {
-  console.log(extension)
   if(extension)
   switch (extension.split(".")[1]) {
     case 'pdf':
@@ -87,6 +86,7 @@ const getFileType = (extension) => {
 }
 
 const getFrame = (material) => {
+  console.dir(material)
   var fileType = getFileType(material.ext)
   if(fileType === 'image'){
     return <img src={material.url} style={mediaStyle}/>
