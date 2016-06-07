@@ -106,7 +106,7 @@ export class FeedbackForm extends React.Component {
               <div className={classes.inner} >
                 <Card>
                   <CardHeader
-                    title="Lass uns wisser was du denkst"
+                    title="Lass uns wissen was du denkst"
                     titleStyle={titleStyle}
                     titleColor="#26A65B"
                     avatar={<Edit style={iconStyle}  />}
@@ -116,7 +116,7 @@ export class FeedbackForm extends React.Component {
                     <div className={classes.containingEmail}>
                       <TextField
                         floatingLabelText="Feedback zu unsere website"
-                        hintText="Schoalrio ist eine gute website"
+                        hintText="Scholario ist eine gute website"
                         fullWidth={false}
                         floatingLabelStyle={floatingLabel}
                         underlineFocusStyle={underlineColor}
