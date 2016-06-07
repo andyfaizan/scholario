@@ -247,7 +247,9 @@ export class Pkg extends React.Component {
 
     return (
       <div>
+        <Link to={this.props.pkgUrl}>
       	<Paper style={style} zDepth={3}  children={nodePaperCourse} />
+      	</Link>
 	    <Paper style={styleTwo} zDepth={0} children={action} />
 	    <Paper style={styleFour} zDepth={0} children={nodeFileClipper} />
       </div>
