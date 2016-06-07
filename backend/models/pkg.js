@@ -16,4 +16,12 @@ const PkgSchema = new Schema({
 
 PkgSchema.index({ name: 1, courseInstance: 1 }, { unique: true });
 
+PkgSchema.pre('remove', function (next) {
+  this.model('Material').remove(
+    { pkg: this._id },
+    next
+  )
+});
+
+
 mongoose.model('Pkg', PkgSchema);

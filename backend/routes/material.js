@@ -68,6 +68,7 @@ router.delete('/:mid', passport.authenticate('jwt', {session: false}), function 
       err: errors
     });
   }
+
   co(function *() {
     var material = yield Material.findOne({ _id: req.params.mid }).populate([{
       path: 'pkg',
