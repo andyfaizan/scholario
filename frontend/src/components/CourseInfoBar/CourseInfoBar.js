@@ -70,6 +70,7 @@ export class CourseInfoBar extends React.Component {
     const { semesterInstance, userRole } = this.props
     var labelForPkgName
     var courseName 
+    var displayPkg
 
     var actions
     if (userRole === 'Prof') {
@@ -81,12 +82,19 @@ export class CourseInfoBar extends React.Component {
     if( this.props.pkgName ){
       labelForPkgName = this.props.pkgName
       courseName = this.props.courseTitle + " :" 
+      displayPkg = <div className={classes.pkgName}>
+                       <FlatButton label={labelForPkgName} labelStyle={styles.titleStyle}
+                          primary={false} 
+                       />
+                     </div>
     }
     else{
-      labelForPkgName =""
+      labelForPkgName = null
+      displayPkg = null
       courseName = this.props.courseTitle
     }
 
+    
     return (
       <div>
         <Card>
@@ -98,11 +106,8 @@ export class CourseInfoBar extends React.Component {
                         labelStyle={styles.titleStyle} label={courseName}
                         primary={false} 
                      />
-                     <div className={classes.pkgName}>
-                       <FlatButton label={labelForPkgName} labelStyle={styles.titleStyle}
-                          primary={false} 
-                       />
-                     </div>
+                     
+                     {displayPkg}
                   </ToolbarGroup>
                   </Toolbar>
                   <CardHeader

@@ -106,7 +106,7 @@ export class FeedbackForm extends React.Component {
               <div className={classes.inner} >
                 <Card>
                   <CardHeader
-                    title="Lass uns wisser was du denkst"
+                    title="Lass uns wissen was du denkst"
                     titleStyle={titleStyle}
                     titleColor="#26A65B"
                     avatar={<Edit style={iconStyle}  />}
