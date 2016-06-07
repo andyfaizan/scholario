@@ -124,7 +124,7 @@ export class Package extends React.Component {
           <Row >
             <Col xs={16} md={8}>
               <div>
-               {/*addMaterial*/}
+               {addMaterial}
                {/*materials*/}
                {materialsNew}
               </div>
