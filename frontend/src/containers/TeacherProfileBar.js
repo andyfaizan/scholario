@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Card from 'material-ui/Card/Card';
 import CardActions from 'material-ui/Card/CardActions';
 import CardHeader from 'material-ui/Card/CardHeader';
@@ -9,9 +10,10 @@ import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import Avatar from 'material-ui/Avatar';
-import classes from './TeacherProfileBar.scss'
 import TextField from 'material-ui/TextField';
-import ChangePasswordForm from '../../forms/ChangePasswordForm/ChangePasswordForm'
+import ChangePasswordForm from '../forms/ChangePasswordForm/ChangePasswordForm'
+import * as selectors from '../redux/selectors'
+import { putUser, PUT_USER_OK, PUT_USER_ERR } from '../redux/modules/user'
 
 type Props = {
 
@@ -46,6 +48,21 @@ export class TeacherProfileBar extends React.Component {
 
   render () {
 
+    const floatingLabel = {
+
+      color:'#26A65B'
+    }
+
+    const underlineColor = {
+
+      borderColor:'#446CB3'
+    }
+    const changePassword = {
+      float: 'left',
+    }
+
+    const { putUserOk, putUserErr } = this.props
+
     //Card Header Title Variables
     //var firstNameUser = 'Prof Jan ' ;
     //var lastNameUser = 'Brochers' ;
@@ -73,15 +90,10 @@ export class TeacherProfileBar extends React.Component {
     if (this.props.firstNameUser)
       nameInitial = this.props.firstNameUser[0]
 
-    const floatingLabel = {
 
-      color:'#26A65B'
-    }
-
-    const underlineColor = {
-
-      borderColor:'#446CB3'
-    }
+    var changePasswordFeedback = -1
+    if (putUserOk) changePasswordFeedback = 0
+    else if (putUserErr) changePasswordFeedback = 1
 
     return (
       <div>
@@ -99,7 +111,8 @@ export class TeacherProfileBar extends React.Component {
           <CardText expandable={true}>
             {/*shortInformation*/}
             <ChangePasswordForm
-              onSubmit={this.props.onChangePassword}
+              onSubmit={(date) => this.props.dispatch(putUser('', '', '', data.password))}
+              feedbackTrue={changePasswordFeedback}
             />
           </CardText>
           <CardActions  expandable={true} >
@@ -117,5 +130,14 @@ export class TeacherProfileBar extends React.Component {
   }
 }
 
-export default TeacherProfileBar
+const mapStateToProps = (state) => {
+  return {
+    putUserOk: selectors.getRequest(state, PUT_USER_OK),
+    putUserErr: selectors.getRequest(state, PUT_USER_ERR),
+  }
+}
 
+export default connect(
+  mapStateToProps,
+  //mapDispatchToProps
+)(TeacherProfileBar)

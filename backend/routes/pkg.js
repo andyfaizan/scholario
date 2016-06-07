@@ -283,7 +283,7 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
       var material = new Material({
         name: parsed.name,
         ext: parsed.ext,
-        mimetype: parsed.mimetype,
+        mimetype: f.mimetype,
         size: f.size,
         pkg: req.params.pid,
       }).save((err, material, numAffected) => {

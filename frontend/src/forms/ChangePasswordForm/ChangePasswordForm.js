@@ -1,5 +1,6 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
+import classes from './ChangePasswordForm.scss'
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -39,6 +40,16 @@ export class ChangePassword extends React.Component {
       borderColor:'#446CB3'
     }
 
+    var feedbackMessage
+    var feedbackTrue = this.props.feedbackTrue
+
+    if( feedbackTrue == 0 )
+      feedbackMessage = <div className={classes.error}>Es gibt einen Fehler</div>
+    else if ( feedbackTrue == 1 )
+      feedbackMessage = <div className={classes.success}>Passwort ist verändert</div>
+    else
+      feedbackMessage = ""
+
     return (
       <form onSubmit={handleSubmit}>
         <div >
@@ -48,8 +59,12 @@ export class ChangePassword extends React.Component {
             floatingLabelText="Neues Passwort"
             floatingLabelStyle={floatingLabel}
             underlineFocusStyle={underlineColor}
+            type="password"
           />
           <FlatButton label="Senden" linkButton={true} onTouchTap={handleSubmit} hoverColor="#26A65B" />
+          <div className={classes.feedback}>
+            <h4>{feedbackMessage}</h4>
+          </div>
         </div>
       </form>
     )

@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -49,6 +51,45 @@ router.get('/:mid', passport.authenticate('jwt', {session: false}), function (re
     });
 
     return res.json(material);
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
+router.delete('/:mid', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('mid', 'InvalidMaterialId').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+  co(function *() {
+    var material = yield Material.findOne({ _id: req.params.mid }).populate([{
+      path: 'pkg',
+      populate: {
+        path: 'courseInstance',
+      }
+    }]);
+    if (!material) {
+      return res.status(404).json({
+        err: [{ msg: 'MaterialNotFound' }],
+      });
+    }
+    if (material.pkg.owner.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+
+    var materialPath = path.join(material.pkg.courseInstance.pkgsRoot, material.pkg.id.toString(), material.name + material.ext);
+    fs.unlinkSync(materialPath);
+    yield material.remove();
+    return res.status(200).json({});
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
