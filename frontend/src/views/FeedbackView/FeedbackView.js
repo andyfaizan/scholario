@@ -15,7 +15,10 @@ import { getRecommendedCourseInstances, followCourse,
   FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
 import Feedback from '../../containers/Feedback'
-import { putUser, postFeedback, POST_FEEDBACK_OK, POST_FEEDBACK_ERR } from '../../redux/modules/user'
+import { putUser, postFeedback,
+  POST_FEEDBACK_OK, POST_FEEDBACK_ERR,
+  PUT_USER_OK, PUT_USER_ERR,
+} from '../../redux/modules/user'
 
 type Props = {
 
@@ -33,13 +36,20 @@ export class FeedbackView extends React.Component {
   }
 
   render () {
-    const { user, userUniversity, userProgram, feedbackOk, feedbackErr } = this.props
+    const { user, userUniversity, userProgram,
+      putUserOk, putUserErr,
+      feedbackOk, feedbackErr,
+    } = this.props
 
     var feedbackTrue = -1
     if (feedbackOk) {
       this.props.push('/dashboard')
     }
     else if (feedbackErr) feedbackTrue = 0
+
+    var changePasswordFeedback = -1
+    if (putUserOk) changePasswordFeedback = 0
+    else if (putUserErr) changePasswordFeedback = 1
 
     return (
       <div>
@@ -52,6 +62,7 @@ export class FeedbackView extends React.Component {
             universityName={userUniversity ? userUniversity.name : ''}
             programeName={userProgram ? userProgram.name : ''}
             onChangePassword={(data) => this.props.onChangePassword(data.password)}
+            changePasswordFeedback={changePasswordFeedback}
           />
           <br/>
           <FeedbackForm
@@ -75,6 +86,8 @@ const mapStateToProps = (state) => {
     userProgram: selectors.getUserProgram(state),
     feedbackOk: selectors.getRequest(state, POST_FEEDBACK_OK),
     feedbackErr: selectors.getRequest(state, POST_FEEDBACK_ERR),
+    putUserOk: selectors.getRequest(state, PUT_USER_OK),
+    putUserErr: selectors.getRequest(state, PUT_USER_ERR),
   }
 }
 
