@@ -1,11 +1,14 @@
 import { arrayOf } from 'normalizr'
 import { merge } from 'lodash'
+import _ from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { pkgSchema } from '../schemas'
+import { DELETE_BOOKMARK_OK } from './bookmark'
+import { DELETE_MATERIAL_OK } from './materials'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -21,6 +24,10 @@ export const GET_PKG_ERR = 'GET_PKG_ERR'
 export const ADD_PKG_REQUEST = 'ADD_PKG_REQUEST'
 export const ADD_PKG_OK = 'ADD_PKG_OK'
 export const ADD_PKG_ERR = 'ADD_PKG_ERR'
+
+export const DELETE_PKG_REQUEST = 'DELETE_PKG_REQUEST'
+export const DELETE_PKG_OK = 'DELETE_PKG_OK'
+export const DELETE_PKG_ERR = 'DELETE_PKG_ERR'
 
 // ------------------------------------
 // Actions
@@ -77,12 +84,44 @@ export function addPkg(name, courseInstance, access = 'public', files = []) {
   }
 }
 
+export function deletePkg(pid, ciid) {
+  const endpoint = urlJoin(config.apiURL, 'pkgs', pid)
+
+  return {
+    types: [DELETE_PKG_REQUEST, DELETE_PKG_OK, DELETE_PKG_ERR],
+    callAPI: () => request.del(endpoint),
+    payload: { pid, ciid },
+  }
+}
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 export function pkgReducer(state={}, action) {
   switch (action.type) {
+    case DELETE_PKG_OK:
+      if (action && action.pid) {
+        return _.omit(state, action.pid)
+      }
+    case DELETE_BOOKMARK_OK:
+      if (action && action.bid && action.pid) {
+        return Object.assign({}, state, {
+          [action.pid]: {
+            ...state[action.pid],
+            bookmarks: _.without(state[action.pid].bookmarks, action.bid),
+          }
+        })
+      }
+    case DELETE_MATERIAL_OK:
+      if (action && action.mid && action.pid) {
+        return Object.assign({}, state, {
+          [action.pid]: {
+            ...state[action.pid],
+            materials: _.without(state[action.pid].materials, action.mid),
+          }
+        })
+      }
+
     default:
       if (action.response && action.response.entities && action.response.entities.pkgs) {
         return merge({}, state, action.response.entities.pkgs)
