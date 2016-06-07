@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
@@ -35,7 +36,9 @@ export class FeedbackView extends React.Component {
     const { user, userUniversity, userProgram, feedbackOk, feedbackErr } = this.props
 
     var feedbackTrue = -1
-    if (feedbackOk) feedbackTrue = 1
+    if (feedbackOk) {
+      this.props.push('/dashboard')
+    }
     else if (feedbackErr) feedbackTrue = 0
 
     return (
@@ -85,7 +88,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     postFeedback: (data) => {
       dispatch(postFeedback(data.subject, data.content))
-    }
+    },
+    push: (path) => {
+      dispatch(push(path))
+    },
   }
 }
 
