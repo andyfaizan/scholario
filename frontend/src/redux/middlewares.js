@@ -90,7 +90,10 @@ export const callAPIMiddleware = ({dispatch, getState}) => {
       type: requestType
     }))
 
-    return callAPI().set('Authorization', `JWT ${getState().user.token}`).end().then(
+    var p = callAPI()
+    if (getState().user.token)
+      p = p.set('Authorization', `JWT ${getState().user.token}`)
+    return p.end().then(
       response => {
         var data = response.body
         if (schema) {
