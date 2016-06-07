@@ -48,14 +48,19 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   if (req.body.pkg) question.pkg = req.body.pkg;
   if (req.body.material) question.material = req.body.material;
   question.save().then(function (question) {
-    return res.json({
+    var data = {
       _id: question._id,
       title: question.title,
       description: question.description,
       user: req.user._id,
       courseInstance: question.courseInstance,
+      createDate: question.createDate,
       votes: question.votes,
-    });
+    };
+    if (question.pkg) data.pkg = question.pkg;
+    if (question.material) data.material = question.material;
+
+    return res.json(data);
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({

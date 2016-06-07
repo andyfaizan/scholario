@@ -66,6 +66,19 @@ export class AddMaterial extends React.Component {
     }
 
     const maxFileSize = 800*1024*1024
+    const supportedTypes =
+        "image/jpeg, image/gif, image/png, image/bmp, image/x-bmp, image/x-icon \
+        video/mp4, video/mpeg, video/webm, \
+        audio/mp3, audio/mpeg, audio/wav, audio/x-wav, audio/x-pn-wav, audio/webm, \
+        application/pdf, \
+        application/msword, \
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document, \
+        applicatio/ppt, \
+        application/vnd.openxmlformats-officedocument.presentationml.presentation, \
+        application/vnd.ms-excel, \
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, \
+        text/plain, \
+        .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt"
     // TODO: FILE PREVIEW
     return (
       <div>
@@ -77,7 +90,9 @@ export class AddMaterial extends React.Component {
                 ( filesToUpload, e ) => {
                   uploadError = false
                   showFiles = false
-                  filesToUpload.map((file) => file.size < maxFileSize ? correctFiles.push(file) : (uploadError = true))
+                  filesToUpload.map((file) => file.size < maxFileSize
+                    && supportedTypes.indexOf(file.type) > -1 ?
+                    correctFiles.push(file) : (uploadError = true))
                   if(correctFiles.length > 0){
                     files.onChange(correctFiles)
                     this.props.addMaterial(this.props.pkgId, correctFiles)
@@ -86,14 +101,18 @@ export class AddMaterial extends React.Component {
                 }
               }
               disableClick={this.props.request ? true : false}
-              accept="image/*, .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt, .ogg">
+              accept={supportedTypes}>
               <div className={classes.containerStyle}>
                 {showFiles ?
                   this.previewFiles(correctFiles) :
                   <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
               </div>
             </Dropzone>
-            {uploadError ? <strong>Some files could not be uploaded</strong> : null}
+            {uploadError ?
+              <div className={classes.errorText}>
+                <strong>Einige Datein konnte nicht hochgeladen!</strong>
+              </div>
+              : null}
             {this.props.request ? <LinearProgress mode="indeterminate" />: null}
           </div>
         </div>
