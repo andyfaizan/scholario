@@ -59,7 +59,7 @@ export class FeedbackForm extends React.Component {
 
       width:'80%',
       padding:'0',
-      fontSize:'200%'
+      fontSize:'150%'
     }
 
     const mediumIcon = {
@@ -93,9 +93,9 @@ export class FeedbackForm extends React.Component {
     var feedbackTrue = null
 
     if( feedbackTrue == 0 ) 
-      feedbackMessage = <div className={classes.error}>Passwörter stimmen nicht überein</div>
+      feedbackMessage = <div className={classes.error}>There is an error submiting Form</div>
     else if ( feedbackTrue == 1 ) 
-      feedbackMessage = <div className={classes.success}>Ihr Passwort wurde geändert</div>
+      feedbackMessage = <div className={classes.success}>Feedback-Formular wurde eingestellt</div>
     else
       feedbackMessage = ""
 
@@ -106,7 +106,7 @@ export class FeedbackForm extends React.Component {
               <div className={classes.inner} >
                 <Card>
                   <CardHeader
-                    title="Lass uns wisser was du denkst?"
+                    title="Lass uns wisser was du denkst"
                     titleStyle={titleStyle}
                     titleColor="#26A65B"
                     avatar={<Edit style={iconStyle}  />}
@@ -122,7 +122,7 @@ export class FeedbackForm extends React.Component {
                         underlineFocusStyle={underlineColor}
                         style={textFieldStyle}
                         multiLine={true}
-                        rows={2}
+                        rows={5}
                       />
                     </div>
                     <br/>
