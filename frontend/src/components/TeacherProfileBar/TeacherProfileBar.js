@@ -100,6 +100,7 @@ export class TeacherProfileBar extends React.Component {
             {/*shortInformation*/}
             <ChangePasswordForm
               onSubmit={this.props.onChangePassword}
+              feedbackTrue={this.props.changePasswordFeedback}
             />
           </CardText>
           <CardActions  expandable={true} >

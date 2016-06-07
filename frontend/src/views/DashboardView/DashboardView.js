@@ -17,7 +17,7 @@ import { getRecommendedCourseInstances, followCourse,
 import { getQuestions } from '../../redux/modules/question'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
-import { putUser } from '../../redux/modules/user'
+import { putUser, PUT_USER_OK, PUT_USER_ERR } from '../../redux/modules/user'
 
 
 class DashboardView extends React.Component {
@@ -56,7 +56,13 @@ class DashboardView extends React.Component {
   }
 
   render () {
-    const { user, userUniversity, userProgram } = this.props
+    const { user, userUniversity, userProgram,
+      putUserOk, putUserErr,
+    } = this.props
+
+    var changePasswordFeedback = -1
+    if (putUserOk) changePasswordFeedback = 0
+    else if (putUserErr) changePasswordFeedback = 1
 
     return (
     <div>
@@ -69,6 +75,7 @@ class DashboardView extends React.Component {
           universityName={userUniversity ? userUniversity.name : ''}
           programeName={userProgram ? userProgram.name : ''}
           onChangePassword={(data) => this.props.onChangePassword(data.password)}
+          changePasswordFeedback={changePasswordFeedback}
         />
         <br/>
         <Grid className='container-fluid'>
@@ -111,6 +118,8 @@ const mapStateToProps = (state) => {
     courseInstances,
     questions: selectors.getUserQuestions(state),
     connects: selectors.getUserFollowings(state),
+    putUserOk: selectors.getRequest(state, PUT_USER_OK),
+    putUserErr: selectors.getRequest(state, PUT_USER_ERR),
   }
 }
 
