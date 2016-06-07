@@ -36,34 +36,27 @@ export class IndependentPackage extends React.Component {
       margin: 8.5,
       backgroundColor: '#446CB3 ',
       color: '#ffffff',
-      borderTopRightRadius: 30,
-      borderBottomRightRadius:30,
-      overflow: 'inherit',
-      alignItems: 'center',
     }
 
     const mainStyle = {
       float: 'left',
-      height: 140,
-      width: 170,
-      backgroundColor: '#446CB3 ',
-      color: '#ffffff',
-      borderTopRightRadius: 30,
-      borderBottomRightRadius:30,
-      overflow: 'inherit',
+      height: 160,
+      width: 160,
+      backgroundColor: '#ffffff',
+      color: '#446CB3',
       alignItems: 'center',
+      marginLeft:'-173',
+      marginTop: '13'
     }
 
     const linkContainerStyle = {
       float: 'left',
       height: 32,
       width: 170,
-      backgroundColor: '#446CB3 ',
+      backgroundColor: '#446CB3',
       color: '#ffffff',
-      borderTopRightRadius: 30,
-      borderBottomRightRadius:30,
-      overflow: 'inherit',
-      alignItems: 'center',
+      marginLeft:'-178',
+      marginTop: '170'
     }
 
     const styleTwo = {
@@ -73,8 +66,6 @@ export class IndependentPackage extends React.Component {
       margin: 8.5,
       backgroundColor: '#ffffff',
       color: '#ffffff',
-      borderTopRightRadius: 30,
-      borderBottomRightRadius:30,
       overflow: 'inherit',
       alignItems: 'center',
       postion: 'absolute',
@@ -150,9 +141,9 @@ export class IndependentPackage extends React.Component {
                               <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
                         </div>
                     </div>
-                    <div style={divStyle}>
+                    {/*<div style={divStyle}>
                       {<h5>{this.props.dateUploaded}</h5>}
-                    </div>
+                    </div> */}
                   </div>
 
     var container = <div key="IndependentPackage" className={classes.container}>
@@ -177,20 +168,15 @@ export class IndependentPackage extends React.Component {
     ]
 
     const downloadAsChild = [
+      heading,
       download
     ]
 
     return (
         <div>
-        <Paper style={style} zDepth={2}>
-          <Link to={this.props.pkgUrl} style={linkStyle}>
-            <Paper style={mainStyle}  children={nodePaperCourse} />
-          </Link>
-          <Paper style={linkContainerStyle} children={downloadAsChild}/>
-        </Paper>
-        <Paper style={styleTwo} zDepth={0} />
-        <Paper style={styleThree} zDepth={0}  />
-        <Paper style={styleFour} zDepth={5}  />
+        <Paper style={style} zDepth={2} />
+         <Paper style={mainStyle}   />
+         <Paper style={linkContainerStyle} children={downloadAsChild}/>
         </div>
 
     )

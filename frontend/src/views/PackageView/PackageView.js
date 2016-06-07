@@ -10,6 +10,7 @@ import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import Bookmarks from '../../components/Bookmarks/Bookmarks'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import PkgComp from '../../components/Pkg/Pkg'
 import AddMaterialComp from '../../components/AddMaterialComp/AddMaterialComp'
 import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
@@ -66,14 +67,16 @@ export class Package extends React.Component {
     const questionErrorType = 'ADD_QUESTION_ERR'
 
     var materials = []
+    var materialsNew = []
     var addMaterial;
 
     if (user && pkg && pkg.owner && pkg.owner._id === user._id) {
       addMaterial = <AddMaterialComp modal={this.props.modal} show={() => this.props.dispatch(show(add_material))} />
     }
 
-    if (pkg.materials) {
+    /*if (pkg.materials) {
       materials = pkg.materials.map(material =>
+        <div>
         <IndependentPackage
           key={material._id} materialTitle={material.name} materialNotifications={10}
           materialUrl={material.url}
@@ -81,8 +84,24 @@ export class Package extends React.Component {
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
         />
+        <br/>
+        </div>
+      )
+    }*/
+
+    if (pkg.materials) {
+      materialsNew = pkg.materials.map(material =>
+        <PkgComp
+          key={material._id} materialTitle={material.name} materialNotifications={10}
+          materialUrl={material.url}
+          dateUploaded={material.createDate.slice(0,10)}
+          keywords={["Blue ","Green ", "Red "]}
+          pkgUrl={`/material/${material._id}`}
+        />
+        
       )
     }
+
 
     return (
     <div>
@@ -102,8 +121,22 @@ export class Package extends React.Component {
           <Row >
             <Col xs={16} md={8}>
               <div>
-               {addMaterial}
-               {materials}
+               {/*addMaterial*/}
+               {/*materials*/}
+               {materialsNew}
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+                              <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+               <PkgComp materialTitle="Rohan Asmat" dateUploaded="2001-09-09" />
+
               </div>
             </Col>
             <Col xs={8} md={4}>
