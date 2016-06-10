@@ -31,8 +31,7 @@ export class LandingView extends React.Component {
          <div className={classes.container}>
            <img className={classes.dash}
               src={BonnRhein}
-              alt='No Net.' /> 
-           
+              alt='No Net.' />   
         </div>
         <Divider />
       </div>
