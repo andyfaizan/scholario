@@ -22,6 +22,7 @@ import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 import { show, ADD_MATERIAL_MODAL as add_material, ADD_BOOKMARK_MODAL as add_bookmark } from '../../redux/modules/modal'
 import { deleteBookmark } from '../../redux/modules/bookmark'
+import { deleteMaterial } from '../../redux/modules/materials'
 
 type Props = {
   packageName: PropTypes.string,
@@ -102,6 +103,7 @@ export class Package extends React.Component {
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
           ext={material.ext}
+          onClickDeleteMaterial={() => this.props.dispatch(deleteMaterial(material._id, material.pkg))}
         />
       )
     }

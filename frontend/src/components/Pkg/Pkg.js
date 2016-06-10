@@ -201,7 +201,7 @@ export class Pkg extends React.Component {
                       {this.props.keywords}
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
-                      <IconButton tooltip="Pkg löschen">
+                      <IconButton disableTouchRipple={true} tooltip="Pkg löschen" onTouchTap={this.props.onClickDeleteMaterial} >
                         <Delete color='#EF4836'/>
                       </IconButton>
                     </div>
@@ -229,12 +229,12 @@ export class Pkg extends React.Component {
                               <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
                         </div>
 
-    var downloadPkt =<div> 
+    var downloadPkt =<div>
                       <div key="downloadKey" className={classes.downloadPkg}>
                         <a target="_blank" href={this.props.materialUrl} style={linkStyle} ><FileDownload color="White"/></a>
                       </div>
                       <div key="deleteKey" className={classes.deleteButton}>
-                      <IconButton disableTouchRipple={true}  tooltip="Pkg löschen">
+                      <IconButton disableTouchRipple={true}  tooltip="Pkg löschen" onTouchTap={this.props.onClickDeleteMaterial} >
                         <Delete color='White'/>
                       </IconButton>
                     </div>
