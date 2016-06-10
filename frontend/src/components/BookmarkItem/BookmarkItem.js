@@ -26,10 +26,10 @@ export class BookmarkItem extends React.Component {
 
       color: '#26A65B',
       opacity: 0.2
-    }; 
+    };
 
     const border = {
-      
+
       color:'#26A65B'
 
     };
@@ -41,7 +41,7 @@ export class BookmarkItem extends React.Component {
 
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}> 
+    const secondaryText = <div className={styleSecondaryText}>
                               {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}
                           </div>
 
@@ -53,7 +53,7 @@ export class BookmarkItem extends React.Component {
             secondaryText={secondaryText}
             innerDivStyle={{color:'#26A65B'}}
             style={border}
-            rightIconButton={<div><IconButton>
+            rightIconButton={<div><IconButton disableTouchRipple={true} onTouchTap={this.props.onClickDeleteBookmark}>
                              <ThumbsUp color='#EF4836' /></IconButton></div>}
             onTouchTap={touchBookmark}
           />
@@ -63,4 +63,3 @@ export class BookmarkItem extends React.Component {
 }
 
 export default BookmarkItem
-

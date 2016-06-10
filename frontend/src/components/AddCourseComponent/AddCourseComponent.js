@@ -17,7 +17,7 @@ export class AddCourseComponent extends React.Component {
   render () {
 
   	const addCourseCompStyle = {
-	  
+
 	  float: 'left',
 	  height: 170,
 	  width: 300,
@@ -34,7 +34,7 @@ export class AddCourseComponent extends React.Component {
 	};
 
 	const style = {
-	  float: 'left',	
+	  float: 'left',
 	  height: 170,
 	  width: 170,
 	  margin: 8.5,
@@ -62,7 +62,7 @@ export class AddCourseComponent extends React.Component {
 
 
     const actions = <div>
-                         <IconButton style={buttonStyle} tooltip="In Course"> 
+                         <IconButton disableTouchRipple={true} style={buttonStyle} tooltip="In Course"> 
                            <AddCircle style={plusButton} color='#ffffff' />
                           </IconButton>
 

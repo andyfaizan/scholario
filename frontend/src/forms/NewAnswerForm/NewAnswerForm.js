@@ -20,6 +20,7 @@ type Props = {
   handleSubmit: Function,
   fields: Object,
   initialValues: Object,
+  onCancel: Function,
 }
 
 export class NewAnswer extends React.Component {
@@ -30,7 +31,7 @@ export class NewAnswer extends React.Component {
   }
 
   render() {
-    const { fields: { content }, handleSubmit } = this.props
+    const { fields: { content }, handleSubmit, onCancel } = this.props
 
     const textStyle = {
       paddingLeft: 70,
@@ -67,6 +68,9 @@ export class NewAnswer extends React.Component {
           <CardActions style={actionPadding}>
             <FlatButton label="Senden" linkButton={true}
                    onTouchTap={handleSubmit} hoverColor="#26A65B" />
+            <FlatButton
+              label="Abbrechen" linkButton={true}
+              onTouchTap={onCancel} hoverColor="#26A65B" />
           </CardActions>
           </form>
         </Card>

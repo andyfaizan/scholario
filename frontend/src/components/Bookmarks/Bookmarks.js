@@ -53,6 +53,7 @@ export class Bookmarks extends React.Component {
           bookmarkLabel={bookmark.title}
           bookmarkURL={bookmark.url}
           datePosted={bookmark.createDate}
+          onClickDeleteBookmark={() => this.props.onClickDeleteBookmark(bookmark._id, bookmark.pkg)}
         />
       )
     }
@@ -67,10 +68,10 @@ export class Bookmarks extends React.Component {
           <CardText >
             <List>
               <Subheader style={subheader}>
-                <IconButton tooltip={allBookmarks} style={iconStyles}>
+                <IconButton disableTouchRipple={true} tooltip={allBookmarks} style={iconStyles}>
                   <ViewList color='#26A65B' />
                 </IconButton>
-                <IconButton tooltip={allBookmarksAdd} style={iconStyles} onTouchTap={this.props.show}>
+                <IconButton disableTouchRipple={true} tooltip={allBookmarksAdd} style={iconStyles} onTouchTap={this.props.show}>
                   <AddBox color='#26A65B' />
                 </IconButton>
                 Lesezeichen

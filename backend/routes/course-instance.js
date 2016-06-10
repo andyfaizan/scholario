@@ -281,12 +281,24 @@ router.get('/:cid/follow',
     });
   }
 
-  CourseInstance.findOne({ _id: req.params.cid }).then(function (course) {
-    if (!course) {
-      return res.status(404).json({
-        err: [{msg: 'CourseNotFound'}],
-      });
-    }
+  // if(req.course.req.user.programs)
+
+  CourseInstance
+    .findOne({ _id: req.params.cid })
+    .populate('course')
+    .then(function (course) {
+      if (!course) {
+        return res.status(404).json({
+          err: [{msg: 'CourseNotFound'}],
+        });
+      }
+
+
+      if( req.user.universities.indexOf(course.course.university) === -1) {
+        return res.status(401).json({
+          err: [{msg: 'PermissionDenied'}],
+        });
+      }
 
     if (course.participants.indexOf(req.user._id) === -1)      // proof is the != korrekt?
       course.participants.push(req.user._id);

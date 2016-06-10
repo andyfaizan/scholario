@@ -136,7 +136,7 @@ const FullMaterial = ({fileType, playing, location, courseInstance,
       title={courseInstance.course ? courseInstance.course.name : ''}
       subtitle={pkg.name}
       avatar={
-        <IconButton tooltip="Back to Package"
+        <IconButton disableTouchRipple={true} tooltip="Back to Package"
         containerElement={<Link to={`/package/${pkg._id}`}/>}>
           <ArrowBack />
         </IconButton>
