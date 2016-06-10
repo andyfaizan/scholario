@@ -200,6 +200,11 @@ export class Pkg extends React.Component {
                     <div className={classes.container}>
                       {this.props.keywords}
                     </div>
+                    <div key="deleteKey" className={classes.deleteButton}>
+                      <IconButton tooltip="Pkg löschen">
+                        <Delete color='#EF4836'/>
+                      </IconButton>
+                    </div>
                     <div className={classes.downloadMaterial}>
                        <IconButton tooltip="Download-Paket">
                         <FileDownload color="White"/>
@@ -224,9 +229,16 @@ export class Pkg extends React.Component {
                               <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
                         </div>
 
-    var downloadPkt = <div key="downloadKey" className={classes.downloadPkg}>
+    var downloadPkt =<div> 
+                      <div key="downloadKey" className={classes.downloadPkg}>
                         <a target="_blank" href={this.props.materialUrl} style={linkStyle} ><FileDownload color="White"/></a>
                       </div>
+                      <div key="deleteKey" className={classes.deleteButton}>
+                      <IconButton tooltip="Pkg löschen">
+                        <Delete color='White'/>
+                      </IconButton>
+                    </div>
+                  </div>
 
     const nodePaperCourse = [
       heading

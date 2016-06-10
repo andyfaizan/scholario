@@ -158,9 +158,17 @@ export class IndependentPackage extends React.Component {
                           />*/}
                         </div>
 
-    var download =  <div key="downloadKey" className={classes.downloadPkg}>
+    var download = <div> 
+                    <div key="downloadKey" className={classes.downloadPkg}>
                         <a target="_blank" href={this.props.materialUrl} style={linkStyle} ><FileDownload color="White"/></a>
                     </div>
+                    <div key="deleteKey" className={classes.deleteButton}>
+                      <IconButton tooltip="Pkg löschen">
+                        <Delete color="White"/>
+                      </IconButton>
+                    </div>
+                  </div>
+
 
     const nodePaperCourse = [
       //notifications,

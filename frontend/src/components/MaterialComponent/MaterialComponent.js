@@ -160,6 +160,11 @@ export class MaterialComponent extends React.Component {
                     <div className={classes.container}>
                       {this.props.keywords}
                     </div>
+                    <div key="deleteKey" className={classes.deleteButton}>
+                      <IconButton tooltip="Pkg löschen">
+                        <Delete color="White"/>
+                      </IconButton>
+                    </div>
                     <div className={classes.downloadMaterial}>
                        <IconButton tooltip="Download-Paket">
                         <FileDownload color="White"/>
@@ -182,7 +187,7 @@ export class MaterialComponent extends React.Component {
                       </IconButton>
                     </div>
                     <div key="downloadKey" className={classes.downloadMaterial}>
-                       <IconButton tooltip="Download-Paket">
+                       <IconButton tooltip="Löschen-Paket">
                         <FileDownload color="White"/>
                       </IconButton>
                     </div>
