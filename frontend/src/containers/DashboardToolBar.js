@@ -63,7 +63,7 @@ export class DashboardToolBar extends React.Component {
             <FlatButton style={styles.buttonStyle} label="Feed">
             </FlatButton>
             <IconMenu style={styles.iconStyle}
-            iconButtonElement={ <IconButton  touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
+            iconButtonElement={ <IconButton disableTouchRipple={true} touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
                 <MenuItem primaryText="Benutzer Einstellungen" />
                 <MenuItem primaryText="Feed Einstellungen" />
                 <MenuItem primaryText="Logout" onTouchTap={this.props.logout} />

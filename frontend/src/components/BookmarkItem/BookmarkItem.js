@@ -53,7 +53,7 @@ export class BookmarkItem extends React.Component {
             secondaryText={secondaryText}
             innerDivStyle={{color:'#26A65B'}}
             style={border}
-            rightIconButton={<div><IconButton onTouchTap={this.props.onClickDeleteBookmark}>
+            rightIconButton={<div><IconButton disableTouchRipple={true} onTouchTap={this.props.onClickDeleteBookmark}>
                              <ThumbsUp color='#EF4836' /></IconButton></div>}
             onTouchTap={touchBookmark}
           />

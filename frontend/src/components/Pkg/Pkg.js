@@ -187,7 +187,7 @@ export class Pkg extends React.Component {
               		   alt='alt file' />
               		   </div>
     }
-    
+
     //variables for displaying Child Node
 
     var heading = <div key="headingIndependentPackage" style={divStyle}>
@@ -201,7 +201,7 @@ export class Pkg extends React.Component {
                       {this.props.keywords}
                     </div>
                     <div className={classes.downloadMaterial}>
-                       <IconButton tooltip="Download-Paket">
+                       <IconButton disableTouchRipple={true} tooltip="Download-Paket">
                         <FileDownload color="White"/>
                       </IconButton>
                     </div>
@@ -217,7 +217,7 @@ export class Pkg extends React.Component {
 
     if( this.props.materialTitle.length > 15 )
     	preparedTitle = this.props.materialTitle.slice(0,15).concat(dots)
-	else 
+	else
     	preparedTitle = this.props.materialTitle
 
     var actionSlot = <div key="actionSlot" className={classes.tooltip}>{preparedTitle}
@@ -235,7 +235,7 @@ export class Pkg extends React.Component {
 
    const nodeFileClipper = [
 
-      
+
     ]
 
     const action = [
@@ -258,4 +258,3 @@ export class Pkg extends React.Component {
 }
 
 export default Pkg
-

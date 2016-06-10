@@ -47,7 +47,7 @@ export class CourseInfoBar extends React.Component {
       titleStyle: {
         color: '#26A65B',
         fontSize: '160%',
-    
+
       },
       toolbarStyle: {
         backgroundColor: 'white',
@@ -69,22 +69,22 @@ export class CourseInfoBar extends React.Component {
 
     const { semesterInstance, userRole } = this.props
     var labelForPkgName
-    var courseName 
+    var courseName
     var displayPkg
 
     var actions
     if (userRole === 'Prof') {
       actions = <ToolbarGroup float='left'>
-                  <IconButton  style={styles.iconStyle} touch={true}> <Delete color='#26A65B'  /> </IconButton>
+                  <IconButton disableTouchRipple={true} style={styles.iconStyle} touch={true}> <Delete color='#26A65B'  /> </IconButton>
                 </ToolbarGroup>
     }
 
     if( this.props.pkgName ){
       labelForPkgName = this.props.pkgName
-      courseName = this.props.courseTitle + " :" 
+      courseName = this.props.courseTitle + " :"
       displayPkg = <div className={classes.pkgName}>
                        <FlatButton label={labelForPkgName} labelStyle={styles.titleStyle}
-                          primary={false} 
+                          primary={false}
                        />
                      </div>
     }
@@ -94,19 +94,19 @@ export class CourseInfoBar extends React.Component {
       courseName = this.props.courseTitle
     }
 
-    
+
     return (
       <div>
         <Card>
-       
+
                   <Toolbar style = {styles.toolbarStyle } >
                     <ToolbarGroup float='left'>
-                    
-                     <FlatButton containerElement= {<Link to={this.props.courseUrl }  />} 
+
+                     <FlatButton containerElement= {<Link to={this.props.courseUrl }  />}
                         labelStyle={styles.titleStyle} label={courseName}
-                        primary={false} 
+                        primary={false}
                      />
-                     
+
                      {displayPkg}
                   </ToolbarGroup>
                   </Toolbar>
@@ -132,17 +132,17 @@ export class CourseInfoBar extends React.Component {
                         </div>
                     </div>
                     {/*
-                    <FlatButton label="Bearbeiten Kurs" 
+                    <FlatButton label="Bearbeiten Kurs"
                       hoverColor="#26A65B" />
-                    <FlatButton label="löschen Kurs" 
+                    <FlatButton label="löschen Kurs"
                       hoverColor="#26A65B" />
-                    <FlatButton label="Paket bearbeiten" 
+                    <FlatButton label="Paket bearbeiten"
                       hoverColor="#26A65B" />
-                    <FlatButton label="löschen von Paketen" 
+                    <FlatButton label="löschen von Paketen"
                       hoverColor="#26A65B" />
-                    <FlatButton label="Material bearbeiten" 
+                    <FlatButton label="Material bearbeiten"
                       hoverColor="#26A65B" />
-                    <FlatButton label="löschen-Material" 
+                    <FlatButton label="löschen-Material"
                       hoverColor="#26A65B" />
                       */}
                   </CardActions>
@@ -155,4 +155,3 @@ export class CourseInfoBar extends React.Component {
 }
 
 export default CourseInfoBar
-

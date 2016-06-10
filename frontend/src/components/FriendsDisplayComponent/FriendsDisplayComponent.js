@@ -14,7 +14,7 @@ type Props = {
 	avatarUrl: string
 };
 export class FriendsDisplayComponent extends React.Component {
-   
+
   static propTypes = {
   	fullName: PropTypes.string,
   	discipline: PropTypes.string,
@@ -53,14 +53,14 @@ export class FriendsDisplayComponent extends React.Component {
 
 	const noteFriendsStyle ={
 	  width: 60,
-	  height: 60 
+	  height: 60
 	};
 
 	const header = <div><h3>{this.props.fullName}</h3><h5>{this.props.universityName}</h5><h6>{this.props.discipline}</h6></div>;
-	const container = <div><IconButton style={friendsButtonStyle}> <Friend style={noteFriendsStyle} /></IconButton></div> ;
+	const container = <div><IconButton disableTouchRipple={true} style={friendsButtonStyle}> <Friend style={noteFriendsStyle} /></IconButton></div> ;
 
 	const nodeFriendsComp = [
-      
+
       	header,
 		container
     ];
@@ -68,11 +68,10 @@ export class FriendsDisplayComponent extends React.Component {
     return (
 
       <div>
-      	<Paper style={friendsPaperStyle} zDepth={1} children={nodeFriendsComp}  />   
+      	<Paper style={friendsPaperStyle} zDepth={1} children={nodeFriendsComp}  />
       </div>
     )
   }
 }
 
 export default FriendsDisplayComponent
-
