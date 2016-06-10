@@ -35,8 +35,6 @@ export class LandingView extends React.Component {
         </div>
         <Divider />
       </div>
-      <div>
-        </div>
       <div className={classes.footer}>
           <FooterLanding />
       </div>
