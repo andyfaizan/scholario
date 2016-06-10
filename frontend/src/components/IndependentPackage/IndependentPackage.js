@@ -20,6 +20,7 @@ type Props = {
   dateUploaded: PropTypes.string,
   materialNotifications: PropTypes.number,
   pkgUrl: PropTypes.string,
+  ext: PropTypes.string
 }
 
 export class IndependentPackage extends React.Component {
@@ -35,10 +36,27 @@ export class IndependentPackage extends React.Component {
       margin: 8.5,
       backgroundColor: '#446CB3 ',
       color: '#ffffff',
-      borderTopRightRadius: 30,
-      borderBottomRightRadius:30,
-      overflow: 'inherit',
+    }
+
+    const mainStyle = {
+      float: 'left',
+      height: 160,
+      width: 160,
+      backgroundColor: '#ffffff',
+      color: '#446CB3',
       alignItems: 'center',
+      marginLeft:'-173',
+      marginTop: '13'
+    }
+
+    const linkContainerStyle = {
+      float: 'left',
+      height: 32,
+      width: 170,
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      marginLeft:'-178',
+      marginTop: '170'
     }
 
     const styleTwo = {
@@ -48,8 +66,6 @@ export class IndependentPackage extends React.Component {
       margin: 8.5,
       backgroundColor: '#ffffff',
       color: '#ffffff',
-      borderTopRightRadius: 30,
-      borderBottomRightRadius:30,
       overflow: 'inherit',
       alignItems: 'center',
       postion: 'absolute',
@@ -108,6 +124,8 @@ export class IndependentPackage extends React.Component {
       marginLeft:5,
       marginTop: -7,
       opacity: 0.9,
+      height: 90,
+      textDecoration: 'none'
     }
 
     const linkStyle = {
@@ -118,16 +136,14 @@ export class IndependentPackage extends React.Component {
 
     //variables for displaying Child Node
     var heading = <div key="headingIndependentPackage">
-                  <div className={classes.head}>
-                    <Link to={this.props.pkgUrl} style={linkStyle}>
-                      <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
-                            <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
-                      </div>
-                    </Link>
-                  </div>
-                  <div style={divStyle}>
-                    {<h5>{this.props.dateUploaded}</h5>}
-                  </div>
+                    <div className={classes.head}>
+                        <div className={classes.tooltip}>{this.props.materialTitle.slice(0,15).concat(dots)}
+                              <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
+                        </div>
+                    </div>
+                    {/*<div style={divStyle}>
+                      {<h5>{this.props.dateUploaded}</h5>}
+                    </div> */}
                   </div>
 
     var container = <div key="IndependentPackage" className={classes.container}>
@@ -148,17 +164,21 @@ export class IndependentPackage extends React.Component {
 
     const nodePaperCourse = [
       //notifications,
+      heading
+    ]
+
+    const downloadAsChild = [
       heading,
       download
     ]
 
     return (
         <div>
-          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
-          <Paper style={styleTwo} zDepth={0}  />
-          <Paper style={styleThree} zDepth={0}  />
-          <Paper style={styleFour} zDepth={5}  />
+        <Paper style={style} zDepth={2} />
+         <Paper style={mainStyle}   />
+         <Paper style={linkContainerStyle} children={downloadAsChild}/>
         </div>
+
     )
   }
 }

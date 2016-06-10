@@ -4,7 +4,6 @@ import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestion, setCurQuestion, voteQuestion } from '../../redux/modules/question'
-import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -144,12 +143,15 @@ export class Question extends React.Component {
                          initialValues={this.state.answerBeingEdited}
                          onSubmit={(data) => {
                            this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content)); this.toggleNewAnswerForm()
-                         }} />
+                         }}
+                         onCancel={() => this.toggleNewAnswerForm()} />
       } else {
         newAnswerForm = <NewAnswerForm
                          onSubmit={(data) => {
                            this.props.dispatch(postAnswer(question._id, data.content)); this.toggleNewAnswerForm()
-                         }} />
+                         }}
+                         onCancel={() => this.toggleNewAnswerForm()}
+                        />
       }
     }
     return (

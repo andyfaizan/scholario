@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import DashboardToolBar from '../../containers/DashboardToolBar'
-import TeacherProfileBar from '../../components/TeacherProfileBar/TeacherProfileBar'
+import TeacherProfileBar from '../../containers/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
 import Questions from '../../containers/Questions'
 import Grid from 'react-bootstrap/lib/Grid'
@@ -17,7 +17,6 @@ import { getRecommendedCourseInstances, followCourse,
 import { getQuestions } from '../../redux/modules/question'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
-import { putUser } from '../../redux/modules/user'
 
 
 class DashboardView extends React.Component {
@@ -56,7 +55,9 @@ class DashboardView extends React.Component {
   }
 
   render () {
-    const { user, userUniversity, userProgram } = this.props
+    const { user, userUniversity, userProgram,
+      putUserOk, putUserErr,
+    } = this.props
 
     return (
     <div>
@@ -68,7 +69,6 @@ class DashboardView extends React.Component {
           bio={user ? user.bio : ''}
           universityName={userUniversity ? userUniversity.name : ''}
           programeName={userProgram ? userProgram.name : ''}
-          onChangePassword={(data) => this.props.onChangePassword(data.password)}
         />
         <br/>
         <Grid className='container-fluid'>
@@ -130,9 +130,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     getQuestions: () => {
       dispatch(getQuestions())
-    },
-    onChangePassword: (password) => {
-      dispatch(putUser('', '', '', password))
     },
   }
 }

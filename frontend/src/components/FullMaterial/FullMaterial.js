@@ -53,7 +53,6 @@ const fileConfig = {
 }
 
 const getFileType = (extension) => {
-  console.log(extension)
   if(extension)
   switch (extension.split(".")[1]) {
     case 'pdf':
@@ -87,6 +86,7 @@ const getFileType = (extension) => {
 }
 
 const getFrame = (material) => {
+  console.dir(material)
   var fileType = getFileType(material.ext)
   if(fileType === 'image'){
     return <img src={material.url} style={mediaStyle}/>
@@ -96,7 +96,7 @@ const getFrame = (material) => {
       <div className={classes.videoStyle}>
         <ReactPlayer
           url={material.url}
-          playing={true}
+          playing={false}
           fileConfig={fileConfig}
           volume={0.5}
           // soundcloudConfig={soundcloudConfig}
@@ -136,7 +136,7 @@ const FullMaterial = ({fileType, playing, location, courseInstance,
       title={courseInstance.course ? courseInstance.course.name : ''}
       subtitle={pkg.name}
       avatar={
-        <IconButton tooltip="Back to Package"
+        <IconButton disableTouchRipple={true} tooltip="Back to Package"
         containerElement={<Link to={`/package/${pkg._id}`}/>}>
           <ArrowBack />
         </IconButton>

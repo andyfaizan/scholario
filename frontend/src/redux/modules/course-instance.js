@@ -1,11 +1,13 @@
 import { normalize, arrayOf } from 'normalizr'
 import { merge } from 'lodash'
+import _ from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
 import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { courseInstanceSchema } from '../schemas'
+import { DELETE_PKG_OK } from './pkg'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -135,6 +137,16 @@ export function unfollowCourse(cid) {
 // ------------------------------------
 export function courseInstanceReducer(state={}, action) {
   switch (action.type) {
+    case DELETE_PKG_OK:
+      if (action && action.pid && action.ciid) {
+        return Object.assign({}, state, {
+          [action.ciid]: {
+            ...state[action.ciid],
+            pkgs: _.without(state[action.ciid].pkgs, action.pid),
+          }
+        })
+      }
+
     default:
       if (action.response && action.response.entities && action.response.entities.courseInstances) {
         return merge({}, state, action.response.entities.courseInstances)

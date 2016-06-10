@@ -39,6 +39,24 @@ export class CourseCard extends React.Component {
       overflow: 'inherit'
     }
 
+    const contentStyle = {
+      float: 'left',
+      width: 300,
+      height: 130,
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: 13
+    }
+
+    const actionStyle = {
+      float: 'left',
+      width: 300,
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: 13
+    }
+
+
     const divStyle = {
       textAlign: 'center',
     }
@@ -61,38 +79,51 @@ export class CourseCard extends React.Component {
     //variables for displaying Child Node
     var actionsCourse = <div key="actionCourseDiv" className={classes.actionMain} >
                             <div className={classes.actionFollow} >
-                              <IconButton disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="Kurs folgen">
+                              <IconButton disableTouchRipple={true} disabled={this.props.following} onClick={this.props.onClickFollow} tooltip="Kurs folgen">
                               <LibraryAdd color='white' /></IconButton>
                             </div>
                             <div className={classes.actionPostionLeft}>
-                              <IconButton tooltip="Kurs löschen">
+                              <IconButton disableTouchRipple={true} tooltip="Kurs löschen">
                               <Delete color='white' /></IconButton>
                             </div>
                             <div className={classes.actionPosition}>
-                              <IconButton containerElement={<Link to={this.props.courseUrl} />} linkButton={true} tooltip="Zum Kurs">
+                              <IconButton disableTouchRipple={true} containerElement={<Link to={this.props.courseUrl} />} linkButton={true} tooltip="Zum Kurs">
                               <PageView color='white' />
                               </IconButton>
                             </div>
                           </div> ;
 
-  var heading = <div key="headingCourses" style={divStyle}><h4>{this.props.titleCourse}</h4><div className={classes.badge}>{/*<Badge
-      badgeContent={10}
-      secondary={true}
-      badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      ></Badge>*/}</div></div>;
+  var heading =
+    <div key="headingCourses" style={divStyle}>
+      <h4>{this.props.titleCourse}</h4>
+        <div className={classes.badge}>
+        {/*<Badge
+          badgeContent={10}
+          secondary={true}
+          badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+          ></Badge>*/}
+        </div>
+      </div>
   var container =<div key="containerCourse" className={classes.container}> <h5>{this.props.universityCourse}</h5><h6>{this.props.courseTeacher}</h6></div> ;
 
   const nodePaperCourse = [
 
       heading,
-      container,
-      actionsCourse
-
+      container
       ];
+
+  const cardActions = [
+    actionsCourse
+  ]
 
     return (
           <div>
-            <Paper style={style} zDepth={1} children={nodePaperCourse}  />
+              <Paper style={style} zDepth={1}>
+                <Link to={this.props.courseUrl}>
+                  <Paper style={contentStyle} zDepth={0} children={nodePaperCourse} />
+                </Link>
+                <Paper style={actionStyle} zDepth={0} children={cardActions} />
+              </Paper>
           </div>
     )
   }

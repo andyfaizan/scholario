@@ -5,6 +5,7 @@ import ActionQuestionAnswer from 'material-ui/svg-icons/action/bookmark-border';
 import IconButton from 'material-ui/IconButton';
 import { Router, Route, Link } from 'react-router'
 import { browserHistory } from '../../history'
+import ThumbsUp from 'material-ui/svg-icons/action/delete';
 
 type Props = {
 
@@ -25,35 +26,40 @@ export class BookmarkItem extends React.Component {
 
       color: '#26A65B',
       opacity: 0.2
-    }; 
+    };
 
     const border = {
-      
+
       color:'#26A65B'
 
     };
 
+    const touchBookmark = () => {
+        window.open(this.props.bookmarkURL);
+
+      }
+
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}> 
+    const secondaryText = <div className={styleSecondaryText}>
                               {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}
                           </div>
 
     return (
       <div>
-        <a target="_blank" href={this.props.bookmarkURL}>
           <ListItem
             leftIcon={<ActionQuestionAnswer color="#26A65B"/>}
             primaryText= {this.props.bookmarkLabel}
             secondaryText={secondaryText}
             innerDivStyle={{color:'#26A65B'}}
             style={border}
+            rightIconButton={<div><IconButton disableTouchRipple={true} onTouchTap={this.props.onClickDeleteBookmark}>
+                             <ThumbsUp color='#EF4836' /></IconButton></div>}
+            onTouchTap={touchBookmark}
           />
-        </a>
       </div>
     )
   }
 }
 
 export default BookmarkItem
-

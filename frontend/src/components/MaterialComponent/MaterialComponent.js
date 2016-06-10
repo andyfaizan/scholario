@@ -161,7 +161,7 @@ export class MaterialComponent extends React.Component {
                       {this.props.keywords}
                     </div>
                     <div className={classes.downloadMaterial}>
-                       <IconButton tooltip="Download-Paket">
+                       <IconButton disableTouchRipple={true} tooltip="Download-Paket">
                         <FileDownload color="White"/>
                       </IconButton>
                     </div>
@@ -172,17 +172,17 @@ export class MaterialComponent extends React.Component {
                       <h5>{this.props.keywords}</h5>
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
-                      <IconButton tooltip="Pkg löschen">
+                      <IconButton disableTouchRipple={true} tooltip="Pkg löschen">
                         <Delete color="White"/>
                       </IconButton>
                     </div>
                     <div key="editKey" className={classes.editButton}>
-                      <IconButton tooltip="Edit Kurz">
+                      <IconButton disableTouchRipple={true} tooltip="Edit Kurz">
                         <Edit color="White"/>
                       </IconButton>
                     </div>
                     <div key="downloadKey" className={classes.downloadMaterial}>
-                       <IconButton tooltip="Download-Paket">
+                       <IconButton disableTouchRipple={true} tooltip="Download-Paket">
                         <FileDownload color="White"/>
                       </IconButton>
                     </div>

@@ -28,13 +28,13 @@ export class QuestionItem extends React.Component {
     postedBy: PropTypes.string
   };
 
-  render () { 
+  render () {
 
     const styleSecondaryText = {
 
       color: '#26A65B',
       opacity: 0.2
-    }; 
+    };
 
       const border = {
       color:'#26A65B'
@@ -59,7 +59,7 @@ export class QuestionItem extends React.Component {
           style={border}
           disabled ={this.props.listItemClickable}
           rightAvatar={<div className={classes.avatar}><Avatar size={25} color="#26A65B" backgroundColor="white">{this.props.currentLikes}</Avatar></div>}
-          rightIconButton={<div className={classes.buttonThumbsUp}><IconButton onTouchTap={this.props.onClickVote}>
+          rightIconButton={<div className={classes.buttonThumbsUp}><IconButton disableTouchRipple={true} onTouchTap={this.props.onClickVote}>
                              <ThumbsUp color="#26A65B" /></IconButton></div>}
           onTouchTap={touchQuestion}
         />
@@ -69,4 +69,3 @@ export class QuestionItem extends React.Component {
 }
 
 export default QuestionItem
-

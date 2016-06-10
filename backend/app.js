@@ -16,6 +16,8 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 // Own modules
 const config = require('./config/config');
 const logger = require('./logger');
+const mailer = require('./mailer');
+const utils = require('./utils');
 
 const port = process.env.PORT || 3000;
 const models = join(__dirname, 'models');
@@ -78,6 +80,7 @@ const pkgRouter = require('./routes/pkg');
 const materialRouter = require('./routes/material');
 const universityRouter = require('./routes/university');
 const programRouter = require('./routes/program');
+const bookmarkRouter = require('./routes/bookmark');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/users', usersRouter);
@@ -89,6 +92,7 @@ apiRouter.use('/pkgs', pkgRouter);
 apiRouter.use('/materials', materialRouter);
 apiRouter.use('/universities', universityRouter);
 apiRouter.use('/programs', programRouter);
+apiRouter.use('/bookmarks', bookmarkRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
@@ -120,6 +124,47 @@ app.get('/email-verification/:code', function (req, res) {
       err: [{
         msg: 'InternalError'
       }]
+    });
+  });
+});
+
+apiRouter.post('/feedback', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkBody('subject', 'InvalidSubject').notEmpty();
+  req.checkBody('content', 'InvalidContent').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      'err': errors
+    });
+  }
+
+  const Feedback = mongoose.model('Feedback');
+
+  var feedback = Feedback({
+    subject: req.body.subject,
+    content: req.body.content,
+    user: req.user,
+  }).save().then(function (feedback) {
+    var mailOpts = {
+      from: '"Scholario" <noreply@scholario.de>',
+      to: 'info@scholario.de',
+      subject: `[Feedback] ${req.body.subject}`,
+      text: req.body.content,
+    };
+
+    if (utils.getEnv() === 'production') {
+      mailer.transporter.sendMail(mailOpts).catch(function (err) {
+        logger.error(err);
+      });
+    } else if (utils.getEnv() === 'development') {
+      logger.debug(req.body.subject, req.body.content);
+    }
+    return res.json({});
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
     });
   });
 });

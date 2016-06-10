@@ -62,10 +62,10 @@ export class RightSectionTeacherDashboard extends React.Component {
           <CardText >
             <List>
               <Subheader style={subheader}>
-                <IconButton tooltip={allQuestionsTooltip} style={iconStyles} containerElement={<Link to={linkToQuestionsList}  />}>
+                <IconButton disableTouchRipple={true} tooltip={allQuestionsTooltip} style={iconStyles} containerElement={<Link to={linkToQuestionsList}  />}>
                   <ViewList color='#26A65B' />
                 </IconButton>
-                <IconButton tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>
+                <IconButton disableTouchRipple={true} tooltip={askQuestion} style={iconStyles} onTouchTap={this.props.show}>
                   <AddBox color='#26A65B' />
                   {addQuestionModal}
                 </IconButton>

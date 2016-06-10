@@ -18,6 +18,7 @@ import QuestionView from 'views/QuestionView/QuestionView'
 import PackageView from 'views/PackageView/PackageView'
 import ForgotPasswordView from 'views/ForgotPasswordView/ForgotPasswordView'
 import ImpressumView from 'views/ImpressumView/ImpressumView'
+import FeedbackView from 'views/FeedbackView/FeedbackView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
@@ -28,6 +29,7 @@ export default (store) => (
       <Route path='forgot-password' component={ForgotPasswordView}/>
       <Route path='reset-password/:code' component={ForgotPasswordView}/>
       <Route path='course/:id' component={CourseView} />
+      <Route path='feedback' component={FeedbackView} />
       <Route path='course/:id/questions' component={DetailQuestionListView} />
       <Route path='package/:id' component={PackageView} />
       <Route path='material/:id' component={MaterialView} />

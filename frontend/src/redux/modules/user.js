@@ -47,6 +47,10 @@ export const FOLLOW_USER_REQUEST = 'FOLLOW_USER_REQUEST'
 export const FOLLOW_USER_OK = 'FOLLOW_USER_OK'
 export const FOLLOW_USER_ERR = 'FOLLOW_USER_ERR'
 
+export const POST_FEEDBACK_REQUEST = 'POST_FEEDBACK_REQUEST'
+export const POST_FEEDBACK_OK = 'POST_FEEDBACK_OK'
+export const POST_FEEDBACK_ERR = 'POST_FEEDBACK_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -208,6 +212,14 @@ export function resetPassword(code, password) {
     types: [RESET_PASSWORD_REQUEST, RESET_PASSWORD_OK, RESET_PASSWORD_ERR],
     callAPI: () => request.post(endpoint).send({ password }),
     payload: { code },
+  }
+}
+
+export function postFeedback(subject, content) {
+  const endpoint = urlJoin(config.apiURL, 'feedback')
+  return {
+    types: [POST_FEEDBACK_REQUEST, POST_FEEDBACK_OK, POST_FEEDBACK_ERR],
+    callAPI: () => request.post(endpoint).send({ subject, content }),
   }
 }
 

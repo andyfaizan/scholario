@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
@@ -16,6 +17,8 @@ const CourseInstance = mongoose.model('CourseInstance');
 const Material = mongoose.model('Material');
 const Bookmark = mongoose.model('Bookmark');
 const Pkg = mongoose.model('Pkg');
+
+const rimrafAsync = Promise.promisify(require('rimraf'));
 
 var router = express.Router();
 
@@ -251,6 +254,42 @@ router.post('/', passport.authenticate('jwt', {session: false}),
   });
 });
 
+router.delete('/:pid', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('pid', 'InvalidPkgId').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  co(function *() {
+    var pkg = yield Pkg.findOne({ _id: req.params.pid }).populate('courseInstance');
+    if (!pkg) {
+      return res.status(404).json({
+        err: [{ msg: 'PkgNotFound' }],
+      });
+    }
+    if (pkg.owner.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+
+    var pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
+    yield rimrafAsync(pkgRoot, { disableGlob: true });
+    yield pkg.remove();
+    return res.status(200).json({});
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
+
 router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
             multer({dest: 'uploads/tmp'}).array('material'),
             function (req, res) {
@@ -283,7 +322,7 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
       var material = new Material({
         name: parsed.name,
         ext: parsed.ext,
-        mimetype: parsed.mimetype,
+        mimetype: f.mimetype,
         size: f.size,
         pkg: req.params.pid,
       }).save((err, material, numAffected) => {
@@ -335,6 +374,12 @@ router.post('/:pid/bookmarks', passport.authenticate('jwt', {session: false}), f
     if (!pkg) {
       return res.status(404).json({
         err: [{ msg: 'PkgNotFound' }],
+      });
+    }
+
+    if (pkg.owner.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
       });
     }
 

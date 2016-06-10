@@ -41,7 +41,7 @@ export class AnswerItem extends React.Component {
     }
 
     const actionPadding = {
-        
+
       paddingLeft: 52
 
     }
@@ -88,9 +88,9 @@ export class AnswerItem extends React.Component {
                    onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
     }
 
-    var voting =<div> 
+    var voting =<div>
                   <div key="thumbs" className={classes.buttonThumbsUp}>
-                     <IconButton onTouchTap={onClickVoteAnswer}>
+                     <IconButton disableTouchRipple={true} onTouchTap={onClickVoteAnswer}>
                      <ThumbsUp color="#26A65B" />
                      </IconButton>
                    </div>
@@ -102,10 +102,10 @@ export class AnswerItem extends React.Component {
                 </div>
 
     const childVars = [
-      
+
       voting,
       nodeHeader
-      
+
 
     ]
 
@@ -135,4 +135,3 @@ export class AnswerItem extends React.Component {
 }
 
 export default AnswerItem
-
