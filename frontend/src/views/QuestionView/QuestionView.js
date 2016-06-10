@@ -143,12 +143,15 @@ export class Question extends React.Component {
                          initialValues={this.state.answerBeingEdited}
                          onSubmit={(data) => {
                            this.props.dispatch(putAnswer(this.state.answerBeingEdited._id, data.content)); this.toggleNewAnswerForm()
-                         }} />
+                         }}
+                         onCancel={() => this.toggleNewAnswerForm()} />
       } else {
         newAnswerForm = <NewAnswerForm
                          onSubmit={(data) => {
                            this.props.dispatch(postAnswer(question._id, data.content)); this.toggleNewAnswerForm()
-                         }} />
+                         }}
+                         onCancel={() => this.toggleNewAnswerForm()}
+                        />
       }
     }
     return (
