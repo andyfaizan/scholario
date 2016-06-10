@@ -35,6 +35,11 @@ export class Course extends React.Component {
     courseId: PropTypes.string,
   };
 
+  constructor(props) {
+    super(props)
+    this.getDateFromZulu = this.getDateFromZulu.bind(this)
+  }
+
   componentDidMount() {
     const cid = this.props.params.id
     this.props.dispatch(setCurCourseInstance(cid))
@@ -43,6 +48,11 @@ export class Course extends React.Component {
     if (!this.props.userMetadata.fetchedData) {
       this.props.dispatch(getUser())
     }
+  }
+
+  getDateFromZulu(dateString) {
+    var dateParts = dateString.split('-')
+    return dateParts[2]+'-'+dateParts[1]+'-'+dateParts[0]
   }
 
   render () {
@@ -60,7 +70,7 @@ export class Course extends React.Component {
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded={pkg ? pkg.createDate.slice(0,10) : ''}
+          dateUploaded={pkg ? this.getDateFromZulu(pkg.createDate.slice(0,10)) : ''}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
@@ -74,7 +84,7 @@ export class Course extends React.Component {
       studentPkgEls = studentPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded={pkg.createDate.slice(0,10)}
+          dateUploaded={this.getDateFromZulu(pkg.createDate.slice(0,10))}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
