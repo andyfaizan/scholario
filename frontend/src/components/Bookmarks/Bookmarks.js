@@ -53,6 +53,7 @@ export class Bookmarks extends React.Component {
           bookmarkLabel={bookmark.title}
           bookmarkURL={bookmark.url}
           datePosted={bookmark.createDate}
+          onClickDeleteBookmark={() => this.props.onClickDeleteBookmark(bookmark._id, bookmark.pkg)}
         />
       )
     }

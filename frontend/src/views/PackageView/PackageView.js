@@ -21,6 +21,7 @@ import * as selectors from '../../redux/selectors'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 import { show, ADD_MATERIAL_MODAL as add_material, ADD_BOOKMARK_MODAL as add_bookmark } from '../../redux/modules/modal'
+import { deleteBookmark } from '../../redux/modules/bookmark'
 
 type Props = {
   packageName: PropTypes.string,
@@ -101,7 +102,7 @@ export class Package extends React.Component {
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
           ext={material.ext}
-        />        
+        />
       )
     }
 
@@ -142,6 +143,7 @@ export class Package extends React.Component {
                 bookmarks={this.props.pkg.bookmarks}
                 modal={this.props.modal}
                 show={() => this.props.dispatch(show(add_bookmark))}
+                onClickDeleteBookmark={(bid, pid) => this.props.dispatch(deleteBookmark(bid, pid))}
               />
             </Col>
           </Row>
