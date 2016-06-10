@@ -3,5 +3,6 @@
    align-items: center;
    margin-left: 10%;
    margin-right: 10%;
-   overflow: auto;
+   overflow: scroll;
+   max-height:400px;
 }
