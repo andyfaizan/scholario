@@ -26,7 +26,7 @@ export default (store) => (
     <IndexRoute component={LandingView} />
     <Route component={Dashboard}>
       <Route path='dashboard' component={DashboardView} />
-      <Route path='connects' component={DashboardView}/>
+      <Route path='connects' component={DummyPageView}/>
       <Route path='forgot-password' component={ForgotPasswordView}/>
       <Route path='reset-password/:code' component={ForgotPasswordView}/>
       <Route path='course/:id' component={CourseView} />
@@ -36,7 +36,6 @@ export default (store) => (
       <Route path='material/:id' component={MaterialView} />
       <Route path='question/:id' component={QuestionView} />
       <Route path='impressum' component={ImpressumView} />
-      <Route path='netzwerk' component={DummyPageView} />
       <Route path='feed' component={DummyPageView} />
     </Route>
 

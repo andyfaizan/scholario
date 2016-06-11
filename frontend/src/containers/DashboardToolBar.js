@@ -60,7 +60,7 @@ export class DashboardToolBar extends React.Component {
             </FlatButton>
             <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/feedback' />} label="Feedback">
             </FlatButton>
-            <FlatButton style={styles.buttonStyle} label="Feed">
+            <FlatButton style={styles.buttonStyle} containerElement= {<Link to='/feed' />} label="Feed">
             </FlatButton>
             <IconMenu style={styles.iconStyle}
             iconButtonElement={ <IconButton disableTouchRipple={true} touch={true}> <NavigationMenu color='white'  /> </IconButton> } >
