@@ -2,7 +2,7 @@ import React from 'react'
 import { reduxForm } from 'redux-form'
 import classes from './CreateCourseForm.scss'
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
+import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
 import MenuItem from 'material-ui/MenuItem';
 
 export const fields = ['course', 'teacher', 'assistant', 'semester',
@@ -39,11 +39,6 @@ type Props = {
 export class CreateCourse extends React.Component {
   props: Props;
 
-  // TODO this doesn't work. Replace with state
-  handleChange = (event, index, value) => {
-    this.refs.sem.value = value
-  }
-
   render() {
     const styles = {
       errorStyle:
@@ -75,6 +70,7 @@ export class CreateCourse extends React.Component {
     const uniHint = 'Uni'
     const uniLabel = 'Hochschule'
     const infoLabel = 'Information'
+    const semesterLabel = 'Semester'
 
     const { fields: { course, teacher, assistant, semester, subject, uni, info }, handleChange } = this.props
 
@@ -134,16 +130,13 @@ export class CreateCourse extends React.Component {
             fullWidth={true}
             />
           <br/>
-          <SelectField
+          <SelectFieldWrapper
             {...semester}
-            ref="sem"
-            value=""
-            floatingLabelText="Semester"
+            floatingLabelText={semesterLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
-            fullWidth={true}
-            onChange={this.handleChange.bind(this)}>
+            fullWidth={true}>
             {menuItems}
-          </SelectField>
+          </SelectFieldWrapper>
           <br/>
           <TextField
             {...uni}
