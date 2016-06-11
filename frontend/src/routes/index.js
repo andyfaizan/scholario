@@ -19,6 +19,7 @@ import PackageView from 'views/PackageView/PackageView'
 import ForgotPasswordView from 'views/ForgotPasswordView/ForgotPasswordView'
 import ImpressumView from 'views/ImpressumView/ImpressumView'
 import FeedbackView from 'views/FeedbackView/FeedbackView'
+import DummyPageView from 'views/DummyPageView/DummyPageView'
 
 export default (store) => (
   <Route path='/' component={CoreLayout}>
@@ -35,6 +36,8 @@ export default (store) => (
       <Route path='material/:id' component={MaterialView} />
       <Route path='question/:id' component={QuestionView} />
       <Route path='impressum' component={ImpressumView} />
+      <Route path='netzwerk' component={DummyPageView} />
+      <Route path='feed' component={DummyPageView} />
     </Route>
 
   </Route>
