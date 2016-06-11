@@ -13,9 +13,11 @@ export class DummyPage extends React.Component {
       <div>
         <div className={classes.dashboardRoot}>
           <DashboardToolBar />
-          <h1>
-            Coming soon... :)
-          </h1>
+          <div className={classes.container}>
+            <h1>
+              Coming soon :)
+            </h1>
+          </div>
         </div>
         <div className={classes.footer}>
          <FooterLanding />

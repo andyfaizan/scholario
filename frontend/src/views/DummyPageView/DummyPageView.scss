@@ -4,6 +4,17 @@
    min-height: 90vh;
 }
 
+.container {
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.container h1 {
+  margin: 0
+}
+
 .footer {
     font-size: 20px;
     background-color: #FBF6EC;
