@@ -10,15 +10,17 @@ export class DummyPage extends React.Component {
 
   render () {
     return (
-      <div className={classes.dashboardRoot}>
-        <DashboardToolBar />
-        <h1>
-          Coming soon... :)
-        </h1>
+      <div>
+        <div className={classes.dashboardRoot}>
+          <DashboardToolBar />
+          <h1>
+            Coming soon... :)
+          </h1>
+        </div>
         <div className={classes.footer}>
          <FooterLanding />
-       </div>
-      </div>
+        </div>
+     </div>
     )
   }
 }
