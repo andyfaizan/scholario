@@ -101,7 +101,7 @@ export class Question extends React.Component {
         <AnswerItem
           key={a._id}
           personWhoAnswered={a.user}
-          dateAnswered={a.createDate.slice(0,10)}
+          dateAnswered={a.createDate}
           answerText={a.content}
           answer={a}
           question={question}

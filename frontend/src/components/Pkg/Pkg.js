@@ -38,6 +38,16 @@ type Props = {
 export class Pkg extends React.Component {
   props: Props;
 
+  constructor(props) {
+    super(props)
+    this.getDateFromZulu = this.getDateFromZulu.bind(this)
+  }
+
+  getDateFromZulu(dateString) {
+    var dateParts = dateString.slice(0,10).split('-')
+    return dateParts[2]+'-'+dateParts[1]+'-'+dateParts[0]
+  }
+
   render () {
 
   		//inline styling variables for certain components ...
@@ -193,7 +203,7 @@ export class Pkg extends React.Component {
     var heading = <div key="headingIndependentPackage" style={divStyle}>
                    {preparedIcon}
                    <br/>
-                   <h5>{this.props.dateUploaded}</h5>
+                   <h5>{this.getDateFromZulu(this.props.dateUploaded)}</h5>
                   </div>
 
     var container = <div key="IndependentPackage">

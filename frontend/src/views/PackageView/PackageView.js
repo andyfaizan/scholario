@@ -99,7 +99,7 @@ export class Package extends React.Component {
         <PkgComp
           key={material._id} materialTitle={material.name} materialNotifications={10}
           materialUrl={material.url}
-          dateUploaded={material.createDate.slice(0,10)}
+          dateUploaded={material.createDate}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/material/${material._id}`}
           ext={material.ext}

@@ -28,6 +28,16 @@ export class QuestionItem extends React.Component {
     postedBy: PropTypes.string
   };
 
+	constructor(props) {
+    super(props)
+    this.getDateFromZulu = this.getDateFromZulu.bind(this)
+  }
+
+	getDateFromZulu(dateString) {
+    var dateParts = dateString.slice(0,10).split('-')
+    return dateParts[2]+'-'+dateParts[1]+'-'+dateParts[0]
+  }
+
   render () {
 
     const styleSecondaryText = {
@@ -48,7 +58,7 @@ export class QuestionItem extends React.Component {
 
     const date = this.props.datePosted;
 
-    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} gepostet am {date ? date.slice(0,10) : ''}</div>
+    const secondaryText = <div className={styleSecondaryText}> {this.props.postedBy} gepostet am {date ? this.getDateFromZulu(date) : ''}</div>
     return (
       <div>
         <ListItem

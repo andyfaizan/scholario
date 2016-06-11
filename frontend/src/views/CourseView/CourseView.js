@@ -51,7 +51,7 @@ export class Course extends React.Component {
   }
 
   getDateFromZulu(dateString) {
-    var dateParts = dateString.split('-')
+    var dateParts = dateString.slice(0,10).split('-')
     return dateParts[2]+'-'+dateParts[1]+'-'+dateParts[0]
   }
 
@@ -70,7 +70,7 @@ export class Course extends React.Component {
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded={pkg ? this.getDateFromZulu(pkg.createDate.slice(0,10)) : ''}
+          dateUploaded={pkg ? this.getDateFromZulu(pkg.createDate) : ''}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
@@ -84,7 +84,7 @@ export class Course extends React.Component {
       studentPkgEls = studentPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
-          dateUploaded={this.getDateFromZulu(pkg.createDate.slice(0,10))}
+          dateUploaded={this.getDateFromZulu(pkg.createDate)}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}

@@ -25,6 +25,16 @@ type Props = {
 export class AnswerItem extends React.Component {
   props: Props
 
+  constructor(props) {
+    super(props)
+    this.getDateFromZulu = this.getDateFromZulu.bind(this)
+  }
+
+  getDateFromZulu(dateString) {
+    var dateParts = dateString.slice(0,10).split('-')
+    return dateParts[2]+'-'+dateParts[1]+'-'+dateParts[0]
+  }
+
   render () {
     const { personWhoAnswered, user, courseInstance, question, answer, onClickVoteAnswer,
       onClickDelAnswer, onClickEditAnswer, onClickBestAnswer, onClickApproveAnswer } = this.props
@@ -114,7 +124,7 @@ export class AnswerItem extends React.Component {
         <Card>
           <CardHeader
             title={personWhoAnswered ? `${personWhoAnswered.firstname} ${personWhoAnswered.lastname}` : ''}
-            subtitle={this.props.dateAnswered}
+            subtitle={this.getDateFromZulu(this.props.dateAnswered)}
             actAsExpander={false}
             showExpandableButton={false}
             avatar={<Avatar backgroundColor='#446CB3'>{nameInitial}</Avatar>}
