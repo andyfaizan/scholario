@@ -38,7 +38,9 @@ export class NewAnswer extends React.Component {
       paddingRight: 50
     }
     const actionPadding = {
-      paddingLeft: 52
+      paddingLeft: 52,
+      backgroundColor: '#446CB3',
+      color:"#ffffff"
     }
     const floatingLabel = {
       color:'#26A65B'
@@ -46,12 +48,27 @@ export class NewAnswer extends React.Component {
     const underlineColor = {
       borderColor:'#446CB3'
     }
+    const buttonStyle = {
+
+      color: "#ffffff"
+    }
+    const cardHeaderStyle = {
+       paddingLeft: 70,
+       color: "#26A65B" 
+    }
+    const cardHeaderTitleStyle = {
+      fontWeight:'100%' ,
+      fontSize: '130%'
+    }
 
     return (
       <div>
         <Card>
           <CardHeader
+            style={cardHeaderStyle}
             title={"Frage beantworten"}
+            titleColor="#26A65B"
+            titleStyle={cardHeaderTitleStyle} 
           />
           <form onSubmit={handleSubmit}>
           <CardText style={textStyle}>
@@ -67,10 +84,14 @@ export class NewAnswer extends React.Component {
           </CardText>
           <CardActions style={actionPadding}>
             <FlatButton label="Senden" linkButton={true}
-                   onTouchTap={handleSubmit} hoverColor="#26A65B" />
+                   onTouchTap={handleSubmit} hoverColor="#26A65B" 
+                   style={buttonStyle} rippleColor="#ffffff"
+            />
             <FlatButton
               label="Abbrechen" linkButton={true}
-              onTouchTap={onCancel} hoverColor="#26A65B" />
+              onTouchTap={onCancel} hoverColor="#26A65B" 
+              style={buttonStyle} rippleColor="#ffffff"
+            />
           </CardActions>
           </form>
         </Card>
