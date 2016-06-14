@@ -52,8 +52,33 @@ const fileConfig = {
   }
 }
 
-const getFileType = (extension) => {
-  if(extension)
+const imageTypes = "image/jpeg, image/gif, image/png, image/bmp, image/x-bmp, image/x-icon"
+
+const mediaTypes = "video/mp4, video/mpeg, video/webm, \
+                  audio/mp3, audio/mpeg, audio/wav, audio/x-wav, audio/x-pn-wav, audio/webm"
+
+const docTypes = "application/pdf, \
+                  application/msword, \
+                  application/vnd.openxmlformats-officedocument.wordprocessingml.document, \
+                  applicatio/ppt, \
+                  application/vnd.openxmlformats-officedocument.presentationml.presentation, \
+                  application/vnd.ms-excel, \
+                  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, \
+                  text/plain "
+
+const getFileTypeFromMime = (mimetype) => {
+  if(imageTypes.indexOf(mimetype) > -1) {
+    return 'image'
+  } else if (mediaTypes.indexOf(mimetype) > -1) {
+      return 'av'
+  } else if (docTypes.indexOf(mimetype) > -1) {
+      return 'doc'
+  } else {
+    return ''
+  }
+}
+
+const getFileTypeFromExt = (extension) => {
   switch (extension.split(".")[1]) {
     case 'pdf':
     case 'doc':
@@ -87,7 +112,13 @@ const getFileType = (extension) => {
 
 const getFrame = (material) => {
   console.dir(material)
-  var fileType = getFileType(material.ext)
+  var fileType
+  if(material.mimetype) {
+    fileType = getFileTypeFromMime(material.mimetype)
+  } else if (material.ext) {
+    fileType = getFileTypeFromExt(material.ext)
+  }
+
   if(fileType === 'image'){
     return <img src={material.url} style={mediaStyle}/>
   }
