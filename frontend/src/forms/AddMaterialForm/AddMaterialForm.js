@@ -16,6 +16,7 @@ type Props = {
 var uploadError
 var correctFiles = []
 var showFiles
+var filesForPreview = []
 
 export class AddMaterial extends React.Component {
   props: Props;
@@ -28,6 +29,7 @@ export class AddMaterial extends React.Component {
     uploadError = false
     showFiles = false
     correctFiles = []
+    filesForPreview = []
   }
 
   previewFiles(files){
@@ -78,7 +80,8 @@ export class AddMaterial extends React.Component {
         application/vnd.ms-excel, \
         application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, \
         text/plain, \
-        .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt"
+        video/x-msvideo, video/quicktime, \
+        .doc, .docx, .ppt, .pptx, .xls, .xlsx, .mp4, .mp3, .pdf, .txt, .mov, .avi"
     // TODO: FILE PREVIEW
     return (
       <div>
@@ -92,10 +95,12 @@ export class AddMaterial extends React.Component {
                   showFiles = false
                   filesToUpload.map((file) => file.size < maxFileSize
                     && supportedTypes.indexOf(file.type) > -1 ?
-                    correctFiles.push(file) : (uploadError = true))
+                    (correctFiles.push(file), filesForPreview.push(file))
+                    : (uploadError = true))
                   if(correctFiles.length > 0){
                     files.onChange(correctFiles)
                     this.props.addMaterial(this.props.pkgId, correctFiles)
+                    correctFiles = []
                     showFiles = true
                   }
                 }
@@ -104,7 +109,7 @@ export class AddMaterial extends React.Component {
               accept={supportedTypes}>
               <div className={classes.containerStyle}>
                 {showFiles ?
-                  this.previewFiles(correctFiles) :
+                  this.previewFiles(filesForPreview) :
                   <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
               </div>
             </Dropzone>
