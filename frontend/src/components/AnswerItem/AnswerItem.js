@@ -6,6 +6,8 @@ import Avatar from 'material-ui/Avatar';
 import CardActions from 'material-ui/Card/CardActions';
 import FlatButton from 'material-ui/FlatButton';
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Edit from 'material-ui/svg-icons/image/edit';
 import IconButton from 'material-ui/IconButton';
 import classes from './AnswerItem.scss'
 
@@ -52,7 +54,9 @@ export class AnswerItem extends React.Component {
 
     const actionPadding = {
 
-      paddingLeft: 52
+      paddingLeft: 52,
+      backgroundColor: "#26A65B",
+      color:"#ffffff" 
 
     }
 
@@ -72,6 +76,11 @@ export class AnswerItem extends React.Component {
       float:'right'
     }
 
+    const buttonStyle = {
+
+      color: "#ffffff"
+    }
+
     const nodeHeader = []
 
     if (answer && question && question.approvedAnswer && question.approvedAnswer === answer._id) {
@@ -84,18 +93,18 @@ export class AnswerItem extends React.Component {
     var actions = []
     if (user && personWhoAnswered && user._id === personWhoAnswered._id) {
       actions.push(<FlatButton key='answerEditingButton' label="Antwort bearbeiten" linkButton={true}
-                   onTouchTap={onClickEditAnswer} hoverColor="#26A65B" />)
+                   onTouchTap={onClickEditAnswer} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Edit />}/>)
       actions.push(<FlatButton key='answerDeletingButton' label="Antwort löschen" linkButton={true}
-                   onTouchTap={onClickDelAnswer} hoverColor="#26A65B" />)
+                   onTouchTap={onClickDelAnswer} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Delete />}/>)
     }
     if (user && question && question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='bestAnswerButton' label="gute Antwort" linkButton={true}
-                   onTouchTap={onClickBestAnswer} hoverColor="#26A65B" />)
+                   onTouchTap={onClickBestAnswer} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" />)
     }
     if (user && courseInstance && courseInstance.prof &&
         user.role === 'Prof' && user._id === courseInstance.prof._id) {
       actions.push(<FlatButton key='answerApprovingButton' label="Antwort überprüfen" linkButton={true}
-                   onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" />)
+                   onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" />)
     }
 
     var voting =<div>
