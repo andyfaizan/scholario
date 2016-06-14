@@ -34,7 +34,7 @@ const mediaStyle = {
   marginLeft:'auto',
   marginRight:'auto',
   display:'block',
-  padding: '10%',
+  padding: '7%',
   maxWidth: '100%',
   maxHeight: 'auto'
 }
