@@ -51,22 +51,19 @@ export class AnswerItem extends React.Component {
       paddingRight: 50
 
     }
-
     const actionPadding = {
 
       paddingLeft: 52,
-      backgroundColor: "#26A65B",
+      backgroundColor: '#446CB3',
       color:"#ffffff" 
 
     }
-
     const teacherVerify = {
 
       postion: 'relative',
       marginTop: 0,
       float:'right'
     }
-
     const studentVerify = {
 
       postion: 'relative',
@@ -75,7 +72,6 @@ export class AnswerItem extends React.Component {
       marginRight:0,
       float:'right'
     }
-
     const buttonStyle = {
 
       color: "#ffffff"

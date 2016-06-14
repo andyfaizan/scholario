@@ -127,7 +127,7 @@ export class Question extends React.Component {
 
     const actionPadding = {
       paddingLeft: 52,
-      backgroundColor: "#26A65B",
+      backgroundColor: '#446CB3',
       color:"#ffffff" 
     }
 
@@ -140,7 +140,7 @@ export class Question extends React.Component {
 
       borderStyle:"solid",
       borderWidth:2,
-      borderColor:"#26A65B"
+      borderColor:'#446CB3'
     }
 
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}

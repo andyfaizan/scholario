@@ -38,7 +38,9 @@ export class NewAnswerComp extends React.Component {
 
     const actionPadding = {
         
-      paddingLeft: 52
+      paddingLeft: 52,
+      backgroundColor: '#446CB3',
+      color:"#ffffff"
 
     }
 
