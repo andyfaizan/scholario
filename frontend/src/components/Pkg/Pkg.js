@@ -230,8 +230,8 @@ export class Pkg extends React.Component {
                           />*/}
                         </div>
 
-    if( this.props.materialTitle.length > 15 )
-    	preparedTitle = this.props.materialTitle.slice(0,15).concat(dots)
+    if( this.props.materialTitle.length > 10 )
+    	preparedTitle = this.props.materialTitle.slice(0,10).concat(dots)
 	else
     	preparedTitle = this.props.materialTitle
 
