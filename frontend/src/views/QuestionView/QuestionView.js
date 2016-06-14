@@ -25,6 +25,9 @@ import { postAnswer, deleteAnswer, putAnswer, voteAnswer } from '../../redux/mod
 import { deleteQuestion, putQuestion } from '../../redux/modules/question'
 import { browserHistory } from '../../history'
 import Feedback from '../../containers/Feedback'
+import Reply from 'material-ui/svg-icons/content/reply';
+import Pageview from 'material-ui/svg-icons/action/pageview';
+
 
 
 type Props = {
@@ -121,23 +124,38 @@ export class Question extends React.Component {
       paddingLeft: 70,
       paddingRight: 70
     }
+
     const actionPadding = {
-      paddingLeft: 52
+      paddingLeft: 52,
+      backgroundColor: "#26A65B",
+      color:"#ffffff" 
+    }
+
+    const buttonStyle = {
+
+      color: "#ffffff"
+    }
+
+    const cardStyle = {
+
+      borderStyle:"solid",
+      borderWidth:2,
+      borderColor:"#26A65B"
     }
 
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
-                    onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B"
+                    onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Reply />}
                   />,
                   <FlatButton key='go to related material view' label="Ansicht Material" linkButton={true}
-                     hoverColor="#26A65B"
+                     hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
                   />
                   ]
 
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
-                    hoverColor="#26A65B"/>)
+                    hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff"/>)
       actions.push(<FlatButton key='questionDeletingButton' label="Frage löschen" linkButton={true}
-                    onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B"/>)
+                    onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack()}} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff"/>)
     }
 
     var newAnswerForm
@@ -174,7 +192,7 @@ export class Question extends React.Component {
 		      		<br/>
 		      		<Row>
 		      			<Col xs={24} md={12}>
-                  <Card>
+                  <Card style={cardStyle}>
                     <QuestionItem
                       key ={question._id}
                       listItemClickable={questionClickable}
