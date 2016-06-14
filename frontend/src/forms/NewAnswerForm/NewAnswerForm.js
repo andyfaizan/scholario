@@ -58,7 +58,7 @@ export class NewAnswer extends React.Component {
     }
     const cardHeaderTitleStyle = {
       fontWeight:'100%' ,
-      fontSize: '130%'
+      fontSize: '13gi0%'
     }
 
     return (
