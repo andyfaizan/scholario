@@ -127,7 +127,11 @@ export class Question extends React.Component {
 
     var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
                     onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B"
-                  />]
+                  />,
+                  <FlatButton key='go to related material view' label="Ansicht Material" linkButton={true}
+                     hoverColor="#26A65B"
+                  />
+                  ]
 
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}
