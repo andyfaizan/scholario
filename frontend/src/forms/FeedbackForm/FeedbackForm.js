@@ -116,7 +116,7 @@ export class FeedbackForm extends React.Component {
                     <div className={classes.containingEmail}>
                       <TextField
                         {...subject}
-                        floatingLabelText="Subject"
+                        floatingLabelText="Thema"
                         fullWidth={false}
                         floatingLabelStyle={floatingLabel}
                         underlineFocusStyle={underlineColor}
@@ -124,8 +124,8 @@ export class FeedbackForm extends React.Component {
                       />
                       <TextField
                         {...content}
-                        floatingLabelText="Feedback zu unsere website"
-                        hintText="Scholario ist eine gute website"
+                        floatingLabelText="Feedback zu unserer Webseite"
+                        hintText="Bewerte Scholario hart aber fair :)"
                         fullWidth={false}
                         floatingLabelStyle={floatingLabel}
                         underlineFocusStyle={underlineColor}
@@ -138,7 +138,7 @@ export class FeedbackForm extends React.Component {
                     <br/>
                     <div className={classes.containingEmail}>
                       <RaisedButton
-                        label="zurückstellen"
+                        label="Abschicken"
                         primary={false}
                         labelColor="#ffffff"
                         backgroundColor="#446CB3"

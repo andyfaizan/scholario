@@ -143,7 +143,7 @@ export class Question extends React.Component {
       borderColor:'#446CB3'
     }
 
-    var actions = [<FlatButton key='questionAnsweringButton' label="Beantworte die Frage" linkButton={true}
+    var actions = [<FlatButton key='questionAnsweringButton' label="Frage Beantworten" linkButton={true}
                     onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Reply />}
                   />,
                   <FlatButton key='go to related material view' label="Ansicht Material" linkButton={true}
