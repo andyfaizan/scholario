@@ -95,7 +95,7 @@ export class AddMaterial extends React.Component {
                   showFiles = false
                   filesToUpload.map((file) => file.size < maxFileSize
                     && supportedTypes.indexOf(file.type) > -1 ?
-                    (correctFiles.push(file), filesForPreview.push(file))
+                    (file.name.replace(/\//g, '-'), correctFiles.push(file), filesForPreview.push(file))
                     : (uploadError = true))
                   if(correctFiles.length > 0){
                     files.onChange(correctFiles)

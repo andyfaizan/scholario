@@ -128,7 +128,7 @@ export class Question extends React.Component {
     const actionPadding = {
       paddingLeft: 52,
       backgroundColor: '#446CB3',
-      color:"#ffffff" 
+      color:"#ffffff"
     }
 
     const buttonStyle = {
@@ -143,11 +143,15 @@ export class Question extends React.Component {
       borderColor:'#446CB3'
     }
 
+    const showMaterial = () => {
+      browserHistory.push(`/material/${question.material}`)
+    }
+
     var actions = [<FlatButton key='questionAnsweringButton' label="Frage Beantworten" linkButton={true}
                     onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Reply />}
                   />,
-                  <FlatButton key='go to related material view' label="Ansicht Material" linkButton={true}
-                     hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
+                  <FlatButton key='go to related material view' label="Material anzeigen" linkButton={true}
+                    onTouchTap={showMaterial} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
                   />
                   ]
 
