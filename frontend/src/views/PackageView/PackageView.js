@@ -98,6 +98,8 @@ export class Package extends React.Component {
       materialsNew = pkg.materials.map(material =>
         <PkgComp
           key={material._id} materialTitle={material.name} materialNotifications={10}
+          pkgOwner={pkg.owner}
+          user={user}
           materialUrl={material.url}
           dateUploaded={material.createDate}
           keywords={["Blue ","Green ", "Red "]}
