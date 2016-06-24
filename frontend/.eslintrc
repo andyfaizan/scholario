@@ -20,6 +20,7 @@
     "semi" : [2, "never"],
     "indent": ["error", 2],
     "max-len": [2, 120, 2],
+    "no-underscore-dangle": ["error", { "allow": [ "_id" ] }],
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1
   }
