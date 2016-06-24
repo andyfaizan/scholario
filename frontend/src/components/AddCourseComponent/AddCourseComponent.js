@@ -1,80 +1,31 @@
-import React from 'react'
-import Paper from 'material-ui/Paper';
-import IconButton from 'material-ui/IconButton';
-import AddCircle from 'material-ui/svg-icons/content/add';
+import { React, PropTypes } from 'react'
+import Paper from 'material-ui/Paper'
+import IconButton from 'material-ui/IconButton'
+import AddCircle from 'material-ui/svg-icons/content/add'
 import ModalRoot from '../../containers/ModalRoot'
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import classes from './AddCourseComponent.scss'
 
-type Props = {
-    openModal: PropTypes.func,
-    modal: PropTypes.object,
-    course_modal: PropTypes.string
-};
-export class AddCourseComponent extends React.Component {
-  props: Props;
+function AddCourseComponent({ modal, openModal, courseModal }) {
+  const actions = (
+    <div>
+      <IconButton disableTouchRipple style={classes.buttonStyle} tooltip="In Course">
+        <AddCircle style={classes.plusButton} color="#ffffff" />
+      </IconButton>
+    </div>
+  )
 
+  return (
+    <div>
+      <Paper style={classes.style} zDepth={2} onClick={openModal} children={actions} />
+      {modal.visible ? <ModalRoot {...courseModal} /> : null}
+    </div>
+  )
+}
 
-  render () {
-
-  	const addCourseCompStyle = {
-
-	  float: 'left',
-	  height: 170,
-	  width: 300,
-	  margin: 8.5,
-	  backgroundColor: '#ffffff',
-	  color: 'white',
-	  borderRadius: 13,
-	  overflow: 'inherit',
-	  alignItems: 'center',
-	  borderStyle: 'solid',
-	  borderWidth: 1,
-	  borderColor: '#446CB3'
-
-	};
-
-	const style = {
-	  float: 'left',
-	  height: 170,
-	  width: 170,
-	  margin: 8.5,
-	  textAlign: 'center',
-	  display: 'inline-block',
-	  borderRadius: 13,
-	  backgroundColor: '#446CB3'
-
-};
-
-	const buttonStyle = {
-
-	  margin:'auto',
-	  width:'100%',
-	  padding:10,
-	  height: 170,
-	  lineHeight: 140
-	};
-
-	const plusButton ={
-	  width: 80,
-	  height: 80,
-	  opacity: 0.9
-	  	};
-
-
-    const actions = <div>
-                         <IconButton disableTouchRipple={true} style={buttonStyle} tooltip="In Course"> 
-                           <AddCircle style={plusButton} color='#ffffff' />
-                          </IconButton>
-
-                    </div> ;
-
-    return (
-      <div>
-        <Paper style={style} zDepth={2} onClick={this.props.openModal} children= {actions} />
-        {this.props.modal.visible ? <ModalRoot {...this.props.course_modal} /> : null}
-      </div>
-    )
-  }
+AddCourseComponent.propTypes = {
+  openModal: PropTypes.func,
+  modal: PropTypes.object,
+  courseModal: PropTypes.string,
 }
 
 export default AddCourseComponent
