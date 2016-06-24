@@ -1,27 +1,153 @@
-.actionPosition {
-
-  position:absolute;
-  margin:auto;
+.action-position {
+  position: absolute;
+  margin: auto;
   margin-top: 90px;
-  margin-left:250px;
+  margin-left: 250px;
 }
 
-.actionPostionLeft {
-  
-  position:absolute;
-  margin:auto;
+.action-postion-left {
+  position: absolute;
+  margin: auto;
   margin-top: 90px;
-
-
 }
 
 
-.actionMain {
-	
-	position:absolute;
-	opacity: 0.6;
+.action-main {
+  position: absolute;
+  opacity: 0.6;
 }
 
-.divTitle {
+.div-title {
   float: left;
 }
+
+.style {
+  float: left;
+  height: 172;
+  width: 220;
+  margin: 8.5;
+  background-color: #446cB3;
+  color: #ffffff;
+  border-bottom-left-radius: 30;
+  border-bottom-right-radius: 30;
+  overflow: inherit;
+  align-items: center;
+}
+
+.style-two {
+  float: left;
+  height: 30;
+  width: 220;
+  margin: 8.5;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-bottom-left-radius: 30;
+  border-bottom-right-radius: 30;
+  overflow: inherit;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  margin-top: 150;
+  margin-left: -229;
+  border-style: solid;
+  border-width: 1;
+  border-color: #446cB3;
+}
+
+.style-three {
+  float: left;
+  height: 30;
+  width: 220;
+  margin: 8.5;
+  background-color: #446cB3;
+  color: #ffffff;
+  border-bottom-left-radius: 30;
+  border-bottom-right-radius: 30;
+  overflow: inherit;
+  align-items: center;
+  postion: absolute;
+  margin: auto;
+  margin-top: 144;
+  margin-left: -229;
+  border-style: solid;
+  border-width: 1;
+  border-color: #446cB3;
+}
+
+.style-four {
+  float: left;
+  height: 80;
+  width: 220;
+  margin: 8.5;
+  background-color: #446cB3;
+  color: #ffffff;
+  overflow: inherit;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  margin-top: 8;
+  margin-left: -229;
+  border-style: solid;
+  border-width: 1;
+  border-color: #446cB3;
+  opacity: 1.0;
+  border-bottom-left-radius: 50;
+  border-bottom-right-radius: 50;
+}
+
+.style-five {
+  float: left;
+  height: 30;
+  width: 220;
+  margin: 8.5;
+  background-color: #446cB3;
+  color: #ffffff;
+  border-bottom-left-radius: 30;
+  border-bottom-right-radius: 30;
+  overflow: inherit;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  margin-top: 148;
+  margin-left: -229;
+  border-style: solid;
+  border-width: 1;
+  border-color: #446cB3;
+}
+
+.style-six {
+  float: left;
+  height: 30;
+  width: 220;
+  margin: 8.5;
+  background-color: #ffffff;
+  color: #ffffff;
+  border-bottom-left-radius: 30;
+  border-bottom-right-radius: 30;
+  overflow: inherit;
+  align-items: center;
+  position: absolute;
+  margin: auto;
+  margin-top: 147;
+  margin-left: -229;
+  border-style: solid;
+  border-width: 1;
+  border-color: #446cB3;
+}
+
+
+.div-style {
+  text-align: center;
+  color: #ffffff;
+  margin-left: 5;
+  margin-top: -7;
+  opacity: 0.9;
+}
+
+.plus-button {
+  width: 70;
+  height: 70;
+  opacity: 0.9
+}
+
+

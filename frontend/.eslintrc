@@ -21,6 +21,7 @@
     "indent": ["error", 2],
     "max-len": [2, 120, 2],
     "no-underscore-dangle": ["error", { "allow": [ "_id" ] }],
+    "comma-dangle": ["error", "always-multiline"],
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1
   }

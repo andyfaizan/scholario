@@ -1,91 +1,67 @@
 import React, { PropTypes } from 'react'
-import Card from 'material-ui/Card/Card';
-import CardText from 'material-ui/Card/CardText';
-import List from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
-import Divider from 'material-ui/Divider';
-import AddBox from 'material-ui/svg-icons/content/add-box';
-import ViewList from 'material-ui/svg-icons/action/view-list';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import { Router, Route, Link } from 'react-router'
+import Card from 'material-ui/Card/Card'
+import CardText from 'material-ui/Card/CardText'
+import List from 'material-ui/List/List'
+import AddBox from 'material-ui/svg-icons/content/add-box'
+import ViewList from 'material-ui/svg-icons/action/view-list'
+import IconButton from 'material-ui/IconButton'
+import Subheader from 'material-ui/Subheader'
 import BookmarkItem from '../../components/BookmarkItem/BookmarkItem'
 import ModalRoot from '../../containers/ModalRoot'
-import {ADD_BOOKMARK_MODAL as add_bookmark} from '../../redux/modules/modal'
+import classes from './Bookmarks.scss'
+import { ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
 
-type Props = {
-  bookmarks: Array,
-  modal: Object,
-  show: Function
-};
+function Bookmarks({ bookmarks, modal, show, onClickDeleteBookmark }) {
+  const allBookmarks = 'Alle Lesezeichen'
+  const allBookmarksAdd = 'Eine Lesezeichen stellen'
 
-export class Bookmarks extends React.Component {
-  props: Props;
-
-  render () {
-
-  	const boolQuestionClickable = false ;
-
-    const border = {
-      color:'#26A65B',
-      borderStyle: 'solid',
-      borderWidth: 1,
-      borderColor: '#26A65B'
-           };
-    const subheader ={
-      color:'#26A65B'
-    } ;
-
-    const iconStyles = {
-      float: 'left',
-      position: 'relative',
-      marginLeft: -15
-    };
-
-    const allBookmarks = "Alle Lesezeichen"
-    const allBookmarksAdd = "Eine Lesezeichen stellen"
-
-    var bookmarks
-    if (this.props.bookmarks) {
-      bookmarks = this.props.bookmarks.map(bookmark =>
-        <BookmarkItem
-          key={bookmark._id}
-          bookmarkLabel={bookmark.title}
-          bookmarkURL={bookmark.url}
-          datePosted={bookmark.createDate}
-          onClickDeleteBookmark={() => this.props.onClickDeleteBookmark(bookmark._id, bookmark.pkg)}
-        />
-      )
-    }
-    var addBookmarkModal
-    if (this.props.modal && this.props.modal.visible &&
-        this.props.modal.modalType === add_bookmark) {
-      addBookmarkModal = <ModalRoot modalType={add_bookmark} />
-    }
-    return (
-      <div>
-      	<Card style={border}>
-          <CardText >
-            <List>
-              <Subheader style={subheader}>
-                <IconButton disableTouchRipple={true} tooltip={allBookmarks} style={iconStyles}>
-                  <ViewList color='#26A65B' />
-                </IconButton>
-                <IconButton disableTouchRipple={true} tooltip={allBookmarksAdd} style={iconStyles} onTouchTap={this.props.show}>
-                  <AddBox color='#26A65B' />
-                </IconButton>
-                Lesezeichen
-              </Subheader>
-              <div>
-                {bookmarks}
-                {addBookmarkModal}
-              </div>
-            </List>
-          </CardText>
-       </Card>
-      </div>
+  let bookmarkEls
+  if (bookmarks) {
+    bookmarkEls = bookmarks.map(bookmark =>
+      <BookmarkItem
+        key={bookmark._id}
+        bookmarkLabel={bookmark.title}
+        bookmarkURL={bookmark.url}
+        datePosted={bookmark.createDate}
+        onClickDeleteBookmark={() => onClickDeleteBookmark(bookmark._id, bookmark.pkg)}
+      />
     )
   }
+  let addBookmarkModal
+  if (modal && modal.visible &&
+      modal.modalType === addBookmarkModalAction) {
+    addBookmarkModal = <ModalRoot modalType={addBookmarkModalAction} />
+  }
+  return (
+    <div>
+      <Card style={classes.border}>
+        <CardText >
+          <List>
+            <Subheader style={classes.subheader}>
+              <IconButton disableTouchRipple tooltip={allBookmarks} style={classes.iconStyles}>
+                <ViewList color="#26A65B" />
+              </IconButton>
+              <IconButton disableTouchRipple tooltip={allBookmarksAdd} style={classes.iconStyles} onTouchTap={show}>
+                <AddBox color="#26A65B" />
+              </IconButton>
+              Lesezeichen
+            </Subheader>
+            <div>
+              {bookmarkEls}
+              {addBookmarkModal}
+            </div>
+          </List>
+        </CardText>
+      </Card>
+    </div>
+  )
+}
+
+Bookmarks.propTypes = {
+  bookmarks: PropTypes.array,
+  modal: PropTypes.object,
+  show: PropTypes.func,
+  onClickDeleteBookmark: PropTypes.func,
 }
 
 export default Bookmarks

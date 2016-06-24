@@ -1,6 +1,4 @@
-
-.avatar
-{	
+.avatar {
   position:relative;
   margin:auto;
   float:right;
@@ -8,13 +6,39 @@
   margin-top: -37px;
 }
 
-.buttonThumbsUp
-{
+.button-thumbs-up {
   position:relative;
   margin:auto;
   float:right;
   margin-right:-10px;
   margin-top: -50px;
-
 }
 
+.textStyle {
+  padding-left: 70;
+  padding-right: 50;
+}
+
+.actionPadding {
+  padding-left: 52;
+  background-color: #446cB3;
+  color: #ffffff;
+}
+
+.teacher-verify {
+  position: relative;
+  margin-top: 0;
+  float: right;
+}
+
+.student-verify {
+  position: relative;
+  margin: auto;
+  margin-top: 0;
+  margin-right: 0;
+  float: right;
+}
+
+.button-style {
+  color: #ffffff;
+}
