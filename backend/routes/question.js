@@ -147,8 +147,7 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
           }],
         }, {
           path: 'answers',
-
-            select: 'content createDate votes user bestAnswer',
+            select: 'content createDate votes user bestAnswer comments',
                 populate: {
                   path: 'user',
                   select: 'firstname lastname universities programs',
@@ -158,6 +157,19 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
                   }, {
                     path: 'programs',
                     select: 'name university degree',
+                  }],
+                  path: 'comments',
+                  select: 'content user createDate modifyDate votes',
+                  populate: [{
+                    path: 'user',
+                    select: 'firstname lastname universities programs',
+                    populate: [{
+                      path: 'universities',
+                      select: 'name',
+                    }, {
+                      path: 'programs',
+                      select: 'name university degree',
+                    }],
                   }],
                 }
         }])
@@ -169,6 +181,11 @@ router.get('/:qid', passport.authenticate('jwt', {session: false}), function (re
           msg: 'QuestionNotFound',
         }]
       });
+    }
+    for (var i = 0; i < question.answers.length; i++) {
+      for (var j = 0; j < question.answers[i].comments; j++) {
+        question.answers[i].comments[j].answer = question.answers[i]._id;
+      }
     }
     return res.status(200).json(question);
   }).catch(function (err) {

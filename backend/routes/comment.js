@@ -33,14 +33,18 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
 
     var comment = yield Comment({
       content: req.body.content,
-      answer: answer,
       user: req.user,
     }).save();
+    answer.comments.push(comment);
+    answer = yield answer.push();
 
     return res.status(201).json({
       _id: comment._id,
       content: comment.content,
-      answer: comment.answer,
+      answer: {
+        _id: answer._id,
+        comments: answer.comments,
+      },
       user: comment.user,
       createDate: comment.createDate,
       votes: comment.votes,
@@ -53,4 +57,32 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   });
 });
 
+router.delete('/cmid', passport.authenticate('jwt', {session: false}), function (req, res) {
+  req.checkParams('cmid', 'InvalidCommentId').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  Comment.findOne({ _id: req.params.cmid }).then(function (comment) {
+    if (!comment) {
+      return res.status(404).json({
+        err: [{ msg: 'CommentNotFound' }],
+      });
+    }
+
+    if (comment.user.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+
+    return comment.remove();
+
+  });
+
+});
 module.exports = router
