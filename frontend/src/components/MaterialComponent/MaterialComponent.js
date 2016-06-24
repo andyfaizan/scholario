@@ -212,16 +212,17 @@ export class MaterialComponent extends React.Component {
     ]
 
     return (
-	    <Link to={this.props.pkgUrl}>
 	        <div>
 	          <Paper style={style} zDepth={2}  children={nodePaperCourse} />
-	          <Paper style={styleTwo} zDepth={0}  />
+	          <Link to={this.props.pkgUrl}>
+            <Paper style={styleTwo} zDepth={0}  />
 	          <Paper style={styleFive} zDepth={0}  />
 	          <Paper style={styleSix} zDepth={0}  />
 	          <Paper style={styleThree} zDepth={0}  />
 	          <Paper style={styleFour} zDepth={5} children={nodeFileClipper} />
+                    </Link>
 	        </div>
-	      </Link>
+
     )
   }
 }

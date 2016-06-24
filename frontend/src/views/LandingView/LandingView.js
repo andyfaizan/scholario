@@ -31,7 +31,26 @@ export class LandingView extends React.Component {
          <div className={classes.container}>
            <img className={classes.dash}
               src={BonnRhein}
-              alt='No Net.' />   
+              alt='No Net.' />
+
+        </div>
+        <div className={classes.courseErstellen}>
+         Kurse erstellen
+        </div>  
+        <div className={classes.onlineCourseImage}>
+        dasdsadsa
+        </div>
+        <div className={classes.courseErleben}>
+        Kurse erleben
+        </div>
+        <div className={classes.onlineCourseLernenImage}>
+        dsadsasad
+        </div>
+        <div className={classes.comingSoon}>
+        Coming Soon
+        </div>
+        <div className={classes.addContactForm}>
+        dsada
         </div>
         <Divider />
       </div>
