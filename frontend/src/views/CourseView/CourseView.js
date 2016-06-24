@@ -14,6 +14,7 @@ import IndependentPackage from '../../components/IndependentPackage/IndependentP
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
+import { deletePkg } from '../../redux/modules/pkg'
 import { show, ADD_PACKAGE_MODAL as add_package } from '../../redux/modules/modal'
 import * as selectors from '../../redux/selectors'
 import AddCircle from 'material-ui/svg-icons/content/add';
@@ -56,7 +57,7 @@ export class Course extends React.Component {
   }
 
   render () {
-    const { courseInstance, profPkgs, studentPkgs } = this.props
+    const { courseInstance, profPkgs, studentPkgs, user } = this.props
     const voteErrorType = 'VOTE_QUESTION_ERR'
     const voteOkayType = 'VOTE_QUESTION_OK'
     var profPkgEls = []
@@ -74,6 +75,9 @@ export class Course extends React.Component {
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
+          user={user}
+          owner={pkg.owner}
+          onClickDeletePkg={() => this.props.dispatch(deletePkg(pkg._id, courseInstance._id))}
         />
       )
     }
@@ -88,6 +92,9 @@ export class Course extends React.Component {
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={["Blue ","Green ", "Red "]}
           pkgUrl={`/package/${pkg._id}`}
+          user={user}
+          owner={pkg.owner}
+          onClickDeletePkg={() => this.props.dispatch(deletePkg(pkg._id, courseInstance._id))}
         />
       )
     }
