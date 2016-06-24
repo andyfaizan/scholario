@@ -31,6 +31,29 @@ router.get('/:cid', passport.authenticate('jwt', {session: false}), function (re
     });
   }
 
+
+//-------------
+  CourseInstance
+    .findOne({ _id: req.params.cid })
+    .populate('following')
+    .then(function (course) {
+      if (!course) {
+        return res.status(404).json({
+          err: [{msg: 'CourseNotFound'}],
+        });
+      }
+
+      var x = -4;
+      console.log("blunb");
+      x = course.following.indexOf(req.user._id);
+      console.log("I"+x+"I");
+      if( course.following.indexOf(req.user._id) === -1) {
+        return res.status(401).json({
+          err: [{msg: 'PermissionDenied'}],
+        });
+      }
+    });  
+//-------------
   co(function *() {
     var course = yield CourseInstance.findOne({ _id: req.params.cid })
       .select('description prof assistants semester course participants')

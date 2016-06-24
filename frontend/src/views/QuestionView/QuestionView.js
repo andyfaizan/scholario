@@ -147,14 +147,15 @@ export class Question extends React.Component {
       browserHistory.push(`/material/${question.material}`)
     }
 
-    
+
     var actions = [<FlatButton key='questionAnsweringButton' label="Frage Beantworten" linkButton={true}
                     onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Reply />}
-                  />,
-                  <FlatButton key='go to related material view' label="Material anzeigen" linkButton={true}
-                    onTouchTap={showMaterial} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
-                  />
-                  ]
+                  />]
+    var showMaterialAction = <FlatButton key='go to related material view' label="Material anzeigen" linkButton={true}
+      onTouchTap={showMaterial} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
+    />
+    if(question.material)
+      actions.push(showMaterialAction)
 
     if (question.user && user._id === question.user._id) {
       actions.push(<FlatButton key='questionEditingButton' label="Frage bearbeiten" linkButton={true}

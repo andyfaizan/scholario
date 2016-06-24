@@ -12,6 +12,9 @@ const Answer = mongoose.model('Answer');
 const CourseInstance = mongoose.model('CourseInstance');
 const Pkg = mongoose.model('Pkg');
 const Material = mongoose.model('Material');
+const mailer = require('../mailer');
+
+
 
 var router = express.Router();
 
@@ -361,7 +364,17 @@ router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), fun
 });
 
 router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), function (req, res) {
-  Question.findOne({ _id: req.params.qid }).then(function (question) {
+  Question.findOne({ _id: req.params.qid })
+          .populate([{
+            path: 'courseInstance',
+            select: 'participants prof',
+            populate: [{
+              path: 'prof',
+              select: 'email',
+            }],
+          }])
+          .then(function (question) {
+
     if (!question) {
       return res.status(404).json({
         err: [{ msg: 'QuestionNotFound' }],
@@ -378,6 +391,26 @@ router.get('/:qid/vote', passport.authenticate('jwt', {session: false}), functio
     }
     question.votes.push({ user: req.user._id, voteDate: Date.now() })
     question.save();
+
+    if((question.infoMailSended == 'false') && (question.votes.length / question.courseInstance.participants.length) >= 0.05) {
+      question.infoMailSended = 'true';
+      question.save();
+
+    var topRatedQuestion = `https://www.scholario.de/question/${question._id}`;
+    var mailOpts = {
+      from: '"Scholario" <noreply@scholario.de>',
+      to: question.courseInstance.prof.email,
+      subject: 'Informationmail about Question',
+      text: 'Es gibt eine Frage die viele interessiert.\n'+ topRatedQuestion,
+    };
+
+    
+    mailer.transporter.sendMail(mailOpts).catch(function (err) {
+      logger.error(err);
+    });
+
+
+    }
 
     //var data = [];
     //for (var i = 0; i < question.votes.length; i++) {

@@ -21,6 +21,7 @@ const QuestionSchema = new Schema({
     voteDate: { type: Date },
     value: { type: Number, default: 1 },
   }],
+  infoMailSended: { type: Boolean, default: false},
 });
 
 
