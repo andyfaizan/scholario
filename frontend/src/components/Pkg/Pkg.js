@@ -32,6 +32,8 @@ type Props = {
   dateUploaded: PropTypes.string,
   materialNotifications: PropTypes.number,
   pkgUrl: PropTypes.string,
+  pkgOwner: PropTypes.object,
+  user: PropTypes.object,
   ext: PropTypes.string
 };
 
@@ -49,6 +51,8 @@ export class Pkg extends React.Component {
   }
 
   render () {
+
+  const { user, pkgOwner } = this.props
 
   		//inline styling variables for certain components ...
     const style = {
@@ -243,12 +247,15 @@ export class Pkg extends React.Component {
                       <div key="downloadKey" className={classes.downloadPkg}>
                         <a target="_blank" href={this.props.materialUrl} style={linkStyle} ><FileDownload color="White"/></a>
                       </div>
-                      <div key="deleteKey" className={classes.deleteButton}>
-                      <IconButton disableTouchRipple={true}  tooltip="Pkg löschen" onTouchTap={this.props.onClickDeleteMaterial} >
-                        <Delete color='White'/>
-                      </IconButton>
                     </div>
-                  </div>
+    var deleteMaterialIcon
+    if (user && pkgOwner && user._id === pkgOwner._id) {
+      deleteMaterialIcon = <div key="deleteKey" className={classes.deleteButton}>
+                             <IconButton disableTouchRipple={true}  tooltip="Pkg löschen" onTouchTap={this.props.onClickDeleteMaterial} >
+                               <Delete color='White'/>
+                             </IconButton>
+                           </div>
+    }
 
     const nodePaperCourse = [
       heading
@@ -256,15 +263,12 @@ export class Pkg extends React.Component {
     ]
 
    const nodeFileClipper = [
-
-
-    ]
+   ]
 
     const action = [
-
       actionSlot,
-      downloadPkt
-
+      downloadPkt,
+      deleteMaterialIcon,
     ]
 
     return (

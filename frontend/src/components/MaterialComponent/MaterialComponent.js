@@ -19,13 +19,17 @@ type Props = {
   keywords: PropTypes.array,
   dateUploaded: PropTypes.string,
   materialNotifications: PropTypes.number,
-  pkgUrl: PropTypes.string
+  pkgUrl: PropTypes.string,
+  user: PropTypes.object,
+  owner: PropTypes.object,
+  onClickDeletePkg: PropTypes.Function,
 };
 export class MaterialComponent extends React.Component {
 
   props: Props
 
   render () {
+    const { user, owner, onClickDeletePkg } = this.props
   	//inline styling variables for certain components ...
     const style = {
       float: 'left',
@@ -156,12 +160,14 @@ export class MaterialComponent extends React.Component {
                     {<h5>{this.props.dateUploaded}</h5>}
                   </div>
 
-    var container = <div key="IndependentPackage">
+    var container
+    if (user && owner && user._id === owner) {
+      container = <div key="IndependentPackage">
                     <div className={classes.container}>
                       {this.props.keywords}
                     </div>
                     <div key="deleteKey" className={classes.deleteButton}>
-                      <IconButton disableTouchRipple={true}  tooltip="Pkg löschen">
+                      <IconButton disableTouchRipple={true}  tooltip="Pkg löschen" onTouchTap={onClickDeletePkg}>
                         <Delete color="White"/>
                       </IconButton>
                     </div>
@@ -171,8 +177,19 @@ export class MaterialComponent extends React.Component {
                       </IconButton>
                     </div>
                     </div>
-
-       var containerOld = <div key="IndependentPackage">
+    } else {
+      container = <div key="IndependentPackage">
+                    <div className={classes.container}>
+                      {this.props.keywords}
+                    </div>
+                    <div className={classes.downloadMaterial}>
+                       <IconButton disableTouchRipple={true} tooltip="Download-Paket">
+                        <FileDownload color="White"/>
+                      </IconButton>
+                    </div>
+                    </div>
+    }
+        var containerOld = <div key="IndependentPackage">
                     <div className={classes.container}>
                       <h5>{this.props.keywords}</h5>
                     </div>
