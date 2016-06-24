@@ -147,6 +147,7 @@ export class Question extends React.Component {
       browserHistory.push(`/material/${question.material}`)
     }
 
+    
     var actions = [<FlatButton key='questionAnsweringButton' label="Frage Beantworten" linkButton={true}
                     onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={buttonStyle} rippleColor="#ffffff" icon={<Reply />}
                   />,
