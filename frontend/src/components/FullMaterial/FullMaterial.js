@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Card from 'material-ui/Card/Card'
 import CardHeader from 'material-ui/Card/CardHeader'
 import IFrame from '../IFrame/IFrame'
@@ -13,21 +13,6 @@ import IconButton from 'material-ui/IconButton'
 import { Link } from 'react-router'
 import Snackbar from 'material-ui/Snackbar'
 
-const previewStyle = {
-  backgroundColor: 'rgba(0, 0, 0, 0.9)',
-  borderStyle: 'solid',
-  borderWidth: 1,
-  borderColor: '#26A65B',
-}
-
-const mediaStyle = {
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  display: 'block',
-  padding: '7%',
-  maxWidth: '100%',
-  maxHeight: 'auto',
-}
 
 const youtubeConfig = {
   preload: true,
@@ -63,9 +48,8 @@ const getFileTypeFromMime = (mimetype) => {
     return 'av'
   } else if (docTypes.indexOf(mimetype) > -1) {
     return 'doc'
-  } else {
-    return ''
   }
+  return ''
 }
 
 const getFileTypeFromExt = (extension) => {
@@ -79,21 +63,18 @@ const getFileTypeFromExt = (extension) => {
   case 'xls':
   case 'txt':
     return 'doc'
-    break
 
-  case 'mp4':
     // case 'webm':
-  case 'mp3':
     // case 'wav':
+  case 'mp4':
+  case 'mp3':
     return 'av'
-    break
 
   case 'jpeg':
   case 'jpg':
   case 'png':
   case 'bmp':
     return 'image'
-    break
 
   default:
     return ''
@@ -109,7 +90,7 @@ const getFrame = (material) => {
   }
 
   if (fileType === 'image') {
-    return <img src={material.url} style={mediaStyle} />
+    return <img src={material.url} style={classes.mediaStyle} alt={material.name} />
   }
   if (fileType === 'av' && ReactPlayer.canPlay(material.url)) {
     return (
@@ -125,12 +106,11 @@ const getFrame = (material) => {
         />
       </div>)
   }
-  if (fileType === 'doc')
-    return <IFrame src={material.url} />
+  if (fileType === 'doc') return <IFrame src={material.url} />
 
   return (
     <div>
-      <img src="https://placekitten.com/600/400" style={mediaStyle} />
+      <img src="https://placekitten.com/600/400" style={classes.mediaStyle} alt="Default" />
       <Snackbar
         open
         message="Das Material kann leider nicht geöffnet werden"
@@ -141,28 +121,31 @@ const getFrame = (material) => {
   )
 }
 
-const FullMaterial = ({ fileType, playing, location, courseInstance,
-                       pkg, material, recentQuestions, popularQuestions, onClickVote }) => (
+const FullMaterial = ({
+  location, courseInstance, pkg, material, recentQuestions,
+  popularQuestions, onClickVote }) => (
   <div>
-  <Card>
-    <CardHeader
-      title={courseInstance.course ? courseInstance.course.name : ''}
-      subtitle={pkg.name}
-      avatar={
-        <IconButton disableTouchRipple tooltip="Back to Package"
-          containerElement={<Link to={`/package/${pkg._id}`} />}
-        >
-          <ArrowBack />
-        </IconButton>
-      }
-    />
-  </Card>
+    <Card>
+      <CardHeader
+        title={courseInstance.course ? courseInstance.course.name : ''}
+        subtitle={pkg.name}
+        avatar={
+          <IconButton
+            disableTouchRipple
+            tooltip="Back to Package"
+            containerElement={<Link to={`/package/${pkg._id}`} />}
+          >
+            <ArrowBack />
+          </IconButton>
+        }
+      />
+    </Card>
     <br />
     <br />
     <Grid fluid>
       <Row >
         <Col xs={16} md={8}>
-          <Card style={previewStyle}>
+          <Card style={classes.previewStyle}>
             {getFrame(material)}
           </Card>
         </Col>
@@ -180,6 +163,14 @@ const FullMaterial = ({ fileType, playing, location, courseInstance,
   </div>
 )
 
-FullMaterial.propTypes = {}
+FullMaterial.propTypes = {
+  location: PropTypes.any,
+  courseInstance: PropTypes.object,
+  pkg: PropTypes.object,
+  material: PropTypes.object,
+  recentQuestions: PropTypes.array,
+  popularQuestions: PropTypes.array,
+  onClickVote: PropTypes.func,
+}
 
 export default FullMaterial

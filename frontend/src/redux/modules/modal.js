@@ -11,48 +11,45 @@ export const ADD_MATERIAL_MODAL = 'ADD_MATERIAL_MODAL'
 export const ADD_BOOKMARK_MODAL = 'ADD_BOOKMARK_MODAL'
 
 
-
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function show (modal) {
+export function show(modal) {
   return {
     type: MODAL_SHOW,
     visible: true,
-    modalType: modal
+    modalType: modal,
   }
 }
 
-export function hide (modal) {
+export function hide(modal) {
   return {
     type: MODAL_HIDE,
     visible: false,
-    modalType: modal
+    modalType: modal,
   }
 }
 
 export const actions = {
   show,
-  hide
+  hide,
 }
 
 const initialState = {
   visible: false,
-  modalType: null
-}
-
-// ------------------------------------
-// Action Handlers
-// ------------------------------------
-const ACTION_HANDLERS = {
-  [MODAL_SHOW]: (state, action) => ({visible : action.visible, modalType : action.modalType}),
-  [MODAL_HIDE]: (state, action) => initialState
+  modalType: null,
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export default function modalReducer (state = initialState, action) {
-  const handler = ACTION_HANDLERS[action.type]
-  return handler ? handler(state, action) : state
+export default function modalReducer(state = initialState, action) {
+  switch (action.type) {
+  case MODAL_SHOW:
+    return { visible: action.visible, modalType: action.modalType }
+  case MODAL_HIDE:
+    return initialState
+  default:
+    return state
+  }
 }

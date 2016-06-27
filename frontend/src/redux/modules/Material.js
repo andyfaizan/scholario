@@ -9,43 +9,43 @@ export const OPEN_MATERIAL = 'OPEN_MATERIAL'
 
 // Action Creators
 let nextMaterialId = 0
-export function add_material (material) {
+export function add_material(material) {
   return {
     type: ADD_MATERIAL,
     nodeId: nextMaterialId++,
-    material
+    material,
   }
 }
 
-export function add_child_material (material, nodeId, childId) {
+export function add_child_material(material, nodeId, childId) {
   return {
     type: ADD_CHILD_MATERIAL,
     nodeId,
     childId,
-    material
+    material,
   }
 }
 
-export function delete_material (nodeId) {
-  return {
-    type: DELETE_MATERIAL,
-    nodeId
-  }
-}
-
-export function delete_child_material (nodeId, childId) {
+export function delete_material(nodeId) {
   return {
     type: DELETE_MATERIAL,
     nodeId,
-    childId
   }
 }
 
-export function edit_material (nodeId, material) {
+export function delete_child_material(nodeId, childId) {
+  return {
+    type: DELETE_MATERIAL,
+    nodeId,
+    childId,
+  }
+}
+
+export function edit_material(nodeId, material) {
   return {
     type: EDIT_MATERIAL,
     nodeId,
-    material
+    material,
   }
 }
 

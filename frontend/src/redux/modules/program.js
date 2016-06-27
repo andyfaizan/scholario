@@ -2,7 +2,6 @@ import { arrayOf } from 'normalizr'
 import { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { programSchema } from '../schemas'
@@ -20,7 +19,7 @@ export const GET_PROGRAMS_ERR = 'GET_PROGRAMS_ERR'
 // Actions
 // ------------------------------------
 export function getPrograms(substr = '') {
-  var endpoint = urlJoin(config.apiURL, 'programs')
+  let endpoint = urlJoin(config.apiURL, 'programs')
   if (substr) {
     endpoint = urlJoin(endpoint, `?q=${substr}`)
   }
@@ -28,23 +27,23 @@ export function getPrograms(substr = '') {
   return {
     types: [GET_PROGRAMS_REQUEST, GET_PROGRAMS_OK, GET_PROGRAMS_ERR],
     // Check the cache (optional):
-    //shouldCallAPI: (state) => !state.posts[userId],
+    // shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
     payload: { substr },
-    schema: {programs: arrayOf(programSchema)},
+    schema: { programs: arrayOf(programSchema) },
   }
 }
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function programReducer(state={}, action) {
+export function programReducer(state = {}, action) {
   switch (action.type) {
-    default:
-      if (action.response && action.response.entities && action.response.entities.programs) {
-        return merge({}, state, action.response.entities.programs)
-      }
-      return state
+  default:
+    if (action.response && action.response.entities && action.response.entities.programs) {
+      return merge({}, state, action.response.entities.programs)
+    }
+    return state
   }
 }
