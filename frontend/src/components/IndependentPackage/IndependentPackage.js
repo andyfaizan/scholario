@@ -5,44 +5,7 @@ import Delete from 'material-ui/svg-icons/action/delete'
 import classes from './IndependentPackage.scss'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
 
-function IndependentPackage({
-  materialTitle, materialUrl, keywords, dateUploaded,
-  materialNotifications, pkgUrl, ext }) {
-  const style = {
-    float: 'left',
-    height: 172,
-    width: 170,
-    margin: 8.5,
-    backgroundColor: '#446CB3 ',
-    color: '#ffffff',
-  }
-
-  const mainStyle = {
-    float: 'left',
-    height: 160,
-    width: 160,
-    backgroundColor: '#ffffff',
-    color: '#446CB3',
-    alignItems: 'center',
-    marginLeft: '-173',
-    marginTop: '13',
-  }
-
-  const linkContainerStyle = {
-    float: 'left',
-    height: 32,
-    width: 170,
-    backgroundColor: '#446CB3',
-    color: '#ffffff',
-    marginLeft: '-178',
-    marginTop: '170',
-  }
-
-  const linkStyle = {
-    color: '#fff',
-    backgroundColor: 'transparent',
-  }
-
+function IndependentPackage({ materialTitle, materialUrl }) {
   const dots = '...'
 
   const heading = (
@@ -55,26 +18,26 @@ function IndependentPackage({
     </div>
   )
 
-  const container = (
+  /* const container = (
     <div key="IndependentPackage" className={classes.container}>
       <h5>{keywords}</h5>
     </div>
-  )
+  )*/
 
-  const notifications = (
+   /* const notifications = (
     <div key="notifications" className={classes.badge}>
-      {/* <Badge
+       <Badge
           badgeContent={10}
           secondary={true}
           badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      />*/}
+      />
     </div>
-  )
+  )*/
 
   const download = (
     <div>
       <div key="downloadKey" className={classes.downloadPkg}>
-        <a target="_blank" href={materialUrl} style={linkStyle} ><FileDownload color="White" /></a>
+        <a target="_blank" href={materialUrl} style={classes.linkStyle} ><FileDownload color="White" /></a>
       </div>
       <div key="deleteKey" className={classes.deleteButton}>
         <IconButton tooltip="Pkg löschen">
@@ -83,21 +46,17 @@ function IndependentPackage({
       </div>
     </div>)
 
-  const nodePaperCourse = [
-    heading,
-  ]
-
   const downloadAsChild = [
     heading,
     download,
   ]
 
   return (
-        <div>
-          <Paper style={style} zDepth={2} />
-          <Paper style={mainStyle} />
-          <Paper style={linkContainerStyle} children={downloadAsChild} />
-        </div>
+    <div>
+      <Paper style={classes.style} zDepth={2} />
+      <Paper style={classes.mainStyle} />
+      <Paper style={classes.linkContainerStyle} children={downloadAsChild} />
+    </div>
   )
 }
 
