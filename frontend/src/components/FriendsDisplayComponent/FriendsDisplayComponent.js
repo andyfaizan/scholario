@@ -32,8 +32,21 @@ function FriendsDisplayComponent({ fullName, discipline, universityName }) {
     height: 60,
   }
 
-  const header = <div><h3>{fullName}</h3><h5>{universityName}</h5><h6>{discipline}</h6></div>
-  const container = <div><IconButton disableTouchRipple style={friendsButtonStyle}> <Friend style={noteFriendsStyle} /></IconButton></div>
+  const header = (
+    <div>
+      <h3>{fullName}</h3>
+      <h5>{universityName}</h5>
+      <h6>{discipline}</h6>
+    </div>
+    )
+
+  const container = (
+    <div>
+      <IconButton disableTouchRipple style={friendsButtonStyle}>
+        <Friend style={noteFriendsStyle} />
+      </IconButton>
+    </div>
+    )
 
   const nodeFriendsComp = [
 
@@ -42,10 +55,9 @@ function FriendsDisplayComponent({ fullName, discipline, universityName }) {
   ]
 
   return (
-
-      <div>
-        <Paper style={friendsPaperStyle} zDepth={1} children={nodeFriendsComp} />
-      </div>
+    <div>
+      <Paper style={friendsPaperStyle} zDepth={1} children={nodeFriendsComp} />
+    </div>
     )
 }
 
