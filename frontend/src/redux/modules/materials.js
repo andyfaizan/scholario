@@ -1,9 +1,7 @@
-import { normalize, arrayOf } from 'normalizr'
-import { merge } from 'lodash'
-import _ from 'lodash'
+import { arrayOf } from 'normalizr'
+import _, { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { materialSchema } from '../schemas'
@@ -35,16 +33,16 @@ export function setCurMaterial(mid) {
     type: SET_CUR_MATERIAL,
     payload: {
       mid,
-    }
+    },
   }
 }
 
 export function getMaterial(mid) {
-  var endpoint = urlJoin(config.apiURL, 'materials', mid)
+  const endpoint = urlJoin(config.apiURL, 'materials', mid)
   return {
     types: [GET_MATERIAL_REQUEST, GET_MATERIAL_OK, GET_MATERIAL_ERR],
     // Check the cache (optional):
-    //shouldCallAPI: (state) => !state.posts[userId],
+    // shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
     payload: { mid },
@@ -53,9 +51,9 @@ export function getMaterial(mid) {
 }
 
 export function postMaterial(pid, files) {
-  var endpoint = urlJoin(config.apiURL, 'pkgs', pid, 'materials')
-  var callP = request.post(endpoint)
-  for (var i = 0; i < files.length; i++) {
+  const endpoint = urlJoin(config.apiURL, 'pkgs', pid, 'materials')
+  const callP = request.post(endpoint)
+  for (let i = 0; i < files.length; i++) {
     callP.attach('material', files[i])
   }
   return {
@@ -79,16 +77,17 @@ export function deleteMaterial(mid, pid) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function materialReducer(state={}, action) {
+export function materialReducer(state = {}, action) {
   switch (action.type) {
-    case DELETE_MATERIAL_OK:
-      if (action && action.mid) {
-        return _.omit(state, action.mid)
-      }
-    default:
-      if (action.response && action.response.entities && action.response.entities.materials) {
-        return merge({}, state, action.response.entities.materials)
-      }
-      return state
+  case DELETE_MATERIAL_OK:
+    if (action && action.mid) {
+      return _.omit(state, action.mid)
+    }
+    return state
+  default:
+    if (action.response && action.response.entities && action.response.entities.materials) {
+      return merge({}, state, action.response.entities.materials)
+    }
+    return state
   }
 }

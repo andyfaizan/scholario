@@ -1,9 +1,6 @@
-import { normalize, arrayOf } from 'normalizr'
-import { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import _ from 'lodash'
-import { push, replace } from 'react-router-redux'
+import _, { merge } from 'lodash'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { questionSchema, answerSchema } from '../schemas'
@@ -48,7 +45,7 @@ export function postAnswer(question, content) {
   return {
     types: [POST_ANSWER_REQUEST, POST_ANSWER_OK, POST_ANSWER_ERR],
     callAPI: () => request.post(endpoint).send({
-      question, content
+      question, content,
     }),
     schema: questionSchema,
   }
@@ -68,7 +65,7 @@ export function putAnswer(aid, content) {
   return {
     types: [PUT_ANSWER_REQUEST, PUT_ANSWER_OK, PUT_ANSWER_ERR],
     callAPI: () => request.put(endpoint).send({
-      content
+      content,
     }),
     schema: answerSchema,
   }
@@ -77,17 +74,17 @@ export function putAnswer(aid, content) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function answerReducer(state={}, action) {
+export function answerReducer(state = {}, action) {
   switch (action.type) {
-    case DELETE_ANSWER_OK:
-      if (action && action.aid) {
-        return _.omit(state, action.aid)
-      }
-      return state
-    default:
-      if (action.response && action.response.entities && action.response.entities.answers) {
-        return merge({}, state, action.response.entities.answers)
-      }
-      return state
+  case DELETE_ANSWER_OK:
+    if (action && action.aid) {
+      return _.omit(state, action.aid)
+    }
+    return state
+  default:
+    if (action.response && action.response.entities && action.response.entities.answers) {
+      return merge({}, state, action.response.entities.answers)
+    }
+    return state
   }
 }
