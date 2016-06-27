@@ -99,4 +99,42 @@ router.delete('/:mid', passport.authenticate('jwt', {session: false}), function 
   });
 });
 
+router.put(':mid/rename', passport.authenticate('jwt', {session: false}),function (req,res) {
+  req.checkParams('mid','InvalidMaterialId').notEmpty().isMongoId();
+  if(req.body.name) req.checkBody('name','InvalidName').notEmpty();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  co(function *() {
+    var material = yield Material.findOne({_id: req.params.mid });
+    if (!material) {
+      return res.status(404).json({
+        err: [{ msg: 'MaterialNotFound' }],
+      });
+    }
+
+    if (req.body.name) {
+      if(material.pkg.owner !== req.user.id) {
+        res.status*(401).json({
+          err: [{ msg: 'PermissionDenied' }],
+        })
+      }
+      else {
+        material.name = req.body.name;
+      }
+      material = yield material .save();
+
+      return res.status(200).json({
+        _id: material._id,
+        name: material.name,
+      });
+    }
+  })
+})
+
 module.exports = router;
