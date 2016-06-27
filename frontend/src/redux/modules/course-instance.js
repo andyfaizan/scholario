@@ -1,9 +1,7 @@
-import { normalize, arrayOf } from 'normalizr'
-import { merge } from 'lodash'
-import _ from 'lodash'
+import { arrayOf } from 'normalizr'
+import _, { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { courseInstanceSchema } from '../schemas'
@@ -49,7 +47,7 @@ export function setCurCourseInstance(cid) {
     type: SET_CUR_COURSE_INSTANCE,
     payload: {
       cid,
-    }
+    },
   }
 }
 
@@ -58,7 +56,7 @@ export function getCourseInstance(cid) {
   return {
     types: [GET_COURSE_INSTANCE_REQUEST, GET_COURSE_INSTANCE_OK, GET_COURSE_INSTANCE_ERR],
     // Check the cache (optional):
-    //shouldCallAPI: (state) => !state.posts[userId],
+    // shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
     payload: { cid },
@@ -66,8 +64,8 @@ export function getCourseInstance(cid) {
   }
 }
 
-export function getCourseInstances(substring='', program='') {
-  var endpoint = urlJoin(config.apiURL, 'course-instances')
+export function getCourseInstances(substring = '', program = '') {
+  let endpoint = urlJoin(config.apiURL, 'course-instances')
   if (substring) {
     endpoint = urlJoin(endpoint, `?q=${substring}`)
   }
@@ -84,8 +82,8 @@ export function getCourseInstances(substring='', program='') {
   }
 }
 
-export function getRecommendedCourseInstances(substring='', program='') {
-  var endpoint = urlJoin(config.apiURL, 'course-instances')
+export function getRecommendedCourseInstances(substring = '', program = '') {
+  let endpoint = urlJoin(config.apiURL, 'course-instances')
   if (substring) {
     endpoint = urlJoin(endpoint, `?q=${substring}`)
   }
@@ -95,7 +93,11 @@ export function getRecommendedCourseInstances(substring='', program='') {
   }
 
   return {
-    types: [GET_RECOMMENDED_COURSE_INSTANCES_REQUEST, GET_RECOMMENDED_COURSE_INSTANCES_OK, GET_RECOMMENDED_COURSE_INSTANCES_ERR],
+    types: [
+      GET_RECOMMENDED_COURSE_INSTANCES_REQUEST,
+      GET_RECOMMENDED_COURSE_INSTANCES_OK,
+      GET_RECOMMENDED_COURSE_INSTANCES_ERR,
+    ],
     callAPI: () => request.get(endpoint),
     payload: { substring, program },
     schema: { courseInstances: arrayOf(courseInstanceSchema) },
@@ -135,44 +137,46 @@ export function unfollowCourse(cid) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function courseInstanceReducer(state={}, action) {
+export function courseInstanceReducer(state = {}, action) {
   switch (action.type) {
-    case DELETE_PKG_OK:
-      if (action && action.pid && action.ciid) {
-        return Object.assign({}, state, {
-          [action.ciid]: {
-            ...state[action.ciid],
-            pkgs: _.without(state[action.ciid].pkgs, action.pid),
-          }
-        })
-      }
-
-    default:
-      if (action.response && action.response.entities && action.response.entities.courseInstances) {
-        return merge({}, state, action.response.entities.courseInstances)
-      }
-      return state
+  case DELETE_PKG_OK:
+    if (action && action.pid && action.ciid) {
+      return Object.assign({}, state, {
+        [action.ciid]: {
+          ...state[action.ciid],
+          pkgs: _.without(state[action.ciid].pkgs, action.pid),
+        },
+      })
+    }
+    return state
+  default:
+    if (action.response && action.response.entities && action.response.entities.courseInstances) {
+      return merge({}, state, action.response.entities.courseInstances)
+    }
+    return state
   }
 }
 
-export function recommendedCourseInstancesReducer(state=[], action) {
+export function recommendedCourseInstancesReducer(state = [], action) {
   switch (action.type) {
-    case GET_RECOMMENDED_COURSE_INSTANCES_OK:
-      if (action.result && action.result.courseInstances && action.result.courseInstances.length > 0) {
-        return action.result.courseInstances
-      }
-    default:
-      return state
+  case GET_RECOMMENDED_COURSE_INSTANCES_OK:
+    if (action.result && action.result.courseInstances && action.result.courseInstances.length > 0) {
+      return action.result.courseInstances
+    }
+    return state
+  default:
+    return state
   }
 }
 
-export function curCourseInstanceReducer(state='', action) {
+export function curCourseInstanceReducer(state = '', action) {
   switch (action.type) {
-    case SET_CUR_COURSE_INSTANCE:
-      if (action.payload && action.payload.cid) {
-        return action.payload.cid
-      }
-    default:
-      return state
+  case SET_CUR_COURSE_INSTANCE:
+    if (action.payload && action.payload.cid) {
+      return action.payload.cid
+    }
+    return state
+  default:
+    return state
   }
 }

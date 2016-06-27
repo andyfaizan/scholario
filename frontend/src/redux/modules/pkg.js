@@ -1,9 +1,6 @@
-import { arrayOf } from 'normalizr'
-import { merge } from 'lodash'
-import _ from 'lodash'
+import _, { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { pkgSchema } from '../schemas'
@@ -37,26 +34,26 @@ export function setCurPkg(pid) {
     type: SET_CUR_PKG,
     payload: {
       pid,
-    }
+    },
   }
 }
 
 export function getPkg(pid, setCur = false) {
-  var endpoint = urlJoin(config.apiURL, 'pkgs', pid)
+  const endpoint = urlJoin(config.apiURL, 'pkgs', pid)
 
   return {
     types: [GET_PKG_REQUEST, GET_PKG_OK, GET_PKG_ERR],
     // Check the cache (optional):
-    //shouldCallAPI: (state) => !state.posts[userId],
+    // shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
-    payload: { pid, setCur, },
+    payload: { pid, setCur },
     schema: pkgSchema,
   }
 }
 
 export function addPkg(name, courseInstance, access = 'public', files = []) {
-  var endpoint = urlJoin(config.apiURL, 'pkgs')
+  let endpoint = urlJoin(config.apiURL, 'pkgs')
 
   if (name) {
     endpoint = urlJoin(endpoint, `?name=${name}`)
@@ -70,16 +67,14 @@ export function addPkg(name, courseInstance, access = 'public', files = []) {
     endpoint = urlJoin(endpoint, `?access=${access}`)
   }
 
-  var callP = request
-    .post(endpoint)
+  const callP = request.post(endpoint)
 
   if (files.length > 0) callP.set('Content-Type', 'multipart/form-data')
-  for (var i = 0; i < files.length; i++)
-    callP.attach(files[i])
+  for (let i = 0; i < files.length; i++) callP.attach(files[i])
 
   return {
     types: [ADD_PKG_REQUEST, ADD_PKG_OK, ADD_PKG_ERR],
-    callAPI: () =>  callP,
+    callAPI: () => callP,
     schema: pkgSchema,
   }
 }
@@ -97,50 +92,54 @@ export function deletePkg(pid, ciid) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function pkgReducer(state={}, action) {
+export function pkgReducer(state = {}, action) {
   switch (action.type) {
-    case DELETE_PKG_OK:
-      if (action && action.pid) {
-        return _.omit(state, action.pid)
-      }
-    case DELETE_BOOKMARK_OK:
-      if (action && action.bid && action.pid) {
-        return Object.assign({}, state, {
-          [action.pid]: {
-            ...state[action.pid],
-            bookmarks: _.without(state[action.pid].bookmarks, action.bid),
-          }
-        })
-      }
-    case DELETE_MATERIAL_OK:
-      if (action && action.mid && action.pid) {
-        return Object.assign({}, state, {
-          [action.pid]: {
-            ...state[action.pid],
-            materials: _.without(state[action.pid].materials, action.mid),
-          }
-        })
-      }
-
-    default:
-      if (action.response && action.response.entities && action.response.entities.pkgs) {
-        return merge({}, state, action.response.entities.pkgs)
-      }
-      return state
+  case DELETE_PKG_OK:
+    if (action && action.pid) {
+      return _.omit(state, action.pid)
+    }
+    return state
+  case DELETE_BOOKMARK_OK:
+    if (action && action.bid && action.pid) {
+      return Object.assign({}, state, {
+        [action.pid]: {
+          ...state[action.pid],
+          bookmarks: _.without(state[action.pid].bookmarks, action.bid),
+        },
+      })
+    }
+    return state
+  case DELETE_MATERIAL_OK:
+    if (action && action.mid && action.pid) {
+      return Object.assign({}, state, {
+        [action.pid]: {
+          ...state[action.pid],
+          materials: _.without(state[action.pid].materials, action.mid),
+        },
+      })
+    }
+    return state
+  default:
+    if (action.response && action.response.entities && action.response.entities.pkgs) {
+      return merge({}, state, action.response.entities.pkgs)
+    }
+    return state
   }
 }
 
-export function curPkgReducer(state='', action) {
+export function curPkgReducer(state = '', action) {
   switch (action.type) {
-    case GET_PKG_REQUEST:
-      if (action.payload && action.payload.setCur) {
-        return action.payload.pid
-      }
-    case SET_CUR_PKG:
-      if (action.payload && action.payload.pid) {
-        return action.payload.pid
-      }
-    default:
-      return state
+  case GET_PKG_REQUEST:
+    if (action.payload && action.payload.setCur) {
+      return action.payload.pid
+    }
+    return state
+  case SET_CUR_PKG:
+    if (action.payload && action.payload.pid) {
+      return action.payload.pid
+    }
+    return state
+  default:
+    return state
   }
 }

@@ -3,7 +3,6 @@ import _ from 'lodash'
 import moment from 'moment'
 
 
-
 export const getUser = (state) => state.entities.users[state.user._id]
 export const getUserMetadata = (state) => state.user
 export const getUsers = (state) => state.entities.users
@@ -47,18 +46,16 @@ export const getCourseInstances = createSelector(
   [getShallowCourseInstances, getCourses, getUniversities,
     getPrograms, getUsers, getShallowPkgs],
   (shallowCourseInstances, courses, universities, programs, users, pkgs) => {
-    var res = {}
-    for (var k in shallowCourseInstances) {
-      if (shallowCourseInstances.hasOwnProperty(k)) {
-        res[k] = Object.assign({}, shallowCourseInstances[k])
-        res[k].prof = users[res[k].prof]
-        var c = Object.assign({}, courses[res[k].course])
-        c.university = universities[c.university]
-        c.program = programs[c.program]
-        res[k].course = c
-        res[k].pkgs = _.values(pkgs).filter(pkg => pkg.courseInstance === k)
-      }
-    }
+    const res = {}
+    _.forOwn(shallowCourseInstances, (val, k) => {
+      res[k] = Object.assign({}, val)
+      res[k].prof = users[res[k].prof]
+      const c = Object.assign({}, courses[res[k].course])
+      c.university = universities[c.university]
+      c.program = programs[c.program]
+      res[k].course = c
+      res[k].pkgs = _.values(pkgs).filter(pkg => pkg.courseInstance === k)
+    })
     return res
   }
 )
@@ -66,7 +63,7 @@ export const getCourseInstances = createSelector(
 export const getCurCourseInstance = createSelector(
   [getCurCourseInstanceId, getCourseInstances],
   (curCourseInstanceId, courseInstances) => {
-    var ci = Object.assign({}, courseInstances[curCourseInstanceId])
+    const ci = Object.assign({}, courseInstances[curCourseInstanceId])
     return ci
   }
 )
@@ -76,7 +73,7 @@ export const getUserCourseInstances = createSelector(
   (user, courseInstances) => {
     if (user && user.courseInstances) {
       return user.courseInstances.map((id) => {
-        var ci = Object.assign({}, courseInstances[id])
+        const ci = Object.assign({}, courseInstances[id])
         ci.following = true
         return ci
       })
@@ -88,7 +85,7 @@ export const getUserCourseInstances = createSelector(
 export const getRecommendedCourseInstances = createSelector(
   [getCourseInstances, getRecommendedCourseInstanceIds],
   (courseInstances, recommendedCourseInstanceIds) => recommendedCourseInstanceIds.map(id => {
-    var ci = Object.assign({}, courseInstances[id])
+    const ci = Object.assign({}, courseInstances[id])
     ci.following = false
     return ci
   })
@@ -97,15 +94,12 @@ export const getRecommendedCourseInstances = createSelector(
 export const getAnswers = createSelector(
   [getShallowAnswers, getUsers],
   (shallowAnswers, users) => {
-    var res = {}
+    const res = {}
 
-    for (var k in shallowAnswers) {
-      if (shallowAnswers.hasOwnProperty(k)) {
-        res[k] = Object.assign({}, shallowAnswers[k])
-        if (res[k].user)
-          res[k].user = users[res[k].user]
-      }
-    }
+    _.forOwn(shallowAnswers, (val, k) => {
+      res[k] = Object.assign({}, val)
+      if (res[k].user) res[k].user = users[res[k].user]
+    })
 
     return res
   }
@@ -113,17 +107,16 @@ export const getAnswers = createSelector(
 export const getQuestions = createSelector(
   [getShallowQuestions, getUsers, getCourseInstances, getAnswers],
   (shallowQuestions, users, courseInstances, answers) => {
-    var res = {}
+    const res = {}
 
-    for (var k in shallowQuestions) {
-      if (shallowQuestions.hasOwnProperty(k)) {
-        res[k] = Object.assign({}, shallowQuestions[k])
-        res[k].user = users[res[k].user]
-        if (res[k].answers && res[k].answers.length > 0)
-          res[k].answers = res[k].answers.map(id => answers[id])
-        //res[k].courseInstance = courseInstances[res[k].courseInstance]
+    _.forOwn(shallowQuestions, (val, k) => {
+      res[k] = Object.assign({}, val)
+      res[k].user = users[res[k].user]
+      if (res[k].answers && res[k].answers.length > 0) {
+        res[k].answers = res[k].answers.map(id => answers[id])
       }
-    }
+      // res[k].courseInstance = courseInstances[res[k].courseInstance]
+    })
     return res
   }
 )
@@ -139,23 +132,23 @@ export const getUserQuestions = createSelector(
     .filter((question) => (user.courseInstances.indexOf(question.courseInstance) > -1))
 )
 
-function sortQuestionsByDate(a, b) {
+const sortQuestionsByVote = new Function('a', 'b', `
+  if (!a || !b) return -1
+  if (a.votes.length > b.votes.length) return -1
+  else if (a.votes.length < b.votes.length) return 1
+  return sortQuestionsByDate(a, b)
+`)
+
+const sortQuestionsByDate = (a, b) => {
   const c = moment(a.createDate)
   const d = moment(b.createDate)
   if (c.isAfter(d)) return -1
   else if (c.isBefore(d)) return 1
-  else return sortQuestionsByVote(a, b)
+  return sortQuestionsByVote(a, b)
 }
 
-function sortQuestionsByVote(a, b) {
-  if (!a || !b) return -1
-  if (a.votes.length > b.votes.length) return -1
-  else if (a.votes.length < b.votes.length) return 1
-  else return sortQuestionsByDate(a, b)
-}
-
-export function getCurQuestionsFactory(page, orderBy, limit=5) {
-  var sortF = sortQuestionsByDate
+export function getCurQuestionsFactory(page, orderBy, limit = 5) {
+  let sortF = sortQuestionsByDate
   if (orderBy === 'date') sortF = sortQuestionsByDate
   else if (orderBy === 'vote') sortF = sortQuestionsByVote
 
@@ -170,8 +163,8 @@ export function getCurQuestionsFactory(page, orderBy, limit=5) {
 }
 
 export const getCurrentCourseInstanceMaterials = createSelector(
-  [getCurCourseInstance, getMaterials, getCourseInstances],
-  (currentCourse, materials, courseInstances) => currentCourse.materials.map((id) => materials[id])
+  [getCurCourseInstance, getMaterials],
+  (currentCourse, materials) => currentCourse.materials.map((id) => materials[id])
 )
 
 export const getUserFollowings = createSelector(
@@ -179,7 +172,7 @@ export const getUserFollowings = createSelector(
   (user, users, universities, programs) => {
     if (user && user.followings && user.followings.length > 0) {
       return user.followings.map((id) => {
-        var u = Object.assign({}, users[id])
+        const u = Object.assign({}, users[id])
         u.university = universities[u.universities[0]]
         u.program = programs[u.programs[0]]
         return u
@@ -193,10 +186,10 @@ export const getUniversitiesWithPrograms = createSelector(
   [getUniversities, getPrograms],
   (universities, programs) => {
     if (universities) {
-      var res = _.values(universities).map((u) => {
-        var new_u = Object.assign({}, u)
-        new_u.programs = _.values(programs).filter((p) => p.university === u._id)
-        return new_u
+      const res = _.values(universities).map((u) => {
+        const newU = Object.assign({}, u)
+        newU.programs = _.values(programs).filter((p) => p.university === u._id)
+        return newU
       })
       return res
     }
@@ -207,18 +200,14 @@ export const getUniversitiesWithPrograms = createSelector(
 export const getPkgs = createSelector(
   [getShallowPkgs, getCourseInstances, getUsers, getMaterials, getBookmarks],
   (shallowPkgs, courseInstances, users, materials, bookmarks) => {
-    var res = {}
-    for (var k in shallowPkgs) {
-      if (shallowPkgs.hasOwnProperty(k)) {
-        res[k] = Object.assign({}, shallowPkgs[k])
-        if (users[res[k].owner])
-          res[k].owner = users[res[k].owner]
-        //res[k].courseInstance = courseInstances[res[k].courseInstance]
-        res[k].materials = _.values(materials).filter(material => material.pkg === k)
-        res[k].bookmarks = _.values(bookmarks).filter(bookmark => bookmark.pkg === k)
-      }
-    }
-
+    const res = {}
+    _.forOwn(shallowPkgs, (val, k) => {
+      res[k] = Object.assign({}, val)
+      if (users[res[k].owner]) res[k].owner = users[res[k].owner]
+      // res[k].courseInstance = courseInstances[res[k].courseInstance]
+      res[k].materials = _.values(materials).filter(material => material.pkg === k)
+      res[k].bookmarks = _.values(bookmarks).filter(bookmark => bookmark.pkg === k)
+    })
     return res
   }
 )
@@ -226,7 +215,7 @@ export const getPkgs = createSelector(
 export const getCurPkg = createSelector(
   [getCurPkgId, getPkgs],
   (curPkgId, pkgs) => {
-    var pkg = Object.assign({}, pkgs[curPkgId])
+    const pkg = Object.assign({}, pkgs[curPkgId])
     return pkg
   }
 )

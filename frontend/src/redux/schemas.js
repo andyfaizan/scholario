@@ -2,43 +2,43 @@ import { Schema, arrayOf } from 'normalizr'
 
 
 export const userSchema = new Schema('users', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const universitySchema = new Schema('universities', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const programSchema = new Schema('programs', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const courseSchema = new Schema('courses', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const courseInstanceSchema = new Schema('courseInstances', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const questionSchema = new Schema('questions', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const answerSchema = new Schema('answers', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const pkgSchema = new Schema('pkgs', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const materialSchema = new Schema('materials', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 export const bookmarkSchema = new Schema('bookmarks', {
-  idAttribute: '_id'
+  idAttribute: '_id',
 })
 
 userSchema.define({

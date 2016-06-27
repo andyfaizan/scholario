@@ -6,12 +6,12 @@ export const load = data => ({ type: LOAD_ADD_PKG, data })
 
 const pkgReducer = (state = {}, action) => {
   switch (action.type) {
-    case LOAD_ADD_PKG:
-      return {
-        data: action.data
-      }
-    default:
-      return state
+  case LOAD_ADD_PKG:
+    return {
+      data: action.data,
+    }
+  default:
+    return state
   }
 }
 

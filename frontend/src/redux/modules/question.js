@@ -1,9 +1,7 @@
-import { normalize, arrayOf } from 'normalizr'
-import { merge } from 'lodash'
-import _ from 'lodash'
+import { arrayOf } from 'normalizr'
+import _, { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import { push, replace } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { questionSchema } from '../schemas'
@@ -48,12 +46,12 @@ export function setCurQuestion(qid) {
     type: SET_CUR_QUESTION,
     payload: {
       qid,
-    }
+    },
   }
 }
 
 export function getQuestions(cid = '', pid = '', mid = '') {
-  var endpoint = urlJoin(config.apiURL, 'questions')
+  let endpoint = urlJoin(config.apiURL, 'questions')
   if (cid) {
     endpoint = urlJoin(endpoint, `?courseInstance=${cid}`)
   }
@@ -79,7 +77,7 @@ export function getQuestion(qid) {
   return {
     types: [GET_QUESTION_REQUEST, GET_QUESTION_OK, GET_QUESTION_ERR],
     // Check the cache (optional):
-    //shouldCallAPI: (state) => !state.posts[userId],
+    // shouldCallAPI: (state) => !state.posts[userId],
     callAPI: () => request.get(endpoint),
     // Arguments to inject in begin/end actions
     payload: { qid },
@@ -103,7 +101,7 @@ export function addQuestion(title, description, courseInstance, pkg, material) {
     types: [ADD_QUESTION_REQUEST, ADD_QUESTION_OK, ADD_QUESTION_ERR],
     callAPI: () => request.post(endpoint).send({
       title, description,
-      courseInstance, pkg, material
+      courseInstance, pkg, material,
     }),
     schema: questionSchema,
   }
@@ -120,7 +118,7 @@ export function deleteQuestion(qid) {
 
 export function putQuestion(qid, title = '', description = '', bestAnswer = '', approvedAnswer = '') {
   const endpoint = urlJoin(config.apiURL, 'questions', qid)
-  var data = {}
+  const data = {}
   if (title) data.title = title
   if (description) data.description = description
   if (bestAnswer) data.bestAnswer = bestAnswer
@@ -137,25 +135,27 @@ export function putQuestion(qid, title = '', description = '', bestAnswer = '', 
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function questionReducer(state={}, action) {
+export function questionReducer(state = {}, action) {
   switch (action.type) {
-    case DELETE_QUESTION_OK:
-      if (action && action.qid) {
-        return _.omit(state, action.qid)
-      }
-    case DELETE_ANSWER_OK:
-      if (action && action.aid && action.qid) {
-        return Object.assign({}, state, {
-          [action.qid]: {
-            ...state[action.qid],
-            answers: _.without(state[action.qid].answers, action.aid),
-          }
-        })
-      }
-    default:
-      if (action.response && action.response.entities && action.response.entities.questions) {
-        return merge({}, state, action.response.entities.questions)
-      }
-      return state
+  case DELETE_QUESTION_OK:
+    if (action && action.qid) {
+      return _.omit(state, action.qid)
+    }
+    return state
+  case DELETE_ANSWER_OK:
+    if (action && action.aid && action.qid) {
+      return Object.assign({}, state, {
+        [action.qid]: {
+          ...state[action.qid],
+          answers: _.without(state[action.qid].answers, action.aid),
+        },
+      })
+    }
+    return state
+  default:
+    if (action.response && action.response.entities && action.response.entities.questions) {
+      return merge({}, state, action.response.entities.questions)
+    }
+    return state
   }
 }
