@@ -1,27 +1,51 @@
 .actionPosition {
-
   position:relative;
   margin:auto;
   margin-left: 20px;
-
 }
 
 .linkColor {
-	
-	color: #26A65B;
-	position:relative;
-	margin-top: -20px;
-	margin-left: 30px;
+  color: #26A65B;
+  position:relative;
+  margin-top: -20px;
+  margin-left: 30px;
 }
 
-.titleStyle
-{
-        color: #26A65B
+.titleStyle {
+  color: #26A65B;
 }
 
 .pkgName {
+  position: relative;
+  margin-top: 10px;
+  margin-left: -40px;
+}
 
-	position:relative;
-	margin-top: 10px;
-	margin-left: -40px;
+.iconStyle {
+  margin-top: 4;
+}
+
+.titleStyle {
+  color: #26A65B;
+  font-size: 160%;
+}
+
+.toolbarStyle {
+  background-color: white;
+  color: #26A65B;
+}
+
+.buttonStyle {
+  color: black;
+}
+
+.separator {
+  background-color: black
+}
+
+.text {
+  position: relative;
+  margin-right: 5;
+  margin-left: 48;
+  color: green;
 }

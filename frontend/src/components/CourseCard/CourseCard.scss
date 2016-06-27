@@ -1,49 +1,86 @@
 .actionPosition {
-
   position:absolute;
   float:left;
   margin:auto;
-
 }
 
 .actionPostionLeft {
-
   position:absolute;
   float:right;
   margin:auto;
   margin-left: 250px;
 }
 
-.actionFollow
-{
+.actionFollow {
   position:absolute;
   margin:left;
   margin-left: 30px;
-
 }
 
 .badge {
-
-	position:absolute;
-	float: left;
+  position:absolute;
+  float: left;
   margin:auto;
   margin-top: -45px;
   margin-left: 270px;
 }
 
 .actionMain {
-
-	position:absolute;
-	opacity: 0.5;
+  position:absolute;
+  opacity: 0.5;
 }
 
 .container {
+  position:absolute;
+  opacity: 0.7;
+  padding-right:3px ;
+  padding-left:3px;
+  padding-top:3px;
+}
 
-	position:absolute;
-	opacity: 0.7;
-	padding-right:3px ;
-	padding-left:3px;
-	padding-top:3px;
+.style {
+  float: left;
+  height: 170;
+  width: 300;
+  margin: 8.5;
+  background-color: #446CB3;
+  color: white;
+  border-radius: 13;
+  overflow: inherit;
+}
 
+.contentStyle {
+  float: left;
+  width: 300;
+  height: 130;
+  background-color: #446CB3;
+  color: white;
+  border-radius: 13;
+}
 
+.actionStyle {
+  float: left;
+  width: 300;
+  background-color: #446CB3;
+  color: white;
+  border-radius: 13;
+}
+
+.divStyle {
+  text-align: center;
+}
+
+.iconStyles {
+  background-color: white;
+}
+
+.paperActions {
+  // display: 'flex';
+  //    boxSizing:'border-box';
+  //    alignItems: 'center';
+  float: left;
+}
+
+.mainActionStyle {
+  opacity: 0.5;
 }
