@@ -10,32 +10,32 @@ import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import AddPkgComponent from '../../components/AddPkgComponent/AddPkgComponent'
-import IndependentPackage from '../../components/IndependentPackage/IndependentPackage'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import { deletePkg } from '../../redux/modules/pkg'
-import { show, ADD_PACKAGE_MODAL as add_package } from '../../redux/modules/modal'
+import { show, ADD_PACKAGE_MODAL as addPackageModalAction } from '../../redux/modules/modal'
 import * as selectors from '../../redux/selectors'
-import AddCircle from 'material-ui/svg-icons/content/add';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 
-
-type Props = {
-  courseName: string,
-  courseId: string
-
-};
+const propTypes = {
+  courseName: PropTypes.string,
+  courseId: PropTypes.string,
+  dispatch: PropTypes.func,
+  params: PropTypes.object,
+  userMetadata: PropTypes.object,
+  courseInstance: PropTypes.object,
+  profPkgs: PropTypes.array,
+  studentPkgs: PropTypes.array,
+  user: PropTypes.object,
+  modal: PropTypes.object,
+  recentQuestions: PropTypes.array,
+  popularQuestions: PropTypes.array,
+  location: PropTypes.object,
+}
 
 export class Course extends React.Component {
-
-  static propTypes = {
-    courseName: PropTypes.string,
-    courseId: PropTypes.string,
-  };
-
   constructor(props) {
     super(props)
     this.getDateFromZulu = this.getDateFromZulu.bind(this)
@@ -52,28 +52,24 @@ export class Course extends React.Component {
   }
 
   getDateFromZulu(dateString) {
-    var dateParts = dateString.slice(0,10).split('-')
-    return dateParts[2]+'-'+dateParts[1]+'-'+dateParts[0]
+    const dateParts = dateString.slice(0, 10).split('-')
+    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
   }
 
-  render () {
+  render() {
     const { courseInstance, profPkgs, studentPkgs, user } = this.props
-    const voteErrorType = 'VOTE_QUESTION_ERR'
-    const voteOkayType = 'VOTE_QUESTION_OK'
-    var profPkgEls = []
-    var studentPkgEls
-    var addPkgComp
-    var addPkgCompProf
-    var addPkgStd
+    let profPkgEls = []
+    let studentPkgEls
+    let addPkgCompProf
+    let addPkgStd
 
     if (profPkgs) {
-
       profPkgEls = profPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
           dateUploaded={pkg ? this.getDateFromZulu(pkg.createDate) : ''}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
-          keywords={["Blue ","Green ", "Red "]}
+          keywords={['Blue ', 'Green ', 'Red ']}
           pkgUrl={`/package/${pkg._id}`}
           user={user}
           owner={pkg.owner}
@@ -83,14 +79,12 @@ export class Course extends React.Component {
     }
 
     if (studentPkgs) {
-
-
       studentPkgEls = studentPkgs.map(pkg =>
         <MaterialComponent
           key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
           dateUploaded={this.getDateFromZulu(pkg.createDate)}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
-          keywords={["Blue ","Green ", "Red "]}
+          keywords={['Blue ', 'Green ', 'Red ']}
           pkgUrl={`/package/${pkg._id}`}
           user={user}
           owner={pkg.owner}
@@ -99,94 +93,106 @@ export class Course extends React.Component {
       )
     }
 
-    if(this.props.user.role == 'Student') {
-      addPkgStd = <AddPkgComponent modal={this.props.modal}
-        show={() => this.props.dispatch(show(add_package))}/>
-    } else if (this.props.user.role == 'Prof' ) {
-      addPkgCompProf = <AddPkgComponent modal={this.props.modal}
-        show={() => this.props.dispatch(show(add_package))}/>
-    } else {
-      console.log('eroneous user role')
+    if (this.props.user.role === 'Student') {
+      addPkgStd = (
+        <AddPkgComponent
+          modal={this.props.modal}
+          show={() => this.props.dispatch(show(addPackageModalAction))}
+        />
+      )
+    } else if (this.props.user.role === 'Prof') {
+      addPkgCompProf = (
+        <AddPkgComponent
+          modal={this.props.modal}
+          show={() => this.props.dispatch(show(addPackageModalAction))}
+        />
+      )
     }
 
     return (
-    <div>
-      <div className={classes.rootCourse}>
-        <DashboardToolBar />
-        <CourseInfoBar
-          courseTitle={courseInstance.course ? courseInstance.course.name : ''}
-          courseUrl={`/course/${courseInstance._id}`}
-          semesterInstance={courseInstance.semester ? `${courseInstance.semester.term} ${courseInstance.semester.year}` : ''}
-          teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
-          shortInformation={courseInstance.description}
-          participantsNum={courseInstance.participantsNum}
-          userRole={this.props.user ? this.props.user.role : ''}
-        />
-        <br/>
-        <Grid className='container-fluid'>
-          <Row >
-            <Col xs={16} md={8}>
-              <div>
-                <fieldset>
-                  <legend><h4>
-                    Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''} {courseInstance.prof ? courseInstance.prof.lastname : ''}
-                  </h4></legend>
-                  <br/>
-                {addPkgCompProf}
-                {profPkgEls}
-                </fieldset>
-                <br/>
-                <br/>
-                <br/>
-                <fieldset>
-                  <legend><h4>
-                    Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
-                  </h4></legend>
-                  <br/>
-                 {addPkgStd}
-                {studentPkgEls}
-                </fieldset>
-              </div>
-              <br/>
-            </Col>
-            <Col xs={8} md={4}>
-              <Questions
-                recentQuestions={this.props.recentQuestions}
-                popularQuestions={this.props.popularQuestions}
-                location={this.props.location}
-                linkToQuestionsList={`/course/${courseInstance._id}/questions`}
-                onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
-              />
-
-              <br/>
-            </Col>
-          </Row>
-        </Grid>
-        <br/>
-      <br/>
+      <div>
+        <div className={classes.rootCourse}>
+          <DashboardToolBar />
+          <CourseInfoBar
+            courseTitle={courseInstance.course ? courseInstance.course.name : ''}
+            courseUrl={`/course/${courseInstance._id}`}
+            semesterInstance={
+              courseInstance.semester ? `${courseInstance.semester.term} ${courseInstance.semester.year}` : ''
+            }
+            teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
+            shortInformation={courseInstance.description}
+            participantsNum={courseInstance.participantsNum}
+            userRole={this.props.user ? this.props.user.role : ''}
+          />
+          <br />
+          <Grid className="container-fluid">
+            <Row >
+              <Col xs={16} md={8}>
+                <div>
+                  <fieldset>
+                    <legend>
+                      <h4>
+                        Materialien Von: {courseInstance.prof ? courseInstance.prof.firstname : ''}
+                          {courseInstance.prof ? courseInstance.prof.lastname : ''}
+                      </h4>
+                    </legend>
+                    <br />
+                  {addPkgCompProf}
+                  {profPkgEls}
+                  </fieldset>
+                  <br />
+                  <br />
+                  <br />
+                  <fieldset>
+                    <legend><h4>
+                      Studentenmaterialien für: {courseInstance.course ? courseInstance.course.name : ''}
+                    </h4></legend>
+                    <br />
+                   {addPkgStd}
+                  {studentPkgEls}
+                  </fieldset>
+                </div>
+                <br />
+              </Col>
+              <Col xs={8} md={4}>
+                <Questions
+                  recentQuestions={this.props.recentQuestions}
+                  popularQuestions={this.props.popularQuestions}
+                  location={this.props.location}
+                  linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+                  onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
+                />
+                <br />
+              </Col>
+            </Row>
+          </Grid>
+          <br />
+          <br />
+        </div>
+        <Feedback errorType="ADD_PKG_ERR" okayType="ADD_PKG_OK" message="Ordner Erstellt!" />
+        <div className={classes.footer}>
+          <FooterLanding />
+        </div>
       </div>
-      <Feedback errorType='ADD_PKG_ERR' okayType='ADD_PKG_OK' message="Ordner Erstellt!"/>
-      <div className={classes.footer}>
-        <FooterLanding />
-      </div>
-    </div>
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  var courseInstance = selectors.getCurCourseInstance(state)
-  var profPkgs = []
-  var studentPkgs = []
+const mapStateToProps = (state) => {
+  const courseInstance = selectors.getCurCourseInstance(state)
+  let profPkgs = []
+  let studentPkgs = []
   if (!_.isEmpty(courseInstance) && courseInstance.pkgs) {
     profPkgs = courseInstance.pkgs.filter(p => {
-      if (state.entities && state.entities.users && state.entities.users[p.owner])
+      if (state.entities && state.entities.users && state.entities.users[p.owner]) {
         return (state.entities.users[p.owner].role === 'Prof')
+      }
       return false
     })
     studentPkgs = courseInstance.pkgs.filter(p => {
-      if (state.entities && state.entities.users && state.entities.users[p.owner])
+      if (state.entities && state.entities.users && state.entities.users[p.owner]) {
         return (state.entities.users[p.owner].role === 'Student')
+      }
       return false
     })
   }
@@ -203,6 +209,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
+Course.propTypes = propTypes
+
 export default connect(
-  mapStateToProps)
-(Course)
+  mapStateToProps
+)(Course)
