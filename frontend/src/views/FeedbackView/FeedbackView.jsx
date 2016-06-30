@@ -1,32 +1,30 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
-import NavBarLandingPage from '../../containers/NavBarLandingPage'
-import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import FeedbackForm from '../../forms/FeedbackForm/FeedbackForm'
 import classes from './FeedbackView.scss'
-import Divider from 'material-ui/Divider'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import * as selectors from '../../redux/selectors'
-import { getUser } from '../../redux/modules/user'
-import { getRecommendedCourseInstances, followCourse,
-  FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
-import { getQuestions } from '../../redux/modules/question'
-import Feedback from '../../containers/Feedback'
-import { postFeedback,
+import { getUser, postFeedback,
   POST_FEEDBACK_OK, POST_FEEDBACK_ERR,
 } from '../../redux/modules/user'
 
-type Props = {
-
+const propTypes = {
+  user: PropTypes.object,
+  userMetadata: PropTypes.object,
+  userUniversity: PropTypes.object,
+  userProgram: PropTypes.object,
+  feedbackOk: PropTypes.string,
+  feedbackErr: PropTypes.string,
+  push: PropTypes.func,
+  getUser: PropTypes.func,
+  postFeedback: PropTypes.func,
 }
 
 export class FeedbackView extends React.Component {
-  props: Props;
-
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.userMetadata) {
       if (!this.props.userMetadata.fetchedData) {
         this.props.getUser()
@@ -34,21 +32,19 @@ export class FeedbackView extends React.Component {
     }
   }
 
-  render () {
+  render() {
     const { user, userUniversity, userProgram,
-      putUserOk, putUserErr,
       feedbackOk, feedbackErr,
     } = this.props
 
-    var feedbackTrue = -1
+    let feedbackTrue = -1
     if (feedbackOk) {
       this.props.push('/dashboard')
-    }
-    else if (feedbackErr) feedbackTrue = 0
+    } else if (feedbackErr) feedbackTrue = 0
 
     return (
       <div>
-        <div  className={classes.root} >
+        <div className={classes.root} >
           <DashboardToolBar />
           <TeacherProfileBar
             firstNameUser={user ? user.firstname : ''}
@@ -57,7 +53,7 @@ export class FeedbackView extends React.Component {
             universityName={userUniversity ? userUniversity.name : ''}
             programeName={userProgram ? userProgram.name : ''}
           />
-          <br/>
+          <br />
           <FeedbackForm
             feedbackTrue={feedbackTrue}
             onSubmit={(data) => this.props.postFeedback(data)}
@@ -71,31 +67,28 @@ export class FeedbackView extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: selectors.getUser(state),
-    userMetadata: selectors.getUserMetadata(state),
-    userUniversity: selectors.getUserUniversity(state),
-    userProgram: selectors.getUserProgram(state),
-    feedbackOk: selectors.getRequest(state, POST_FEEDBACK_OK),
-    feedbackErr: selectors.getRequest(state, POST_FEEDBACK_ERR),
-  }
-}
+const mapStateToProps = (state) => ({
+  user: selectors.getUser(state),
+  userMetadata: selectors.getUserMetadata(state),
+  userUniversity: selectors.getUserUniversity(state),
+  userProgram: selectors.getUserProgram(state),
+  feedbackOk: selectors.getRequest(state, POST_FEEDBACK_OK),
+  feedbackErr: selectors.getRequest(state, POST_FEEDBACK_ERR),
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getUser: () => {
-      dispatch(getUser())
-    },
-    postFeedback: (data) => {
-      dispatch(postFeedback(data.subject, data.content))
-    },
-    push: (path) => {
-      dispatch(push(path))
-    },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  getUser: () => {
+    dispatch(getUser())
+  },
+  postFeedback: (data) => {
+    dispatch(postFeedback(data.subject, data.content))
+  },
+  push: (path) => {
+    dispatch(push(path))
+  },
+})
 
+FeedbackView.propTypes = propTypes
 
 export default connect(
   mapStateToProps,

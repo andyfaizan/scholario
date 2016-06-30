@@ -1,12 +1,32 @@
-.dashboardRoot
-{
-   background-color: #FBF6EC;
-   min-height: 100vh;
+.dashboardRoot {
+  background-color: #FBF6EC;
+  min-height: 100vh;
 }
 
 .footer {
-    font-size: 20px;
-    background-color: white;
-    color: darkslategray;
-    height: 10%;
+  font-size: 20px;
+  background-color: white;
+  color: darkslategray;
+  height: 10%;
+}
+
+.textStyle {
+  padding-left: 70;
+  padding-right: 70
+}
+
+.actionPadding {
+  padding-left: 52;
+  background-color: #446CB3;
+  color: #ffffff
+}
+
+.buttonStyle {
+  color: #ffffff
+}
+
+.cardStyle {
+  border-style: solid;
+  border-width: 2;
+  border-color: #446CB3
 }
