@@ -1,17 +1,22 @@
-
-.avatar
-{	
-  position:reative;
-  margin:auto;
-  float:right;
+.avatar {	
+  position: relative;
+  margin: auto;
+  float: right;
   margin-right: 25px;
   margin-top: 10px;
 }
 
-.buttonThumbsUp
-{
-  position:relative;
-  margin:auto;
-  float:right;
+.buttonThumbsUp {
+  position: relative;
+  margin: auto;
+  float: right;
 }
 
+.styleSecondaryText {
+  color: #26A65B;
+  opacity: 0.2;
+}
+
+.border {
+  color: #26A65B;
+}
