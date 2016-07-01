@@ -28,7 +28,7 @@ var app = express();
 app.use(helmet());
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.raw({limit: '50mb'}));
+app.use(bodyParser.raw({ limit: '50mb' }));
 app.use(expressValidator());
 app.use(morgan('dev'));
 app.use(passport.initialize());
@@ -42,9 +42,9 @@ fs.readdirSync(models)
 const User = mongoose.model('User');
 const Student = mongoose.model('Student');
 const Prof = mongoose.model('Prof');
-var opts = {
+const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeader(),
-  secretOrKey: config.secret
+  secretOrKey: config.secret,
 };
 passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
   var findP;
@@ -65,7 +65,7 @@ passport.use(new JwtStrategy(opts, function (jwtPayload, done) {
 // Bootstrap routes
 app.options('*', cors());
 
-var apiRouter = express.Router();
+const apiRouter = express.Router();
 app.use(config.urlPrefix, apiRouter);
 
 // Routes
@@ -98,12 +98,12 @@ apiRouter.use('/bookmarks', bookmarkRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {
-  req.checkParams('code', 'InvalidCode').isLength({min: 96, max: 96});
+  req.checkParams('code', 'InvalidCode').isLength({ min: 96, max: 96 });
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      'err': errors
+      err: errors,
     });
   }
 
@@ -124,30 +124,30 @@ app.get('/email-verification/:code', function (req, res) {
     logger.error(err);
     return res.status(500).json({
       err: [{
-        msg: 'InternalError'
-      }]
+        msg: 'InternalError',
+      }],
     });
   });
 });
 
-apiRouter.post('/feedback', passport.authenticate('jwt', {session: false}), function (req, res) {
+apiRouter.post('/feedback', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkBody('subject', 'InvalidSubject').notEmpty();
   req.checkBody('content', 'InvalidContent').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      'err': errors
+      err: errors,
     });
   }
 
   const Feedback = mongoose.model('Feedback');
 
-  var feedback = Feedback({
+  Feedback({
     subject: req.body.subject,
     content: req.body.content,
     user: req.user,
-  }).save().then(function (feedback) {
+  }).save().then(function () {
     var mailOpts = {
       from: '"Scholario" <noreply@scholario.de>',
       to: 'info@scholario.de',
@@ -178,18 +178,18 @@ apiRouter.get('/test', function (req, res) {
   });
 });
 
-connect()
-  .on('error', console.log)
-  .on('disconnected', connect)
-  .once('open', listen);
+function connect() {
+  var options = { server: { socketOptions: { keepAlive: 1 } } };
+  return mongoose.connect(config.dbURI, options).connection;
+}
 
-function listen () {
+function listen() {
   if (app.get('env') === 'test') return;
   app.listen(port);
   console.log('Express app started on port ' + port);
 }
 
-function connect () {
-  var options = { server: { socketOptions: { keepAlive: 1 } } };
-  return mongoose.connect(config.dbURI, options).connection;
-}
+connect()
+  .on('error', console.log)
+  .on('disconnected', connect)
+  .once('open', listen);
