@@ -36,7 +36,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       user: req.user,
     }).save();
     answer.comments.push(comment);
-    answer = yield answer.push();
+   // answer = yield answer.push();     
 
     return res.status(201).json({
       _id: comment._id,
@@ -57,7 +57,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   });
 });
 
-router.delete('/cmid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:cmid', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('cmid', 'InvalidCommentId').notEmpty().isMongoId();
 
   var errors = req.validationErrors();
@@ -79,10 +79,16 @@ router.delete('/cmid', passport.authenticate('jwt', {session: false}), function 
         err: [{ msg: 'PermissionDenied' }],
       });
     }
-
     return comment.remove();
 
+  }).then(function () {
+    return res.status(200).json({
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
   });
-
 });
 module.exports = router
