@@ -10,6 +10,8 @@
       "max-len": [2, 120, 2],
       "no-underscore-dangle": ["error", { "allow": [ "_id" ] }],
       "comma-dangle": ["error", "always-multiline"],
-      "no-multi-str": 0
+      "no-multi-str": 0,
+      "global-require": 0,
+      "new-cap": 0
     }
 }
