@@ -1,8 +1,42 @@
 .signupContainer {
+  align-items: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  overflow: scroll;
+  max-height: 400px;
+}
 
-   align-items: center;
-   margin-left: 10%;
-   margin-right: 10%;
-   overflow: scroll;
-   max-height:400px;
+.errorStyle {
+  background-color: #e74c3c
+}
+
+.underlineStyle {
+  border-color: #446CB3;
+}
+
+.focusStyle {
+  border-color: #446CB3;
+}
+
+.floatingLabelStyle {
+  color: #27ae60;
+}
+
+.labelStyle {
+  color: #fff;
+  font-weight: bold;
+}
+
+.block {
+  max-width: 250;
+}
+
+.checkBox {
+  margin-bottom: 16;
+  padding-left: 10px;
+  background-color: #000;
+}
+
+.blocking {
+  overflow: hidden;
 }
