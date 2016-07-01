@@ -91,4 +91,46 @@ router.delete('/:cmid', passport.authenticate('jwt', {session: false}), function
     });
   });
 });
+
+router.put('/:cmid', passport.authenticate('jwt', {session: false}), function (req,res) {
+  req.checkParams('cmid','InvalidCommentId').notEmpty().isMongoId();
+
+  var errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors
+    });
+  }
+
+  co( function *(){
+    var comment = yield Comment.findOne({ _id: req.params.cmid });
+
+    if (!comment) {
+      return res.status(404).json({
+        err: [{ msg: 'CommentNotFound' }],
+      });
+    }
+
+    if( comment.user.toString() !== req.user.id.toString() ) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }  
+
+    if(req.body.content) comment.content = req.body.content;
+
+    comment = yield comment.save();
+
+    return res.status(200).json({
+      _id: comment._id,
+      content: comment.content,
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
 module.exports = router
