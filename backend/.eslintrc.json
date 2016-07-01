@@ -12,6 +12,7 @@
       "comma-dangle": ["error", "always-multiline"],
       "no-multi-str": 0,
       "global-require": 0,
-      "new-cap": 0
+      "new-cap": 0,
+      "newline-per-chained-call": 0
     }
 }
