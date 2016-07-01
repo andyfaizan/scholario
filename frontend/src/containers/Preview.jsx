@@ -8,7 +8,7 @@ type Props = {
 
 const mapStateToProps = (state) => {
   return {
-    //src: state.Material
+    // src: state.Material
   }
 }
 const mapDispatchToProps = (dispatch) => {
