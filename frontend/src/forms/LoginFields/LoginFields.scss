@@ -1,10 +1,26 @@
 .loginContainer {
-   align-items: center;
-   margin-left: 10%;
-   margin-right: 10%;
+  align-items: center;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .forgotLink {
   color: #27ae60;
   cursor: pointer;
+}
+
+.errorStyle {
+  background-color: #e74c3c;
+}
+
+.underlineStyle {
+  border-color: #446CB3;
+}
+
+.focusStyle {
+  border-color: #446CB3;
+}
+
+.floatingLabelStyle {
+  color: #27ae60;
 }
