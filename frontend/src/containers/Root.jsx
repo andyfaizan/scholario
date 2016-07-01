@@ -11,10 +11,10 @@ export default class Root extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     routes: PropTypes.element.isRequired,
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
   };
 
-  get content () {
+  get content() {
     return (
       <Router history={this.props.history}>
         {this.props.routes}
@@ -22,7 +22,7 @@ export default class Root extends React.Component {
     )
   }
 
-  get devTools () {
+  /* get devTools() {
     if (__DEBUG__) {
       if (__DEBUG_NEW_WINDOW__) {
         if (!window.devToolsExtension) {
@@ -35,15 +35,14 @@ export default class Root extends React.Component {
         return <DevTools />
       }
     }
-  }
+  } */
 
-  render () {
+  render() {
     return (
       <MuiThemeProvider muiTheme={lightMuiTheme}>
         <Provider store={this.props.store}>
           <div style={{ height: '100%' }}>
             {this.content}
-            {this.devTools}
           </div>
         </Provider>
       </MuiThemeProvider>

@@ -1,41 +1,43 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {submit} from 'redux-form'
 import { push } from 'react-router-redux'
-import Dialog from 'material-ui/Dialog';
-import Tabs from 'material-ui/Tabs/Tabs';
-import Tab from 'material-ui/Tabs/Tab';
-import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog'
+import Tabs from 'material-ui/Tabs/Tabs'
+import Tab from 'material-ui/Tabs/Tab'
+import RaisedButton from 'material-ui/RaisedButton'
 import LoginFields from '../forms/LoginFields/LoginFields'
 import SignupFields from '../forms/SignupFields/SignupFields'
-import {hide} from '../redux/modules/modal'
-//import { browserHistory } from 'react-router'
+import { hide } from '../redux/modules/modal'
+// import { browserHistory } from 'react-router'
 import { login, createUser } from '../redux/modules/user'
 import { removeRequest } from '../redux/modules/request'
-import { browserHistory } from '../history'
 import * as selectors from '../redux/selectors'
 
-var request = require('superagent');
-var self;
+
+const propTypes = {
+  modal: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  router: PropTypes.object,
+  universities: PropTypes.array,
+  loginErr: PropTypes.string,
+  signupErr: PropTypes.string,
+  hide: PropTypes.func.isRequired,
+  onLoginSubmit: PropTypes.func,
+  onSignupSubmit: PropTypes.func,
+  push: PropTypes.func,
+}
+
+const contextTypes = {
+  router: PropTypes.object,
+}
 
 export class ModalComponent extends React.Component {
-  static propTypes = {
-    modal: PropTypes.object.isRequired,
-    hide: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
-  }
-
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
   constructor(props) {
     super(props)
     this.sendLoginRequest = this.sendLoginRequest.bind(this)
     this.sendSignupRequest = this.sendSignupRequest.bind(this)
     this.confirmLogin = this.confirmLogin.bind(this)
     this.confirmSignup = this.confirmSignup.bind(this)
-    self = this
   }
 
   confirmLogin = () => {
@@ -49,9 +51,9 @@ export class ModalComponent extends React.Component {
   sendLoginRequest = (data) => {
     this.props.onLoginSubmit(data)
     // this.props.hide()
-    //browserHistory.push('/dashboard')
-    //this.props.router.push('/dashboard')
-    //this.context.router.push('/dashboard')
+    // browserHistory.push('/dashboard')
+    // this.props.router.push('/dashboard')
+    // this.context.router.push('/dashboard')
 
     // TODO async wait and then check
     // if (this.props.user.token !== ''){
@@ -62,10 +64,10 @@ export class ModalComponent extends React.Component {
     // }
   }
 
-    sendSignupRequest = (data) => {
-      this.props.onSignupSubmit(data)
-      this.props.hide()
-      //this.context.router.push('/dashboard')
+  sendSignupRequest = (data) => {
+    this.props.onSignupSubmit(data)
+    this.props.hide()
+      // this.context.router.push('/dashboard')
 
       // TODO async wait and then check
       // if (this.props.user.token !== ''){
@@ -74,23 +76,15 @@ export class ModalComponent extends React.Component {
       // } else {
       //     this.showError()
       // }
-    }
+  }
 
-  render () {
-    const styles = {
-      headline: {
-        fontSize: 24,
-        paddingTop: 16,
-        marginBottom: 12,
-        fontWeight: 400
-      }
-    }
+  render() {
     const buttonStyle = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       marginLeft: '10%',
-      marginRight: '10%'
+      marginRight: '10%',
     }
     const customContentStyle = {
       padding: 2,
@@ -116,20 +110,17 @@ export class ModalComponent extends React.Component {
       width: '100%',
       margin: 0,
     }
-    const dialogRootStyle = {
-      overflowY: 'scroll',
-    }
     const tabItemContainerStyle = {
       backgroundColor: '#26A65B',
       fontWeight: 'bold',
     }
     const inkBarStyle = {
-      backgroundColor: '#446CB3'//temporary color
+      backgroundColor: '#446CB3', // temporary color
     }
 
     const labelStyle = {
       color: 'white',
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     }
 
     const errorTextHiddenStyle = {
@@ -137,7 +128,7 @@ export class ModalComponent extends React.Component {
       color: 'red',
       fontWeight: 'bold',
       textAlign: 'center',
-      marginTop: '3%'
+      marginTop: '3%',
     }
 
     const errorTextShownStyle = {
@@ -145,19 +136,19 @@ export class ModalComponent extends React.Component {
       color: 'red',
       fontWeight: 'bold',
       textAlign: 'center',
-      marginTop: '3%'
+      marginTop: '3%',
     }
 
     const mainComponentStyle = {
 
       position: 'absolute',
-      marginTop: '-10%'
+      marginTop: '-10%',
 
     }
 
     const actions = [
       <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
-        <Tab label='Einloggen' >
+        <Tab label="Einloggen" >
           <div>
             <LoginFields
               ref="loginForm"
@@ -170,41 +161,46 @@ export class ModalComponent extends React.Component {
             Falsche Email oder Kennwort
           </div>
           <div style={buttonStyle}>
-          <br/>
-          <RaisedButton
+            <br />
+            <RaisedButton
             // TODO disabled={submitting}
-            type='submit'
-            label='Einloggen'
-            primary={false}
-            backgroundColor='#446CB3'
-            fullWidth={true}
-            labelStyle={labelStyle}
-            onTouchTap={this.confirmLogin}
+              type="submit"
+              label="Einloggen"
+              primary={false}
+              backgroundColor="#446CB3"
+              fullWidth
+              labelStyle={labelStyle}
+              onTouchTap={this.confirmLogin}
             />
-        </div>
-        <br/>
-        </Tab>
-        <Tab label='Registrieren' >
-          <div>
-            <SignupFields ref="signupForm" onSubmit={this.sendSignupRequest} universities={this.props.universities}
-              confirm={this.confirmSignup} />
           </div>
-          {/*<div ref="signupErrorText">
+          <br />
+        </Tab>
+        <Tab label="Registrieren" >
+          <div>
+            <SignupFields
+              ref="signupForm"
+              onSubmit={this.sendSignupRequest}
+              universities={this.props.universities}
+              confirm={this.confirmSignup}
+            />
+          </div>
+          {/* <div ref="signupErrorText">
             Falsche Email oder Kennwort
           </div>*/}
           <div style={buttonStyle}>
             <RaisedButton
-              label='Registrieren'
-              type='submit'
+              label="Registrieren"
+              type="submit"
               primary={false}
-              backgroundColor='#446CB3'
-              fullWidth={true}
+              backgroundColor="#446CB3"
+              fullWidth
               labelStyle={labelStyle}
-              onTouchTap={this.confirmSignup} />
+              onTouchTap={this.confirmSignup}
+            />
           </div>
-          <br/>
+          <br />
         </Tab>
-      </Tabs>
+      </Tabs>,
     ]
     return (
       <div>
@@ -217,46 +213,44 @@ export class ModalComponent extends React.Component {
           titleStyle={customContentStyleTwo}
           contentStyle={customContentStyleThree}
           bodyStyle={customContentStyleFour}
-          repositionOnUpdate={true}
-          style = {mainComponentStyle}
-          //style={dialogRootStyle}
-          />
+          repositionOnUpdate
+          style={mainComponentStyle}
+        />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    modal: state.modal,
-    user: state.user,
-    router: state.router,
-    universities: selectors.getUniversitiesWithPrograms(state),
-    loginErr: selectors.getRequest(state, 'LOGIN_ERR'),
-    signupErr: selectors.getRequest(state, 'SIGNUP_ERR')
-  }
-}
+const mapStateToProps = (state) => ({
+  modal: state.modal,
+  user: state.user,
+  router: state.router,
+  universities: selectors.getUniversitiesWithPrograms(state),
+  loginErr: selectors.getRequest(state, 'LOGIN_ERR'),
+  signupErr: selectors.getRequest(state, 'SIGNUP_ERR'),
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    hide: () => {
-      dispatch(hide('LOGIN_MODAL'))
-      dispatch(removeRequest('LOGIN_ERR'))
-    },
-    onLoginSubmit: values => {
-      dispatch(login(values.email, values.password))
-    },
-    onSignupSubmit: values => {
-      dispatch(createUser(
-        values.firstname, values.lastname, values.email,
-        values.password, 'student', values.university, values.program,
-      ))
-    },
-    push: path => dispatch(push(path)),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  hide: () => {
+    dispatch(hide('LOGIN_MODAL'))
+    dispatch(removeRequest('LOGIN_ERR'))
+  },
+  onLoginSubmit: values => {
+    dispatch(login(values.email, values.password))
+  },
+  onSignupSubmit: values => {
+    dispatch(createUser(
+      values.firstname, values.lastname, values.email,
+      values.password, 'student', values.university, values.program,
+    ))
+  },
+  push: path => dispatch(push(path)),
+})
+
+ModalComponent.propTypes = propTypes
+ModalComponent.contextTypes = contextTypes
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ModalComponent)

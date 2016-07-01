@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import CreateCourseModal from './CreateCourseModal'
 import ModalComponent from './ModalComponent'
 import AddQuestionModal from './AddQuestionModal'
@@ -15,23 +14,29 @@ The answer is by Dan Abromov himself
 */
 
 const MODAL_COMPONENTS = {
-  'CREATE_COURSE_MODAL': CreateCourseModal,
-  'LOGIN_MODAL': ModalComponent,
-  'ADD_QUESTION_MODAL': AddQuestionModal,
-  'ADD_PACKAGE_MODAL': AddPackageModal,
-  'ADD_MATERIAL_MODAL': AddMaterialModal,
-  'ADD_BOOKMARK_MODAL': AddBookmarkModal
+  CREATE_COURSE_MODAL: CreateCourseModal,
+  LOGIN_MODAL: ModalComponent,
+  ADD_QUESTION_MODAL: AddQuestionModal,
+  ADD_PACKAGE_MODAL: AddPackageModal,
+  ADD_MATERIAL_MODAL: AddMaterialModal,
+  ADD_BOOKMARK_MODAL: AddBookmarkModal,
+}
+
+const propTypes = {
+  location: PropTypes.object,
+  modalType: PropTypes.string,
 }
 
 const ModalRoot = ({ modalType, location }) => {
   if (!modalType) {
     return <span /> // after React v15 you can return null here
   }
-  console.log(modalType)
 
   const SpecificModal = MODAL_COMPONENTS[modalType]
-  return <SpecificModal location={location}/>
+  return <SpecificModal location={location} />
 }
+
+ModalRoot.propTypes = propTypes
 
 export default connect(
   state => state.modal

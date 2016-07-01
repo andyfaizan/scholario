@@ -1,2 +1,2 @@
-import FeedbackFormForm from './FeedbackFormForm'
-export default FeedbackFormForm
+import FeedbackForm from './FeedbackForm'
+export default FeedbackForm
