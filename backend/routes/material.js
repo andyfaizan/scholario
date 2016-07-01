@@ -99,9 +99,9 @@ router.delete('/:mid', passport.authenticate('jwt', {session: false}), function 
   });
 });
 
-router.put(':mid/rename', passport.authenticate('jwt', {session: false}),function (req,res) {
+router.put('/:mid/rename', passport.authenticate('jwt', {session: false}),function (req,res) {
   req.checkParams('mid','InvalidMaterialId').notEmpty().isMongoId();
-  if(req.body.name) req.checkBody('name','InvalidName').notEmpty();
+  req.checkBody('name','InvalidName').notEmpty();
 
   var errors = req.validationErrors();
   if (errors) {
@@ -111,29 +111,26 @@ router.put(':mid/rename', passport.authenticate('jwt', {session: false}),functio
   }
 
   co(function *() {
-    var material = yield Material.findOne({_id: req.params.mid });
+    var material = yield Material.findOne({_id: req.params.mid }).select('name pkg').populate({ path: 'pkg', select: 'owner' });
     if (!material) {
       return res.status(404).json({
         err: [{ msg: 'MaterialNotFound' }],
       });
     }
-
-    if (req.body.name) {
-      if(material.pkg.owner !== req.user.id) {
-        res.status*(401).json({
-          err: [{ msg: 'PermissionDenied' }],
-        })
-      }
-      else {
-        material.name = req.body.name;
-      }
-      material = yield material .save();
-
-      return res.status(200).json({
-        _id: material._id,
-        name: material.name,
-      });
+    if(material.pkg.owner != req.user.id) {
+      res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
+      })
     }
+    else {
+      material.name = req.body.name;
+    }
+    material = yield material .save();
+
+    return res.status(200).json({
+      _id: material._id,
+      name: material.name,
+    });
   })
 })
 
