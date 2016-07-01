@@ -1,0 +1,15 @@
+{
+    "extends": "airbnb-base/legacy",
+    "plugins": [
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6
+    },
+    "rules": {
+      "indent": ["error", 2],
+      "max-len": [2, 120, 2],
+      "no-underscore-dangle": ["error", { "allow": [ "_id" ] }],
+      "comma-dangle": ["error", "always-multiline"],
+      "no-multi-str": 0
+    }
+}

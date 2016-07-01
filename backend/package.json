@@ -13,6 +13,9 @@
   "author": "Scholario Team",
   "license": "ISC",
   "homepage": "https://bitbucket.org/scholario/first-repo#readme",
+  "scripts": {
+    "lint": "eslint -c .eslintrc.json ."
+  },
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "bcrypt": "^0.8.5",
@@ -36,6 +39,9 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-plugin-import": "^1.10.0",
     "mocha": "^2.4.5",
     "morgan": "^1.7.0",
     "should": "^8.3.0",
