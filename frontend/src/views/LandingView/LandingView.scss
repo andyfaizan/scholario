@@ -1,5 +1,5 @@
 .landing {
-   background-color: #FBF6EC;
+  background-color: #FBF6EC;
 }
 .container {
   font-weight: bold;
@@ -15,46 +15,53 @@
 }
 
 .footer {
-    font-size: 20px;
-    background-color: #FBF6EC;
-    color: #FFFFFF;
-    height: 10%;
+  font-size: 20px;
+  background-color: #FBF6EC;
+  color: #FFFFFF;
+  height: 10%;
 }
 
 .dash {
   display: block;
   width: 100%;
-
 }
 
 a:link {
-   background-color: rebeccapurple;
+  background-color: rebeccapurple;
 }
 
 .courseErstellen {
-  background-color:#3557A4;
-  color:white;
+  background-color: #3557A4;
+  color: white;
 }
 
 .onlineCourseImage {
-  background-color:#F9F9F9;
+  background-color: #F9F9F9;
 }
 
 .courseErleben {
-  background-color:#3557A4;
-  color:white;
+  background-color: #3557A4;
+  color: white;
 }
 
 .onlineCourseLernenImage {
-background-color:#F9F9F9;
+  background-color: #F9F9F9;
 }
 
 .comingSoon {
-  background-color:#3557A4;
-  color:white;
+  background-color: #3557A4;
+  color: white;
 }
 
 .addContactForm { 
-  background-color:#F9F9F9;
+  background-color: #F9F9F9;
 
+}
+
+.style {
+  height: 100;
+  width: 100;
+  margin: 20;
+  text-align: center;
+  display: inline-block;
 }

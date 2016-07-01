@@ -1,65 +1,55 @@
 import React from 'react'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
-import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import SetForgotPasswordForm from '../../forms/SetForgotPasswordForm/SetForgotPasswordForm'
 import classes from './LandingView.scss'
 import Divider from 'material-ui/Divider'
 import BonnRhein from './Main.png'
 
-type Props = {
+const propTypes = {
 
-};
-export class LandingView extends React.Component {
+}
 
-  render () {
-    
-    const style = {
-      height: '100',
-      width: '100',
-      margin: '20',
-      textAlign: 'center',
-      display: 'inline-block'
-    }
-
-    return (
-      <div>
+function LandingView() {
+  return (
+    <div>
       <div className={classes.landing}>
         <div>
           <NavBarLandingPage />
         </div>
-         <div className={classes.container}>
-           <img className={classes.dash}
-              src={BonnRhein}
-              alt='No Net.' />
-
+        <div className={classes.container}>
+          <img
+            className={classes.dash}
+            src={BonnRhein}
+            alt="No Net."
+          />
         </div>
         <div className={classes.courseErstellen}>
-         Kurse erstellen
-        </div>  
+          Kurse erstellen
+        </div>
         <div className={classes.onlineCourseImage}>
-        dasdsadsa
+          dasdsadsa
         </div>
         <div className={classes.courseErleben}>
-        Kurse erleben
+          Kurse erleben
         </div>
         <div className={classes.onlineCourseLernenImage}>
-        dsadsasad
+          dsadsasad
         </div>
         <div className={classes.comingSoon}>
-        Coming Soon
+          Coming Soon
         </div>
         <div className={classes.addContactForm}>
-        dsada
+          dsada
         </div>
         <Divider />
       </div>
       <div className={classes.footer}>
-          <FooterLanding />
+        <FooterLanding />
       </div>
-      </div>
-    )
-  }
+    </div>
+  )
 }
+
+LandingView.propTypes = propTypes
 
 export default LandingView
