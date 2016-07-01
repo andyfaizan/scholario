@@ -1,28 +1,19 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const co = require('co');
 const logger = require('../logger');
-const utils = require('../utils');
-const User = mongoose.model('User');
 const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
-const CourseInstance = mongoose.model('CourseInstance');
-const Pkg = mongoose.model('Pkg');
-const Material = mongoose.model('Material');
 
 var router = express.Router();
 
-
-
-router.get('/:aid/vote', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:aid/vote', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('aid', 'InvalidAnswerId').notEmpty().isMongoId();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -33,7 +24,7 @@ router.get('/:aid/vote', passport.authenticate('jwt', {session: false}), functio
       });
     }
 
-    for (var i = 0; i < answer.votes.length; i++) {
+    for (let i = 0; i < answer.votes.length; i++) {
       if (answer.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
           _id: answer._id,
@@ -41,7 +32,7 @@ router.get('/:aid/vote', passport.authenticate('jwt', {session: false}), functio
         });
       }
     }
-    answer.votes.push({ user: req.user._id, voteDate: Date.now() })
+    answer.votes.push({ user: req.user._id, voteDate: Date.now() });
     answer.save();
 
     return res.json({
@@ -55,20 +46,20 @@ router.get('/:aid/vote', passport.authenticate('jwt', {session: false}), functio
   });
 });
 
-router.post('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.post('/', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkBody('question', 'Invalide question').notEmpty().isMongoId();
   req.checkBody('content', 'Invalid content').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
-  var answer = new Answer({
+  let answer = new Answer({
     content: req.body.content,
-    //question: req.params.qid,
+    // question: req.params.qid,
     user: req.user,
   });
   answer.save();
@@ -85,7 +76,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   }).then(function (question) {
     return res.status(201).json({
       _id: question._id,
-      answers: question.answers
+      answers: question.answers,
     });
   }).catch(function (err) {
     logger.error(err);
@@ -95,13 +86,13 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   });
 });
 
-router.delete('/:aid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:aid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('aid', 'InvalidAnswerId').notEmpty().isMongoId();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -129,14 +120,14 @@ router.delete('/:aid', passport.authenticate('jwt', {session: false}), function 
   });
 });
 
-router.put('/:aid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.put('/:aid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('aid', 'InvalidAnswerId').notEmpty().isMongoId();
   if (req.body.content) req.checkBody('content', 'InvalidContent').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -169,4 +160,4 @@ router.put('/:aid', passport.authenticate('jwt', {session: false}), function (re
 });
 
 
-module.exports = router
+module.exports = router;
