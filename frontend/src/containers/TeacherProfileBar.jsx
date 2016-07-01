@@ -13,8 +13,9 @@ import { putUser, PUT_USER_OK, PUT_USER_ERR } from '../redux/modules/user'
 const propTypes = {
   firstNameUser: PropTypes.string,
   lastNameUser: PropTypes.string,
+  bio: PropTypes.string,
   universityName: PropTypes.string,
-  programmeName: PropTypes.number,
+  programeName: PropTypes.string,
   imageUrl: PropTypes.string,
   shortInformation: PropTypes.string,
   putUserOk: PropTypes.string,
@@ -22,13 +23,15 @@ const propTypes = {
   dispatch: PropTypes.func,
 }
 
-function TeacherProfileBar({ putUserOk, putUserErr }) {
-  const cardTitle = `${this.props.firstNameUser}  ${this.props.lastNameUser}`
-  const cardSubtitle = `${this.props.universityName} (${this.props.programeName})`
-  const shortInformation = this.props.bio
+function TeacherProfileBar({
+  putUserOk, putUserErr, firstNameUser, lastNameUser, bio,
+  universityName, programeName, dispatch }) {
+  const cardTitle = `${firstNameUser}  ${lastNameUser}`
+  const cardSubtitle = `${universityName} (${programeName})`
+  const shortInformation = bio
 
   let nameInitial = ''
-  if (this.props.firstNameUser) nameInitial = this.props.firstNameUser[0]
+  if (firstNameUser) nameInitial = firstNameUser[0]
 
   let changePasswordFeedback = -1
   if (putUserOk) changePasswordFeedback = 0
@@ -49,7 +52,7 @@ function TeacherProfileBar({ putUserOk, putUserErr }) {
         <CardText expandable>
           {shortInformation}
           <ChangePasswordForm
-            onSubmit={(data) => this.props.dispatch(putUser('', '', '', data.password))}
+            onSubmit={(data) => dispatch(putUser('', '', '', data.password))}
             feedbackTrue={changePasswordFeedback}
           />
         </CardText>

@@ -1,11 +1,22 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router-redux'
+import { Link } from 'react-router'
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import PageView from 'material-ui/svg-icons/action/pageview'
 import LibraryAdd from 'material-ui/svg-icons/av/library-add'
 import classes from './CourseCard.scss'
+
+
+const propTypes = {
+  titleCourse: PropTypes.string,
+  universityCourse: PropTypes.string,
+  courseTeacher: PropTypes.string,
+  notifications: PropTypes.number,
+  courseUrl: PropTypes.string,
+  onClickFollow: PropTypes.func,
+  following: PropTypes.bool,
+}
 
 function CourseCard({
   titleCourse, universityCourse, courseTeacher,
@@ -42,7 +53,7 @@ function CourseCard({
   )
 
   const heading = (
-    <div key="headingCourses" style={classes.divStyle}>
+    <div key="headingCourses" className={classes.divStyle}>
       <h4>{titleCourse}</h4>
       <div className={classes.badge}>
       {/* <Badge
@@ -82,14 +93,6 @@ function CourseCard({
   )
 }
 
-CourseCard.propTypes = {
-  titleCourse: PropTypes.string,
-  universityCourse: PropTypes.string,
-  courseTeacher: PropTypes.string,
-  notifications: PropTypes.number,
-  courseUrl: PropTypes.string,
-  onClickFollow: PropTypes.func,
-  following: PropTypes.bool,
-}
+CourseCard.propTypes = propTypes
 
 export default CourseCard

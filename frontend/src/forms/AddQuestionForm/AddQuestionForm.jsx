@@ -3,7 +3,7 @@ import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import classes from './AddQuestionForm.scss'
 import MenuItem from 'material-ui/MenuItem'
-import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
+import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
 // Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
 export const fields = ['title', 'description', 'courseInstance', 'pkg', 'material']
 

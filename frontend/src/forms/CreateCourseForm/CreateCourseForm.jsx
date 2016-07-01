@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 import classes from './CreateCourseForm.scss'
 import TextField from 'material-ui/TextField'
-import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper.js'
+import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
 import MenuItem from 'material-ui/MenuItem'
 
 export const fields = ['course', 'teacher', 'assistant', 'semester',
