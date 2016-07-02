@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const co = require('co');
@@ -13,7 +13,6 @@ const logger = require('../logger');
 const User = mongoose.model('User');
 
 var router = express.Router();
-
 
 
 /**
@@ -58,15 +57,15 @@ router.post('/login', function (req, res) {
   req.checkBody('email', 'InvalidEmail').notEmpty().isEmail();
   req.checkBody('password', 'InvalidPassword').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      'err': errors
+      err: errors,
     });
   }
 
   co(function *() {
-    var user = yield User.findOne({ 'email': req.body.email })
+    var user = yield User.findOne({ email: req.body.email })
                     .populate([{
                       path: 'universities',
                       select: 'id name',
@@ -77,11 +76,11 @@ router.post('/login', function (req, res) {
 
     if (!user) {
       return res.status(404).json({
-        err: [{msg: 'UserNotFound'}],
+        err: [{ msg: 'UserNotFound' }],
       });
     }
     user = yield user.authenticate(req.body.password);
-    var courseInstances = yield user.getCourseInstances({
+    const courseInstances = yield user.getCourseInstances({
       select: 'id prof course semester',
       populate: [{
         path: 'course',
@@ -108,7 +107,7 @@ router.post('/login', function (req, res) {
       limit: 5,
     });
 
-    var questions = yield user.getQuestions({
+    const questions = yield user.getQuestions({
       populate: [{
         path: 'user',
         select: 'id firstname lastname',
@@ -118,7 +117,7 @@ router.post('/login', function (req, res) {
       limit: 5,
     });
 
-    var followings = yield user.getFollowings({
+    const followings = yield user.getFollowings({
       populate: [{
         path: 'program',
         select: 'id name university degree',
@@ -134,11 +133,11 @@ router.post('/login', function (req, res) {
       limit: 5,
     });
 
-    var token = jwt.sign({'sub': user.email, 'role': user.role}, config.secret, {
-      expresInMinutes: 1440
+    const token = jwt.sign({ sub: user.email, role: user.role }, config.secret, {
+      expresInMinutes: 1440,
     });
 
-    var data = {
+    const data = {
       user: {
         token: token,
         _id: user._id,
@@ -158,15 +157,15 @@ router.post('/login', function (req, res) {
     if (err.message === 'User/Password incorrect.') {
       return res.status(401).json({
         err: [{
-          msg: 'UserOrPassIncorrect'
-        }]
+          msg: 'UserOrPassIncorrect',
+        }],
       });
     } else {
       logger.error(err);
       return res.status(500).json({
         err: [{
           msg: 'InternalError',
-        }]
+        }],
       });
     }
   });
@@ -175,17 +174,17 @@ router.post('/login', function (req, res) {
 router.post('/forgot-password', function (req, res) {
   req.checkBody('email', 'Invalid email').notEmpty().isEmail();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
-  User.findOne({ 'email': req.body.email }).then(function (user) {
+  User.findOne({ email: req.body.email }).then(function (user) {
     if (!user) {
       return res.json({
-        err: [{ msg: 'Email is wrong.'}],
+        err: [{ msg: ' Email is wrong.' }],
       });
     }
 
