@@ -21,10 +21,74 @@ const propTypes = {
 function MaterialComponent({
   materialTitle, keywords, dateUploaded, pkgUrl,
   user, owner, onClickDeletePkg }) {
-  let container
+  const styles = {
+    baseStyle: {
+      float: 'left',
+      width: '220px',
+      margin: '8.5px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      position: 'absolute',
+      alignItems: 'center',
+      borderBottomLeftRadius: '30px',
+      borderBottomRightRadius: '30px',
+    }, 
+    style: {
+      height: '172px',
+    },
+    styleTwo: {
+      height: '30px',
+      marginTop: '150px',
+      marginLeft: '-229px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+    },
+    styleThree: {
+      height: '30px',
+      marginTop: '144px',
+      marginLeft: '-229px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+    },
+    styleFour: {
+      height: '80px',
+      marginTop: '8px',
+      marginLeft: '-229px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      opacity: '1.0',
+    },
+    styleFive: {
+      height: '30px',
+      marginTop: '148px',
+      marginLeft: '-229px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+    },
+    styleSix: {
+      height: '30px',
+      marginTop: '147px',
+      marginLeft: '-229px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+    },
+    divStyle: {
+      textAlign: 'center',
+      color: '#ffffff',
+      marginLeft: '5px',
+      marginTop: '-7px',
+      opacity: 0.9,
+    },
+  }
 
+  let container
   const heading = (
-    <div key="headingIndependentPackage" className={classes.divStyle}>
+    <div key="headingIndependentPackage" style={styles.divStyle}>
       <h5>{materialTitle}</h5>
       <h5>{dateUploaded}</h5>
     </div>
@@ -108,13 +172,13 @@ function MaterialComponent({
 
   return (
     <div>
-      <Paper className={classes.style} zDepth={2} children={nodePaperCourse} />
+      <Paper style={Object.assign({}, styles.baseStyle, styles.style)} zDepth={2} children={nodePaperCourse} />
       <Link to={pkgUrl}>
-        <Paper className={classes.styleTwo} zDepth={0} />
-        <Paper className={classes.styleFive} zDepth={0} />
-        <Paper className={classes.styleSix} zDepth={0} />
-        <Paper className={classes.styleThree} zDepth={0} />
-        <Paper className={classes.styleFour} zDepth={5} children={nodeFileClipper} />
+        <Paper style={Object.assign({}, styles.baseStyle, styles.styleTwo)} zDepth={0} />
+        <Paper style={Object.assign({}, styles.baseStyle, styles.styleFive)} zDepth={0} />
+        <Paper style={Object.assign({}, styles.baseStyle, styles.styleSix)} zDepth={0} />
+        <Paper style={Object.assign({}, styles.baseStyle, styles.styleThree)} zDepth={0} />
+        <Paper style={Object.assign({}, styles.baseStyle, styles.styleFour)} zDepth={5} children={nodeFileClipper} />
       </Link>
     </div>
   )

@@ -21,15 +21,15 @@ const validate = (values) => {
 const propTypes = {
   handleSubmit: PropTypes.func,
   fields: PropTypes.object,
+  feedbackTrue: PropTypes.number,
 }
 
 const defaultProps = {
   fields: {},
 }
 
-function ChangePassword({ fields: { password }, handleSubmit }) {
+function ChangePassword({ fields: { password }, handleSubmit, feedbackTrue }) {
   let feedbackMessage
-  const feedbackTrue = this.props.feedbackTrue
 
   if (feedbackTrue === 0) {
     feedbackMessage = <div className={classes.error}>Es gibt einen Fehler</div>

@@ -21,7 +21,34 @@ const propTypes = {
 function CourseCard({
   titleCourse, universityCourse, courseTeacher,
   following, courseUrl, onClickFollow }) {
-  // Variables for displaying Child Node
+  const styles = {
+    style: {
+      float: 'left',
+      height: '170px',
+      width: '300px',
+      margin: '8.5px',
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: '13px',
+      overflow: 'inherit',
+    },
+    contentStyle: {
+      float: 'left',
+      width: '300px',
+      height: '130px',
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: '13px',
+    },
+    actionStyle: {
+      float: 'left',
+      width: '300px',
+      backgroundColor: '#446CB3',
+      color: 'white',
+      borderRadius: '13px',
+    },
+  }
+
   const actionsCourse = (
     <div key="actionCourseDiv" className={classes.actionMain} >
       <div className={classes.actionFollow} >
@@ -83,11 +110,11 @@ function CourseCard({
 
   return (
     <div>
-      <Paper className={classes.style} zDepth={1}>
+      <Paper style={styles.style} zDepth={1}>
         <Link to={courseUrl}>
-          <Paper className={classes.contentStyle} zDepth={0} children={nodePaperCourse} />
+          <Paper style={styles.contentStyle} zDepth={0} children={nodePaperCourse} />
         </Link>
-        <Paper className={classes.actionStyle} zDepth={0} children={cardActions} />
+        <Paper style={styles.actionStyle} zDepth={0} children={cardActions} />
       </Paper>
     </div>
   )
