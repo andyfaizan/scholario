@@ -28,7 +28,7 @@ function DashboardTitleComponent({ role, openModal, modal, courseModal }) {
           floatingLabelText= {floatingLabelTextState}
           filter={AutoComplete.caseInsensitiveFilter}
           dataSource={filterDataSource}
-          //style={classes.autoComplete}
+          //className={classes.autoComplete}
           />
         </div>*/}
         {addCourse}

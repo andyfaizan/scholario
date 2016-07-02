@@ -24,7 +24,7 @@ function CourseInfoBar({
     courseName = `${courseTitle} :`
     displayPkg = (
       <div className={classes.pkgName}>
-        <FlatButton label={labelForPkgName} labelStyle={classes.titleStyle} primary={false} />
+        <FlatButton label={labelForPkgName} className={classes.titleStyle} primary={false} />
       </div>
     )
   } else {
@@ -36,11 +36,11 @@ function CourseInfoBar({
   return (
     <div>
       <Card>
-        <Toolbar style={classes.toolbarStyle} >
+        <Toolbar className={classes.toolbarStyle} >
           <ToolbarGroup float="left">
             <FlatButton
               containerElement={<Link to={courseUrl} />}
-              labelStyle={classes.titleStyle}
+              className={classes.titleStyle}
               label={courseName}
               primary={false}
             />
@@ -52,7 +52,7 @@ function CourseInfoBar({
           subtitle={semesterInstance}
           actAsExpander
           showExpandableButton
-          style={classes.text}
+          className={classes.text}
           titleColor="#26A65B"
         />
         <Divider />

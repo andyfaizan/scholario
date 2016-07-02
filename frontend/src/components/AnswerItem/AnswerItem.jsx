@@ -49,10 +49,14 @@ export class AnswerItem extends React.Component {
     const nodeHeader = []
 
     if (answer && question && question.approvedAnswer && question.approvedAnswer === answer._id) {
-      nodeHeader.push(<Avatar key="approvedAnswerBadge" style={classes.teacherVerify} backgroundColor="grey">T</Avatar>)
+      nodeHeader.push(
+        <Avatar key="approvedAnswerBadge" className={classes.teacherVerify} backgroundColor="grey">
+          T
+        </Avatar>
+      )
     }
     if (answer && question && question.bestAnswer && question.bestAnswer === answer._id) {
-      nodeHeader.push(<Avatar key="bestAnswerBadge" style={classes.studentVerify} backgroundColor="grey">S</Avatar>)
+      nodeHeader.push(<Avatar key="bestAnswerBadge" className={classes.studentVerify} backgroundColor="grey">S</Avatar>)
     }
 
     let actions = []
@@ -61,14 +65,14 @@ export class AnswerItem extends React.Component {
         <FlatButton
           key="answerEditingButton" label="Antwort bearbeiten" linkButton
           onTouchTap={onClickEditAnswer} hoverColor="#26A65B"
-          style={classes.buttonStyle} rippleColor="#ffffff" icon={<Edit />}
+          className={classes.buttonStyle} rippleColor="#ffffff" icon={<Edit />}
         />
       )
       actions.push(
         <FlatButton
           key="answerDeletingButton" label="Antwort löschen" linkButton
           onTouchTap={onClickDelAnswer} hoverColor="#26A65B"
-          style={classes.buttonStyle} rippleColor="#ffffff" icon={<Delete />}
+          className={classes.buttonStyle} rippleColor="#ffffff" icon={<Delete />}
         />
       )
     }
@@ -76,7 +80,7 @@ export class AnswerItem extends React.Component {
       actions.push(
         <FlatButton
           key="bestAnswerButton" label="gute Antwort" linkButton
-          onTouchTap={onClickBestAnswer} hoverColor="#26A65B" style={classes.buttonStyle} rippleColor="#ffffff"
+          onTouchTap={onClickBestAnswer} hoverColor="#26A65B" className={classes.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -85,7 +89,7 @@ export class AnswerItem extends React.Component {
       actions.push(
         <FlatButton
           key="answerApprovingButton" label="Antwort überprüfen" linkButton
-          onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" style={classes.buttonStyle} rippleColor="#ffffff"
+          onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" className={classes.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -121,10 +125,10 @@ export class AnswerItem extends React.Component {
             titleColor="#26A65B"
             children={childVars}
           />
-          <CardText style={classes.textStyle}>
+          <CardText className={classes.textStyle}>
             {this.props.answerText}
           </CardText>
-          <CardActions style={classes.actionPadding}>
+          <CardActions className={classes.actionPadding}>
             {actions}
           </CardActions>
         </Card>

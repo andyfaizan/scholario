@@ -67,7 +67,7 @@ export class AddMaterial extends React.Component {
         <div>
           <div>
             <Dropzone
-              {...files} style={classes.dropStyle} activeStyle={classes.activeStyle}
+              {...files} className={classes.dropStyle} activeStyle={classes.activeStyle}
               onDrop={
                 (filesToUpload) => {
                   uploadError = false

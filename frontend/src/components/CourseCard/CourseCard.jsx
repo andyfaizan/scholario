@@ -83,11 +83,11 @@ function CourseCard({
 
   return (
     <div>
-      <Paper style={classes.style} zDepth={1}>
+      <Paper className={classes.style} zDepth={1}>
         <Link to={courseUrl}>
-          <Paper style={classes.contentStyle} zDepth={0} children={nodePaperCourse} />
+          <Paper className={classes.contentStyle} zDepth={0} children={nodePaperCourse} />
         </Link>
-        <Paper style={classes.actionStyle} zDepth={0} children={cardActions} />
+        <Paper className={classes.actionStyle} zDepth={0} children={cardActions} />
       </Paper>
     </div>
   )

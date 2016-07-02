@@ -26,7 +26,7 @@ function ForgotPassword() {
               title="Passwort vergessen. Bitte geben Sie Ihre E-Mail Addresse"
               titleStyle={classes.titleStyle}
               titleColor="#26A65B"
-              avatar={<LiveHelp style={classes.iconStyle} />}
+              avatar={<LiveHelp className={classes.iconStyle} />}
             />
             <Divider />
             <CardText>

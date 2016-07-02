@@ -49,7 +49,7 @@ export class QuestionItem extends React.Component {
           primaryText={this.props.questionStatement}
           secondaryText={secondaryText}
           innerDivStyle={{ color: '#26A65B' }}
-          style={classes.border}
+          className={classes.border}
           disabled={this.props.listItemClickable}
           rightAvatar={
             <div className={classes.avatar}>

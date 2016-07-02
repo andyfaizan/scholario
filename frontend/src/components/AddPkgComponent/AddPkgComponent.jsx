@@ -9,8 +9,8 @@ import { ADD_PACKAGE_MODAL as addPkgModalAction } from '../../redux/modules/moda
 function AddPkgComponent({ modal, show }) {
   // Variables for displaying Child Node
   const heading = (
-    <div key="headingIndependentPackage" style={classes.divStyle}>
-      <AddCircle style={classes.plusButton} color="#ffffff" />
+    <div key="headingIndependentPackage" className={classes.divStyle}>
+      <AddCircle className={classes.plusButton} color="#ffffff" />
     </div>
   )
 
@@ -26,13 +26,13 @@ function AddPkgComponent({ modal, show }) {
   return (
     <div>
       <div>
-        <Paper style={classes.style} zDepth={2} />
-        {/* <Paper style={classes.styleTwo} zDepth={0}  />
-            <Paper style={classes.styleFive} zDepth={0}  />
-            <Paper style={classes.styleSix} zDepth={0}  />
-            <Paper style={classes.styleThree} zDepth={0}  /> */}
+        <Paper className={classes.style} zDepth={2} />
+        {/* <Paper className={classes.styleTwo} zDepth={0}  />
+            <Paper className={classes.styleFive} zDepth={0}  />
+            <Paper className={classes.styleSix} zDepth={0}  />
+            <Paper className={classes.styleThree} zDepth={0}  /> */}
         <Paper
-          style={classes.styleFour} zDepth={5}
+          className={classes.styleFour} zDepth={5}
           children={nodeFileClipper} onTouchTap={show}
         />
       </div>

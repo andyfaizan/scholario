@@ -17,6 +17,14 @@ const propTypes = {
 }
 
 function NewAnswerComp({ personWhoAnswered, user, courseInstance, onClickDelAnswer }) {
+  const styles = {
+    floatingLabel: {
+      color: '#26A65B',
+    },
+    underlineColor: {
+      borderColor: '#446CB3',
+    },
+  }
   const actions = []
   if (user && personWhoAnswered && user._id === personWhoAnswered._id) {
     actions.push(
@@ -48,17 +56,17 @@ function NewAnswerComp({ personWhoAnswered, user, courseInstance, onClickDelAnsw
         <CardHeader
           title={"Antwort"}
         />
-        <CardText style={classes.textStyle}>
+        <CardText className={classes.textStyle}>
           <TextField
             floatingLabelText="Deine Antwort"
             multiLine
             rows={2}
             fullWidth
-            floatingLabelStyle={classes.floatingLabel}
-            underlineFocusStyle={classes.underlineColor}
+            floatingLabelStyle={styles.floatingLabel}
+            underlineFocusStyle={styles.underlineColor}
           />
         </CardText>
-        <CardActions style={classes.actionPadding}>
+        <CardActions className={classes.actionPadding}>
           <FlatButton
             key="answerApprovingButton" label="Abschicken" linkButton
             hoverColor="#26A65B"

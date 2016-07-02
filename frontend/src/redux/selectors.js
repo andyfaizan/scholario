@@ -132,14 +132,14 @@ export const getUserQuestions = createSelector(
     .filter((question) => (user.courseInstances.indexOf(question.courseInstance) > -1))
 )
 
-const sortQuestionsByVote = new Function('a', 'b', `
+export function sortQuestionsByVote(a, b) {
   if (!a || !b) return -1
   if (a.votes.length > b.votes.length) return -1
   else if (a.votes.length < b.votes.length) return 1
   return sortQuestionsByDate(a, b)
-`)
+}
 
-const sortQuestionsByDate = (a, b) => {
+export function sortQuestionsByDate(a, b) {
   const c = moment(a.createDate)
   const d = moment(b.createDate)
   if (c.isAfter(d)) return -1

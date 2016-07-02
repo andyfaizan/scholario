@@ -8,15 +8,15 @@ import classes from './AddCourseComponent.scss'
 function AddCourseComponent({ modal, openModal, courseModal }) {
   const actions = (
     <div>
-      <IconButton disableTouchRipple style={classes.buttonStyle} tooltip="In Course">
-        <AddCircle style={classes.plusButton} color="#ffffff" />
+      <IconButton disableTouchRipple className={classes.buttonStyle} tooltip="In Course">
+        <AddCircle className={classes.plusButton} color="#ffffff" />
       </IconButton>
     </div>
   )
 
   return (
     <div>
-      <Paper style={classes.style} zDepth={2} onClick={openModal} children={actions} />
+      <Paper className={classes.style} zDepth={2} onClick={openModal} children={actions} />
       {modal.visible ? <ModalRoot {...courseModal} /> : null}
     </div>
   )

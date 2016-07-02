@@ -37,17 +37,17 @@ function RightSectionTeacherDashboard({
 
   return (
     <div>
-      <Card style={classes.border}>
+      <Card className={classes.border}>
         <CardText >
           <List>
-            <Subheader style={classes.subheader}>
+            <Subheader className={classes.subheader}>
               <IconButton
                 disableTouchRipple tooltip={allQuestionsTooltip}
-                style={classes.iconStyles} containerElement={<Link to={linkToQuestionsList} />}
+                className={classes.iconStyles} containerElement={<Link to={linkToQuestionsList} />}
               >
                 <ViewList color="#26A65B" />
               </IconButton>
-              <IconButton disableTouchRipple tooltip={askQuestion} style={classes.iconStyles} onTouchTap={show}>
+              <IconButton disableTouchRipple tooltip={askQuestion} className={classes.iconStyles} onTouchTap={show}>
                 <AddBox color="#26A65B" />
                 {addQuestionModal}
               </IconButton>
@@ -69,7 +69,7 @@ function RightSectionTeacherDashboard({
             </div>
           </List>
           <List>
-            <Subheader style={classes.subheader}> Neueste Fragen</Subheader>
+            <Subheader className={classes.subheader}> Neueste Fragen</Subheader>
             <div>
               {recentQuestions ? recentQuestions.map(question =>
                 <QuestionItem

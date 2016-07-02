@@ -109,7 +109,7 @@ export class SignupFields extends React.Component {
           />
           <SelectFieldWrapper
             {...university}
-            style={classes.blocking}
+            className={classes.blocking}
             floatingLabelText="Hochschule"
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}
@@ -121,7 +121,7 @@ export class SignupFields extends React.Component {
           </SelectFieldWrapper>
           <SelectFieldWrapper
             {...program}
-            style={classes.blocking}
+            className={classes.blocking}
             floatingLabelText="Program"
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}

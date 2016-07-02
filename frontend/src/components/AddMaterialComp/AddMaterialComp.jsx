@@ -8,7 +8,7 @@ import { ADD_MATERIAL_MODAL as addMaterialModalAction } from '../../redux/module
 function AddMaterialComp({ modal, show }) {
   const container = (
     <div key="IndependentPackage" className={classes.container}>
-      <AddCircle style={classes.plusButton} color="#ffffff" />
+      <AddCircle className={classes.plusButton} color="#ffffff" />
     </div>
   )
 
@@ -25,7 +25,7 @@ function AddMaterialComp({ modal, show }) {
     <div>
       <div>
         <Paper
-          style={classes.style} zDepth={2}
+          className={classes.style} zDepth={2}
           children={nodePaperCourse}onTouchTap={show}
         />
       </div>

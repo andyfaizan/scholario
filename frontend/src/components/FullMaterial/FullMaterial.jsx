@@ -90,7 +90,7 @@ const getFrame = (material) => {
   }
 
   if (fileType === 'image') {
-    return <img src={material.url} style={classes.mediaStyle} alt={material.name} />
+    return <img src={material.url} className={classes.mediaStyle} alt={material.name} />
   }
   if (fileType === 'av' && ReactPlayer.canPlay(material.url)) {
     return (
@@ -110,7 +110,7 @@ const getFrame = (material) => {
 
   return (
     <div>
-      <img src="https://placekitten.com/600/400" style={classes.mediaStyle} alt="Default" />
+      <img src="https://placekitten.com/600/400" className={classes.mediaStyle} alt="Default" />
       <Snackbar
         open
         message="Das Material kann leider nicht geöffnet werden"
@@ -145,7 +145,7 @@ const FullMaterial = ({
     <Grid fluid>
       <Row >
         <Col xs={16} md={8}>
-          <Card style={classes.previewStyle}>
+          <Card className={classes.previewStyle}>
             {getFrame(material)}
           </Card>
         </Col>

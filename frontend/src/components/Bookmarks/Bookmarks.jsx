@@ -34,14 +34,14 @@ function Bookmarks({ bookmarks, modal, show, onClickDeleteBookmark }) {
   }
   return (
     <div>
-      <Card style={classes.border}>
+      <Card className={classes.border}>
         <CardText >
           <List>
-            <Subheader style={classes.subheader}>
-              <IconButton disableTouchRipple tooltip={allBookmarks} style={classes.iconStyles}>
+            <Subheader className={classes.subheader}>
+              <IconButton disableTouchRipple tooltip={allBookmarks} className={classes.iconStyles}>
                 <ViewList color="#26A65B" />
               </IconButton>
-              <IconButton disableTouchRipple tooltip={allBookmarksAdd} style={classes.iconStyles} onTouchTap={show}>
+              <IconButton disableTouchRipple tooltip={allBookmarksAdd} className={classes.iconStyles} onTouchTap={show}>
                 <AddBox color="#26A65B" />
               </IconButton>
               Lesezeichen

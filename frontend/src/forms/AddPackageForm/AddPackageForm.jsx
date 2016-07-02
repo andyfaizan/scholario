@@ -51,7 +51,7 @@ export class AddPackage extends React.Component {
           <br />
           <SelectFieldWrapper
             {...courseInstance}
-            style={classes.blocking}
+            className={classes.blocking}
             floatingLabelText={courseLabel}
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}

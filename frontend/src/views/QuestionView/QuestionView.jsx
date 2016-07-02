@@ -120,7 +120,7 @@ export class Question extends React.Component {
     let actions = [
       <FlatButton
         key="questionAnsweringButton" label="Frage Beantworten" linkButton
-        onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={classes.buttonStyle}
+        onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" className={classes.buttonStyle}
         rippleColor="#ffffff" icon={<Reply />}
       />,
     ]
@@ -128,7 +128,7 @@ export class Question extends React.Component {
       <FlatButton
         key="go to related material view" label="Material anzeigen" linkButton
         onTouchTap={showMaterial} hoverColor="#26A65B"
-        style={classes.buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
+        className={classes.buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
       />
     )
     if (question.material) actions.push(showMaterialAction)
@@ -137,14 +137,14 @@ export class Question extends React.Component {
       actions.push(
         <FlatButton
           key="questionEditingButton" label="Frage bearbeiten" linkButton
-          hoverColor="#26A65B" style={classes.buttonStyle} rippleColor="#ffffff"
+          hoverColor="#26A65B" className={classes.buttonStyle} rippleColor="#ffffff"
         />
       )
       actions.push(
         <FlatButton
           key="questionDeletingButton" label="Frage löschen" linkButton
           onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack() }}
-          hoverColor="#26A65B" style={classes.buttonStyle} rippleColor="#ffffff"
+          hoverColor="#26A65B" className={classes.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -191,7 +191,7 @@ export class Question extends React.Component {
             <br />
             <Row>
               <Col xs={24} md={12}>
-                <Card style={classes.cardStyle}>
+                <Card className={classes.cardStyle}>
                   <QuestionItem
                     key={question._id}
                     listItemClickable={questionClickable}
@@ -202,10 +202,10 @@ export class Question extends React.Component {
                     onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
                     postedBy={question.user ? question.user.lastname : ''}
                   />
-                  <CardText style={classes.textStyle}>
+                  <CardText className={classes.textStyle}>
                     {question.description}
                   </CardText>
-                  <CardActions style={classes.actionPadding}>
+                  <CardActions className={classes.actionPadding}>
                     {actions}
                   </CardActions>
                 </Card>

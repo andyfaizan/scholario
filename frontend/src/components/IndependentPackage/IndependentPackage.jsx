@@ -37,7 +37,7 @@ function IndependentPackage({ materialTitle, materialUrl }) {
   const download = (
     <div>
       <div key="downloadKey" className={classes.downloadPkg}>
-        <a target="_blank" href={materialUrl} style={classes.linkStyle} ><FileDownload color="White" /></a>
+        <a target="_blank" href={materialUrl} className={classes.linkStyle} ><FileDownload color="White" /></a>
       </div>
       <div key="deleteKey" className={classes.deleteButton}>
         <IconButton tooltip="Pkg löschen">
@@ -53,9 +53,9 @@ function IndependentPackage({ materialTitle, materialUrl }) {
 
   return (
     <div>
-      <Paper style={classes.style} zDepth={2} />
-      <Paper style={classes.mainStyle} />
-      <Paper style={classes.linkContainerStyle} children={downloadAsChild} />
+      <Paper className={classes.style} zDepth={2} />
+      <Paper className={classes.mainStyle} />
+      <Paper className={classes.linkContainerStyle} children={downloadAsChild} />
     </div>
   )
 }

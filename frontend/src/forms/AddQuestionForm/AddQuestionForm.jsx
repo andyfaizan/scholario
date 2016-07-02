@@ -84,7 +84,7 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...courseInstance}
-            style={classes.blocking}
+            className={classes.blocking}
             floatingLabelText={courseLabel}
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}
@@ -95,7 +95,7 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...pkg}
-            style={classes.blocking}
+            className={classes.blocking}
             floatingLabelText={packageLabel}
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}
@@ -106,7 +106,7 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...material}
-            style={classes.blocking}
+            className={classes.blocking}
             floatingLabelText={materialLabel}
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}

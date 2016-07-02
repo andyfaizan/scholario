@@ -17,7 +17,7 @@ const propTypes = {
 function DashboardToolBar({ dispatch }) {
   const styles = {
     iconStyle: {
-      marginTop: '4',
+      marginTop: '4px',
     },
     titleStyle: {
       color: 'white',

@@ -25,7 +25,7 @@ function BookmarkItem({ bookmarkLabel, datePosted, bookmarkURL, postedBy, onClic
         primaryText={bookmarkLabel}
         secondaryText={secondaryText}
         innerDivStyle={{ color: '#26A65B' }}
-        style={classes.border}
+        className={classes.border}
         rightIconButton={
           <div>
             <IconButton disableTouchRipple onTouchTap={onClickDeleteBookmark}>

@@ -67,7 +67,7 @@ export class Pkg extends React.Component {
     )
 
     const heading = (
-      <div key="headingIndependentPackage" style={classes.divStyle}>
+      <div key="headingIndependentPackage" className={classes.divStyle}>
         {preparedIcon}
         <br />
         <h5>{this.getDateFromZulu(this.props.dateUploaded)}</h5>
@@ -91,7 +91,7 @@ export class Pkg extends React.Component {
         <div key="downloadKey" className={classes.downloadPkg}>
           <a
             target="_blank" href={this.props.materialUrl}
-            style={classes.linkStyle}
+            className={classes.linkStyle}
           >
             <FileDownload color="White" />
           </a>
@@ -125,10 +125,10 @@ export class Pkg extends React.Component {
     return (
       <div>
         <Link to={this.props.pkgUrl}>
-          <Paper style={classes.style} zDepth={3} children={nodePaperCourse} />
+          <Paper className={classes.style} zDepth={3} children={nodePaperCourse} />
         </Link>
-        <Paper style={classes.styleTwo} zDepth={0} children={action} />
-        <Paper style={classes.styleFour} zDepth={0} children={nodeFileClipper} />
+        <Paper className={classes.styleTwo} zDepth={0} children={action} />
+        <Paper className={classes.styleFour} zDepth={0} children={nodeFileClipper} />
       </div>
     )
   }

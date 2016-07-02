@@ -32,13 +32,13 @@ function NewAnswer({ fields: { content }, handleSubmit, onCancel }) {
     <div>
       <Card>
         <CardHeader
-          style={classes.cardHeaderStyle}
+          className={classes.cardHeaderStyle}
           title={'Frage beantworten'}
           titleColor="#26A65B"
           titleStyle={classes.cardHeaderTitleStyle}
         />
         <form onSubmit={handleSubmit}>
-          <CardText style={classes.textStyle}>
+          <CardText className={classes.textStyle}>
             <TextField
               {...content}
               floatingLabelText="Deine Antwort"
@@ -49,16 +49,16 @@ function NewAnswer({ fields: { content }, handleSubmit, onCancel }) {
               underlineFocusStyle={classes.underlineColor}
             />
           </CardText>
-          <CardActions style={classes.actionPadding}>
+          <CardActions className={classes.actionPadding}>
             <FlatButton
               label="Senden" linkButton
               onTouchTap={handleSubmit} hoverColor="#26A65B"
-              style={classes.buttonStyle} rippleColor="#ffffff"
+              className={classes.buttonStyle} rippleColor="#ffffff"
             />
             <FlatButton
               label="Abbrechen" linkButton
               onTouchTap={onCancel} hoverColor="#26A65B"
-              style={classes.buttonStyle} rippleColor="#ffffff"
+              className={classes.buttonStyle} rippleColor="#ffffff"
             />
           </CardActions>
         </form>

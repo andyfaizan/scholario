@@ -6,12 +6,25 @@ import { Link } from 'react-router'
 import classes from './MaterialComponent.scss'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
 
-function MaterialComponent({ materialTitle, keywords, dateUploaded, pkgUrl }) {
-  const { user, owner, onClickDeletePkg } = this.props
+
+const propTypes = {
+  materialTitle: PropTypes.string,
+  keywords: PropTypes.array,
+  dateUploaded: PropTypes.string,
+  materialNotifications: PropTypes.number,
+  pkgUrl: PropTypes.string,
+  user: PropTypes.object,
+  owner: PropTypes.string,
+  onClickDeletePkg: PropTypes.func,
+}
+
+function MaterialComponent({
+  materialTitle, keywords, dateUploaded, pkgUrl,
+  user, owner, onClickDeletePkg }) {
   let container
 
   const heading = (
-    <div key="headingIndependentPackage" style={classes.divStyle}>
+    <div key="headingIndependentPackage" className={classes.divStyle}>
       <h5>{materialTitle}</h5>
       <h5>{dateUploaded}</h5>
     </div>
@@ -39,7 +52,7 @@ function MaterialComponent({ materialTitle, keywords, dateUploaded, pkgUrl }) {
     container = (
       <div key="IndependentPackage">
         <div className={classes.container}>
-          {this.props.keywords}
+          {keywords}
         </div>
         <div className={classes.downloadMaterial}>
           <IconButton disableTouchRipple tooltip="Download-Paket">
@@ -95,27 +108,18 @@ function MaterialComponent({ materialTitle, keywords, dateUploaded, pkgUrl }) {
 
   return (
     <div>
-      <Paper style={classes.style} zDepth={2} children={nodePaperCourse} />
+      <Paper className={classes.style} zDepth={2} children={nodePaperCourse} />
       <Link to={pkgUrl}>
-        <Paper style={classes.styleTwo} zDepth={0} />
-        <Paper style={classes.styleFive} zDepth={0} />
-        <Paper style={classes.styleSix} zDepth={0} />
-        <Paper style={classes.styleThree} zDepth={0} />
-        <Paper style={classes.styleFour} zDepth={5} children={nodeFileClipper} />
+        <Paper className={classes.styleTwo} zDepth={0} />
+        <Paper className={classes.styleFive} zDepth={0} />
+        <Paper className={classes.styleSix} zDepth={0} />
+        <Paper className={classes.styleThree} zDepth={0} />
+        <Paper className={classes.styleFour} zDepth={5} children={nodeFileClipper} />
       </Link>
     </div>
   )
 }
 
-MaterialComponent.propTypes = {
-  materialTitle: PropTypes.string,
-  keywords: PropTypes.array,
-  dateUploaded: PropTypes.string,
-  materialNotifications: PropTypes.number,
-  pkgUrl: PropTypes.string,
-  user: PropTypes.object,
-  owner: PropTypes.object,
-  onClickDeletePkg: PropTypes.Function,
-}
+MaterialComponent.propTypes = propTypes
 
 export default MaterialComponent

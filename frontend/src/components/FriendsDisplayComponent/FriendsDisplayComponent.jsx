@@ -15,8 +15,8 @@ function FriendsDisplayComponent({ fullName, discipline, universityName }) {
 
   const container = (
     <div>
-      <IconButton disableTouchRipple style={classes.friendsButtonStyle}>
-        <Friend style={classes.noteFriendsStyle} />
+      <IconButton disableTouchRipple className={classes.friendsButtonStyle}>
+        <Friend className={classes.noteFriendsStyle} />
       </IconButton>
     </div>
   )
@@ -28,7 +28,7 @@ function FriendsDisplayComponent({ fullName, discipline, universityName }) {
 
   return (
     <div>
-      <Paper style={classes.friendsPaperStyle} zDepth={1} children={nodeFriendsComp} />
+      <Paper className={classes.friendsPaperStyle} zDepth={1} children={nodeFriendsComp} />
     </div>
     )
 }

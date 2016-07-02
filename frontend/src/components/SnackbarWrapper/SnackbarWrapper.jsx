@@ -22,11 +22,11 @@ export class SnackbarWrapper extends React.Component {
     return (
       <div>
         <Snackbar
-          open={this.props.request}
+          open={!!this.props.request}
           message={this.props.requestType ? this.props.message : null}
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
-          style={{ 'text-align': 'center' }}
+          style={{ textAlign: 'center' }}
         />
       </div>
     )

@@ -43,7 +43,7 @@ function FeedbackForm({ fields: { subject, content }, handleSubmit }) {
                 title="Lass uns wissen was du denkst"
                 titleStyle={classes.titleStyle}
                 titleColor="#26A65B"
-                avatar={<Edit style={classes.iconStyle} />}
+                avatar={<Edit className={classes.iconStyle} />}
               />
               <Divider />
               <CardText>
@@ -54,7 +54,7 @@ function FeedbackForm({ fields: { subject, content }, handleSubmit }) {
                     fullWidth={false}
                     floatingLabelStyle={classes.floatingLabel}
                     underlineFocusStyle={classes.underlineColor}
-                    style={classes.textFieldStyle}
+                    className={classes.textFieldStyle}
                   />
                   <TextField
                     {...content}
@@ -63,7 +63,7 @@ function FeedbackForm({ fields: { subject, content }, handleSubmit }) {
                     fullWidth={false}
                     floatingLabelStyle={classes.floatingLabel}
                     underlineFocusStyle={classes.underlineColor}
-                    style={classes.textFieldStyle}
+                    className={classes.textFieldStyle}
                     multiLine
                     rows={5}
                   />
@@ -76,7 +76,7 @@ function FeedbackForm({ fields: { subject, content }, handleSubmit }) {
                     primary={false}
                     labelColor="#ffffff"
                     backgroundColor="#446CB3"
-                    style={classes.buttonStyle}
+                    className={classes.buttonStyle}
                     linkButton
                     onTouchTap={handleSubmit}
                   />

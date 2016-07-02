@@ -52,7 +52,7 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                 title="Setze dein Passwort zurück"
                 titleStyle={classes.titleStyle}
                 titleColor="#26A65B"
-                avatar={<Edit style={classes.iconStyle} />}
+                avatar={<Edit className={classes.iconStyle} />}
               />
               <Divider />
               <CardText>
@@ -64,7 +64,7 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     fullWidth={false}
                     floatingLabelStyle={classes.floatingLabel}
                     underlineFocusStyle={classes.underlineColor}
-                    style={classes.textFieldStyle}
+                    className={classes.textFieldStyle}
                     type="password"
                   />
                   <TextField
@@ -73,7 +73,7 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     fullWidth={false}
                     floatingLabelStyle={classes.floatingLabel}
                     underlineFocusStyle={classes.underlineColor}
-                    style={classes.textFieldStyle}
+                    className={classes.textFieldStyle}
                     type="password"
                   />
                 </div>
@@ -85,7 +85,7 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     primary={false}
                     labelColor="#ffffff"
                     backgroundColor="#446CB3"
-                    style={classes.buttonStyle}
+                    className={classes.buttonStyle}
                     linkButton
                     onTouchTap={handleSubmit}
                   />
