@@ -1,12 +1,12 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const co = require('co');
 const logger = require('../logger');
-const utils = require('../utils');
-const User = mongoose.model('User');
-const Question = mongoose.model('Question');
+// const utils = require('../utils');
+// const User = mongoose.model('User');
+// const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
 const Comment = mongoose.model('Comment');
 
@@ -16,10 +16,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   req.checkBody('answer', 'InvalidAnswerId').notEmpty().isMongoId();
   req.checkBody('content', 'InvalidContent').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -31,12 +31,12 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
       });
     }
 
-    var comment = yield Comment({
+    const comment = yield Comment({
       content: req.body.content,
       user: req.user,
     }).save();
     answer.comments.push(comment);
-   // answer = yield answer.push();     
+   // answer = yield answer.push();
 
     return res.status(201).json({
       _id: comment._id,
@@ -57,13 +57,13 @@ router.post('/', passport.authenticate('jwt', {session: false}), function (req, 
   });
 });
 
-router.delete('/:cmid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:cmid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('cmid', 'InvalidCommentId').notEmpty().isMongoId();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -92,17 +92,17 @@ router.delete('/:cmid', passport.authenticate('jwt', {session: false}), function
   });
 });
 
-router.put('/:cmid', passport.authenticate('jwt', {session: false}), function (req,res) {
-  req.checkParams('cmid','InvalidCommentId').notEmpty().isMongoId();
+router.put('/:cmid', passport.authenticate('jwt', { session: false }), function (req,res) {
+  req.checkParams('cmid', 'InvalidCommentId').notEmpty().isMongoId();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
-  co( function *(){
+  co( function *() {
     var comment = yield Comment.findOne({ _id: req.params.cmid });
 
     if (!comment) {
@@ -111,13 +111,13 @@ router.put('/:cmid', passport.authenticate('jwt', {session: false}), function (r
       });
     }
 
-    if( comment.user.toString() !== req.user.id.toString() ) {
+    if (comment.user.toString() !== req.user.id.toString()) {
       return res.status(401).json({
         err: [{ msg: 'PermissionDenied' }],
       });
-    }  
+    }
 
-    if(req.body.content) comment.content = req.body.content;
+    if (req.body.content) comment.content = req.body.content;
 
     comment = yield comment.save();
 
@@ -133,4 +133,4 @@ router.put('/:cmid', passport.authenticate('jwt', {session: false}), function (r
   });
 });
 
-module.exports = router
+module.exports = router;
