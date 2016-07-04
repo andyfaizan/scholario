@@ -188,12 +188,12 @@ router.post('/forgot-password', function (req, res) {
       });
     }
 
-    var buffer = crypto.randomBytes(48);
-    var verificationCode = buffer.toString('hex');
+    const buffer = crypto.randomBytes(48);
+    const verificationCode = buffer.toString('hex');
     user.verificationCode = verificationCode;
     user.vcCreated = Date.now();
-    var verificationURL = `http://scholario.de/reset-password/${verificationCode}`;
-    var mailOpts = {
+    const verificationURL = `http://scholario.de/reset-password/${verificationCode}`;
+    const mailOpts = {
       from: '"Scholario" <noreply@scholario.de>',
       to: user.email,
       subject: 'Restart password',
@@ -209,25 +209,25 @@ router.post('/forgot-password', function (req, res) {
     }
 
     return user.save();
-  }).then(function (user) {
+  }).then(function () {
     return res.status(200).json({
     });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
       err: [{ msg: 'InternalError' }],
-    })
+    });
   });
 });
 
 router.post('/reset-password/:code', function (req, res) {
-  req.checkParams('code', 'Invalid code').isLength({min: 96, max: 96});
+  req.checkParams('code', 'Invalid code').isLength({ min: 96, max: 96 });
   req.checkBody('password', 'Invalid password').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -242,7 +242,7 @@ router.post('/reset-password/:code', function (req, res) {
     user.verificationCode = '';
     user.updatePassword(req.body.password).then(function () {
       return user.save();
-    }).then(function (user) {
+    }).then(function () {
       return res.status(200).json({
         err: '',
       });
@@ -251,7 +251,7 @@ router.post('/reset-password/:code', function (req, res) {
       return res.status(500).json({
         err: [{ msg: 'InternalError' }],
       });
-    });;
+    });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
