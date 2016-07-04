@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import classes from './PackageView.scss'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -23,6 +23,7 @@ import {
   ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
 import { deleteBookmark } from '../../redux/modules/bookmark'
 import { deleteMaterial } from '../../redux/modules/materials'
+
 
 const propTypes = {
   location: PropTypes.object,
@@ -70,6 +71,8 @@ export class Package extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const { user, pkg, courseInstance } = this.props
     const errorType = 'POST_MATERIAL_ERR'
     const okayType = 'POST_MATERIAL_OK'
@@ -104,7 +107,7 @@ export class Package extends React.Component {
 
     return (
       <div>
-        <div className={classes.dashboardRoot}>
+        <div style={styles.dashboardRoot}>
           <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
@@ -148,11 +151,26 @@ export class Package extends React.Component {
         </div>
         <Feedback errorType={errorType} okayType={okayType} />
         <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!" />
-        <div className={classes.footer}>
+        <div style={styles.footer}>
           <FooterLanding />
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    dashboardRoot: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
   }
 }
 
@@ -170,4 +188,4 @@ Package.propTypes = propTypes
 
 export default connect(
   mapStateToProps
-)(Package)
+)(Radium(Package))

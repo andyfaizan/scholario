@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import * as selectors from '../../redux/selectors'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
@@ -10,7 +11,6 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
-import classes from './DetailQuestionListView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 const propTypes = {
@@ -39,6 +39,8 @@ export class DetailQuestionList extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const { courseInstance, questions } = this.props
 
     const questionEls = questions.map(q =>
@@ -58,7 +60,7 @@ export class DetailQuestionList extends React.Component {
     )
     return (
       <div>
-        <div className={classes.dashboardRoot}>
+        <div style={styles.dashboardRoot}>
           <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
@@ -86,11 +88,26 @@ export class DetailQuestionList extends React.Component {
             </Row>
           </Grid>
         </div>
-        <div className={classes.footer}>
+        <div style={styles.footer}>
           <FooterLanding />
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    dashboardRoot: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
   }
 }
 
@@ -104,4 +121,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps
-)(DetailQuestionList)
+)(Radium(DetailQuestionList))

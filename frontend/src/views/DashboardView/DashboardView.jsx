@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
@@ -6,7 +7,6 @@ import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDash
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import classes from './DashboardView.scss'
 import * as selectors from '../../redux/selectors'
 import { getUser, requestLogin } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse,
@@ -14,6 +14,7 @@ import { getRecommendedCourseInstances, followCourse,
 import { getQuestions } from '../../redux/modules/question'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
+
 
 const propTypes = {
   user: PropTypes.object,
@@ -54,11 +55,12 @@ class DashboardView extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const { user, userUniversity, userProgram } = this.props
 
     return (
       <div>
-        <div className={classes.dashboardRoot} >
+        <div style={styles.dashboardRoot} >
           <DashboardToolBar />
           <TeacherProfileBar
             firstNameUser={user ? user.firstname : ''}
@@ -87,7 +89,7 @@ class DashboardView extends React.Component {
             message="Kurs gefolgt! :)"
           />
         </div>
-        <div className={classes.footer}>
+        <div style={styles.footer}>
           <FooterLanding />
         </div>
       </div>
@@ -95,6 +97,20 @@ class DashboardView extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    dashboardRoot: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
+  }
+}
 
 const mapStateToProps = (state) => {
   let courseInstances = selectors.getUserCourseInstances(state)
@@ -135,4 +151,4 @@ DashboardView.propTypes = propTypes
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DashboardView)
+)(Radium(DashboardView))

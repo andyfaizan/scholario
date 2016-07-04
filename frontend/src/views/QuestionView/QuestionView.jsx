@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
@@ -15,7 +16,6 @@ import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
-import classes from './QuestionView.scss'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import { postAnswer, deleteAnswer, putAnswer, voteAnswer } from '../../redux/modules/answer'
 import {
@@ -86,6 +86,8 @@ export class Question extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const questionClickable = true
     const { courseInstance, question, user } = this.props
 
@@ -120,7 +122,7 @@ export class Question extends React.Component {
     let actions = [
       <FlatButton
         key="questionAnsweringButton" label="Frage Beantworten" linkButton
-        onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" className={classes.buttonStyle}
+        onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={styles.buttonStyle}
         rippleColor="#ffffff" icon={<Reply />}
       />,
     ]
@@ -128,7 +130,7 @@ export class Question extends React.Component {
       <FlatButton
         key="go to related material view" label="Material anzeigen" linkButton
         onTouchTap={showMaterial} hoverColor="#26A65B"
-        className={classes.buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
+        style={styles.buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
       />
     )
     if (question.material) actions.push(showMaterialAction)
@@ -137,14 +139,14 @@ export class Question extends React.Component {
       actions.push(
         <FlatButton
           key="questionEditingButton" label="Frage bearbeiten" linkButton
-          hoverColor="#26A65B" className={classes.buttonStyle} rippleColor="#ffffff"
+          hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
       actions.push(
         <FlatButton
           key="questionDeletingButton" label="Frage löschen" linkButton
           onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack() }}
-          hoverColor="#26A65B" className={classes.buttonStyle} rippleColor="#ffffff"
+          hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -175,7 +177,7 @@ export class Question extends React.Component {
 
     return (
       <div>
-        <div className={classes.dashboardRoot}>
+        <div style={styles.dashboardRoot}>
           <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
@@ -191,7 +193,7 @@ export class Question extends React.Component {
             <br />
             <Row>
               <Col xs={24} md={12}>
-                <Card className={classes.cardStyle}>
+                <Card style={styles.cardStyle}>
                   <QuestionItem
                     key={question._id}
                     listItemClickable={questionClickable}
@@ -202,10 +204,10 @@ export class Question extends React.Component {
                     onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
                     postedBy={question.user ? question.user.lastname : ''}
                   />
-                  <CardText className={classes.textStyle}>
+                  <CardText style={styles.textStyle}>
                     {question.description}
                   </CardText>
-                  <CardActions className={classes.actionPadding}>
+                  <CardActions style={styles.actionPadding}>
                     {actions}
                   </CardActions>
                 </Card>
@@ -225,7 +227,7 @@ export class Question extends React.Component {
         </div>
         <Feedback errorType={answerErrorType} okayType={answerOkayType} />
 
-        <div className={classes.footer} >
+        <div style={styles.footer} >
           <FooterLanding />
         </div>
       </div>
@@ -233,6 +235,37 @@ export class Question extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    dashboardRoot: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
+    textStyle: {
+      paddingLeft: '70px',
+      paddingRight: '70px',
+    },
+    actionPadding: {
+      paddingLeft: '52px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+    },
+    buttonStyle: {
+      color: '#ffffff',
+    },
+    cardStyle: {
+      borderStyle: 'solid',
+      borderWidth: '2px',
+      borderColor: '#446CB3',
+    },
+  }
+}
 
 const mapStateToProps = (state) => ({
   user: selectors.getUser(state),
@@ -245,4 +278,4 @@ Question.propTypes = propTypes
 
 export default connect(
   mapStateToProps
-)(Question)
+)(Radium(Question))
