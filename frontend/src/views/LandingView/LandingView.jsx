@@ -62,9 +62,9 @@ function getStyles() {
       backgroundColor: '#FBF6EC',
       height: '87%',
       backgroundSize: 'cover', /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
-      '-webkitBackgroundSize': 'cover', /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
-      '-mozBackgroundSize': 'cover', /* optional for Firefox 3.6 */
-      '-oBackgroundSize': 'cover', /* for Opera 9.5 */
+      WebkitBackgroundSize: 'cover', /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+      MozBackgroundSize: 'cover', /* optional for Firefox 3.6 */
+      OBackgroundSize: 'cover', /* for Opera 9.5 */
       margin: 0, /* to remove the default white margin of body */
       padding: 0, /* to remove the default white margin of body */
       overflow: 'hidden',
