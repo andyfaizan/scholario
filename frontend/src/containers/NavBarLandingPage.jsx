@@ -55,13 +55,13 @@ function getStyles() {
     },
     loginButton: {
       backgroundColor: '#446CB3',
-      marginTop: '7',
+      marginTop: '7px',
       fontWeight: 'bold',
       color: 'white',
       border: 'true',
       borderStyle: 'solid',
       borderColor: '#446CB3',
-      borderRadius: '20',
+      borderRadius: '20px',
       borderWidth: '0.0',
     },
   }

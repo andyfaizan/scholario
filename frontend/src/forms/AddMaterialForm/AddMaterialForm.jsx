@@ -3,7 +3,6 @@ import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import Dropzone from 'react-dropzone'
 import LinearProgress from 'material-ui/LinearProgress'
-import classes from './AddMaterialForm.scss'
 
 export const fields = ['files']
 
@@ -32,10 +31,12 @@ export class AddMaterial extends React.Component {
   }
 
   previewFiles(files) {
+    const styles = getStyles()
     const imgArray = []
+
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.indexOf('image') > -1) {
-        imgArray.push(<img src={files[i].preview} className={classes.previewStyle} alt="Preview" />)
+        imgArray.push(<img src={files[i].preview} styles={styles.previewStyle} alt="Preview" />)
       }
     }
     if (imgArray.length === 0) {
@@ -45,6 +46,7 @@ export class AddMaterial extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const { fields: { files } } = this.props
 
     const maxFileSize = 800 * 1024 * 1024
@@ -68,7 +70,7 @@ export class AddMaterial extends React.Component {
         <div>
           <div>
             <Dropzone
-              {...files} className={classes.dropStyle} activeStyle={classes.activeStyle}
+              {...files} styles={styles.dropStyle} activeStyle={styles.activeStyle}
               onDrop={
                 (filesToUpload) => {
                   uploadError = false
@@ -88,14 +90,14 @@ export class AddMaterial extends React.Component {
               disableClick={this.props.request}
               accept={supportedTypes}
             >
-              <div className={classes.containerStyle}>
+              <div styles={styles.containerStyle}>
                 {showFiles ?
                   this.previewFiles(filesForPreview) :
                   <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
               </div>
             </Dropzone>
             {uploadError ?
-              <div className={classes.errorText}>
+              <div styles={styles.errorText}>
                 <strong>Einige Datein konnte nicht hochgeladen!</strong>
               </div>
               : null}
@@ -104,6 +106,41 @@ export class AddMaterial extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    containerStyle: {
+      textAlign: 'center',
+      align: 'center',
+    },
+    previewStyle: {
+      marginRight: '10px',
+      width: '150px',
+    },
+    errorText: {
+      textAlign: 'center',
+      color: 'red',
+    },
+    dropStyle: {
+      margin: '30px',
+      padding: '30px',
+      transition: 'all 0.5s',
+      borderRadius: '5px',
+      borderColor: '#27ae60',
+      borderStyle: 'dashed',
+      borderWidth: '2px',
+    },
+    activeStyle: {
+      margin: '30px',
+      padding: '30px',
+      borderRadius: '8px',
+      borderColor: '#27ae60',
+      borderStyle: 'solid',
+      borderWidth: '2px',
+      backgroundColor: '#eeeeee',
+    },
   }
 }
 

@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
-import classes from './AddPackageForm.scss'
 import MenuItem from 'material-ui/MenuItem'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
 import { load } from '../../redux/modules/AddPkg'
@@ -26,6 +25,7 @@ export class AddPackage extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const nameLabel = 'Name'
     const nameHint = 'Packagename'
     const courseLabel = 'Kurs'
@@ -40,22 +40,22 @@ export class AddPackage extends React.Component {
 
     return (
       <div>
-        <div className={classes.addPackageContainer} fullWidth>
+        <div styles={styles.addPackageContainer} fullWidth>
           <TextField
             {...name}
             hintText={nameHint}
-            floatingLabelStyle={classes.floatingLabelStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText={nameLabel}
-            underlineFocusStyle={classes.focusStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
           />
           <br />
           <SelectFieldWrapper
             {...courseInstance}
-            className={classes.blocking}
+            styles={styles.blocking}
             floatingLabelText={courseLabel}
-            floatingLabelStyle={classes.floatingLabelStyle}
-            underlineFocusStyle={classes.focusStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
           >
             {courseItems}
@@ -63,10 +63,10 @@ export class AddPackage extends React.Component {
           <br />
            {/* <SelectFieldWrapper
               {...access}
-              style = {classes.blocking}
+              style = {styles.blocking}
               floatingLabelText={accessLabel}
-              floatingLabelStyle={classes.floatingLabelStyle}
-              underlineFocusStyle={classes.focusStyle}
+              floatingLabelStyle={styles.floatingLabelStyle}
+              underlineFocusStyle={styles.focusStyle}
               fullWidth={true}>
                 <MenuItem key={0} value={0} primaryText={menuItem1} />
                 <MenuItem key={1} value={1} primaryText={menuItem2} />
@@ -76,6 +76,28 @@ export class AddPackage extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    addPackageContainer: {
+      alignItems: 'center',
+      marginLeft: '10%',
+      marginRight: '10%',
+    },
+    errorStyle: {
+      backgroundColor: '#e74c3c',
+    },
+    underlineStyle: {
+      borderColor: '#446CB3',
+    },
+    focusStyle: {
+      borderColor: '#446CB3',
+    },
+    floatingLabelStyle: {
+      color: '#26A65B',
+    },
   }
 }
 
