@@ -1,14 +1,8 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-// const _ = require('lodash');
-// const co = require('co');
-// const url = require('url');
 const logger = require('../logger');
-// const utils = require('../utils');
 const Bookmark = mongoose.model('Bookmark');
-// const Pkg = mongoose.model('Pkg');
 
 var router = express.Router();
 
