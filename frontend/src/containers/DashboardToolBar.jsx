@@ -57,7 +57,7 @@ function DashboardToolBar({ dispatch }) {
           >
             <MenuItem primaryText="Benutzer Einstellungen" />
             <MenuItem primaryText="Feed Einstellungen" />
-            <MenuItem primaryText="Logout" onTouchTap={dispatch(logout)} />
+            <MenuItem primaryText="Logout" onTouchTap={() => dispatch(logout())} />
           </IconMenu>
         </ToolbarGroup>
       </Toolbar>

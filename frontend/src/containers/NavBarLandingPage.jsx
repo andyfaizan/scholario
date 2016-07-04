@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
-import { showAction, LOGIN_MODAL as loginModalAction } from '../redux/modules/modal'
+import { show as showAction, LOGIN_MODAL as loginModalAction } from '../redux/modules/modal'
 import ModalRoot from './ModalRoot'
 
 
