@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
@@ -12,7 +13,32 @@ const propTypes = {
 }
 
 function NavBarLandingPage({ modal, show }) {
-  const styles = {
+  const styles = getStyles()
+
+  return (
+    <div>
+      <AppBar
+        style={styles.navBarStyle}
+        showMenuIconButton={false}
+        titleStyle={styles.titleStyle}
+        title={<span style={styles.title}>Scholario</span>}
+        iconElementRight={
+          <div>
+            <FlatButton
+              label="Blog" style={styles.buttonStyle} linkButton
+              href="http://medium.com/scholario-blog"
+            />
+            <FlatButton label="EinLoggen" style={styles.loginButton} onClick={show} />
+            {modal.visible ? <ModalRoot {...loginModalAction} /> : null}
+          </div>
+        }
+      />
+    </div>
+  )
+}
+
+function getStyles() {
+  return {
     title: {
       cursor: 'pointer',
       color: 'white',
@@ -39,26 +65,6 @@ function NavBarLandingPage({ modal, show }) {
       borderWidth: '0.0',
     },
   }
-  return (
-    <div>
-      <AppBar
-        style={styles.navBarStyle}
-        showMenuIconButton={false}
-        titleStyle={styles.titleStyle}
-        title={<span style={styles.title}>Scholario</span>}
-        iconElementRight={
-          <div>
-            <FlatButton
-              label="Blog" style={styles.buttonStyle} linkButton
-              href="http://medium.com/scholario-blog"
-            />
-            <FlatButton label="EinLoggen" style={styles.loginButton} onClick={show} />
-            {modal.visible ? <ModalRoot {...loginModalAction} /> : null}
-          </div>
-        }
-      />
-    </div>
-  )
 }
 
 const mapStateToProps = (state) => ({
@@ -69,4 +75,4 @@ NavBarLandingPage.propTypes = propTypes
 
 export default connect((mapStateToProps), {
   show: () => showAction(loginModalAction),
-})(NavBarLandingPage)
+})(Radium(NavBarLandingPage))

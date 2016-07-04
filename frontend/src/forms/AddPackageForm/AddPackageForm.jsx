@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import classes from './AddPackageForm.scss'
@@ -88,4 +89,4 @@ AddPackage.defaultProps = defaultProps
 export default reduxForm({
   form: 'AddPkg',
   fields,
-}, mapStateToProps)(AddPackage)
+}, mapStateToProps)(Radium(AddPackage))

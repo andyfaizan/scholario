@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import Dropzone from 'react-dropzone'
 import LinearProgress from 'material-ui/LinearProgress'
@@ -112,4 +113,4 @@ AddMaterial.defaultProps = defaultProps
 export default reduxForm({
   form: 'AddMaterial',
   fields,
-})(AddMaterial)
+})(Radium(AddMaterial))

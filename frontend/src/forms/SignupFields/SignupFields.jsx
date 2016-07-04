@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import TextField from 'material-ui/TextField'
 import classes from './SignupFields.scss'
 import MenuItem from 'material-ui/MenuItem'
@@ -141,4 +142,4 @@ export default reduxForm({
   form: 'signupForm',
   fields,
   validate,
-})(SignupFields)
+})(Radium(SignupFields))

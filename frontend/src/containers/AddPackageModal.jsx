@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { addPkg } from '../redux/modules/pkg'
@@ -104,20 +105,14 @@ export class AddPackageModal extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const title = 'Package Erstellen'
-    const labelStyle1 = {
-      color: 'white',
-      fontWeight: 'bold',
-    }
-    const labelStyle2 = {
-      color: 'black',
-    }
 
     const actions = [
       <FlatButton
         label="Abbrechen"
         secondary
-        labelStyle={labelStyle2}
+        labelStyle={styles.labelStyle2}
         onTouchTap={this.props.hide}
       />,
       <RaisedButton
@@ -125,7 +120,7 @@ export class AddPackageModal extends React.Component {
         label="Erstellen"
         primary={false}
         backgroundColor="#446CB3"
-        labelStyle={labelStyle1}
+        labelStyle={styles.labelStyle1}
         onTouchTap={this.create}
       />,
     ]
@@ -154,6 +149,18 @@ export class AddPackageModal extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    labelStyle1: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    labelStyle2: {
+      color: 'black',
+    },
+  }
+}
+
 const mapStateToProps = (state) => ({
   modal: state.modal,
   courseInstances: selectors.getUserCourseInstances(state),
@@ -172,4 +179,4 @@ AddPackageModal.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(AddPackageModal)
+  mapDispatchToProps)(Radium(AddPackageModal))

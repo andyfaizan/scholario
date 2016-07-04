@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
@@ -52,4 +53,4 @@ export default reduxForm({
   form: 'ForgotPassword',
   fields,
   validate,
-})(ForgotPassword)
+})(Radium(ForgotPassword))

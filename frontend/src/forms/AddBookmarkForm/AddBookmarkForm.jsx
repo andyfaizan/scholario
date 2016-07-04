@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
-import classes from './AddBookmarkForm.scss'
 
 export const fields = ['title', 'url']
 
@@ -29,15 +29,17 @@ const defaultProps = {
 function AddBookmark() {
   const { fields: { title, url }, handleSubmit } = this.props
 
+  const styles = getStyles()
+
   return (
     <form onSubmit={handleSubmit}>
-      <div className={classes.addBookmarkContainer} fullWidth>
+      <div className={styles.addBookmarkContainer} fullWidth>
         <TextField
           {...title}
           errorText={title.touched && title.error ? title.error : ''}
           floatingLabelText="Titel"
-          floatingLabelStyle={classes.floatingLabelStyle}
-          underlineFocusStyle={classes.underlineStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
+          underlineFocusStyle={styles.underlineStyle}
           fullWidth
         />
         <br />
@@ -45,13 +47,35 @@ function AddBookmark() {
           {...url}
           errorText={url.touched && url.error ? url.error : ''}
           floatingLabelText="URL"
-          floatingLabelStyle={classes.floatingLabelStyle}
-          underlineFocusStyle={classes.underlineStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
+          underlineFocusStyle={styles.underlineStyle}
           fullWidth
         />
       </div>
     </form>
   )
+}
+
+function getStyles() {
+  return {
+    addBookmarkContainer: {
+      alignItems: 'center',
+      marginLeft: '10%',
+      marginRight: '10%',
+    },
+    errorStyle: {
+      backgroundColor: '#e74c3c',
+    },
+    underlineStyle: {
+      borderColor: '#446CB3',
+    },
+    focusStyle: {
+      borderColor: '#446CB3',
+    },
+    floatingLabelStyle: {
+      color: '#26A65B',
+    },
+  }
 }
 
 AddBookmark.propTypes = propTypes
@@ -61,4 +85,4 @@ export default reduxForm({
   form: 'AddBookmark',
   fields,
   validate,
-})(AddBookmark)
+})(Radium(AddBookmark))

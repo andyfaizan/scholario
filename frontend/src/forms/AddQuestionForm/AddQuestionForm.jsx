@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
 import classes from './AddQuestionForm.scss'
@@ -132,4 +133,4 @@ AddQuestion.defaultProps = defaultProps
 export default reduxForm({
   form: 'AddQuestion',
   fields,
-}, mapStateToProps)(AddQuestion)
+}, mapStateToProps)(Radium(AddQuestion))
