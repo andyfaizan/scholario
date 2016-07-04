@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import classes from './CreateCourseForm.scss'
 import TextField from 'material-ui/TextField'
@@ -148,4 +149,4 @@ export default reduxForm({
   form: 'CreateCourse',
   fields,
   validate,
-})(CreateCourse)
+})(Radium(CreateCourse))
