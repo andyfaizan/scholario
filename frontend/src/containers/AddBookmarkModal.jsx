@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { hide, ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../redux/modules/modal'
 import Dialog from 'material-ui/Dialog'
@@ -7,7 +8,6 @@ import FlatButton from 'material-ui/FlatButton'
 import AddBookmarkForm from '../forms/AddBookmarkForm/AddBookmarkForm'
 import * as selectors from '../redux/selectors'
 import { postBookmark, POST_BOOKMARK_REQUEST, POST_BOOKMARK_OK } from '../redux/modules/bookmark'
-
 
 const propTypes = {
   modal: PropTypes.object.isRequired,
@@ -35,20 +35,14 @@ export class AddBookmarkModal extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const title = 'Lesezeichen Hinzufügen'
-    const labelStyle1 = {
-      color: 'white',
-      fontWeight: 'bold',
-    }
-    const labelStyle2 = {
-      color: 'black',
-    }
 
     const actions = [
       <FlatButton
         label="Abbrechen"
         secondary
-        labelStyle={labelStyle2}
+        labelStyle={styles.labelStyle2}
         onTouchTap={this.props.hide}
       />,
       <RaisedButton
@@ -56,7 +50,7 @@ export class AddBookmarkModal extends React.Component {
         label="Fertig"
         primary={false}
         backgroundColor="#446CB3"
-        labelStyle={labelStyle1}
+        labelStyle={styles.labelStyle1}
         onTouchTap={this.create}
       />,
     ]
@@ -81,6 +75,18 @@ export class AddBookmarkModal extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    labelStyle1: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    labelStyle2: {
+      color: 'black',
+    },
+  }
+}
+
 const mapStateToProps = (state) => ({
   modal: state.modal,
   pkgId: selectors.getCurPkgId(state),
@@ -99,4 +105,4 @@ AddBookmarkModal.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(AddBookmarkModal)
+  mapDispatchToProps)(Radium(AddBookmarkModal))

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import Dialog from 'material-ui/Dialog'
@@ -79,75 +80,10 @@ export class ModalComponent extends React.Component {
   }
 
   render() {
-    const buttonStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginLeft: '10%',
-      marginRight: '10%',
-    }
-    const customContentStyle = {
-      padding: 2,
-      marginBottom: 0,
-      marginTop: 0,
-    }
-    const customContentStyleTwo = {
-      margin: 0,
-      padding: '0px',
-      lineHeight: '0px',
-    }
-    const customContentStyleThree = {
-      padding: 1,
-      marginBottom: 0,
-      marginTop: 0,
-      width: '30%',
-      margin: '0 auto',
-    }
-    const customContentStyleFour = {
-      padding: 0,
-      marginBottom: 0,
-      marginTop: 0,
-      width: '100%',
-      margin: 0,
-    }
-    const tabItemContainerStyle = {
-      backgroundColor: '#26A65B',
-      fontWeight: 'bold',
-    }
-    const inkBarStyle = {
-      backgroundColor: '#446CB3', // temporary color
-    }
-
-    const labelStyle = {
-      color: 'white',
-      fontWeight: 'bold',
-    }
-
-    const errorTextHiddenStyle = {
-      visibility: 'hidden',
-      color: 'red',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginTop: '3%',
-    }
-
-    const errorTextShownStyle = {
-      visibility: 'visible',
-      color: 'red',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginTop: '3%',
-    }
-
-    const mainComponentStyle = {
-
-      position: 'absolute',
-      marginTop: '-10%',
-
-    }
+    const styles = getStyles()
 
     const actions = [
-      <Tabs tabItemContainerStyle={tabItemContainerStyle} inkBarStyle={inkBarStyle}>
+      <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
         <Tab label="Einloggen" >
           <div>
             <LoginFields
@@ -157,10 +93,13 @@ export class ModalComponent extends React.Component {
               onClickForgotPassword={() => { this.props.hide(); this.props.push('/forgot-password') }}
             />
           </div>
-          <div ref="loginErrorText" style={this.props.loginErr ? errorTextShownStyle : errorTextHiddenStyle}>
+          <div
+            ref="loginErrorText"
+            style={this.props.loginErr ? styles.errorTextShownStyle : styles.errorTextHiddenStyle}
+          >
             Falsche Email oder Kennwort
           </div>
-          <div style={buttonStyle}>
+          <div style={styles.buttonStyle}>
             <br />
             <RaisedButton
             // TODO disabled={submitting}
@@ -169,7 +108,7 @@ export class ModalComponent extends React.Component {
               primary={false}
               backgroundColor="#446CB3"
               fullWidth
-              labelStyle={labelStyle}
+              labelStyle={styles.labelStyle}
               onTouchTap={this.confirmLogin}
             />
           </div>
@@ -187,14 +126,14 @@ export class ModalComponent extends React.Component {
           {/* <div ref="signupErrorText">
             Falsche Email oder Kennwort
           </div>*/}
-          <div style={buttonStyle}>
+          <div style={styles.buttonStyle}>
             <RaisedButton
               label="Registrieren"
               type="submit"
               primary={false}
               backgroundColor="#446CB3"
               fullWidth
-              labelStyle={labelStyle}
+              labelStyle={styles.labelStyle}
               onTouchTap={this.confirmSignup}
             />
           </div>
@@ -209,15 +148,80 @@ export class ModalComponent extends React.Component {
           modal={false}
           open={this.props.modal.visible}
           onRequestClose={this.props.hide}
-          actionsContainerStyle={customContentStyle}
-          titleStyle={customContentStyleTwo}
-          contentStyle={customContentStyleThree}
-          bodyStyle={customContentStyleFour}
+          actionsContainerStyle={styles.customContentStyle}
+          titleStyle={styles.customContentStyleTwo}
+          contentStyle={styles.customContentStyleThree}
+          bodyStyle={styles.customContentStyleFour}
           repositionOnUpdate
-          style={mainComponentStyle}
+          style={styles.mainComponentStyle}
         />
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    labelStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    buttonStyle: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: '10%',
+      marginRight: '10%',
+    },
+    customContentStyle: {
+      padding: '2px',
+      marginBottom: '0px',
+      marginTop: '0px',
+    },
+    customContentStyleTwo: {
+      margin: '0px',
+      padding: '0px',
+      lineHeight: '0px',
+    },
+    customContentStyleThree: {
+      padding: '1px',
+      marginBottom: '0px',
+      marginTop: '0px',
+      width: '30%',
+      margin: '0 auto',
+    },
+    customContentStyleFour: {
+      padding: '0px',
+      marginBottom: '0px',
+      marginTop: '0px',
+      width: '100%',
+      margin: '0px',
+    },
+    tabItemContainerStyle: {
+      backgroundColor: '#26A65B',
+      fontWeight: 'bold',
+    },
+    inkBarStyle: {
+      backgroundColor: '#446CB3',
+    },
+    errorTextHiddenStyle: {
+      visibility: 'hidden',
+      color: 'red',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginTop: '3%',
+    },
+    errorTextShownStyle: {
+      visibility: 'visible',
+      color: 'red',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      marginTop: '3%',
+    },
+    mainComponentStyle: {
+      position: 'absolute',
+      marginTop: '-10%',
+    },
   }
 }
 
@@ -253,4 +257,4 @@ ModalComponent.contextTypes = contextTypes
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ModalComponent)
+)(Radium(ModalComponent))

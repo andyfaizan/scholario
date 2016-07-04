@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import classes from './FeedbackForm.scss'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
@@ -102,4 +103,4 @@ export default reduxForm({
   form: 'FeedbackForm',
   fields,
   validate,
-})(FeedbackForm)
+})(Radium(FeedbackForm))

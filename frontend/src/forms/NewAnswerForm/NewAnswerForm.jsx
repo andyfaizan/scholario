@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
@@ -74,4 +75,4 @@ export default reduxForm({
   form: 'NewAnswer',
   fields,
   validate,
-})(NewAnswer)
+})(Radium(NewAnswer))

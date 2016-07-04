@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import TextField from 'material-ui/TextField'
 import classes from './LoginFields.scss'
 import { reduxForm } from 'redux-form'
@@ -76,4 +77,4 @@ export default reduxForm({
   form: 'loginForm',
   fields,
   validate,
-})(LoginFields)
+})(Radium(LoginFields))

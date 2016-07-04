@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { hide, ADD_MATERIAL_MODAL as addMaterialModalAction } from '../redux/modules/modal'
 import Dialog from 'material-ui/Dialog'
@@ -19,18 +20,16 @@ const propTypes = {
 
 export class AddMaterialModal extends React.Component {
   render() {
+    const styles = getStyles()
     const title = 'Material Hinzufügen'
-    const labelStyle1 = {
-      color: 'white',
-      fontWeight: 'bold',
-    }
+
     const actions = [
       <RaisedButton
         disabled={this.props.request}
         label="Fertig"
         primary={false}
         backgroundColor="#446CB3"
-        labelStyle={labelStyle1}
+        labelStyle={styles.labelStyle1}
         onTouchTap={this.props.hide}
       />,
     ]
@@ -51,12 +50,24 @@ export class AddMaterialModal extends React.Component {
             addMaterial={this.props.addMaterial}
             pkgId={this.props.pkgId}
           />
-          <div style={{ 'margin-left': '30px' }}>
+          <div style={styles.fileSizeContainer}>
             <strong>Max file size : 800 MB</strong>
           </div>
         </Dialog>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    labelStyle1: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    fileSizeContainer: {
+      marginLeft: '30px',
+    },
   }
 }
 
@@ -78,4 +89,4 @@ AddMaterialModal.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(AddMaterialModal)
+  mapDispatchToProps)(Radium(AddMaterialModal))

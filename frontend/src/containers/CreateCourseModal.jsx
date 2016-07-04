@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { hide } from '../redux/modules/modal'
 import Dialog from 'material-ui/Dialog'
@@ -31,14 +32,8 @@ export class CreateCourseModal extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const title = 'Kurs Erstellen'
-    const labelStyle = {
-      color: 'white',
-      fontWeight: 'bold',
-    }
-    const avatarStyle = {
-      marginLeft: '50%',
-    }
 
     const actions = [
       <FlatButton
@@ -51,7 +46,7 @@ export class CreateCourseModal extends React.Component {
         label="Erstellen"
         primary={false}
         backgroundColor="#446CB3"
-        labelStyle={labelStyle}
+        labelStyle={styles.labelStyle}
         onTouchTap={this.create}
       />,
     ]
@@ -67,7 +62,7 @@ export class CreateCourseModal extends React.Component {
         >
           <Row>
             <Col md={1}>
-              <Avatar src="http://lorempixel.com/100/100/nature/" style={avatarStyle} />
+              <Avatar src="http://lorempixel.com/100/100/nature/" style={styles.avatarStyle} />
             </Col>
             <Col md={11}>
               <CreateCourseForm ref="myForm" onSubmit={this.onSubmit} />
@@ -79,6 +74,18 @@ export class CreateCourseModal extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    labelStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+    avatarStyle: {
+      marginLeft: '50%',
+    },
+  }
+}
+
 const mapStateToProps = (state) => ({
   modal: state.modal,
 })
@@ -87,4 +94,4 @@ CreateCourseModal.propTypes = propTypes
 
 export default connect((mapStateToProps), {
   hide: () => hide('CREATE_COURSE_MODAL'),
-})(CreateCourseModal)
+})(Radium(CreateCourseModal))

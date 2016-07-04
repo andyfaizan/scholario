@@ -75,6 +75,7 @@
     "moment": "^2.13.0",
     "normalizr": "^2.0.1",
     "pug": "^2.0.0-beta3",
+    "radium": "^0.17.1",
     "react": "^15.1.0",
     "react-bootstrap-grid": "^1.0.0",
     "react-dom": "^15.1.0",
