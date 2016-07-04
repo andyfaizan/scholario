@@ -1,11 +1,8 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const _ = require('lodash');
 const crypto = require('crypto');
 const co = require('co');
-
 const utils = require('../utils');
 const logger = require('../logger');
 const mailer = require('../mailer');
@@ -17,14 +14,12 @@ const Program = mongoose.model('Program');
 
 var router = express.Router();
 
-
-
-router.get('/:username', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:username', passport.authenticate('jwt', { session: false }), function (req, res) {
   User.findOne({ username: req.params.username }).then(function (user) {
-    if (!user) throw(Error('User not found'));
+    if (!user) throw (Error('User not found'));
     return res.json({
       name: user.name,
-      username: user.username
+      username: user.username,
     });
   }).catch(function (err) {
     return res.json({
@@ -33,9 +28,9 @@ router.get('/:username', passport.authenticate('jwt', {session: false}), functio
   });
 });
 
-router.get('/:uid/follow', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:uid/follow', passport.authenticate('jwt', { session: false }), function (req, res) {
   User.findOne({ _id: req.user._id }).then(function (user) {
-    if (!user) throw(Error('User not found'));
+    if (!user) throw (Error('User not found'));
     if (req.user.following.indexOf(req.params.uid) === -1) {
       req.user.following.push(req.params.uid);
       req.user.save();
@@ -45,15 +40,15 @@ router.get('/:uid/follow', passport.authenticate('jwt', {session: false}), funct
     });
   }).catch(function (err) {
     return res.json({
-      err: [{'msg': err.message}],
+      err: [{ msg: err.message }],
     });
   });
 });
 
-router.get('/:uid/unfollow', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:uid/unfollow', passport.authenticate('jwt', { session: false }), function (req, res) {
   User.findOne({ _id: req.user._id }).then(function (user) {
-    if (!user) throw(Error('User not found'));
-    if (req.user.following.indexOf(req.params.uid) != -1) {
+    if (!user) throw (Error('User not found'));
+    if (req.user.following.indexOf(req.params.uid) !== -1) {
       req.user.following.pull(req.params.uid);
       req.user.save();
     }
@@ -62,7 +57,7 @@ router.get('/:uid/unfollow', passport.authenticate('jwt', {session: false}), fun
     });
   }).catch(function (err) {
     return res.json({
-      err: [{'msg': err.message}],
+      err: [{ msg: err.message }],
     });
   });
 });
@@ -119,10 +114,10 @@ router.post('/', function (req, res) {
   req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
   req.checkBody('program', 'InvalidProgram').notEmpty().isMongoId();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -196,7 +191,7 @@ router.post('/', function (req, res) {
       err: [],
     });
   }).catch(function (err) {
-    if (err.message.lastIndexOf("E1100", 0) === 0) {
+    if (err.message.lastIndexOf('E1100', 0) === 0) {
       return res.status(400).json({
         err: [{ msg: 'EmailExists' }],
       });

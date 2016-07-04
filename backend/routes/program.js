@@ -1,10 +1,6 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
-const _ = require('lodash');
 const logger = require('../logger');
-const utils = require('../utils');
 const Program = mongoose.model('Program');
 
 var router = express.Router();
@@ -42,10 +38,10 @@ var router = express.Router();
 router.get('/', function (req, res) {
   if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -61,15 +57,15 @@ router.get('/', function (req, res) {
    .lean(true)
    .exec()
    .then(function (programs) {
-    return res.status(200).json({
-      programs,
-    });
-  }).catch(function (err) {
-    logger.error(err);
-    return res.status(500).json({
-      err: [{ msg: 'InternalError' }],
-    });
-  });
+     return res.status(200).json({
+       programs,
+     });
+   }).catch(function (err) {
+     logger.error(err);
+     return res.status(500).json({
+       err: [{ msg: 'InternalError' }],
+     });
+   });
 });
 
 module.exports = router;

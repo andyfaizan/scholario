@@ -1,34 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const _ = require('lodash');
-const crypto = require('crypto');
 const co = require('co');
-
-const utils = require('../utils');
 const logger = require('../logger');
-const mailer = require('../mailer');
 const User = mongoose.model('User');
-const Student = mongoose.model('Student');
-const Prof = mongoose.model('Prof');
-const University = mongoose.model('University');
-const Program = mongoose.model('Program');
 
 var router = express.Router();
 
-
-
-router.get('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/', passport.authenticate('jwt', { session: false }), function (req, res) {
   co(function *() {
     var user = yield User.findOne({ _id: req.user._id })
-                      .populate([{
-                        path: 'universities',
-                        select: 'id name',
-                      }, {
-                        path: 'programs',
-                        select: 'id name university degree',
-                      }]);
+                         .populate([{
+                           path: 'universities',
+                           select: 'id name',
+                         }, {
+                           path: 'programs',
+                           select: 'id name university degree',
+                         }]);
 
     if (!user) {
       return res.status(404).json({
@@ -112,16 +100,16 @@ router.get('/', passport.authenticate('jwt', {session: false}), function (req, r
   });
 });
 
-router.put('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.put('/', passport.authenticate('jwt', { session: false }), function (req, res) {
   if (req.body.firstname) req.checkBody('firstname', 'InvalidFirstname').notEmpty();
   if (req.body.lastname) req.checkBody('lastname', 'InvalidLastname').notEmpty();
   if (req.body.password) req.checkBody('password', 'InvalidPassword').notEmpty();
   if (req.body.bio) req.checkBody('bio', 'InvalidBio').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
