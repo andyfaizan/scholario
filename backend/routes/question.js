@@ -33,7 +33,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     });
   }
 
-  var question = new Question({
+  const question = new Question({
     title: req.body.title,
     description: req.body.description,
     user: req.user,
@@ -83,7 +83,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
     else if (req.query.pkg) pr = Question.find({ pkg: req.query.pkg });
     else if (req.query.courseInstance) pr = Question.find({ courseInstance: req.query.courseInstance });
     else {
-      var userCis = yield req.user.getCourseInstances();
+      const userCis = yield req.user.getCourseInstances();
       pr = Question.find({ courseInstance: { $in: userCis } });
     }
 
@@ -115,7 +115,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
   });
 });
 
-router.get('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:qid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('qid', 'Invalid question id').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
@@ -248,13 +248,13 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
       });
     }
     if (req.body.approvedAnswer) {
-      var courseInstance = yield CourseInstance.findOne({ _id: question.courseInstance });
+      const courseInstance = yield CourseInstance.findOne({ _id: question.courseInstance });
       if (courseInstance.prof.toString() !== req.user.id.toString()) {
         return res.status(401).json({
           err: [{ msg: 'PermissionDenied' }],
         });
       }
-      var approvedAnswer = yield Answer.findOne({ _id: req.body.approvedAnswer })
+      const approvedAnswer = yield Answer.findOne({ _id: req.body.approvedAnswer });
       if (approvedAnswer) question.approvedAnswer = req.body.approvedAnswer;
       question.save();
       return res.status(200).json({
@@ -271,7 +271,7 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
       if (req.body.title) question.title = req.body.title;
       if (req.body.description) question.description = req.body.description;
       if (req.body.bestAnswer) {
-        var bestAnswer = yield Answer.findOne({ _id: req.body.bestAnswer })
+        const bestAnswer = yield Answer.findOne({ _id: req.body.bestAnswer });
         if (bestAnswer) question.bestAnswer = req.body.bestAnswer;
       }
       question = yield question.save();
@@ -328,9 +328,9 @@ router.post('/:qid/answers', passport.authenticate('jwt', { session: false }), f
     });
   }
 
-  var answer = new Answer({
+  const answer = new Answer({
     content: req.body.content,
-    //question: req.params.qid,
+    // question: req.params.qid,
     user: req.user,
   });
   answer.save();
@@ -388,8 +388,8 @@ router.get('/:qid/vote', passport.authenticate('jwt', { session: false }), funct
         question.infoMailSended = 'true';
         question.save();
 
-        var topRatedQuestion = `https://www.scholario.de/question/${question._id}`;
-        var mailOpts = {
+        const topRatedQuestion = `https://www.scholario.de/question/${question._id}`;
+        const mailOpts = {
           from: '"Scholario" <noreply@scholario.de>',
           to: question.courseInstance.prof.email,
           subject: 'Informationmail about Question',

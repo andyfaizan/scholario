@@ -177,6 +177,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
 
   co(function *() {
     var promise;
+    var courseInstances;
     if (req.query.q) {
       promise = Course.find({ name: { $regex: req.query.q, $options: 'i' } });
     } else {
@@ -194,7 +195,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       });
     }
 
-    const courseInstances = yield CourseInstance
+    courseInstances = yield CourseInstance
       .find({ course: { $in: courses } })
       .select('course prof semester')
       .populate([{

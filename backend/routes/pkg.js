@@ -19,7 +19,7 @@ const rimrafAsync = Promise.promisify(require('rimraf'));
 var router = express.Router();
 
 
-router.get('/:pid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.get('/:pid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('pid', 'IDNotValid').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
@@ -69,7 +69,7 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
       });
     }
 
-    var bookmarks = yield Bookmark
+    const bookmarks = yield Bookmark
       .find({ pkg: req.params.pid })
       .select('title url createDate pkg')
       .lean(true)
@@ -161,6 +161,10 @@ router.get('/:pid', passport.authenticate('jwt', {session: false}), function (re
 router.post('/', passport.authenticate('jwt', { session: false }),
   multer({ dest: 'uploads/tmp' }).array('material'),
   function (req, res) {
+    var access = 'public';
+    var materials = [];
+    var movedNum = 0;
+
     req.checkQuery('name', 'InvalidName').notEmpty();
     req.checkQuery('courseInstance', 'InvalidCourseID').isMongoId();
     if (req.query.access) req.checkQuery('access', 'InvalidAccess').notEmpty();
@@ -173,14 +177,13 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
 
     co(function *() {
-      var courseInstance = yield CourseInstance.findOne({ _id: req.query.courseInstance })
+      var courseInstance = yield CourseInstance.findOne({ _id: req.query.courseInstance });
       if (!courseInstance) {
         return res.status(404).json({
           err: [{ msg: 'CourseInstanceNotFound' }],
         });
       }
 
-      var access = 'public';
       if (req.query.access) access = req.query.access;
       const pkg = yield new Pkg({
         name: req.query.name,
@@ -205,8 +208,6 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         });
       }
 
-      var materials = [];
-      var movedNum = 0;
       _.each(req.files, f => {
         var parsed = path.parse(f.originalname);
         var material = new Material({
@@ -275,7 +276,7 @@ router.delete('/:pid', passport.authenticate('jwt', {session: false}), function 
       });
     }
 
-    var pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
+    const pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
     yield rimrafAsync(pkgRoot, { disableGlob: true });
     yield pkg.remove();
     return res.status(200).json({});
@@ -288,9 +289,12 @@ router.delete('/:pid', passport.authenticate('jwt', {session: false}), function 
 });
 
 
-router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
-  multer({dest: 'uploads/tmp'}).array('material'),
+router.post('/:pid/materials', passport.authenticate('jwt', { session: false }),
+  multer({ dest: 'uploads/tmp' }).array('material'),
   function (req, res) {
+    var movedNum = 0;
+    var materials = [];
+
     req.checkParams('pid', 'InvalidPackageId').notEmpty().isMongoId();
 
     const errors = req.validationErrors();
@@ -308,14 +312,12 @@ router.post('/:pid/materials', passport.authenticate('jwt', {session: false}),
         });
       }
 
-      var pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
+      const pkgRoot = path.join(pkg.courseInstance.pkgsRoot, pkg.id.toString());
 
       if (!req.files || req.files.length === 0) {
         return res.status(201).json({});
       }
 
-      var movedNum = 0;
-      var materials = [];
       _.each(req.files, f => {
         var parsed = path.parse(f.originalname);
         var material = new Material({

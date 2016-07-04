@@ -24,7 +24,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       });
     }
 
-    var courseInstances = yield user.getCourseInstances({
+    const courseInstances = yield user.getCourseInstances({
       select: 'id prof course semester',
       populate: [{
         path: 'course',
@@ -51,7 +51,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
-    var questions = yield user.getQuestions({
+    const questions = yield user.getQuestions({
       populate: [{
         path: 'user',
         select: 'id firstname lastname',
@@ -61,7 +61,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
-    var followings = yield user.getFollowings({
+    const followings = yield user.getFollowings({
       populate: [{
         path: 'program',
         select: 'id name university degree',
@@ -77,7 +77,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
-    var data = {
+    const data = {
       _id: user._id,
       firstname: user.firstname,
       lastname: user.lastname,
@@ -91,7 +91,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
     };
 
     return res.json(data);
-
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({

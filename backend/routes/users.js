@@ -122,13 +122,14 @@ router.post('/', function (req, res) {
   }
 
   co(function *() {
+    var user;
     var university = yield University.findOne({ _id: req.body.university });
     if (!university) {
       return res.status(404).json({
         err: [{ msg: 'UniversityNotFound' }],
       });
     }
-    var program = yield Program.findOne({ _id: req.body.program });
+    const program = yield Program.findOne({ _id: req.body.program });
     if (!program) {
       return res.status(404).json({
         err: [{ msg: 'ProgramNotFound' }],
@@ -145,7 +146,6 @@ router.post('/', function (req, res) {
       });
     }
 
-    var user;
     if (req.body.role === 'student') {
       user = new Student({
         email: req.body.email,
@@ -167,11 +167,11 @@ router.post('/', function (req, res) {
 
     yield user.updatePassword(req.body.password);
     const buffer = crypto.randomBytes(48);
-    var verificationCode = buffer.toString('hex');
+    const verificationCode = buffer.toString('hex');
     user.verificationCode = verificationCode;
     user.vcCreated = Date.now();
-    var verificationURL = `http://scholario.de/email-verification/${verificationCode}`;
-    var mailOpts = {
+    const verificationURL = `http://scholario.de/email-verification/${verificationCode}`;
+    const mailOpts = {
       from: '"Scholario" <noreply@scholario.de>',
       to: user.email,
       subject: 'Verification code',

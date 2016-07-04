@@ -57,7 +57,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     });
   }
 
-  var answer = new Answer({
+  const answer = new Answer({
     content: req.body.content,
     // question: req.params.qid,
     user: req.user,

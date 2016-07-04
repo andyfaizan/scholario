@@ -9,7 +9,7 @@ var router = express.Router();
 router.get('/', passport.authenticate('jwt', { session: false }),
   utils.hasPermission('Professor'), function (req, res) {
     Course
-      .find({ prof:  req.user._id })
+      .find({ prof: req.user._id })
       .populate('prof university')
       .exec()
       .then(function (courses) {

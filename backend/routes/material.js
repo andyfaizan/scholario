@@ -55,7 +55,7 @@ router.get('/:mid', passport.authenticate('jwt', { session: false }), function (
   });
 });
 
-router.delete('/:mid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:mid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('mid', 'InvalidMaterialId').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
