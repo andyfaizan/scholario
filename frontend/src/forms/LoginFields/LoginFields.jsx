@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import TextField from 'material-ui/TextField'
-import classes from './LoginFields.scss'
 import { reduxForm } from 'redux-form'
 
 export const fields = ['email', 'password']
@@ -38,18 +37,19 @@ export class LoginFields extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const { fields: { email, password } } = this.props
 
     return (
       <div>
-        <div className={classes.loginContainer}>
+        <div styles={styles.loginContainer}>
           <TextField
             {...email}
             hintText="abc@hotmail.com"
             errorText={email.touched && email.error ? email.error : ''}
-            floatingLabelStyle={classes.floatingLabelStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText="Email"
-            underlineFocusStyle={classes.focusStyle}
+            underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
           <br />
@@ -58,16 +58,42 @@ export class LoginFields extends React.Component {
             errorText={password.touched && password.error ? password.error : ''}
             floatingLabelText="Passwort"
             type="password"
-            floatingLabelStyle={classes.floatingLabelStyle}
-            underlineFocusStyle={classes.focusStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
+            underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
           <br />
           <br />
-          <a onTouchTap={this.props.onClickForgotPassword} className={classes.forgotLink}>Passwort vergessen? </a>
+          <a onTouchTap={this.props.onClickForgotPassword} styles={styles.forgotLink}>Passwort vergessen? </a>
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    loginContainer: {
+      alignItems: 'center',
+      marginLeft: '10%',
+      marginRight: '10%',
+    },
+    forgotLink: {
+      color: '#27ae60',
+      cursor: 'pointer',
+    },
+    errorStyle: {
+      backgroundColor: '#e74c3c',
+    },
+    underlineStyle: {
+      borderColor: '#446CB3',
+    },
+    focusStyle: {
+      borderColor: '#446CB3',
+    },
+    floatingLabelStyle: {
+      color: '#27ae60',
+    },
   }
 }
 

@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { reduxForm } from 'redux-form'
-import classes from './CreateCourseForm.scss'
 import TextField from 'material-ui/TextField'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
 import MenuItem from 'material-ui/MenuItem'
@@ -37,6 +36,7 @@ const propTypes = {
 }
 
 function CreateCourse({ fields: { course, teacher, assistant, semester, subject, uni, info } }) {
+  const styles = getStyles()
   const courseHint = 'Kursname'
   const courseLabel = 'Kurs'
   const teacherLabel = 'Lehrer'
@@ -63,16 +63,16 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
 
   return (
     <div>
-      <div className={classes.createCourseContainer} fullWidth>
+      <div styles={styles.createCourseContainer} fullWidth>
         {/* TODO extract presentational TextField component
         */}
         <TextField
           {...course}
           hintText={courseHint}
           errorText={course.touched && course.error ? course.error : ''}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={courseLabel}
-          underlineFocusStyle={classes.focusStyle}
+          underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
@@ -80,9 +80,9 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
           {...teacher}
           hintText={teacherHint}
           errorText={teacher.touched && teacher.error ? teacher.error : ''}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={teacherLabel}
-          underlineFocusStyle={classes.focusStyle}
+          underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
@@ -90,9 +90,9 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
           {...assistant}
           hintText={assistantHint}
           errorText={assistant.touched && assistant.error ? assistant.error : ''}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={assistantLabel}
-          underlineFocusStyle={classes.focusStyle}
+          underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
@@ -100,16 +100,16 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
           {...subject}
           hintText={subjectHint}
           errorText={subject.touched && subject.error ? subject.error : ''}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={subjectLabel}
-          underlineFocusStyle={classes.focusStyle}
+          underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
         <SelectFieldWrapper
           {...semester}
           floatingLabelText={semesterLabel}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           fullWidth
         >
           {menuItems}
@@ -119,18 +119,18 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
           {...uni}
           hintText={uniHint}
           errorText={uni.touched && uni.error ? uni.error : ''}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={uniLabel}
-          underlineFocusStyle={classes.focusStyle}
+          underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
         <TextField
           {...info}
           errorText={info.touched && info.error ? info.error : ''}
-          floatingLabelStyle={classes.floatingLabelStyle}
+          floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={infoLabel}
-          underlineFocusStyle={classes.focusStyle}
+          underlineFocusStyle={styles.focusStyle}
           fullWidth
           multiLine
           rows={2}
@@ -141,6 +141,28 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
       </div>
     </div>
   )
+}
+
+function getStyles() {
+  return {
+    createCourseContainer: {
+      marginLeft: '5%',
+      marginRight: '10%',
+      textAlign: 'left',
+    },
+    errorStyle: {
+      backgroundColor: '#e74c3c',
+    },
+    underlineStyle: {
+      borderColor: '#446CB3',
+    },
+    focusStyle: {
+      borderColor: '#446CB3',
+    },
+    floatingLabelStyle: {
+      color: '#27ae60',
+    },
+  }
 }
 
 CreateCourse.propTypes = propTypes

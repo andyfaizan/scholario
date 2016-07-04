@@ -8,13 +8,14 @@ import { reduxForm } from 'redux-form'
 import { getUniversities } from '../../redux/modules/university'
 import { getPrograms } from '../../redux/modules/program'
 
+
 export const fields = ['firstname', 'lastname', 'email', 'password', 'university', 'program']
 
 const validate = (values) => {
   const errors = {}
   if (!values.email) {
     errors.email = 'Erforderlich'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (!/^[AZ09._%+-]+@[AZ09.-]+\.[AZ]{2,4}$/i.test(values.email)) {
     errors.email = 'Ungültige Email Addresse'
   }
   if (!values.password) {
@@ -58,6 +59,8 @@ export class SignupFields extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const { fields: { email, password, firstname, lastname, university, program } } = this.props
 
     let programItems = []
@@ -71,7 +74,7 @@ export class SignupFields extends React.Component {
 
     return (
       <div>
-        <div className={classes.signupContainer}>
+        <div style={styles.signupContainer}>
           <TextField
             {...firstname}
             hintText="Steve"
@@ -110,7 +113,7 @@ export class SignupFields extends React.Component {
           />
           <SelectFieldWrapper
             {...university}
-            className={classes.blocking}
+            style={styles.blocking}
             floatingLabelText="Hochschule"
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}
@@ -122,7 +125,7 @@ export class SignupFields extends React.Component {
           </SelectFieldWrapper>
           <SelectFieldWrapper
             {...program}
-            className={classes.blocking}
+            style={styles.blocking}
             floatingLabelText="Program"
             floatingLabelStyle={classes.floatingLabelStyle}
             underlineFocusStyle={classes.focusStyle}
@@ -133,6 +136,45 @@ export class SignupFields extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    signupContainer: {
+      alignItems: 'center',
+      marginLeft: '10%',
+      marginRight: '10%',
+      overflow: 'scroll',
+      maxHeight: '400px',
+    },
+    errorStyle: {
+      backgroundColor: '#e74c3c',
+    },
+    underlineStyle: {
+      borderColor: '#446CB3',
+    },
+    focusStyle: {
+      borderColor: '#446CB3',
+    },
+    floatingLabelStyle: {
+      color: '#27ae60',
+    },
+    labelStyle: {
+      color: '#fff',
+      fontWeight: 'bold',
+    },
+    block: {
+      maxWidth: '250px',
+    },
+    checkBox: {
+      marginBottom: '16px',
+      paddingLeft: '10px',
+      backgroundColor: '#000',
+    },
+    blocking: {
+      overflow: 'hidden',
+    },
   }
 }
 

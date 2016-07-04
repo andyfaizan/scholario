@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { reduxForm } from 'redux-form'
 import TextField from 'material-ui/TextField'
-import classes from './AddQuestionForm.scss'
 import MenuItem from 'material-ui/MenuItem'
 import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
 // Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
@@ -25,6 +24,7 @@ export class AddQuestion extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const titleLabel = 'Problem'
     const titleHint = 'Ein Titel für die Frage'
     const descriptionLabel = 'Text'
@@ -61,22 +61,22 @@ export class AddQuestion extends React.Component {
 
     return (
       <div>
-        <div className={classes.addQuestionContainer} fullWidth>
+        <div styles={styles.addQuestionContainer} fullWidth>
           <TextField
             {...title}
             hintText={titleHint}
-            floatingLabelStyle={classes.floatingLabelStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText={titleLabel}
-            underlineFocusStyle={classes.focusStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
             maxLength={titleLimit}
           />
           <br />
           <TextField
             {...description}
-            floatingLabelStyle={classes.floatingLabelStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText={descriptionLabel}
-            underlineFocusStyle={classes.focusStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
             multiLine
             rows={4}
@@ -85,10 +85,10 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...courseInstance}
-            className={classes.blocking}
+            styles={styles.blocking}
             floatingLabelText={courseLabel}
-            floatingLabelStyle={classes.floatingLabelStyle}
-            underlineFocusStyle={classes.focusStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
           >
             {courseItems}
@@ -96,10 +96,10 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...pkg}
-            className={classes.blocking}
+            styles={styles.blocking}
             floatingLabelText={packageLabel}
-            floatingLabelStyle={classes.floatingLabelStyle}
-            underlineFocusStyle={classes.focusStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
           >
             {packageItems}
@@ -107,10 +107,10 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...material}
-            className={classes.blocking}
+            styles={styles.blocking}
             floatingLabelText={materialLabel}
-            floatingLabelStyle={classes.floatingLabelStyle}
-            underlineFocusStyle={classes.focusStyle}
+            floatingLabelStyle={styles.floatingLabelStyle}
+            underlineFocusStyle={styles.focusStyle}
             fullWidth
           >
             {materialItems}
@@ -120,6 +120,28 @@ export class AddQuestion extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    addQuestionContainer: {
+      alignItems: 'center',
+      marginLeft: '10%',
+      marginRight: '10%',
+    },
+    errorStyle: {
+      backgroundColor: '#e74c3c',
+    },
+    underlineStyle: {
+      borderColor: '#446CB3',
+    },
+    focusStyle: {
+      borderColor: '#446CB3',
+    },
+    floatingLabelStyle: {
+      color: '#27ae60',
+    },
   }
 }
 

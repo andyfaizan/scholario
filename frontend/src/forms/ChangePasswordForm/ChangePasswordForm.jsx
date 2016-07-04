@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { reduxForm } from 'redux-form'
-import classes from './ChangePasswordForm.scss'
 import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
@@ -30,12 +29,13 @@ const defaultProps = {
 }
 
 function ChangePassword({ fields: { password }, handleSubmit, feedbackTrue }) {
+  const styles = getStyles()
   let feedbackMessage
 
   if (feedbackTrue === 0) {
-    feedbackMessage = <div className={classes.error}>Es gibt einen Fehler</div>
+    feedbackMessage = <div styles={styles.error}>Es gibt einen Fehler</div>
   } else if (feedbackTrue === 1) {
-    feedbackMessage = <div className={classes.success}>Passwort ist verändert</div>
+    feedbackMessage = <div styles={styles.success}>Passwort ist verändert</div>
   } else feedbackMessage = ''
 
   return (
@@ -45,17 +45,37 @@ function ChangePassword({ fields: { password }, handleSubmit, feedbackTrue }) {
           {...password}
           errorText={password.touched && password.error ? password.error : ''}
           floatingLabelText="Neues Passwort"
-          floatingLabelStyle={classes.floatingLabel}
-          underlineFocusStyle={classes.underlineColor}
+          floatingLabelStyle={styles.floatingLabel}
+          underlineFocusStyle={styles.underlineColor}
           type="password"
         />
         <FlatButton label="Senden" linkButton onTouchTap={handleSubmit} hoverColor="#26A65B" />
-        <div className={classes.feedback}>
+        <div styles={styles.feedback}>
           <h4>{feedbackMessage}</h4>
         </div>
       </div>
     </form>
   )
+}
+
+function getStyles() {
+  return {
+    feedback: {
+      marginLeft: '0.5em',
+    },
+    error: {
+      color: 'red',
+    },
+    success: {
+      color: '#26A65B',
+    },
+    floatingLabel: {
+      color: '#26A65B',
+    },
+    underlineColor: {
+      borderColor: '#446CB3',
+    },
+  }
 }
 
 ChangePassword.propTypes = propTypes

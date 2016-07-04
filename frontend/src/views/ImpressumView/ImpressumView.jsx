@@ -1,12 +1,14 @@
 import React from 'react'
-import classes from './ImpressumView.scss'
+import Radium from 'radium'
 
 const propTypes = {
 }
 
 function Impressum() {
+  const styles = getStyles()
+
   return (
-    <div className={classes.dashboardRoot}>
+    <div style={styles.dashboardRoot}>
       <h1>Impressum</h1>
       <p>Christoph Walpert  c/o Gustav Walpert<br />
         Magnolienweg 2<br />
@@ -197,6 +199,24 @@ function Impressum() {
   )
 }
 
+function getStyles() {
+  return {
+    'mainStyle > a': {
+      backgroundColor: 'white',
+    },
+    dashboardRoot: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
+  }
+}
+
 Impressum.propTypes = propTypes
 
-export default Impressum
+export default Radium(Impressum)

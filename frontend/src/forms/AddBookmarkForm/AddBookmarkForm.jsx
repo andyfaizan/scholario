@@ -27,9 +27,8 @@ const defaultProps = {
 }
 
 function AddBookmark() {
-  const { fields: { title, url }, handleSubmit } = this.props
-
   const styles = getStyles()
+  const { fields: { title, url }, handleSubmit } = this.props
 
   return (
     <form onSubmit={handleSubmit}>

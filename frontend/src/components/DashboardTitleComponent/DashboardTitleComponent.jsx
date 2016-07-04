@@ -1,17 +1,27 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Card from 'material-ui/Card/Card'
-import classes from './DashboardTitleComponent.scss'
 import AddCircle from 'material-ui/svg-icons/content/add'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ModalRoot from '../../containers/ModalRoot'
 
+
+const propTypes = {
+  openModal: PropTypes.func,
+  modal: PropTypes.object,
+  courseModal: PropTypes.string,
+  role: PropTypes.string,
+}
+
 function DashboardTitleComponent({ role, openModal, modal, courseModal }) {
+  const styles = getStyles()
+
   const teacherRole = 'Prof'
   let addCourse
 
   if (role === teacherRole) {
     addCourse = (
-      <div className={classes.addCourseAction}>
+      <div style={styles.addCourseAction}>
         <FloatingActionButton onTouchTap={openModal} backgroundColor="#E74C3C" primary={false}>
           <AddCircle color="white" />
         </FloatingActionButton>
@@ -23,12 +33,12 @@ function DashboardTitleComponent({ role, openModal, modal, courseModal }) {
   return (
     <div>
       <Card>
-        {/* <div className={classes.divSearchField}>
+        {/* <div style={styles.divSearchField}>
           <AutoComplete
           floatingLabelText= {floatingLabelTextState}
           filter={AutoComplete.caseInsensitiveFilter}
           dataSource={filterDataSource}
-          //className={classes.autoComplete}
+          //style={styles.autoComplete}
           />
         </div>*/}
         {addCourse}
@@ -37,11 +47,34 @@ function DashboardTitleComponent({ role, openModal, modal, courseModal }) {
   )
 }
 
-DashboardTitleComponent.propTypes = {
-  openModal: PropTypes.func,
-  modal: PropTypes.object,
-  courseModal: PropTypes.string,
-  role: PropTypes.string,
+function getStyles() {
+  return {
+    divSearchField: {
+      float: 'left',
+      margin: 'auto',
+      marginTop: '-19px',
+      marginLeft: '30px',
+    },
+    divTitle: {
+      float: 'left',
+    },
+    autoComplete: {
+      borderStyle: 'solid',
+      borderRadius: '12px',
+      borderColor: 'green',
+      color: 'red',
+      backgroundColor: '#000000',
+    },
+    addCourseAction: {
+      float: 'left',
+      marginLeft: '0px',
+    },
+    style: {
+      backgroundColor: '#E74C3C',
+    },
+  }
 }
 
-export default DashboardTitleComponent
+DashboardTitleComponent.propTypes = propTypes
+
+export default Radium(DashboardTitleComponent)

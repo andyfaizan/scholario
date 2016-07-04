@@ -1,15 +1,16 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import FeedbackForm from '../../forms/FeedbackForm/FeedbackForm'
-import classes from './FeedbackView.scss'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import * as selectors from '../../redux/selectors'
 import { getUser, postFeedback,
   POST_FEEDBACK_OK, POST_FEEDBACK_ERR,
 } from '../../redux/modules/user'
+
 
 const propTypes = {
   user: PropTypes.object,
@@ -33,6 +34,8 @@ export class FeedbackView extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const { user, userUniversity, userProgram,
       feedbackOk, feedbackErr,
     } = this.props
@@ -44,7 +47,7 @@ export class FeedbackView extends React.Component {
 
     return (
       <div>
-        <div className={classes.root} >
+        <div style={styles.root} >
           <DashboardToolBar />
           <TeacherProfileBar
             firstNameUser={user ? user.firstname : ''}
@@ -59,11 +62,26 @@ export class FeedbackView extends React.Component {
             onSubmit={(data) => this.props.postFeedback(data)}
           />
         </div>
-        <div className={classes.footer}>
+        <div style={styles.footer}>
           <FooterLanding />
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    root: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
   }
 }
 
@@ -93,5 +111,4 @@ FeedbackView.propTypes = propTypes
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FeedbackView)
-
+)(Radium(FeedbackView))

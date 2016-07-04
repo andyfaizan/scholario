@@ -7,8 +7,6 @@ import CardHeader from 'material-ui/Card/CardHeader'
 import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
-import classes from './NewAnswerForm.scss'
-
 
 export const fields = ['content']
 
@@ -29,43 +27,76 @@ const defaultProps = {
 }
 
 function NewAnswer({ fields: { content }, handleSubmit, onCancel }) {
+  const styles = getStyles()
+
   return (
     <div>
       <Card>
         <CardHeader
-          className={classes.cardHeaderStyle}
+          styles={styles.cardHeaderStyle}
           title={'Frage beantworten'}
           titleColor="#26A65B"
-          titleStyle={classes.cardHeaderTitleStyle}
+          titleStyle={styles.cardHeaderTitleStyle}
         />
         <form onSubmit={handleSubmit}>
-          <CardText className={classes.textStyle}>
+          <CardText styles={styles.textStyle}>
             <TextField
               {...content}
               floatingLabelText="Deine Antwort"
               multiLine
               rows={2}
               fullWidth
-              floatingLabelStyle={classes.floatingLabel}
-              underlineFocusStyle={classes.underlineColor}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
             />
           </CardText>
-          <CardActions className={classes.actionPadding}>
+          <CardActions styles={styles.actionPadding}>
             <FlatButton
               label="Senden" linkButton
               onTouchTap={handleSubmit} hoverColor="#26A65B"
-              className={classes.buttonStyle} rippleColor="#ffffff"
+              styles={styles.buttonStyle} rippleColor="#ffffff"
             />
             <FlatButton
               label="Abbrechen" linkButton
               onTouchTap={onCancel} hoverColor="#26A65B"
-              className={classes.buttonStyle} rippleColor="#ffffff"
+              styles={styles.buttonStyle} rippleColor="#ffffff"
             />
           </CardActions>
         </form>
       </Card>
     </div>
   )
+}
+
+function getStyles() {
+  return {
+    textStyle: {
+      paddingLeft: '70px',
+      paddingRight: '50px',
+    },
+    actionPadding: {
+      paddingLeft: '52px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+    },
+    floatingLabel: {
+      color: '#26A65B',
+    },
+    underlineColor: {
+      borderColor: '#446CB3',
+    },
+    buttonStyle: {
+      color: '#ffffff',
+    },
+    cardHeaderStyle: {
+      paddingLeft: '70',
+      color: '#26A65B',
+    },
+    cardHeaderTitleStyle: {
+      fontWeight: '100%',
+      fontSize: '130%',
+    },
+  }
 }
 
 NewAnswer.propTypes = propTypes

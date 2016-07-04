@@ -1,16 +1,17 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import ForgotPassword from '../../components/ForgotPassword/ForgotPassword'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import SetForgotPasswordForm from '../../forms/SetForgotPasswordForm/SetForgotPasswordForm'
-import classes from './ForgotPasswordView.scss'
 import Divider from 'material-ui/Divider'
 import * as selectors from '../../redux/selectors'
 import {
   forgotPassword, resetPassword, FORGOT_PASSWORD_OK, RESET_PASSWORD_OK,
   FORGOT_PASSWORD_ERR } from '../../redux/modules/user'
+
 
 const propTypes = {
   location: PropTypes.object,
@@ -25,6 +26,8 @@ function ForgotPasswordView({
   params, location,
   forgotPasswordOk, forgotPasswordErr, resetPasswordOk,
   dispatch }) {
+  const styles = getStyles()
+
   const pathForgotPass = '/forgot-password'
   const pathResetPass = '/reset-password'
   let displayCard
@@ -60,22 +63,58 @@ function ForgotPasswordView({
 
   return (
     <div>
-      <div className={classes.landing}>
+      <div style={styles.landing}>
         <div>
           <NavBarLandingPage />
         </div>
-        <div className={classes.container}>
+        <div style={styles.container}>
           {displayCard}
         </div>
         <Divider />
       </div>
       <div>
       </div>
-      <div className={classes.footer}>
+      <div style={styles.footer}>
         <FooterLanding />
       </div>
     </div>
   )
+}
+
+function getStyles() {
+  return {
+    landing: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    container: {
+      fontWeight: 'bold',
+      backgroundColor: 'white',
+      height: '87%',
+      backgroundSize: 'cover', /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
+      '-webkit-background-size': 'cover', /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+      '-moz-background-size': 'cover', /* optional for Firefox 3.6 */
+      '-o-background-size': 'cover', /* for Opera 9.5 */
+      margin: 0, /* to remove the default white margin of body */
+      padding: 0, /* to remove the default white margin of body */
+      overflow: 'hidden',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
+    dash: {
+      display: 'block',
+      width: '100%',
+    },
+    a: {
+      ':link': {
+        backgroundColor: 'rebeccapurple',
+      },
+    },
+  }
 }
 
 ForgotPasswordView.propTypes = propTypes
@@ -88,4 +127,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-)(ForgotPasswordView)
+)(Radium(ForgotPasswordView))
