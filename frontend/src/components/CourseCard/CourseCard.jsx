@@ -47,6 +47,12 @@ function CourseCard({
       color: 'white',
       borderRadius: '13px',
     },
+    actionPosition: {
+      position: 'absolute',
+      float: 'left',
+      margin: 'auto',
+    },
+
   }
 
   const actionsCourse = (
@@ -66,7 +72,7 @@ function CourseCard({
           <Delete color="white" />
         </IconButton>
       </div>
-      <div className={classes.actionPosition}>
+      <div className={styles.actionPosition}>
         <IconButton
           disableTouchRipple
           containerElement={<Link to={courseUrl} />}

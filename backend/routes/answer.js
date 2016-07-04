@@ -24,7 +24,7 @@ router.get('/:aid/vote', passport.authenticate('jwt', { session: false }), funct
       });
     }
 
-    for (let i = 0; i < answer.votes.length; i++) {
+    for (var i = 0; i < answer.votes.length; i++) {
       if (answer.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
           _id: answer._id,
@@ -57,7 +57,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     });
   }
 
-  let answer = new Answer({
+  var answer = new Answer({
     content: req.body.content,
     // question: req.params.qid,
     user: req.user,
