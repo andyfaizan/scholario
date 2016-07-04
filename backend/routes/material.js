@@ -1,17 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
-// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-// const multer = require('multer');
-// const _ = require('lodash');
 const co = require('co');
 const url = require('url');
 const logger = require('../logger');
-// const utils = require('../utils');
 const Material = mongoose.model('Material');
-// const Pkg = mongoose.model('Pkg');
 
 var router = express.Router();
 
