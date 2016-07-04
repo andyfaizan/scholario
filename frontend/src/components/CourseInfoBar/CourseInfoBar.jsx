@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardHeader from 'material-ui/Card/CardHeader'
@@ -8,13 +9,31 @@ import Divider from 'material-ui/Divider'
 import Toolbar from 'material-ui/Toolbar/Toolbar'
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
 import Friend from 'material-ui/svg-icons/social/person'
-import classes from './CourseInfoBar.scss'
 import { Link } from 'react-router'
 
+
+const propTypes = {
+  courseTitle: PropTypes.string,
+  teachersName: PropTypes.string,
+  assistantsName: PropTypes.string,
+  universityName: PropTypes.string,
+  programeName: PropTypes.string,
+  semesterInstance: PropTypes.string,
+  shortInformation: PropTypes.string,
+  courseVotes: PropTypes.string,
+  courseUrl: PropTypes.string,
+  courseFollowers: PropTypes.array,
+  participantsNum: PropTypes.number,
+  topFiveUsersProfileLink: PropTypes.array,
+  userRole: PropTypes.string,
+  pkgName: PropTypes.string,
+}
 
 function CourseInfoBar({
   courseTitle, teachersName, semesterInstance, shortInformation,
   courseUrl, participantsNum, pkgName }) {
+  const styles = getStyles()
+
   let labelForPkgName
   let courseName
   let displayPkg
@@ -23,8 +42,8 @@ function CourseInfoBar({
     labelForPkgName = pkgName
     courseName = `${courseTitle} :`
     displayPkg = (
-      <div className={classes.pkgName}>
-        <FlatButton label={labelForPkgName} className={classes.titleStyle} primary={false} />
+      <div style={styles.pkgName}>
+        <FlatButton label={labelForPkgName} style={styles.titleStyle} primary={false} />
       </div>
     )
   } else {
@@ -36,11 +55,11 @@ function CourseInfoBar({
   return (
     <div>
       <Card>
-        <Toolbar className={classes.toolbarStyle} >
+        <Toolbar style={styles.toolbarStyle} >
           <ToolbarGroup float="left">
             <FlatButton
               containerElement={<Link to={courseUrl} />}
-              className={classes.titleStyle}
+              style={styles.titleStyle}
               label={courseName}
               primary={false}
             />
@@ -52,19 +71,19 @@ function CourseInfoBar({
           subtitle={semesterInstance}
           actAsExpander
           showExpandableButton
-          className={classes.text}
+          style={styles.text}
           titleColor="#26A65B"
         />
         <Divider />
         <CardText expandable>
-          <div className={classes.actionPosition} >
+          <div style={styles.actionPosition} >
             {shortInformation}
           </div>
         </CardText>
         <CardActions expandable >
-          <div className={classes.actionPosition} >
+          <div style={styles.actionPosition} >
             <Friend color="#26A65B" />
-            <div className={classes.linkColor} >
+            <div style={styles.linkColor} >
               {participantsNum}
             </div>
           </div>
@@ -88,21 +107,50 @@ function CourseInfoBar({
   )
 }
 
-CourseInfoBar.propTypes = {
-  courseTitle: PropTypes.string,
-  teachersName: PropTypes.string,
-  assistantsName: PropTypes.string,
-  universityName: PropTypes.string,
-  programeName: PropTypes.string,
-  semesterInstance: PropTypes.string,
-  shortInformation: PropTypes.string,
-  courseVotes: PropTypes.string,
-  courseUrl: PropTypes.string,
-  courseFollowers: PropTypes.array,
-  participantsNum: PropTypes.number,
-  topFiveUsersProfileLink: PropTypes.array,
-  userRole: PropTypes.string,
-  pkgName: PropTypes.string,
+function getStyles() {
+  return {
+    actionPosition: {
+      position: 'relative',
+      margin: 'auto',
+      marginLeft: '20px',
+    },
+    linkColor: {
+      color: '#26A65B',
+      position: 'relative',
+      marginTop: '-20px',
+      marginLeft: '30px',
+    },
+    pkgName: {
+      position: 'relative',
+      marginTop: '10px',
+      marginLeft: '-40px',
+    },
+    iconStyle: {
+      marginTop: '4px',
+    },
+    titleStyle: {
+      color: '#26A65B',
+      fontSize: '160%',
+    },
+    toolbarStyle: {
+      backgroundColor: 'white',
+      color: '#26A65B',
+    },
+    buttonStyle: {
+      color: 'black',
+    },
+    separator: {
+      backgroundColor: 'black',
+    },
+    text: {
+      position: 'relative',
+      marginRight: '5px',
+      marginLeft: '48px',
+      color: 'green',
+    },
+  }
 }
 
-export default CourseInfoBar
+CourseInfoBar.propTypes = propTypes
+
+export default Radium(CourseInfoBar)

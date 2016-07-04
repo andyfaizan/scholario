@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import List from 'material-ui/List/List'
@@ -8,10 +9,19 @@ import IconButton from 'material-ui/IconButton'
 import Subheader from 'material-ui/Subheader'
 import BookmarkItem from '../../components/BookmarkItem/BookmarkItem'
 import ModalRoot from '../../containers/ModalRoot'
-import classes from './Bookmarks.scss'
 import { ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
 
+
+const propTypes = {
+  bookmarks: PropTypes.array,
+  modal: PropTypes.object,
+  show: PropTypes.func,
+  onClickDeleteBookmark: PropTypes.func,
+}
+
 function Bookmarks({ bookmarks, modal, show, onClickDeleteBookmark }) {
+  const styles = getStyles()
+
   const allBookmarks = 'Alle Lesezeichen'
   const allBookmarksAdd = 'Eine Lesezeichen stellen'
 
@@ -34,14 +44,14 @@ function Bookmarks({ bookmarks, modal, show, onClickDeleteBookmark }) {
   }
   return (
     <div>
-      <Card className={classes.border}>
+      <Card style={styles.border}>
         <CardText >
           <List>
-            <Subheader className={classes.subheader}>
-              <IconButton disableTouchRipple tooltip={allBookmarks} className={classes.iconStyles}>
+            <Subheader style={styles.subheader}>
+              <IconButton disableTouchRipple tooltip={allBookmarks} style={styles.iconStyles}>
                 <ViewList color="#26A65B" />
               </IconButton>
-              <IconButton disableTouchRipple tooltip={allBookmarksAdd} className={classes.iconStyles} onTouchTap={show}>
+              <IconButton disableTouchRipple tooltip={allBookmarksAdd} style={styles.iconStyles} onTouchTap={show}>
                 <AddBox color="#26A65B" />
               </IconButton>
               Lesezeichen
@@ -57,11 +67,25 @@ function Bookmarks({ bookmarks, modal, show, onClickDeleteBookmark }) {
   )
 }
 
-Bookmarks.propTypes = {
-  bookmarks: PropTypes.array,
-  modal: PropTypes.object,
-  show: PropTypes.func,
-  onClickDeleteBookmark: PropTypes.func,
+function getStyles() {
+  return {
+    border: {
+      color: '#26A65B',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#26A65B',
+    },
+    subheader: {
+      color: '#26A65B',
+    },
+    iconStyles: {
+      float: 'left',
+      position: 'relative',
+      marginLeft: '-15px',
+    },
+  }
 }
 
-export default Bookmarks
+Bookmarks.propTypes = propTypes
+
+export default Radium(Bookmarks)

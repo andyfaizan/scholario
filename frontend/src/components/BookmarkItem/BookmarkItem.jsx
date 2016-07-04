@@ -1,11 +1,22 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import ListItem from 'material-ui/List/ListItem'
 import ActionQuestionAnswer from 'material-ui/svg-icons/action/bookmark-border'
 import IconButton from 'material-ui/IconButton'
 import ThumbsUp from 'material-ui/svg-icons/action/delete'
-import classes from './BookmarkItem.scss'
+
+
+const propTypes = {
+  bookmarkLabel: PropTypes.string,
+  datePosted: PropTypes.string,
+  bookmarkURL: PropTypes.string,
+  postedBy: PropTypes.string,
+  onClickDeleteBookmark: PropTypes.func,
+}
 
 function BookmarkItem({ bookmarkLabel, datePosted, bookmarkURL, postedBy, onClickDeleteBookmark }) {
+  const styles = getStyles()
+
   const touchBookmark = () => {
     window.open(bookmarkURL)
   }
@@ -13,7 +24,7 @@ function BookmarkItem({ bookmarkLabel, datePosted, bookmarkURL, postedBy, onClic
   const date = datePosted
 
   const secondaryText = (
-    <div className={classes.styleSecondaryText}>
+    <div style={styles.styleSecondaryText}>
         {postedBy} gepostet am {date ? date.slice(0, 10) : ''}
     </div>
   )
@@ -25,7 +36,7 @@ function BookmarkItem({ bookmarkLabel, datePosted, bookmarkURL, postedBy, onClic
         primaryText={bookmarkLabel}
         secondaryText={secondaryText}
         innerDivStyle={{ color: '#26A65B' }}
-        className={classes.border}
+        style={styles.border}
         rightIconButton={
           <div>
             <IconButton disableTouchRipple onTouchTap={onClickDeleteBookmark}>
@@ -39,12 +50,18 @@ function BookmarkItem({ bookmarkLabel, datePosted, bookmarkURL, postedBy, onClic
   )
 }
 
-BookmarkItem.propTypes = {
-  bookmarkLabel: PropTypes.string,
-  datePosted: PropTypes.string,
-  bookmarkURL: PropTypes.string,
-  postedBy: PropTypes.string,
-  onClickDeleteBookmark: PropTypes.func,
+function getStyles() {
+  return {
+    styleSecondaryText: {
+      color: '#26A65B',
+      opacity: 0.2,
+    },
+    border: {
+      color: '#26A65B',
+    },
+  }
 }
 
-export default BookmarkItem
+BookmarkItem.propTypes = propTypes
+
+export default Radium(BookmarkItem)

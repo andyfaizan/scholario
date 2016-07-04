@@ -1,11 +1,11 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { Link } from 'react-router'
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import PageView from 'material-ui/svg-icons/action/pageview'
 import LibraryAdd from 'material-ui/svg-icons/av/library-add'
-import classes from './CourseCard.scss'
 
 
 const propTypes = {
@@ -21,7 +21,81 @@ const propTypes = {
 function CourseCard({
   titleCourse, universityCourse, courseTeacher,
   following, courseUrl, onClickFollow }) {
-  const styles = {
+  const styles = getStyles()
+
+  const actionsCourse = (
+    <div key="actionCourseDiv" style={styles.actionMain} >
+      <div style={styles.actionFollow} >
+        <IconButton
+          disableTouchRipple
+          disabled={following}
+          onClick={onClickFollow}
+          tooltip="Kurs folgen"
+        >
+          <LibraryAdd color="white" />
+        </IconButton>
+      </div>
+      <div style={styles.actionPostionLeft}>
+        <IconButton disableTouchRipple tooltip="Kurs löschen">
+          <Delete color="white" />
+        </IconButton>
+      </div>
+      <div style={styles.actionPosition}>
+        <IconButton
+          disableTouchRipple
+          containerElement={<Link to={courseUrl} />}
+          linkButton
+          tooltip="Zum Kurs"
+        >
+          <PageView color="white" />
+        </IconButton>
+      </div>
+    </div>
+  )
+
+  const heading = (
+    <div key="headingCourses" style={styles.divStyle}>
+      <h4>{titleCourse}</h4>
+      <div style={styles.badge}>
+      {/* <Badge
+        badgeContent={10}
+        secondary={true}
+        badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
+        ></Badge>*/}
+      </div>
+    </div>
+  )
+
+  const container = (
+    <div key="containerCourse" style={styles.container}>
+      <h5>{universityCourse}</h5>
+      <h6>{courseTeacher}</h6>
+    </div>
+  )
+
+  const nodePaperCourse = [
+    heading,
+    container,
+  ]
+
+  const cardActions = [
+    actionsCourse,
+  ]
+
+  return (
+    <div>
+      <Paper style={styles.style} zDepth={1}>
+        <Link to={courseUrl}>
+          <Paper style={styles.contentStyle} zDepth={0} children={nodePaperCourse} />
+        </Link>
+        <Paper style={styles.actionStyle} zDepth={0} children={cardActions} />
+      </Paper>
+    </div>
+  )
+}
+
+function getStyles() {
+  return {
     style: {
       float: 'left',
       height: '170px',
@@ -52,80 +126,50 @@ function CourseCard({
       float: 'left',
       margin: 'auto',
     },
-
+    actionPostionLeft: {
+      position: 'absolute',
+      float: 'right',
+      margin: 'auto',
+      marginLeft: '250px',
+    },
+    actionFollow: {
+      position: 'absolute',
+      margin: 'left',
+      marginLeft: '30px',
+    },
+    badge: {
+      position: 'absolute',
+      float: 'left',
+      margin: 'auto',
+      marginTop: '-45px',
+      marginLeft: '270px',
+    },
+    actionMain: {
+      position: 'absolute',
+      opacity: 0.5,
+    },
+    container: {
+      position: 'absolute',
+      opacity: 0.7,
+      paddingRight: '3px',
+      paddingLeft: '3px',
+      paddingTop: '3px',
+    },
+    divStyle: {
+      textAlign: 'center',
+    },
+    iconStyles: {
+      backgroundColor: 'white',
+    },
+    paperActions: {
+      float: 'left',
+    },
+    mainActionStyle: {
+      opacity: 0.5,
+    },
   }
-
-  const actionsCourse = (
-    <div key="actionCourseDiv" className={classes.actionMain} >
-      <div className={classes.actionFollow} >
-        <IconButton
-          disableTouchRipple
-          disabled={following}
-          onClick={onClickFollow}
-          tooltip="Kurs folgen"
-        >
-          <LibraryAdd color="white" />
-        </IconButton>
-      </div>
-      <div className={classes.actionPostionLeft}>
-        <IconButton disableTouchRipple tooltip="Kurs löschen">
-          <Delete color="white" />
-        </IconButton>
-      </div>
-      <div className={styles.actionPosition}>
-        <IconButton
-          disableTouchRipple
-          containerElement={<Link to={courseUrl} />}
-          linkButton
-          tooltip="Zum Kurs"
-        >
-          <PageView color="white" />
-        </IconButton>
-      </div>
-    </div>
-  )
-
-  const heading = (
-    <div key="headingCourses" className={classes.divStyle}>
-      <h4>{titleCourse}</h4>
-      <div className={classes.badge}>
-      {/* <Badge
-        badgeContent={10}
-        secondary={true}
-        badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-        ></Badge>*/}
-      </div>
-    </div>
-  )
-
-  const container = (
-    <div key="containerCourse" className={classes.container}>
-      <h5>{universityCourse}</h5>
-      <h6>{courseTeacher}</h6>
-    </div>
-  )
-
-  const nodePaperCourse = [
-    heading,
-    container,
-  ]
-
-  const cardActions = [
-    actionsCourse,
-  ]
-
-  return (
-    <div>
-      <Paper style={styles.style} zDepth={1}>
-        <Link to={courseUrl}>
-          <Paper style={styles.contentStyle} zDepth={0} children={nodePaperCourse} />
-        </Link>
-        <Paper style={styles.actionStyle} zDepth={0} children={cardActions} />
-      </Paper>
-    </div>
-  )
 }
 
 CourseCard.propTypes = propTypes
 
-export default CourseCard
+export default Radium(CourseCard)

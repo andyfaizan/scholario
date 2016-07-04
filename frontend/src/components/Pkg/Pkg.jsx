@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { Link } from 'react-router-redux'
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
-import classes from './Pkg.scss'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
 import Pdf from './pdf.png'
 import Bmp from './bmp.png'
@@ -43,6 +43,8 @@ export class Pkg extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const { user, pkgOwner } = this.props
     const icons = {
       '.bmp': Bmp,
@@ -61,13 +63,13 @@ export class Pkg extends React.Component {
     let preparedTitle
 
     const preparedIcon = (
-      <div className={classes.posImg}>
-        <img className={classes.imgStyle} src={icon} alt={this.props.ext.slice(1)} />
+      <div style={styles.posImg}>
+        <img style={styles.imgStyle} src={icon} alt={this.props.ext.slice(1)} />
       </div>
     )
 
     const heading = (
-      <div key="headingIndependentPackage" className={classes.divStyle}>
+      <div key="headingIndependentPackage" style={styles.divStyle}>
         {preparedIcon}
         <br />
         <h5>{this.getDateFromZulu(this.props.dateUploaded)}</h5>
@@ -81,17 +83,17 @@ export class Pkg extends React.Component {
     }
 
     const actionSlot = (
-      <div key="actionSlot" className={classes.tooltip}>{preparedTitle}
-        <span className={classes.tooltiptext}>{this.props.materialTitle}</span>
+      <div key="actionSlot" style={styles.tooltip}>{preparedTitle}
+        <span style={styles.tooltiptext}>{this.props.materialTitle}</span>
       </div>
     )
 
     const downloadPkt = (
       <div>
-        <div key="downloadKey" className={classes.downloadPkg}>
+        <div key="downloadKey" style={styles.downloadPkg}>
           <a
             target="_blank" href={this.props.materialUrl}
-            className={classes.linkStyle}
+            style={styles.linkStyle}
           >
             <FileDownload color="White" />
           </a>
@@ -102,7 +104,7 @@ export class Pkg extends React.Component {
     let deleteMaterialIcon
     if (user && pkgOwner && user._id === pkgOwner._id) {
       deleteMaterialIcon = (
-        <div key="deleteKey" className={classes.deleteButton}>
+        <div key="deleteKey" style={styles.deleteButton}>
           <IconButton disableTouchRipple tooltip="Pkg löschen" onTouchTap={this.props.onClickDeleteMaterial} >
             <Delete color="White" />
           </IconButton>
@@ -125,15 +127,162 @@ export class Pkg extends React.Component {
     return (
       <div>
         <Link to={this.props.pkgUrl}>
-          <Paper className={classes.style} zDepth={3} children={nodePaperCourse} />
+          <Paper style={styles.style} zDepth={3} children={nodePaperCourse} />
         </Link>
-        <Paper className={classes.styleTwo} zDepth={0} children={action} />
-        <Paper className={classes.styleFour} zDepth={0} children={nodeFileClipper} />
+        <Paper style={styles.styleTwo} zDepth={0} children={action} />
+        <Paper style={styles.styleFour} zDepth={0} children={nodeFileClipper} />
       </div>
     )
   }
 }
 
+function getStyles() {
+  return {
+    actionPosition: {
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '90px',
+      marginLeft: '250px',
+    },
+    actionPostionLeft: {
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '90px',
+    },
+    badge: {
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '20px',
+      marginLeft: '172px',
+      opacity: 1.0,
+    },
+    actionMain: {
+      position: 'absolute',
+      opacity: 0.6,
+    },
+    container: {
+      paddingRight: '3px',
+      paddingLeft: '3px',
+      paddingTop: '90px',
+      marginLeft: '5px',
+      textAlign: 'center',
+      color: '#446CB3',
+    },
+    deleteButton: {
+      position: 'absolute',
+      marginLeft: '105px',
+      marginTop: '-3.0em',
+      opacity: '0.6',
+    },
+    downloadMaterial: {
+      position: 'absolute',
+      marginLeft: '5px',
+      marginTop: '10px',
+      opacity: 0.8,
+    },
+    editButton: {
+      position: 'absolute',
+      marginLeft: '20px',
+      marginTop: '0px',
+      opacity: 0.8,
+    },
+    divTitle: {
+      float: 'left',
+    },
+    posImg: {
+      marginLeft: '58px',
+    },
+    tooltip: {
+      position: 'relative',
+      display: 'inline-block',
+      marginLeft: '6px',
+      tooltiptext: {
+        visibility: 'hidden',
+        width: '120px',
+        backgroundColor: 'black',
+        color: '#fff',
+        textAlign: 'center',
+        borderRadius: '6px',
+        padding: '5px 0',
+
+        /* Position the tooltip */
+        position: 'absolute',
+        zIndex: 1,
+      },
+      ':hover': {
+        visibility: 'visible',
+      },
+    },
+    downloadPkg: {
+      opacity: 0.6,
+      positon: 'absolute',
+      marginTop: '-1.4em',
+      marginLeft: '140px',
+    },
+    imgStyle: {
+      display: 'block',
+      width: '34%',
+      marginTop: '1.5rem',
+    },
+    style: {
+      float: 'left',
+      height: '172px',
+      width: '170px',
+      margin: '8.5px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+    },
+    styleTwo: {
+      float: 'left',
+      height: '30px',
+      width: '170px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '152px',
+      marginLeft: '-178px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+    },
+    styleFour: {
+      float: 'left',
+      height: '140px',
+      width: '166px',
+      backgroundColor: '#ffffff',
+      color: '#446CB3',
+      overflow: 'inherit',
+      alignItems: 'center',
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '11px',
+      marginLeft: '-176px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+      opacity: 1.0,
+      zIndex: 1,
+    },
+    divStyle: {
+      textAlign: 'center',
+      color: '#446CB3',
+      marginLeft: '5px',
+      marginTop: '30px',
+      opacity: 0.9,
+      alignContent: 'center',
+    },
+    linkStyle: {
+      color: '#fff',
+      backgroundColor: 'transparent',
+    },
+  }
+}
+
 Pkg.propTypes = propTypes
 
-export default Pkg
+export default Radium(Pkg)

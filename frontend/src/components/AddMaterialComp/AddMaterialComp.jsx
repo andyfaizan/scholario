@@ -1,14 +1,22 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Paper from 'material-ui/Paper'
-import classes from './AddMaterialComp.scss'
 import AddCircle from 'material-ui/svg-icons/content/add'
 import ModalRoot from '../../containers/ModalRoot'
 import { ADD_MATERIAL_MODAL as addMaterialModalAction } from '../../redux/modules/modal'
 
+
+const propTypes = {
+  modal: PropTypes.object.isRequired,
+  show: PropTypes.func.isRequired,
+}
+
 function AddMaterialComp({ modal, show }) {
+  const styles = getStyles()
+
   const container = (
-    <div key="IndependentPackage" className={classes.container}>
-      <AddCircle className={classes.plusButton} color="#ffffff" />
+    <div key="IndependentPackage" style={styles.container}>
+      <AddCircle style={styles.plusButton} color="#ffffff" />
     </div>
   )
 
@@ -25,7 +33,7 @@ function AddMaterialComp({ modal, show }) {
     <div>
       <div>
         <Paper
-          className={classes.style} zDepth={2}
+          style={styles.style} zDepth={2}
           children={nodePaperCourse}onTouchTap={show}
         />
       </div>
@@ -34,9 +42,51 @@ function AddMaterialComp({ modal, show }) {
   )
 }
 
-AddMaterialComp.propTypes = {
-  modal: PropTypes.object.isRequired,
-  show: PropTypes.func.isRequired,
+function getStyles() {
+  return {
+    actionPosition: {
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '90px',
+      marginLeft: '250px',
+    },
+    actionPostionLeft: {
+      position: 'absolute',
+      margin: 'auto',
+      marginTop: '90px',
+    },
+    actionMain: {
+      position: 'absolute',
+      opacity: 0.6,
+    },
+    container: {
+      opacity: 0.6,
+      paddingRight: '3px',
+      paddingLeft: '3px',
+      paddingTop: '3px',
+      marginLeft: '5px',
+      textAlign: 'center',
+    },
+    style: {
+      float: 'left',
+      height: '172px',
+      width: '170px',
+      margin: '8.5px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+    },
+    plusButton: {
+      position: 'absolute',
+      marginTop: '40px',
+      width: '70px',
+      height: '70px',
+      opacity: 0.9,
+    },
+  }
 }
 
-export default AddMaterialComp
+AddMaterialComp.propTypes = propTypes
+
+export default Radium(AddMaterialComp)

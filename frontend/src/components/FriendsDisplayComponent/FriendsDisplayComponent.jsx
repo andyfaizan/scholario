@@ -1,10 +1,19 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Paper from 'material-ui/Paper'
 import Friend from 'material-ui/svg-icons/social/person'
 import IconButton from 'material-ui/IconButton'
-import classes from './FriendsDisplayComponent.scss'
+
+
+const propTypes = {
+  fullName: PropTypes.string,
+  discipline: PropTypes.string,
+  universityName: PropTypes.string,
+}
 
 function FriendsDisplayComponent({ fullName, discipline, universityName }) {
+  const styles = getStyles()
+
   const header = (
     <div>
       <h3>{fullName}</h3>
@@ -15,8 +24,8 @@ function FriendsDisplayComponent({ fullName, discipline, universityName }) {
 
   const container = (
     <div>
-      <IconButton disableTouchRipple className={classes.friendsButtonStyle}>
-        <Friend className={classes.noteFriendsStyle} />
+      <IconButton disableTouchRipple style={styles.friendsButtonStyle}>
+        <Friend style={styles.noteFriendsStyle} />
       </IconButton>
     </div>
   )
@@ -28,15 +37,40 @@ function FriendsDisplayComponent({ fullName, discipline, universityName }) {
 
   return (
     <div>
-      <Paper className={classes.friendsPaperStyle} zDepth={1} children={nodeFriendsComp} />
+      <Paper style={styles.friendsPaperStyle} zDepth={1} children={nodeFriendsComp} />
     </div>
     )
 }
 
-FriendsDisplayComponent.propTypes = {
-  fullName: PropTypes.string,
-  discipline: PropTypes.string,
-  universityName: PropTypes.string,
+function getStyles() {
+  return {
+    friendsPaperStyle: {
+      float: 'left',
+      height: '170px',
+      width: '300px',
+      margin: '8.5px',
+      backgroundColor: 'white',
+      color: '#1690DB',
+      borderRadius: '13px',
+      overflow: 'inherit',
+      alignItems: 'center',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#1690DB',
+    },
+    friendsButtonStyle: {
+      margin: 'auto',
+      width: '100%',
+      height: '50px',
+      lineHeight: '50px',
+    },
+    noteFriendsStyle: {
+      width: '60px',
+      height: '60px',
+    },
+  }
 }
 
-export default FriendsDisplayComponent
+FriendsDisplayComponent.propTypes = propTypes
+
+export default Radium(FriendsDisplayComponent)
