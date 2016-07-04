@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar'
 import IconMenu from 'material-ui/IconMenu'
@@ -15,28 +16,7 @@ const propTypes = {
 }
 
 function DashboardToolBar({ dispatch }) {
-  const styles = {
-    iconStyle: {
-      marginTop: '4px',
-    },
-    titleStyle: {
-      color: 'white',
-    },
-    toolbarStyle: {
-      backgroundColor: '#26A65B',
-      color: 'white',
-    },
-    buttonStyle: {
-      color: 'white',
-    },
-    separator: {
-      backgroundColor: 'white',
-    },
-    link: {
-      backgroundColor: '#26A65B',
-      color: '#26A65B',
-    },
-  }
+  const styles = getStyles()
 
   return (
     <div>
@@ -65,6 +45,31 @@ function DashboardToolBar({ dispatch }) {
   )
 }
 
+function getStyles() {
+  return {
+    iconStyle: {
+      marginTop: '4px',
+    },
+    titleStyle: {
+      color: 'white',
+    },
+    toolbarStyle: {
+      backgroundColor: '#26A65B',
+      color: 'white',
+    },
+    buttonStyle: {
+      color: 'white',
+    },
+    separator: {
+      backgroundColor: 'white',
+    },
+    link: {
+      backgroundColor: '#26A65B',
+      color: '#26A65B',
+    },
+  }
+}
+
 DashboardToolBar.propTypes = propTypes
 
-export default connect()(DashboardToolBar)
+export default connect()(Radium(DashboardToolBar))

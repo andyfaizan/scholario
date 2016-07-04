@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { addQuestion } from '../redux/modules/question'
@@ -115,11 +116,8 @@ export class AddQuestionModal extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
     const title = 'Eine Frage stellen'
-    const labelStyle = {
-      color: 'white',
-      fontWeight: 'bold',
-    }
 
     const actions = [
       <FlatButton
@@ -132,7 +130,7 @@ export class AddQuestionModal extends React.Component {
         label="Erstellen"
         primary={false}
         backgroundColor="#446CB3"
-        labelStyle={labelStyle}
+        labelStyle={styles.labelStyle}
         onTouchTap={this.create}
       />,
     ]
@@ -161,6 +159,15 @@ export class AddQuestionModal extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    labelStyle: {
+      color: 'white',
+      fontWeight: 'bold',
+    },
+  }
+}
+
 const mapStateToProps = (state) => ({
   modal: state.modal,
   courseInstances: selectors.getUserCourseInstances(state),
@@ -179,4 +186,4 @@ AddQuestionModal.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(AddQuestionModal)
+  mapDispatchToProps)(Radium(AddQuestionModal))
