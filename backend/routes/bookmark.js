@@ -1,14 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const _ = require('lodash');
-const co = require('co');
-const url = require('url');
+// const _ = require('lodash');
+// const co = require('co');
+// const url = require('url');
 const logger = require('../logger');
-const utils = require('../utils');
+// const utils = require('../utils');
 const Bookmark = mongoose.model('Bookmark');
-const Pkg = mongoose.model('Pkg');
+// const Pkg = mongoose.model('Pkg');
 
 var router = express.Router();
 
@@ -16,10 +16,10 @@ var router = express.Router();
 router.delete('/:bid', passport.authenticate('jwt', {session: false}), function (req, res) {
   req.checkParams('bid', 'InvalidBookmarkId').notEmpty().isMongoId();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
   Bookmark.findOne({ _id: req.params.bid }).populate('pkg').then(function (bookmark) {
