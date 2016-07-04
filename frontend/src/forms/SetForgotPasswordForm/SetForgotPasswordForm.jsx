@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField'
 import Edit from 'material-ui/svg-icons/image/edit'
 import RaisedButton from 'material-ui/RaisedButton'
 
+
 export const fields = ['password', 'confirmPassword']
 
 const validate = (values) => {
@@ -34,30 +35,32 @@ const defaultProps = {
 }
 
 function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit }) {
+  const styles = getStyles()
+
   let feedbackMessage
   const feedbackTrue = null
 
   if (feedbackTrue === 0) {
-    feedbackMessage = <div className={classes.error}>Passwörter stimmen nicht überein</div>
+    feedbackMessage = <div style={styles.error}>Passwörter stimmen nicht überein</div>
   } else if (feedbackTrue === 1) {
-    feedbackMessage = <div className={classes.success}>Ihr Passwort wurde geändert</div>
+    feedbackMessage = <div style={styles.success}>Ihr Passwort wurde geändert</div>
   } else feedbackMessage = ''
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={classes.rootForgotPass}>
-        <div className={classes.forgotPassword}>
-          <div className={classes.inner} >
+      <div style={styles.rootForgotPass}>
+        <div style={styles.forgotPassword}>
+          <div style={styles.inner} >
             <Card>
               <CardHeader
                 title="Setze dein Passwort zurück"
                 titleStyle={classes.titleStyle}
                 titleColor="#26A65B"
-                avatar={<Edit className={classes.iconStyle} />}
+                avatar={<Edit style={styles.iconStyle} />}
               />
               <Divider />
               <CardText>
-                <div className={classes.containingEmail}>
+                <div style={styles.containingEmail}>
                   <TextField
                     {...password}
                     errorText={password.touched && password.error ? password.error : ''}
@@ -65,7 +68,7 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     fullWidth={false}
                     floatingLabelStyle={classes.floatingLabel}
                     underlineFocusStyle={classes.underlineColor}
-                    className={classes.textFieldStyle}
+                    style={styles.textFieldStyle}
                     type="password"
                   />
                   <TextField
@@ -74,25 +77,25 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     fullWidth={false}
                     floatingLabelStyle={classes.floatingLabel}
                     underlineFocusStyle={classes.underlineColor}
-                    className={classes.textFieldStyle}
+                    style={styles.textFieldStyle}
                     type="password"
                   />
                 </div>
                 <br />
                 <br />
-                <div className={classes.containingEmail}>
+                <div style={styles.containingEmail}>
                   <RaisedButton
                     label="zurückstellen"
                     primary={false}
                     labelColor="#ffffff"
                     backgroundColor="#446CB3"
-                    className={classes.buttonStyle}
+                    style={styles.buttonStyle}
                     linkButton
                     onTouchTap={handleSubmit}
                   />
                 </div>
                 <br />
-                <div className={classes.feedback}>
+                <div style={styles.feedback}>
                   <h4>{feedbackMessage}</h4>
                 </div>
                 <br />
@@ -103,6 +106,83 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
       </div>
     </form>
   )
+}
+
+function getStyles() {
+  return {
+    forgotPassword: {
+      display: 'tableCell',
+      verticalAlign: 'middle',
+    },
+    rootForgotPass: {
+      display: 'table',
+      position: 'absolute',
+      height: '70%',
+      width: '100%',
+    },
+    inner: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '70%',
+    },
+    containingEmail: {
+      marginLeft: '10%',
+      marginRight: '10%',
+    },
+    feedback: {
+      textAlign: 'center',
+      marginLeft: '-16px',
+    },
+    error: {
+      color: 'red',
+    },
+    success: {
+      color: '#26A65B',
+    },
+    titleStyle: {
+      marginTop: '15px',
+      fontSize: '170%',
+      opacity: 0.7,
+    },
+    floatingLabel: {
+      opacity: 0.7,
+      fontSize: '80%',
+      color: '#26A65B',
+    },
+    underlineColor: {
+      borderColor: '#446CB3',
+    },
+    iconStyle: {
+      height: '50px',
+      width: '50px',
+      opacity: 0.8,
+    },
+    textFieldStyle: {
+      width: '80%',
+      padding: 0,
+      fontSize: '200%',
+    },
+    mediumIcon: {
+      width: '120px',
+      height: '120px',
+      paddingRight: '10px',
+      paddingLeft: '10px',
+      paddingTop: '10px',
+      paddingBottom: 0,
+      marginTop: 0,
+      marginRight: 0,
+    },
+    medium: {
+      width: '60px',
+      height: '60px',
+    },
+    sendEmail: {
+      opacity: 0.8,
+    },
+    buttonStyle: {
+      width: '80%',
+    },
+  }
 }
 
 SetForgotPassword.propTypes = propTypes

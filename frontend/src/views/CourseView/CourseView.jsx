@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import { connect } from 'react-redux'
-import classes from './CourseView.scss'
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -57,6 +57,8 @@ export class Course extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const { courseInstance, profPkgs, studentPkgs, user } = this.props
     let profPkgEls = []
     let studentPkgEls
@@ -111,7 +113,7 @@ export class Course extends React.Component {
 
     return (
       <div>
-        <div className={classes.rootCourse}>
+        <div style={styles.rootCourse}>
           <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
@@ -170,11 +172,34 @@ export class Course extends React.Component {
           <br />
         </div>
         <Feedback errorType="ADD_PKG_ERR" okayType="ADD_PKG_OK" message="Ordner Erstellt!" />
-        <div className={classes.footer}>
+        <div style={styles.footer}>
           <FooterLanding />
         </div>
       </div>
     )
+  }
+}
+
+function getStyles() {
+  return {
+    rootCourse: {
+      backgroundColor: '#FBF6EC',
+      minHeight: '100vh',
+    },
+    footer: {
+      fontSize: '20px',
+      backgroundColor: 'white',
+      color: 'darkslategray',
+      height: '10%',
+    },
+    legend: {
+      textAlign: 'center',
+      color: '#26A65B',
+      fontWeight: 'bolder',
+    },
+    fieldset: {
+      borderColor: '#26A65B',
+    },
   }
 }
 
@@ -213,4 +238,4 @@ Course.propTypes = propTypes
 
 export default connect(
   mapStateToProps
-)(Course)
+)(Radium(Course))

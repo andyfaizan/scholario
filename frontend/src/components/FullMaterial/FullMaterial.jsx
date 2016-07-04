@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Card from 'material-ui/Card/Card'
 import CardHeader from 'material-ui/Card/CardHeader'
 import IFrame from '../IFrame/IFrame'
@@ -6,7 +7,6 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import ReactPlayer from 'react-player'
-import classes from './FullMaterial.scss'
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
 import Questions from '../../containers/Questions'
 import IconButton from 'material-ui/IconButton'
@@ -82,6 +82,8 @@ const getFileTypeFromExt = (extension) => {
 }
 
 const getFrame = (material) => {
+  const styles = getStyles()
+
   let fileType
   if (material.mimetype) {
     fileType = getFileTypeFromMime(material.mimetype)
@@ -90,11 +92,11 @@ const getFrame = (material) => {
   }
 
   if (fileType === 'image') {
-    return <img src={material.url} className={classes.mediaStyle} alt={material.name} />
+    return <img src={material.url} style={styles.mediaStyle} alt={material.name} />
   }
   if (fileType === 'av' && ReactPlayer.canPlay(material.url)) {
     return (
-      <div className={classes.videoStyle}>
+      <div style={styles.videoStyle}>
         <ReactPlayer
           url={material.url}
           playing={false}
@@ -110,7 +112,7 @@ const getFrame = (material) => {
 
   return (
     <div>
-      <img src="https://placekitten.com/600/400" className={classes.mediaStyle} alt="Default" />
+      <img src="https://placekitten.com/600/400" style={styles.mediaStyle} alt="Default" />
       <Snackbar
         open
         message="Das Material kann leider nicht geöffnet werden"
@@ -121,49 +123,7 @@ const getFrame = (material) => {
   )
 }
 
-const FullMaterial = ({
-  location, courseInstance, pkg, material, recentQuestions,
-  popularQuestions, onClickVote }) => (
-  <div>
-    <Card>
-      <CardHeader
-        title={courseInstance.course ? courseInstance.course.name : ''}
-        subtitle={pkg.name}
-        avatar={
-          <IconButton
-            disableTouchRipple
-            tooltip="Back to Package"
-            containerElement={<Link to={`/package/${pkg._id}`} />}
-          >
-            <ArrowBack />
-          </IconButton>
-        }
-      />
-    </Card>
-    <br />
-    <br />
-    <Grid fluid>
-      <Row >
-        <Col xs={16} md={8}>
-          <Card className={classes.previewStyle}>
-            {getFrame(material)}
-          </Card>
-        </Col>
-        <Col xs={8} md={4}>
-          <Questions
-            recentQuestions={recentQuestions}
-            popularQuestions={popularQuestions}
-            location={location}
-            linkToQuestionsList={`/course/${courseInstance._id}/questions`}
-            onClickVote={(qid) => onClickVote(qid)}
-          />
-        </Col>
-      </Row>
-    </Grid>
-  </div>
-)
-
-FullMaterial.propTypes = {
+const propTypes = {
   location: PropTypes.any,
   courseInstance: PropTypes.object,
   pkg: PropTypes.object,
@@ -173,4 +133,79 @@ FullMaterial.propTypes = {
   onClickVote: PropTypes.func,
 }
 
-export default FullMaterial
+const FullMaterial = ({
+  location, courseInstance, pkg, material, recentQuestions,
+  popularQuestions, onClickVote }) => {
+  const styles = getStyles()
+
+  return (
+    <div>
+      <Card>
+        <CardHeader
+          title={courseInstance.course ? courseInstance.course.name : ''}
+          subtitle={pkg.name}
+          avatar={
+            <IconButton
+              disableTouchRipple
+              tooltip="Back to Package"
+              containerElement={<Link to={`/package/${pkg._id}`} />}
+            >
+              <ArrowBack />
+            </IconButton>
+          }
+        />
+      </Card>
+      <br />
+      <br />
+      <Grid fluid>
+        <Row >
+          <Col xs={16} md={8}>
+            <Card style={styles.previewStyle}>
+              {getFrame(material)}
+            </Card>
+          </Col>
+          <Col xs={8} md={4}>
+            <Questions
+              recentQuestions={recentQuestions}
+              popularQuestions={popularQuestions}
+              location={location}
+              linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+              onClickVote={(qid) => onClickVote(qid)}
+            />
+          </Col>
+        </Row>
+      </Grid>
+    </div>
+  )
+}
+
+function getStyles() {
+  return {
+    videoStyle: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
+      padding: '10%',
+      maxWidth: '100%',
+      maxHeight: 'auto',
+    },
+    previewStyle: {
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#26A65B',
+    },
+    mediaStyle: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      display: 'block',
+      padding: '7%',
+      maxWidth: '100%',
+      maxHeight: 'auto',
+    },
+  }
+}
+
+FullMaterial.propTypes = propTypes
+
+export default Radium(FullMaterial)

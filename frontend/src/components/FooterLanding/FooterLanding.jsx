@@ -1,8 +1,14 @@
 import React from 'react'
-import classes from './FooterLanding.scss'
+import Radium from 'radium'
 import { Link } from 'react-router'
 
+
+const propTypes = {
+}
+
 function FooterLanding() {
+  const styles = getStyles()
+
   const impressumLink = '/impressum'
 
   const linkStyle = {
@@ -12,7 +18,7 @@ function FooterLanding() {
   }
 
   return (
-    <div className={classes.rightContent}>
+    <div style={styles.rightContent}>
       <br />
       <Link to={impressumLink} style={linkStyle}>
         Impressum
@@ -21,4 +27,16 @@ function FooterLanding() {
   )
 }
 
-export default FooterLanding
+function getStyles() {
+  return {
+    rightContent: {
+      textAlign: 'center',
+      backgroundColor: '#26A65B',
+      minHeight: '80px',
+    },
+  }
+}
+
+FooterLanding.propTypes = propTypes
+
+export default Radium(FooterLanding)

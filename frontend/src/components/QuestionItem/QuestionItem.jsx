@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import ListItem from 'material-ui/List/ListItem'
 import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer'
 import Avatar from 'material-ui/Avatar'
 import IconButton from 'material-ui/IconButton'
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up'
-import classes from './QuestionItem.scss'
 import { browserHistory } from '../../history'
+
 
 const propTypes = {
   questionStatement: PropTypes.string,
@@ -30,6 +31,8 @@ export class QuestionItem extends React.Component {
   }
 
   render() {
+    const styles = getStyles()
+
     const touchQuestion = () => {
       browserHistory.push(this.props.questionURL)
     }
@@ -37,7 +40,7 @@ export class QuestionItem extends React.Component {
     const date = this.props.datePosted
 
     const secondaryText = (
-      <div className={classes.styleSecondaryText}>
+      <div style={styles.styleSecondaryText}>
         {this.props.postedBy} gepostet am {date ? this.getDateFromZulu(date) : ''}
       </div>
     )
@@ -49,17 +52,17 @@ export class QuestionItem extends React.Component {
           primaryText={this.props.questionStatement}
           secondaryText={secondaryText}
           innerDivStyle={{ color: '#26A65B' }}
-          className={classes.border}
+          style={styles.border}
           disabled={this.props.listItemClickable}
           rightAvatar={
-            <div className={classes.avatar}>
+            <div style={styles.avatar}>
               <Avatar size={25} color="#26A65B" backgroundColor="white">
                 {this.props.currentLikes}
               </Avatar>
             </div>
           }
           rightIconButton={
-            <div className={classes.buttonThumbsUp}>
+            <div style={styles.buttonThumbsUp}>
               <IconButton disableTouchRipple onTouchTap={this.props.onClickVote}>
                 <ThumbsUp color="#26A65B" />
               </IconButton>
@@ -72,6 +75,30 @@ export class QuestionItem extends React.Component {
   }
 }
 
+function getStyles() {
+  return {
+    avatar: {
+      position: 'relative',
+      margin: 'auto',
+      float: 'right',
+      marginRight: '25px',
+      marginTop: '10px',
+    },
+    buttonThumbsUp: {
+      position: 'relative',
+      margin: 'auto',
+      float: 'right',
+    },
+    styleSecondaryText: {
+      color: '#26A65B',
+      opacity: 0.2,
+    },
+    border: {
+      color: '#26A65B',
+    },
+  }
+}
+
 QuestionItem.propTypes = propTypes
 
-export default QuestionItem
+export default Radium(QuestionItem)

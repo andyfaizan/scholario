@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
 import CourseCard from '../../components/CourseCard/CourseCard'
 import AddCourse from '../../containers/DashboardTitleContainer'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
+
+const propTypes = {
+  role: PropTypes.string,
+  courseInstances: PropTypes.array,
+  location: PropTypes.object,
+  connects: PropTypes.array,
+  onClickFollow: PropTypes.func.isRequired,
+}
 
 function LeftSectionTeacherDashboard({ role, courseInstances, location, connects, onClickFollow }) {
   const pathConnects = '/connects'
@@ -71,12 +80,6 @@ function LeftSectionTeacherDashboard({ role, courseInstances, location, connects
     )
 }
 
-LeftSectionTeacherDashboard.propTypes = {
-  role: React.PropTypes.string,
-  courseInstances: React.PropTypes.array,
-  location: React.PropTypes.object,
-  connects: React.PropTypes.array,
-  onClickFollow: React.PropTypes.func.isRequired,
-}
+LeftSectionTeacherDashboard.propTypes = propTypes
 
 export default LeftSectionTeacherDashboard

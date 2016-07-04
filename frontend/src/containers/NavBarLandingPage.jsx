@@ -62,7 +62,11 @@ function getStyles() {
       borderStyle: 'solid',
       borderColor: '#446CB3',
       borderRadius: '20px',
+<<<<<<< HEAD
       borderWidth: '0.0',
+=======
+      borderWidth: '0px',
+>>>>>>> 32c5db3c482e1837b1d11bd4d764bfd2402f9c5b
     },
   }
 }

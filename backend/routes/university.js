@@ -1,16 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const passport = require('passport');
-const _ = require('lodash');
 const logger = require('../logger');
-const utils = require('../utils');
 const University = mongoose.model('University');
 
 var router = express.Router();
-
-
-
 /**
  * @api {get} /universities Search for universities
  * @apiVersion 0.1.0
@@ -43,10 +36,10 @@ var router = express.Router();
 router.get('/', function (req, res) {
   if (req.query.q) req.checkQuery('q', 'InvalidQuery').notEmpty();
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
     return res.status(400).json({
-      err: errors
+      err: errors,
     });
   }
 
@@ -58,15 +51,15 @@ router.get('/', function (req, res) {
    .lean(true)
    .exec()
    .then(function (universities) {
-    return res.status(200).json({
-      universities,
-    });
-  }).catch(function (err) {
-    logger.error(err);
-    return res.status(500).json({
-      err: [{ msg: 'InternalError' }],
-    });
-  });
+     return res.status(200).json({
+       universities,
+     });
+   }).catch(function (err) {
+     logger.error(err);
+     return res.status(500).json({
+       err: [{ msg: 'InternalError' }],
+     });
+   });
 });
 
 module.exports = router;

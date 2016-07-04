@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import List from 'material-ui/List/List'
@@ -10,7 +11,6 @@ import Subheader from 'material-ui/Subheader'
 import ModalRoot from '../../containers/ModalRoot'
 import { ADD_QUESTION_MODAL as addQuestionModalAction } from '../../redux/modules/modal'
 import { Link } from 'react-router'
-import classes from './RightSectionTeacherDashboard.scss'
 
 
 const propTypes = {
@@ -26,6 +26,8 @@ const propTypes = {
 function RightSectionTeacherDashboard({
   modal, popularQuestions, recentQuestions,
   location, linkToQuestionsList, show, onClickVote }) {
+  const styles = getStyles()
+
   const allQuestionsTooltip = 'Alle Fragen'
   const askQuestion = 'Eine Frage stellen'
 
@@ -37,17 +39,17 @@ function RightSectionTeacherDashboard({
 
   return (
     <div>
-      <Card className={classes.border}>
+      <Card style={styles.border}>
         <CardText >
           <List>
-            <Subheader className={classes.subheader}>
+            <Subheader style={styles.subheader}>
               <IconButton
                 disableTouchRipple tooltip={allQuestionsTooltip}
-                className={classes.iconStyles} containerElement={<Link to={linkToQuestionsList} />}
+                style={styles.iconStyles} containerElement={<Link to={linkToQuestionsList} />}
               >
                 <ViewList color="#26A65B" />
               </IconButton>
-              <IconButton disableTouchRipple tooltip={askQuestion} className={classes.iconStyles} onTouchTap={show}>
+              <IconButton disableTouchRipple tooltip={askQuestion} style={styles.iconStyles} onTouchTap={show}>
                 <AddBox color="#26A65B" />
                 {addQuestionModal}
               </IconButton>
@@ -69,7 +71,7 @@ function RightSectionTeacherDashboard({
             </div>
           </List>
           <List>
-            <Subheader className={classes.subheader}> Neueste Fragen</Subheader>
+            <Subheader style={styles.subheader}> Neueste Fragen</Subheader>
             <div>
               {recentQuestions ? recentQuestions.map(question =>
                 <QuestionItem
@@ -92,6 +94,25 @@ function RightSectionTeacherDashboard({
   )
 }
 
+function getStyles() {
+  return {
+    border: {
+      color: '#26A65B',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#26A65B',
+    },
+    subheader: {
+      color: '#26A65B',
+    },
+    iconStyles: {
+      float: 'left',
+      position: 'relative',
+      marginLeft: '-15px',
+    },
+  }
+}
+
 RightSectionTeacherDashboard.propTypes = propTypes
 
-export default RightSectionTeacherDashboard
+export default Radium(RightSectionTeacherDashboard)
