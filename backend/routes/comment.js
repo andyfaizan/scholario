@@ -1,18 +1,14 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const co = require('co');
 const logger = require('../logger');
-// const utils = require('../utils');
-// const User = mongoose.model('User');
-// const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
 const Comment = mongoose.model('Comment');
 
 var router = express.Router();
 
-router.post('/', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.post('/', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkBody('answer', 'InvalidAnswerId').notEmpty().isMongoId();
   req.checkBody('content', 'InvalidContent').notEmpty();
 
