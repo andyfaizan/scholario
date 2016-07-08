@@ -116,7 +116,11 @@ function LandingView() {
           </Grid>
         </div>
         <div style={styles.addContactForm}>
-          dsada
+          <div>
+            <p style={styles.headingAddContactForm}>
+              Gerne beantworten wir Ihre Fragen personlich
+            </p>
+          </div>
         </div>
         <Divider />
       </div>
@@ -195,6 +199,13 @@ function getStyles() {
     centerGridElement: {
       width: '50%',
       margin: '0 auto',
+    },
+    headingAddContactForm: {
+      textAlign: 'center',
+      padding: '30px',
+      color: '#3557A4',
+      fontFamily: 'Open Sans',
+      fontSize: 'x-large',
     },
   }
 }
