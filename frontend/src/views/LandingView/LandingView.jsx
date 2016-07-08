@@ -4,12 +4,12 @@ import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'
-import Chat from './Chat.png'
 import Group from './Group.png'
 import Cloud from './Cloud.png'
 import Analytics from './Analytics.png'
@@ -47,83 +47,140 @@ function LandingView() {
           <Grid>
             <Row>
               <Col xs={8} md={4}>
-                <img
-                  src={CreateIcon}
-                  alt="No Net."
-                />
+                <div style={styles.courseErlebenImageStyle}>
+                  <img
+                    src={CreateIcon}
+                    alt="No Net."
+                  />
+                </div>
               </Col>
               <Col xs={8} md={4}>
-                <img
-                  src={Chat}
-                  alt="No Net."
-                />
-                <img
-                  src={Group}
-                  alt="No Net."
-                />
+                <div style={styles.courseErlebenImageStyle}>
+                  <img
+                    src={Group}
+                    alt="No Net."
+                  />
+                </div>
               </Col>
               <Col xs={8} md={4}>
-                <img
-                  src={Cloud}
-                  alt="No Net."
-                />
+                <div style={styles.courseErlebenImageStyle}>
+                  <img
+                    src={Cloud}
+                    alt="No Net."
+                  />
+                </div>
               </Col>
             </Row>
           </Grid>
           <Grid>
             <Row>
               <Col xs={8} md={4}>
-               Rohan
+                <p style={styles.courseErlebenPrimaryTextStyle}>
+                  Kurse Erstellen
+                </p>
+                <p style={styles.courseErlebenSecondaryTextStyle}>
+                  Sie wollen ihren Kurs online anbieten?
+                  <br />
+                  Bauen Sie mit Scholario einen Kurs ganz
+                  nach Ihren Wunschen auf.
+                </p>
               </Col>
               <Col xs={8} md={4}>
-                Ali
+                <p style={styles.courseErlebenPrimaryTextStyle}>
+                  Teilnehmer einbinden
+                </p>
+                <p style={styles.courseErlebenSecondaryTextStyle}>
+                  Sie wunschen sich mehr Interaktion und Feedback?
+                  Nutzen Onlineaufgaben und Fragenfeed um
+                  mehr Teilnehmer zu erreichen.
+                </p>
               </Col>
               <Col xs={8} md={4}>
-                Asmat
+                <p style={styles.courseErlebenPrimaryTextStyle}>
+                  Materialien teilen
+                </p>
+                <p style={styles.courseErlebenSecondaryTextStyle}>
+                  Ihre Materialien sind so gut, dass diese
+                  veroffentlichen mochten? Profitieren Sie
+                  von unserem Netzwerk.
+                </p>
               </Col>
             </Row>
           </Grid>
         </div>
         <div style={styles.courseErleben}>
-          Kurse erleben
+          <p style={styles.headingCourseErleben}>
+              DARAN ARBEITEN WIR...
+          </p>
           <Grid>
             <Row>
-              <Col xs={6} md={3}>
-                <img
-                  src={Video}
-                  alt="No Net."
-                />
-              </Col>
-              <Col xs={6} md={3}>
-                <img
-                  src={UserProfile}
-                  alt="No Net."
-                />
-              </Col>
-              <Col xs={6} md={3}>
-                <img
-                  src={Success}
-                  alt="No Net."
-                />
-              </Col>
               <Col xs={6} md={3}>
                 <img
                   src={Analytics}
                   alt="No Net."
                 />
+                <p>
+                  Lernfortschritt verfolgen...
+                </p>
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={Success}
+                  alt="No Net."
+                  style={styles.userProfileStyle}
+                />
+                <p>
+                  Interaktiv tests erstellen...
+                </p>
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={Video}
+                  alt="No Net."
+                />
+                <p>
+                  Live streaming und hangout...
+                </p>
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={UserProfile}
+                  alt="No Net."
+                  style={styles.analyticsStyle}
+                />
+                <p>
+                  Netzwerkprofile...
+                </p>
               </Col>
             </Row>
           </Grid>
-
-        </div>
-        <div style={styles.onlineCourseLernenImage}>
-          dsadsasad
-        </div>
-        <div style={styles.comingSoon}>
-          Coming Soon
         </div>
         <div style={styles.addContactForm}>
-          dsada
+          <div>
+            <p style={styles.headingAddContactForm}>
+              Gerne beantworten wir Ihre Fragen personlich
+            </p>
+            <TextField
+              floatingLabelText="Name"
+              style={styles.textFieldName}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+            />
+            <TextField
+              floatingLabelText="Telefon"
+              style={styles.textFieldTelefon}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+            />
+            <FlatButton
+              backgroundColor="#3557A4"
+              label="Abschicken"
+              labelStyle={styles.demoButtonLabelStyle}
+            />
+            <p style={styles.footnoteAddContactForm}>
+              Christoph Walpert - Initiator
+            </p>
+          </div>
         </div>
         <Divider />
       </div>
@@ -169,7 +226,28 @@ function getStyles() {
     courseErstellen: {
       backgroundColor: '#F9F9F9',
       color: '#3557A4',
-      padding: '20px',
+      padding: '40px',
+    },
+    courseErlebenImageStyle: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '6em',
+    },
+    courseErlebenPrimaryTextStyle: {
+      textAlign: 'center',
+      color: '#446CB3',
+      padding: '10px',
+      fontFamily: 'Open Sans',
+      fontSize: 'x-large',
+      marginLeft: '30px',
+    },
+    courseErlebenSecondaryTextStyle: {
+      textAlign: 'center',
+      color: '#446CB3',
+      padding: '10px',
+      fontFamily: 'Open Sans',
+      fontSize: 'large',
+      marginLeft: '30px',
     },
     onlineCourseImage: {
       backgroundColor: '#F9F9F9',
@@ -177,13 +255,8 @@ function getStyles() {
     courseErleben: {
       backgroundColor: '#3557A4',
       color: 'white',
-    },
-    onlineCourseLernenImage: {
-      backgroundColor: '#F9F9F9',
-    },
-    comingSoon: {
-      backgroundColor: '#3557A4',
-      color: 'white',
+      padding: '30px',
+      fontFamily: 'Open Sans',
     },
     addContactForm: {
       backgroundColor: '#F9F9F9',
@@ -208,6 +281,47 @@ function getStyles() {
     centerGridElement: {
       width: '50%',
       margin: '0 auto',
+    },
+    headingAddContactForm: {
+      textAlign: 'center',
+      padding: '30px',
+      color: '#3557A4',
+      fontFamily: 'Open Sans',
+      fontSize: 'x-large',
+    },
+    footnoteAddContactForm: {
+      textAlign: 'center',
+      padding: '30px',
+      color: '#3557A4',
+      fontFamily: 'Open Sans',
+      fontSize: 'large',
+    },
+    headingCourseErleben: {
+      textAlign: 'center',
+      padding: '30px',
+      color: 'white',
+      fontFamily: 'Open Sans',
+      fontSize: 'x-large',
+    },
+    analyticsStyle: {
+      marginTop: '50%',
+    },
+    userProfileStyle: {
+      marginTop: '50%',
+    },
+    textFieldName: {
+      marginLeft: '25%',
+      marginRight: '3%',
+    },
+    textFieldTelefon: {
+      marginRight: '3%',
+    },
+    floatingLabel: {
+      opacity: '0.7',
+      color: '#26A65B',
+    },
+    underlineColor: {
+      borderColor: '#446CB3',
     },
   }
 }
