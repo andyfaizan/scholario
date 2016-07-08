@@ -86,34 +86,48 @@ function LandingView() {
           </Grid>
         </div>
         <div style={styles.courseErleben}>
-          Kurse erleben
+          <p style={styles.headingCourseErleben}>
+              DARAN ARBEITEN WIR...
+          </p>
           <Grid>
             <Row>
               <Col xs={6} md={3}>
                 <img
-                  src={Video}
+                  src={Analytics}
                   alt="No Net."
                 />
-              </Col>
-              <Col xs={6} md={3}>
-                <img
-                  src={UserProfile}
-                  alt="No Net."
-                  style={styles.userProfileStyle}
-                />
+                <p>
+                  Lernfortschritt verfolgen...
+                </p>
               </Col>
               <Col xs={6} md={3}>
                 <img
                   src={Success}
                   alt="No Net."
+                  style={styles.userProfileStyle}
                 />
+                <p>
+                  Interaktiv tests erstellen...
+                </p>
               </Col>
               <Col xs={6} md={3}>
                 <img
-                  src={Analytics}
+                  src={Video}
+                  alt="No Net."
+                />
+                <p>
+                  Live streaming und hangout...
+                </p>
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={UserProfile}
                   alt="No Net."
                   style={styles.analyticsStyle}
                 />
+                <p>
+                  Netzwerkprofile...
+                </p>
               </Col>
             </Row>
           </Grid>
@@ -125,6 +139,7 @@ function LandingView() {
             </p>
             <TextField
               hintText="Name"
+              style={styles.textFieldName}
             />
             <TextField
               hintText="Telefon"
@@ -134,8 +149,8 @@ function LandingView() {
               label="Abschicken"
               labelStyle={styles.demoButtonLabelStyle}
             />
-            <p style={styles.headingAddContactForm}>
-              Gerne beantworten wir Ihre Fragen personlich
+            <p style={styles.footnoteAddContactForm}>
+              Christoph Walpert - Initiator
             </p>
           </div>
         </div>
@@ -192,6 +207,7 @@ function getStyles() {
       backgroundColor: '#3557A4',
       color: 'white',
       padding: '30px',
+      fontFamily: 'Open Sans',
     },
     addContactForm: {
       backgroundColor: '#F9F9F9',
@@ -224,11 +240,29 @@ function getStyles() {
       fontFamily: 'Open Sans',
       fontSize: 'x-large',
     },
+    footnoteAddContactForm: {
+      textAlign: 'center',
+      padding: '30px',
+      color: '#3557A4',
+      fontFamily: 'Open Sans',
+      fontSize: 'large',
+    },
+    headingCourseErleben: {
+      textAlign: 'center',
+      padding: '30px',
+      color: 'white',
+      fontFamily: 'Open Sans',
+      fontSize: 'x-large',
+    },
     analyticsStyle: {
-      marginTop: '20%',
+      marginTop: '50%',
     },
     userProfileStyle: {
-      marginTop: '40%',
+      marginTop: '50%',
+    },
+    textFieldName: {
+      marginLeft: '25%',
+      marginRight: '3%',
     },
   }
 }
