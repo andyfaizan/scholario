@@ -29,7 +29,7 @@ function NavBarLandingPage({ modal, show }) {
               href="http://medium.com/scholario-blog"
             />
             <FlatButton label="EinLoggen" style={styles.loginButton} onClick={show} />
-            {modal.visible ? <ModalRoot {...loginModalAction} /> : null}
+            {modal.visible ? <ModalRoot modalType={loginModalAction} /> : null}
           </div>
         }
       />
@@ -62,7 +62,7 @@ function getStyles() {
       borderStyle: 'solid',
       borderColor: '#446CB3',
       borderRadius: '20px',
-      borderWidth: '0.0',
+      borderWidth: 0,
     },
   }
 }
