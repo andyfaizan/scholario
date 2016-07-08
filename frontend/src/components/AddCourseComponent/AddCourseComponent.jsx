@@ -3,7 +3,7 @@ import Radium from 'radium'
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import AddCircle from 'material-ui/svg-icons/content/add'
-import ModalRoot from '../../containers/ModalRoot'
+import ModalRoot from '../../modals/ModalRoot'
 
 const propTypes = {
   openModal: PropTypes.func,

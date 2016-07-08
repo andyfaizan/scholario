@@ -157,9 +157,6 @@ function getStyles() {
       height: '80px',
       marginTop: '8px',
       marginLeft: '-229px',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      opacity: '1.0',
     },
     styleFive: {
       height: '30px',

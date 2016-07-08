@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import Paper from 'material-ui/Paper'
 import AddCircle from 'material-ui/svg-icons/content/add'
-import ModalRoot from '../../containers/ModalRoot'
+import ModalRoot from '../../modals/ModalRoot'
 import { ADD_MATERIAL_MODAL as addMaterialModalAction } from '../../redux/modules/modal'
 
 
@@ -44,21 +44,6 @@ function AddMaterialComp({ modal, show }) {
 
 function getStyles() {
   return {
-    actionPosition: {
-      position: 'absolute',
-      margin: 'auto',
-      marginTop: '90px',
-      marginLeft: '250px',
-    },
-    actionPostionLeft: {
-      position: 'absolute',
-      margin: 'auto',
-      marginTop: '90px',
-    },
-    actionMain: {
-      position: 'absolute',
-      opacity: 0.6,
-    },
     container: {
       opacity: 0.6,
       paddingRight: '3px',
@@ -78,7 +63,6 @@ function getStyles() {
       alignItems: 'center',
     },
     plusButton: {
-      position: 'absolute',
       marginTop: '40px',
       width: '70px',
       height: '70px',

@@ -32,15 +32,15 @@ function ForgotPassword({ fields: { email }, handleSubmit }) {
         fullWidth={false}
         floatingLabelStyle={styles.floatingLabel}
         underlineFocusStyle={styles.underlineColor}
-        styles={styles.stextFieldStyle}
+        style={styles.stextFieldStyle}
       />
       <IconButton
         iconStyle={styles.medium}
-        styles={styles.mediumIcon}
+        style={styles.mediumIcon}
         linkButton
         onTouchTap={handleSubmit}
       >
-        <Mail styles={styles.sendEmail} color="#446CB3" />
+        <Mail style={styles.sendEmail} color="#446CB3" />
       </IconButton>
     </form>
   )

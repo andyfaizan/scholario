@@ -63,7 +63,7 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
 
   return (
     <div>
-      <div styles={styles.createCourseContainer} fullWidth>
+      <div style={styles.createCourseContainer} fullWidth>
         {/* TODO extract presentational TextField component
         */}
         <TextField

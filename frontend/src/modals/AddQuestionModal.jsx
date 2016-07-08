@@ -15,7 +15,7 @@ const propTypes = {
   modal: PropTypes.object.isRequired,
   location: PropTypes.object,
   courseInstances: PropTypes.array,
-  allPkgs: PropTypes.array,
+  allPkgs: PropTypes.object,
   hide: PropTypes.func.isRequired,
   addQuestion: PropTypes.func,
 }
@@ -63,7 +63,7 @@ export class AddQuestionModal extends React.Component {
   }
 
   getObjects(obj) {
-    return _.pickBy(obj, _.isObjectLike)
+    return _.values(_.pickBy(obj, _.isObjectLike))
   }
 
   create = () => {

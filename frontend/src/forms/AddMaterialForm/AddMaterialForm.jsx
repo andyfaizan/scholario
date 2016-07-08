@@ -36,7 +36,7 @@ export class AddMaterial extends React.Component {
 
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.indexOf('image') > -1) {
-        imgArray.push(<img src={files[i].preview} styles={styles.previewStyle} alt="Preview" />)
+        imgArray.push(<img src={files[i].preview} style={styles.previewStyle} alt="Preview" />)
       }
     }
     if (imgArray.length === 0) {
@@ -70,7 +70,7 @@ export class AddMaterial extends React.Component {
         <div>
           <div>
             <Dropzone
-              {...files} styles={styles.dropStyle} activeStyle={styles.activeStyle}
+              {...files} style={styles.dropStyle} activeStyle={styles.activeStyle}
               onDrop={
                 (filesToUpload) => {
                   uploadError = false
@@ -90,14 +90,14 @@ export class AddMaterial extends React.Component {
               disableClick={this.props.request}
               accept={supportedTypes}
             >
-              <div styles={styles.containerStyle}>
+              <div style={styles.containerStyle}>
                 {showFiles ?
                   this.previewFiles(filesForPreview) :
                   <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
               </div>
             </Dropzone>
             {uploadError ?
-              <div styles={styles.errorText}>
+              <div style={styles.errorText}>
                 <strong>Einige Datein konnte nicht hochgeladen!</strong>
               </div>
               : null}

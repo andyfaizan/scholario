@@ -9,7 +9,7 @@ const propTypes = {
 class SelectFieldWrapper extends React.Component {
   constructor(props) {
     super(props)
-    this.onChange.bind(this)
+    this.onChange = this.onChange.bind(this)
   }
 
   onChange(evt, index, value) {

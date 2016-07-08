@@ -8,7 +8,7 @@ import ViewList from 'material-ui/svg-icons/action/view-list'
 import IconButton from 'material-ui/IconButton'
 import Subheader from 'material-ui/Subheader'
 import BookmarkItem from '../../components/BookmarkItem/BookmarkItem'
-import ModalRoot from '../../containers/ModalRoot'
+import ModalRoot from '../../modals/ModalRoot'
 import { ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
 
 
