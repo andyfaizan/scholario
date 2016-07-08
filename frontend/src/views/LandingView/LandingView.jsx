@@ -4,6 +4,7 @@ import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
@@ -120,6 +121,17 @@ function LandingView() {
             <p style={styles.headingAddContactForm}>
               Gerne beantworten wir Ihre Fragen personlich
             </p>
+            <TextField
+              hintText="Name"
+            />
+            <TextField
+              hintText="Telefon"
+            />
+            <FlatButton
+              backgroundColor="#3557A4"
+              label="Abschicken"
+              labelStyle={styles.demoButtonLabelStyle}
+            />
           </div>
         </div>
         <Divider />
