@@ -7,7 +7,7 @@ const Bookmark = mongoose.model('Bookmark');
 var router = express.Router();
 
 
-router.delete('/:bid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:bid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('bid', 'InvalidBookmarkId').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
