@@ -63,7 +63,7 @@ export class AddQuestionModal extends React.Component {
   }
 
   getObjects(obj) {
-    return _.pickBy(obj, _.isObjectLike)
+    return _.values(_.pickBy(obj, _.isObjectLike))
   }
 
   create = () => {
