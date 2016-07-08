@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import Paper from 'material-ui/Paper'
 import AddCircle from 'material-ui/svg-icons/content/add'
-import ModalRoot from '../../containers/ModalRoot'
+import ModalRoot from '../../modals/ModalRoot'
 import { ADD_MATERIAL_MODAL as addMaterialModalAction } from '../../redux/modules/modal'
 
 
