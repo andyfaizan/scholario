@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { reduxForm } from 'redux-form'
-import classes from './SetForgotPasswordForm.scss'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
@@ -54,7 +53,7 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
             <Card>
               <CardHeader
                 title="Setze dein Passwort zurück"
-                titleStyle={classes.titleStyle}
+                titleStyle={styles.titleStyle}
                 titleColor="#26A65B"
                 avatar={<Edit style={styles.iconStyle} />}
               />
@@ -66,8 +65,8 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     errorText={password.touched && password.error ? password.error : ''}
                     floatingLabelText="Das neue Passwort eingeben"
                     fullWidth={false}
-                    floatingLabelStyle={classes.floatingLabel}
-                    underlineFocusStyle={classes.underlineColor}
+                    floatingLabelStyle={styles.floatingLabel}
+                    underlineFocusStyle={styles.underlineColor}
                     style={styles.textFieldStyle}
                     type="password"
                   />
@@ -75,8 +74,8 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     {...confirmPassword}
                     floatingLabelText="Geben Sie Ihr neues Passwort noch Einmal"
                     fullWidth={false}
-                    floatingLabelStyle={classes.floatingLabel}
-                    underlineFocusStyle={classes.underlineColor}
+                    floatingLabelStyle={styles.floatingLabel}
+                    underlineFocusStyle={styles.underlineColor}
                     style={styles.textFieldStyle}
                     type="password"
                   />
