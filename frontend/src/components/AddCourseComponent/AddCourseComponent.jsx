@@ -1,4 +1,4 @@
-import { React, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
@@ -14,6 +14,7 @@ const propTypes = {
 function AddCourseComponent({ modal, openModal, courseModal }) {
   const styles = getStyles()
 
+  console.log(courseModal)
   const actions = (
     <div>
       <IconButton disableTouchRipple style={styles.buttonStyle} tooltip="In Course">

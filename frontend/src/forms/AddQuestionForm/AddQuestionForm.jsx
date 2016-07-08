@@ -54,6 +54,7 @@ export class AddQuestion extends React.Component {
     let materialItems = []
     if (this.props.fields.pkg.value) {
       const pkgArray = this.props.getObjects(this.props.allPkgs)
+    console.log(pkgArray)
       const selectedPkg = pkgArray.find(p => p._id === this.props.fields.pkg.value)
       materialItems = selectedPkg.materials.map(m =>
         <MenuItem key={m._id} value={m._id} primaryText={m.name} />)
