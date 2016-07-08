@@ -130,7 +130,6 @@ function getStyles() {
       backgroundColor: '#446CB3',
       color: '#ffffff',
       overflow: 'inherit',
-      position: 'absolute',
       alignItems: 'center',
       borderBottomLeftRadius: '30px',
       borderBottomRightRadius: '30px',

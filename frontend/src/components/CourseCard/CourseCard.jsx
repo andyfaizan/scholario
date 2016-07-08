@@ -129,20 +129,22 @@ function getStyles() {
     actionPostionLeft: {
       position: 'absolute',
       float: 'right',
-      margin: 'auto',
       marginLeft: '250px',
+      marginTop: 'auto',
+      marginRight: 'auto',
+      marginBottom: 'auto',
     },
     actionFollow: {
       position: 'absolute',
-      margin: 'left',
       marginLeft: '30px',
     },
     badge: {
       position: 'absolute',
       float: 'left',
-      margin: 'auto',
-      marginTop: '-45px',
       marginLeft: '270px',
+      marginTop: '-45px',
+      marginRight: 'auto',
+      marginBottom: 'auto',
     },
     actionMain: {
       position: 'absolute',
@@ -151,9 +153,9 @@ function getStyles() {
     container: {
       position: 'absolute',
       opacity: 0.7,
-      paddingRight: '3px',
       paddingLeft: '3px',
       paddingTop: '3px',
+      paddingRight: '3px',
     },
     divStyle: {
       textAlign: 'center',
