@@ -4,7 +4,14 @@ import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
+import Grid from 'react-bootstrap/lib/Grid'
+import Row from 'react-bootstrap/lib/Row'
+import Col from 'react-bootstrap/lib/Col'
 import BonnRhein from './MainPicture@3x.png'
+import CreateIcon from './CreateIconx1.png'
+import Chat from './Chat.png'
+import Group from './Group.png'
+import Cloud from './Cloud.png'
 
 const propTypes = {
 
@@ -26,13 +33,40 @@ function LandingView() {
             alt="No Net."
           />
           <FlatButton
-            backgroundColor='#3557A4'
+            backgroundColor="#3557A4"
             label="Demo anfordern"
             style={styles.demoButton}
             labelStyle={styles.demoButtonLabelStyle}
           />
         </div>
         <div style={styles.courseErstellen}>
+          <Grid>
+            <Row>
+              <Col xs={8} md={4}>
+                <img
+                  src={CreateIcon}
+                  alt="No Net."
+                />
+                Rohan
+              </Col>
+              <Col xs={8} md={4}>
+                <img
+                  src={Chat}
+                  alt="No Net."
+                />
+                <img
+                  src={Group}
+                  alt="No Net."
+                />
+              </Col>
+              <Col xs={8} md={4}>
+                <img
+                  src={Cloud}
+                  alt="No Net."
+                />
+              </Col>
+            </Row>
+          </Grid>
           Kurse erstellen
         </div>
         <div style={styles.onlineCourseImage}>
@@ -92,8 +126,9 @@ function getStyles() {
       },
     },
     courseErstellen: {
-      backgroundColor: '#3557A4',
-      color: 'white',
+      backgroundColor: '#F9F9F9',
+      color: '#3557A4',
+      padding: '10px',
     },
     onlineCourseImage: {
       backgroundColor: '#F9F9F9',
