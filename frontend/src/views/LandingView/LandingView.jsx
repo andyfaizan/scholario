@@ -10,7 +10,6 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'
-import Chat from './Chat.png'
 import Group from './Group.png'
 import Cloud from './Cloud.png'
 import Analytics from './Analytics.png'
@@ -58,10 +57,6 @@ function LandingView() {
               <Col xs={8} md={4}>
                 <div style={styles.courseErlebenImageStyle}>
                   <img
-                    src={Chat}
-                    alt="No Net."
-                  />
-                  <img
                     src={Group}
                     alt="No Net."
                   />
@@ -80,13 +75,35 @@ function LandingView() {
           <Grid>
             <Row>
               <Col xs={8} md={4}>
-               Rohan
+                <p style={styles.courseErlebenPrimaryTextStyle}>
+                  Kurse Erstellen
+                </p>
+                <p style={styles.courseErlebenSecondaryTextStyle}>
+                  Sie wollen ihren Kurs online anbieten?
+                  <br />
+                  Bauen Sie mit Scholario einen Kurs ganz
+                  nach Ihren Wunschen auf.
+                </p>
               </Col>
               <Col xs={8} md={4}>
-                Ali
+                <p style={styles.courseErlebenPrimaryTextStyle}>
+                  Teilnehmer einbinden
+                </p>
+                <p style={styles.courseErlebenSecondaryTextStyle}>
+                  Sie wunschen sich mehr Interaktion und Feedback?
+                  Nutzen Onlineaufgaben und Fragenfeed um
+                  mehr Teilnehmer zu erreichen.
+                </p>
               </Col>
               <Col xs={8} md={4}>
-                Asmat
+                <p style={styles.courseErlebenPrimaryTextStyle}>
+                  Materialien teilen
+                </p>
+                <p style={styles.courseErlebenSecondaryTextStyle}>
+                  Ihre Materialien sind so gut, dass diese
+                  veroffentlichen mochten? Profitieren Sie
+                  von unserem Netzwerk.
+                </p>
               </Col>
             </Row>
           </Grid>
@@ -209,7 +226,7 @@ function getStyles() {
     courseErstellen: {
       backgroundColor: '#F9F9F9',
       color: '#3557A4',
-      padding: '30px',
+      padding: '40px',
     },
     courseErlebenImageStyle: {
       marginLeft: 'auto',
@@ -218,6 +235,19 @@ function getStyles() {
     },
     courseErlebenPrimaryTextStyle: {
       textAlign: 'center',
+      color: '#446CB3',
+      padding: '10px',
+      fontFamily: 'Open Sans',
+      fontSize: 'x-large',
+      marginLeft: '30px',
+    },
+    courseErlebenSecondaryTextStyle: {
+      textAlign: 'center',
+      color: '#446CB3',
+      padding: '10px',
+      fontFamily: 'Open Sans',
+      fontSize: 'large',
+      marginLeft: '30px',
     },
     onlineCourseImage: {
       backgroundColor: '#F9F9F9',
