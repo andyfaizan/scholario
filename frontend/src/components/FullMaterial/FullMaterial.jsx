@@ -117,7 +117,7 @@ const getFrame = (material) => {
         open
         message="Das Material kann leider nicht geöffnet werden"
         autoHideDuration={4000}
-        style={{ 'text-align': 'center' }}
+        style={{ textAlign: 'center' }}
       />
     </div>
   )

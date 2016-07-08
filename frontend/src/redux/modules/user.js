@@ -84,10 +84,8 @@ export function login(email, password) {
             .send({ email, password })
             .end((err, res) => {
               if (err || !res.ok) {
-                console.log('if')
                 dispatch(loginErr(res.body.err))
               } else {
-                console.log('else')
                 const response = normalize(res.body.user, userSchema)
                 const user = {
                   token: res.body.user.token,

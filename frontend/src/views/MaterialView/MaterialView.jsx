@@ -25,7 +25,7 @@ const propTypes = {
   material: PropTypes.object,
   recentQuestions: PropTypes.array,
   popularQuestions: PropTypes.array,
-  requests: PropTypes.array,
+  requests: PropTypes.object,
   curPkgId: PropTypes.string,
   setCurMaterial: PropTypes.func,
   setCurPkg: PropTypes.func,
