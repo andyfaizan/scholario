@@ -61,7 +61,7 @@ export class AddQuestion extends React.Component {
 
     return (
       <div>
-        <div styles={styles.addQuestionContainer} fullWidth>
+        <div style={styles.addQuestionContainer} fullWidth>
           <TextField
             {...title}
             hintText={titleHint}
@@ -85,7 +85,7 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...courseInstance}
-            styles={styles.blocking}
+            style={styles.blocking}
             floatingLabelText={courseLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
@@ -96,7 +96,7 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...pkg}
-            styles={styles.blocking}
+            style={styles.blocking}
             floatingLabelText={packageLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
@@ -107,7 +107,7 @@ export class AddQuestion extends React.Component {
           <br />
           <SelectFieldWrapper
             {...material}
-            styles={styles.blocking}
+            style={styles.blocking}
             floatingLabelText={materialLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}

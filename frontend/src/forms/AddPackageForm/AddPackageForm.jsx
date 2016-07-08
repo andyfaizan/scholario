@@ -40,7 +40,7 @@ export class AddPackage extends React.Component {
 
     return (
       <div>
-        <div styles={styles.addPackageContainer} fullWidth>
+        <div style={styles.addPackageContainer} fullWidth>
           <TextField
             {...name}
             hintText={nameHint}
@@ -52,7 +52,7 @@ export class AddPackage extends React.Component {
           <br />
           <SelectFieldWrapper
             {...courseInstance}
-            styles={styles.blocking}
+            style={styles.blocking}
             floatingLabelText={courseLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}

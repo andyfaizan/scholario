@@ -33,9 +33,9 @@ function ChangePassword({ fields: { password }, handleSubmit, feedbackTrue }) {
   let feedbackMessage
 
   if (feedbackTrue === 0) {
-    feedbackMessage = <div styles={styles.error}>Es gibt einen Fehler</div>
+    feedbackMessage = <div style={styles.error}>Es gibt einen Fehler</div>
   } else if (feedbackTrue === 1) {
-    feedbackMessage = <div styles={styles.success}>Passwort ist verändert</div>
+    feedbackMessage = <div style={styles.success}>Passwort ist verändert</div>
   } else feedbackMessage = ''
 
   return (
@@ -50,7 +50,7 @@ function ChangePassword({ fields: { password }, handleSubmit, feedbackTrue }) {
           type="password"
         />
         <FlatButton label="Senden" linkButton onTouchTap={handleSubmit} hoverColor="#26A65B" />
-        <div styles={styles.feedback}>
+        <div style={styles.feedback}>
           <h4>{feedbackMessage}</h4>
         </div>
       </div>

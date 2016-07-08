@@ -15,47 +15,47 @@ const validate = () => {
 }
 
 const propTypes = {
-  handleSubmit: PropTypes.funct,
+  handleSubmit: PropTypes.func,
   fields: PropTypes.object,
+  feedbackTrue: PropTypes.number,
 }
 
 const defaultProps = {
   fields: {},
 }
 
-function FeedbackForm({ fields: { subject, content }, handleSubmit }) {
+function FeedbackForm({ fields: { subject, content }, handleSubmit, feedbackTrue }) {
   const styles = getStyles()
   let feedbackMessage
-  const feedbackTrue = this.props.feedbackTrue
 
   if (feedbackTrue === 0) {
-    feedbackMessage = <div styles={styles.error}>There is an error submiting Form</div>
+    feedbackMessage = <div style={styles.error}>There is an error submiting Form</div>
   } else if (feedbackTrue === 1) {
-    feedbackMessage = <div styles={styles.success}>Feedback-Formular wurde eingestellt</div>
+    feedbackMessage = <div style={styles.success}>Feedback-Formular wurde eingestellt</div>
   } else feedbackMessage = ''
 
   return (
     <form onSubmit={handleSubmit}>
-      <div styles={styles.rootForgotPass}>
-        <div styles={styles.forgotPassword}>
-          <div styles={styles.inner} >
+      <div style={styles.rootForgotPass}>
+        <div style={styles.forgotPassword}>
+          <div style={styles.inner} >
             <Card>
               <CardHeader
                 title="Lass uns wissen was du denkst"
                 titleStyle={styles.titleStyle}
                 titleColor="#26A65B"
-                avatar={<Edit styles={styles.iconStyle} />}
+                avatar={<Edit style={styles.iconStyle} />}
               />
               <Divider />
               <CardText>
-                <div styles={styles.containingEmail}>
+                <div style={styles.containingEmail}>
                   <TextField
                     {...subject}
                     floatingLabelText="Thema"
                     fullWidth={false}
                     floatingLabelStyle={styles.floatingLabel}
                     underlineFocusStyle={styles.underlineColor}
-                    styles={styles.textFieldStyle}
+                    style={styles.textFieldStyle}
                   />
                   <TextField
                     {...content}
@@ -64,26 +64,26 @@ function FeedbackForm({ fields: { subject, content }, handleSubmit }) {
                     fullWidth={false}
                     floatingLabelStyle={styles.floatingLabel}
                     underlineFocusStyle={styles.underlineColor}
-                    styles={styles.textFieldStyle}
+                    style={styles.textFieldStyle}
                     multiLine
                     rows={5}
                   />
                 </div>
                 <br />
                 <br />
-                <div styles={styles.containingEmail}>
+                <div style={styles.containingEmail}>
                   <RaisedButton
                     label="Abschicken"
                     primary={false}
                     labelColor="#ffffff"
                     backgroundColor="#446CB3"
-                    styles={styles.buttonStyle}
+                    style={styles.buttonStyle}
                     linkButton
                     onTouchTap={handleSubmit}
                   />
                 </div>
                 <br />
-                <div styles={styles.feedback}>
+                <div style={styles.feedback}>
                   <h4>{feedbackMessage}</h4>
                 </div>
                 <br />
