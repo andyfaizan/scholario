@@ -1,189 +1,143 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+import { Link } from 'react-router'
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
-import { Link } from 'react-router'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
+import Pdf from './pdf.png'
+import Bmp from './bmp.png'
+import Doc from './doc.png'
+import Jpg from './jpg.png'
+import MpFour from './mp4.png'
+import MpThree from './mp3.png'
+import Png from './png.png'
+import Ppt from './ppt.png'
+import Txt from './txt.png'
+import Xls from './xls.png'
+import Folder from './folder.png'
 
 
 const propTypes = {
   materialTitle: PropTypes.string,
+  materialUrl: PropTypes.string,
+  downloadUrl: PropTypes.string,
   keywords: PropTypes.array,
   dateUploaded: PropTypes.string,
   materialNotifications: PropTypes.number,
-  pkgUrl: PropTypes.string,
+  materialOwner: PropTypes.object,
   user: PropTypes.object,
-  owner: PropTypes.string,
-  onClickDeletePkg: PropTypes.func,
+  ext: PropTypes.string,
+  onClickDeleteMaterial: PropTypes.func,
 }
 
-function MaterialComponent({
-  materialTitle, keywords, dateUploaded, pkgUrl,
-  user, owner, onClickDeletePkg }) {
-  const styles = getStyles()
+export class MaterialComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.getDateFromZulu = this.getDateFromZulu.bind(this)
+  }
 
-  let container
-  const heading = (
-    <div key="headingIndependentPackage" style={styles.divStyle}>
-      <h5>{materialTitle}</h5>
-      <h5>{dateUploaded}</h5>
-    </div>
-  )
+  getDateFromZulu(dateString) {
+    const dateParts = dateString.slice(0, 10).split('-')
+    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+  }
 
-  if (user && owner && user._id === owner) {
-    container = (
-      <div key="IndependentPackage">
-        <div style={styles.container}>
-          {keywords}
+  render() {
+    const styles = getStyles()
+
+    const { user, materialOwner } = this.props
+    const icons = {
+      '.bmp': Bmp,
+      '.doc': Doc,
+      '.jpg': Jpg,
+      '.mp3': MpThree,
+      '.mp4': MpFour,
+      '.pdf': Pdf,
+      '.png': Png,
+      '.ppt': Ppt,
+      '.txt': Txt,
+      '.xls': Xls,
+    }
+    const icon = this.props.ext in icons ? icons[this.props.ext] : Folder
+    const dots = '...'
+    let preparedTitle
+
+    const preparedIcon = (
+      <div style={styles.posImg}>
+        <img style={styles.imgStyle} src={icon} alt={this.props.ext.slice(1)} />
+      </div>
+    )
+
+    const heading = (
+      <div key="headingIndependentPackage" style={styles.divStyle}>
+        {preparedIcon}
+        <br />
+        <h5>{this.getDateFromZulu(this.props.dateUploaded)}</h5>
+      </div>
+    )
+
+    if (this.props.materialTitle.length > 10) {
+      preparedTitle = this.props.materialTitle.slice(0, 10).concat(dots)
+    } else {
+      preparedTitle = this.props.materialTitle
+    }
+
+    const actionSlot = (
+      <div key="actionSlot" style={styles.tooltip}>{preparedTitle}
+        <span style={styles.tooltiptext}>{this.props.materialTitle}</span>
+      </div>
+    )
+
+    const downloadPkt = (
+      <div>
+        <div key="downloadKey" style={styles.downloadMaterial}>
+          <a
+            target="_blank" href={this.props.downloadUrl}
+            style={styles.linkStyle}
+          >
+            <FileDownload color="White" />
+          </a>
         </div>
+      </div>
+    )
+
+    let deleteMaterialIcon
+    if (user && materialOwner && user._id === materialOwner._id) {
+      deleteMaterialIcon = (
         <div key="deleteKey" style={styles.deleteButton}>
-          <IconButton disableTouchRipple tooltip="Pkg löschen" onTouchTap={onClickDeletePkg}>
+          <IconButton disableTouchRipple tooltip="Material löschen" onTouchTap={this.props.onClickDeleteMaterial} >
             <Delete color="White" />
           </IconButton>
         </div>
-        <div style={styles.downloadMaterial}>
-          <IconButton disableTouchRipple tooltip="Download-Paket">
-            <FileDownload color="White" />
-          </IconButton>
-        </div>
-      </div>
-    )
-  } else {
-    container = (
-      <div key="IndependentPackage">
-        <div style={styles.container}>
-          {keywords}
-        </div>
-        <div style={styles.downloadMaterial}>
-          <IconButton disableTouchRipple tooltip="Download-Paket">
-            <FileDownload color="White" />
-          </IconButton>
-        </div>
+      )
+    }
+
+    const nodePaperCourse = [
+      heading,
+      // notifications
+    ]
+    const nodeFileClipper = [
+    ]
+    const action = [
+      actionSlot,
+      downloadPkt,
+      deleteMaterialIcon,
+    ]
+
+    return (
+      <div>
+        <Link to={this.props.materialUrl}>
+          <Paper style={styles.style} zDepth={3} children={nodePaperCourse} />
+        </Link>
+        <Paper style={styles.styleTwo} zDepth={0} children={action} />
+        <Paper style={styles.styleFour} zDepth={0} children={nodeFileClipper} />
       </div>
     )
   }
-
-  /*
-  containerOld = (
-    <div key="IndependentPackage">
-      <div style={styles.container}>
-        <h5>{keywords}</h5>
-      </div>
-    <div key="deleteKey" style={styles.deleteButton}>
-      <IconButton disableTouchRipple tooltip="Pkg löschen">
-        <Delete color="White" />
-      </IconButton>
-    </div>
-    <div key="editKey" style={styles.editButton}>
-      <IconButton disableTouchRipple tooltip="Edit Kurz">
-        <Edit color="White" />
-      </IconButton>
-    </div>
-    <div key="downloadKey" style={styles.downloadMaterial}>
-      <IconButton disableTouchRipple tooltip="Download-Paket">
-        <FileDownload color="White" />
-      </IconButton>
-    </div>
-  </div>
-  )
-
-  var notifications = (
-    <div key="notifications" style={styles.badge}>
-      <Badge
-        badgeContent={10}
-        secondary={true}
-        badgeStyle={{ backgroundColor: '#EF4836', radius: 20}}
-      />
-    </div>
-  )
-   */
-
-  const nodePaperCourse = [
-    container,
-  ]
-
-  const nodeFileClipper = [
-    heading,
-  ]
-
-  return (
-    <div>
-      <Paper style={Object.assign({}, styles.baseStyle, styles.style)} zDepth={2} children={nodePaperCourse} />
-      <Link to={pkgUrl}>
-        <Paper style={Object.assign({}, styles.baseStyle, styles.styleTwo)} zDepth={0} />
-        <Paper style={Object.assign({}, styles.baseStyle, styles.styleFive)} zDepth={0} />
-        <Paper style={Object.assign({}, styles.baseStyle, styles.styleSix)} zDepth={0} />
-        <Paper style={Object.assign({}, styles.baseStyle, styles.styleThree)} zDepth={0} />
-        <Paper style={Object.assign({}, styles.baseStyle, styles.styleFour)} zDepth={5} children={nodeFileClipper} />
-      </Link>
-    </div>
-  )
 }
 
 function getStyles() {
   return {
-    baseStyle: {
-      float: 'left',
-      width: '220px',
-      margin: '8.5px',
-      backgroundColor: '#446CB3',
-      color: '#ffffff',
-      overflow: 'inherit',
-      alignItems: 'center',
-      borderBottomLeftRadius: '30px',
-      borderBottomRightRadius: '30px',
-    },
-    style: {
-      height: '172px',
-    },
-    styleTwo: {
-      height: '30px',
-      marginTop: '150px',
-      marginLeft: '-229px',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: '#446CB3',
-    },
-    styleThree: {
-      height: '30px',
-      marginTop: '144px',
-      marginLeft: '-229px',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: '#446CB3',
-    },
-    styleFour: {
-      height: '80px',
-      marginTop: '8px',
-      marginLeft: '-229px',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      opacity: '1.0',
-    },
-    styleFive: {
-      height: '30px',
-      marginTop: '148px',
-      marginLeft: '-229px',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: '#446CB3',
-    },
-    styleSix: {
-      height: '30px',
-      marginTop: '147px',
-      marginLeft: '-229px',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderColor: '#446CB3',
-    },
-    divStyle: {
-      textAlign: 'center',
-      color: '#ffffff',
-      marginLeft: '5px',
-      marginTop: '-7px',
-      opacity: 0.9,
-    },
     actionPosition: {
       position: 'absolute',
       margin: 'auto',
@@ -216,15 +170,9 @@ function getStyles() {
     },
     deleteButton: {
       position: 'absolute',
-      marginLeft: '30px',
-      marginTop: '9px',
-      opacity: 0.8,
-    },
-    downloadMaterial: {
-      position: 'absolute',
-      marginLeft: '5px',
-      marginTop: '10px',
-      opacity: 0.8,
+      marginLeft: '105px',
+      marginTop: '-3.0em',
+      opacity: '0.6',
     },
     editButton: {
       position: 'absolute',
@@ -234,6 +182,95 @@ function getStyles() {
     },
     divTitle: {
       float: 'left',
+    },
+    posImg: {
+      marginLeft: '58px',
+    },
+    tooltip: {
+      position: 'relative',
+      display: 'inline-block',
+      marginLeft: '6px',
+      tooltiptext: {
+        visibility: 'hidden',
+        width: '120px',
+        backgroundColor: 'black',
+        color: '#fff',
+        textAlign: 'center',
+        borderRadius: '6px',
+        padding: '5px 0',
+
+        /* Position the tooltip */
+        position: 'absolute',
+        zIndex: 1,
+      },
+      ':hover': {
+        visibility: 'visible',
+      },
+    },
+    downloadMaterial: {
+      opacity: 0.6,
+      positon: 'absolute',
+      marginTop: '-1.4em',
+      marginLeft: '140px',
+    },
+    imgStyle: {
+      display: 'block',
+      width: '34%',
+      marginTop: '1.5rem',
+    },
+    style: {
+      float: 'left',
+      height: '172px',
+      width: '170px',
+      margin: '8.5px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+    },
+    styleTwo: {
+      float: 'left',
+      height: '30px',
+      width: '170px',
+      backgroundColor: '#446CB3',
+      color: '#ffffff',
+      overflow: 'inherit',
+      alignItems: 'center',
+      margin: 'auto',
+      marginTop: '152px',
+      marginLeft: '-178px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+    },
+    styleFour: {
+      float: 'left',
+      height: '140px',
+      width: '166px',
+      backgroundColor: '#ffffff',
+      color: '#446CB3',
+      overflow: 'inherit',
+      alignItems: 'center',
+      margin: 'auto',
+      marginTop: '11px',
+      marginLeft: '-176px',
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      borderColor: '#446CB3',
+      opacity: 1.0,
+      zIndex: 1,
+    },
+    divStyle: {
+      textAlign: 'center',
+      color: '#446CB3',
+      marginLeft: '5px',
+      marginTop: '30px',
+      opacity: 0.9,
+      alignContent: 'center',
+    },
+    linkStyle: {
+      color: '#fff',
+      backgroundColor: 'transparent',
     },
   }
 }

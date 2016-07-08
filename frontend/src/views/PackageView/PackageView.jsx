@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/lib/Col'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import Bookmarks from '../../components/Bookmarks/Bookmarks'
-import PkgComp from '../../components/Pkg/Pkg'
+import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
 import AddMaterialComp from '../../components/AddMaterialComp/AddMaterialComp'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { setCurPkg, getPkg } from '../../redux/modules/pkg'
@@ -90,14 +90,14 @@ export class Package extends React.Component {
 
     if (pkg.materials) {
       materialsNew = pkg.materials.map(material =>
-        <PkgComp
+        <MaterialComponent
           key={material._id} materialTitle={material.name} materialNotifications={10}
-          pkgOwner={pkg.owner}
+          materialOwner={pkg.owner}
           user={user}
-          materialUrl={material.url}
+          downloadUrl={material.url}
           dateUploaded={material.createDate}
           keywords={['Blue ', 'Green ', 'Red ']}
-          pkgUrl={`/material/${material._id}`}
+          materialUrl={`/material/${material._id}`}
           ext={material.ext}
           onClickDeleteMaterial={() => this.props.dispatch(deleteMaterial(material._id, material.pkg))}
         />

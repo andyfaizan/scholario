@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/lib/Col'
 import _ from 'lodash'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
-import MaterialComponent from '../../components/MaterialComponent/MaterialComponent'
+import PkgComponent from '../../components/PkgComponent/PkgComponent'
 import AddPkgComponent from '../../components/AddPkgComponent/AddPkgComponent'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
@@ -67,8 +67,8 @@ export class Course extends React.Component {
 
     if (profPkgs) {
       profPkgEls = profPkgs.map(pkg =>
-        <MaterialComponent
-          key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
+        <PkgComponent
+          key={pkg._id} pkgTitle={pkg.name} pkgNotifications={10}
           dateUploaded={pkg ? this.getDateFromZulu(pkg.createDate) : ''}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={['Blue ', 'Green ', 'Red ']}
@@ -82,8 +82,8 @@ export class Course extends React.Component {
 
     if (studentPkgs) {
       studentPkgEls = studentPkgs.map(pkg =>
-        <MaterialComponent
-          key={pkg._id} materialTitle={pkg.name} materialNotifications={10}
+        <PkgComponent
+          key={pkg._id} pkgTitle={pkg.name} pkgNotifications={10}
           dateUploaded={this.getDateFromZulu(pkg.createDate)}
           semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
           keywords={['Blue ', 'Green ', 'Red ']}
