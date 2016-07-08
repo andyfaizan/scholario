@@ -99,6 +99,7 @@ function LandingView() {
                 <img
                   src={UserProfile}
                   alt="No Net."
+                  style={styles.userProfileStyle}
                 />
               </Col>
               <Col xs={6} md={3}>
@@ -111,6 +112,7 @@ function LandingView() {
                 <img
                   src={Analytics}
                   alt="No Net."
+                  style={styles.analyticsStyle}
                 />
               </Col>
             </Row>
@@ -132,6 +134,9 @@ function LandingView() {
               label="Abschicken"
               labelStyle={styles.demoButtonLabelStyle}
             />
+            <p style={styles.headingAddContactForm}>
+              Gerne beantworten wir Ihre Fragen personlich
+            </p>
           </div>
         </div>
         <Divider />
@@ -218,6 +223,12 @@ function getStyles() {
       color: '#3557A4',
       fontFamily: 'Open Sans',
       fontSize: 'x-large',
+    },
+    analyticsStyle: {
+      marginTop: '20%',
+    },
+    userProfileStyle: {
+      marginTop: '40%',
     },
   }
 }
