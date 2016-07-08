@@ -48,26 +48,32 @@ function LandingView() {
           <Grid>
             <Row>
               <Col xs={8} md={4}>
-                <img
-                  src={CreateIcon}
-                  alt="No Net."
-                />
+                <div style={styles.courseErlebenImageStyle}>
+                  <img
+                    src={CreateIcon}
+                    alt="No Net."
+                  />
+                </div>
               </Col>
               <Col xs={8} md={4}>
-                <img
-                  src={Chat}
-                  alt="No Net."
-                />
-                <img
-                  src={Group}
-                  alt="No Net."
-                />
+                <div style={styles.courseErlebenImageStyle}>
+                  <img
+                    src={Chat}
+                    alt="No Net."
+                  />
+                  <img
+                    src={Group}
+                    alt="No Net."
+                  />
+                </div>
               </Col>
               <Col xs={8} md={4}>
-                <img
-                  src={Cloud}
-                  alt="No Net."
-                />
+                <div style={styles.courseErlebenImageStyle}>
+                  <img
+                    src={Cloud}
+                    alt="No Net."
+                  />
+                </div>
               </Col>
             </Row>
           </Grid>
@@ -204,6 +210,14 @@ function getStyles() {
       backgroundColor: '#F9F9F9',
       color: '#3557A4',
       padding: '30px',
+    },
+    courseErlebenImageStyle: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: '6em',
+    },
+    courseErlebenPrimaryTextStyle: {
+      textAlign: 'center',
     },
     onlineCourseImage: {
       backgroundColor: '#F9F9F9',
