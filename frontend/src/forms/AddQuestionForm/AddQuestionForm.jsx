@@ -10,7 +10,7 @@ export const fields = ['title', 'description', 'courseInstance', 'pkg', 'materia
 const propTypes = {
   fields: PropTypes.object,
   courseInstances: PropTypes.array,
-  allPkgs: PropTypes.array,
+  allPkgs: PropTypes.object,
   getObjects: PropTypes.func,
 }
 

@@ -15,7 +15,7 @@ const propTypes = {
   modal: PropTypes.object.isRequired,
   location: PropTypes.object,
   courseInstances: PropTypes.array,
-  allPkgs: PropTypes.array,
+  allPkgs: PropTypes.object,
   hide: PropTypes.func.isRequired,
   addPkg: PropTypes.func,
 }
