@@ -12,6 +12,10 @@ import CreateIcon from './CreateIconx1.png'
 import Chat from './Chat.png'
 import Group from './Group.png'
 import Cloud from './Cloud.png'
+import Analytics from './Analytics.png'
+import Success from './Success.png'
+import UserProfile from './UserProfile.png'
+import Video from './Video.png'
 
 const propTypes = {
 
@@ -47,7 +51,6 @@ function LandingView() {
                   src={CreateIcon}
                   alt="No Net."
                 />
-                Rohan
               </Col>
               <Col xs={8} md={4}>
                 <img
@@ -67,13 +70,51 @@ function LandingView() {
               </Col>
             </Row>
           </Grid>
-          Kurse erstellen
-        </div>
-        <div style={styles.onlineCourseImage}>
-          dasdsadsa
+          <Grid>
+            <Row>
+              <Col xs={8} md={4}>
+               Rohan
+              </Col>
+              <Col xs={8} md={4}>
+                Ali
+              </Col>
+              <Col xs={8} md={4}>
+                Asmat
+              </Col>
+            </Row>
+          </Grid>
         </div>
         <div style={styles.courseErleben}>
           Kurse erleben
+          <Grid>
+            <Row>
+              <Col xs={6} md={3}>
+                <img
+                  src={Video}
+                  alt="No Net."
+                />
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={UserProfile}
+                  alt="No Net."
+                />
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={Success}
+                  alt="No Net."
+                />
+              </Col>
+              <Col xs={6} md={3}>
+                <img
+                  src={Analytics}
+                  alt="No Net."
+                />
+              </Col>
+            </Row>
+          </Grid>
+
         </div>
         <div style={styles.onlineCourseLernenImage}>
           dsadsasad
@@ -128,7 +169,7 @@ function getStyles() {
     courseErstellen: {
       backgroundColor: '#F9F9F9',
       color: '#3557A4',
-      padding: '10px',
+      padding: '20px',
     },
     onlineCourseImage: {
       backgroundColor: '#F9F9F9',
@@ -163,6 +204,10 @@ function getStyles() {
     },
     demoButtonLabelStyle: {
       color: 'white',
+    },
+    centerGridElement: {
+      width: '50%',
+      margin: '0 auto',
     },
   }
 }
