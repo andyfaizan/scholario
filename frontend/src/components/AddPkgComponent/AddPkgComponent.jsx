@@ -87,7 +87,6 @@ function getStyles() {
       color: '#ffffff',
       overflow: 'inherit',
       alignItems: 'center',
-      position: 'absolute',
       margin: 'auto',
       marginTop: '8px',
       marginLeft: '-229px',

@@ -78,20 +78,19 @@ export class QuestionItem extends React.Component {
 function getStyles() {
   return {
     avatar: {
-      position: 'relative',
-      margin: 'auto',
       float: 'right',
-      marginRight: '25px',
+      marginLeft: 'auto',
       marginTop: '10px',
+      marginRight: '25px',
+      marginBottom: 'auto',
     },
     buttonThumbsUp: {
-      position: 'relative',
       margin: 'auto',
       float: 'right',
     },
     styleSecondaryText: {
       color: '#26A65B',
-      opacity: 0.2,
+      opacity: 0.5,
     },
     border: {
       color: '#26A65B',

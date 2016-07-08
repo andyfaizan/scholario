@@ -51,9 +51,10 @@ function getStyles() {
   return {
     divSearchField: {
       float: 'left',
-      margin: 'auto',
-      marginTop: '-19px',
       marginLeft: '30px',
+      marginTop: '-19px',
+      marginRight: 'auto',
+      marginBottom: 'auto',
     },
     divTitle: {
       float: 'left',
