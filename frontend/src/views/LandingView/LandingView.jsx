@@ -3,6 +3,7 @@ import Radium from 'radium'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Divider from 'material-ui/Divider'
+import FlatButton from 'material-ui/FlatButton'
 import BonnRhein from './MainPicture@3x.png'
 
 const propTypes = {
@@ -23,6 +24,12 @@ function LandingView() {
             style={styles.dash}
             src={BonnRhein}
             alt="No Net."
+          />
+          <FlatButton
+            backgroundColor='#3557A4'
+            label="Demo anfordern"
+            style={styles.demoButton}
+            labelStyle={styles.demoButtonLabelStyle}
           />
         </div>
         <div style={styles.courseErstellen}>
@@ -111,6 +118,16 @@ function getStyles() {
       margin: '20px',
       textAlign: 'center',
       display: 'inline-block',
+    },
+    demoButton: {
+      position: 'absolute',
+      marginLeft: '43%',
+      marginTop: '-17%',
+      marginRight: 'auto',
+      marginBottom: 'auto',
+    },
+    demoButtonLabelStyle: {
+      color: 'white',
     },
   }
 }
