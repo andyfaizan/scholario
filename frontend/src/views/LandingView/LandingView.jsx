@@ -3,7 +3,7 @@ import Radium from 'radium'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Divider from 'material-ui/Divider'
-import BonnRhein from './Main.png'
+import BonnRhein from './MainPicture@3x.png'
 
 const propTypes = {
 
