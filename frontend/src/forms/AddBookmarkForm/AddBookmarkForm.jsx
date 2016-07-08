@@ -26,10 +26,8 @@ const defaultProps = {
   fields: {},
 }
 
-function AddBookmark() {
+function AddBookmark({ fields: { title, url }, handleSubmit }) {
   const styles = getStyles()
-  const { fields: { title, url }, handleSubmit } = this.props
-
   return (
     <form onSubmit={handleSubmit}>
       <div className={styles.addBookmarkContainer} fullWidth>
