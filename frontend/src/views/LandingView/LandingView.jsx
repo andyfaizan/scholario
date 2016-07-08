@@ -114,7 +114,6 @@ function LandingView() {
               </Col>
             </Row>
           </Grid>
-
         </div>
         <div style={styles.onlineCourseLernenImage}>
           dsadsasad
@@ -169,7 +168,7 @@ function getStyles() {
     courseErstellen: {
       backgroundColor: '#F9F9F9',
       color: '#3557A4',
-      padding: '20px',
+      padding: '30px',
     },
     onlineCourseImage: {
       backgroundColor: '#F9F9F9',
@@ -177,6 +176,7 @@ function getStyles() {
     courseErleben: {
       backgroundColor: '#3557A4',
       color: 'white',
+      padding: '30px',
     },
     onlineCourseLernenImage: {
       backgroundColor: '#F9F9F9',
