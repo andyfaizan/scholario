@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
-const path = require('path');
 const url = require('url');
-const co = require('co');
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
-
-
 const MaterialSchema = new Schema({
   name: { type: String, required: true, default: '' },
   ext: { type: String, default: '' },
@@ -29,7 +23,6 @@ MaterialSchema.methods.getPath = function () {
         );
         return resolve(path);
       }).catch(err => reject(err));
-
     }).catch(err => {
       return reject(err);
     });

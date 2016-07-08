@@ -1,11 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
-const logger = require('../logger');
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
 const opts = {
   discriminatorKey: 'role',
 };
@@ -13,7 +10,7 @@ const opts = {
 const UserSchema = new Schema({
   firstname: { type: String, default: '' },
   lastname: { type: String, default: '' },
-  //name: { type: String, default: '' },
+  // name: { type: String, default: '' },
   email: { type: String, required: true, unique: true, index: true, default: '' },
   username: { type: String, default: '' },
   password: { type: String, required: true, default: '' },
@@ -23,15 +20,15 @@ const UserSchema = new Schema({
   verified: { type: Boolean, default: false },
   verificationCode: { type: String, index: true, default: '' },
   vcCreated: { type: Date },
-  //courses: [{ type: ObjectId, ref: 'Course'}], // Duplicate with course.participants
+  // courses: [{ type: ObjectId, ref: 'Course'}], // Duplicate with course.participants
   following: [{ type: ObjectId, ref: 'User' }],
   universities: [{ type: ObjectId, ref: 'University' }],
   programs: [{ type: ObjectId, ref: 'Program' }],
 }, opts);
 
 const StudentSchema = new Schema({
-  //university: { type: ObjectId, ref: 'University' },
-  //program: { type: ObjectId, ref: 'Program' },
+  // university: { type: ObjectId, ref: 'University' },
+  // program: { type: ObjectId, ref: 'Program' },
 }, opts);
 
 const ProfSchema = new Schema({
@@ -78,14 +75,18 @@ UserSchema.methods.getCourseInstances = function (opts) {
       p = CourseInstance.find({ prof: this.id });
     }
     if (typeof opts !== 'undefined') {
-      if ('populate' in opts)
+      if ('populate' in opts) {
         p = p.populate(opts.populate);
-      if ('select' in opts)
+      }
+      if ('select' in opts) {
         p = p.select(opts.select);
-      if ('lean' in opts)
+      }
+      if ('lean' in opts) {
         p = p.lean(opts.lean);
-      if ('limit' in opts)
+      }
+      if ('limit' in opts) {
         p = p.limit(opts.limit);
+      }
     }
     p.exec().then(courseInstances => resolve(courseInstances))
             .catch(err => reject(err));
@@ -101,14 +102,18 @@ UserSchema.methods.getQuestions = function (opts) {
     }).then(function (courseInstances) {
       var p = Question.find({ courseInstance: { $in: courseInstances.map(getCourseInstanceIds) } });
       if (typeof opts !== 'undefined') {
-        if ('populate' in opts)
+        if ('populate' in opts) {
           p = p.populate(opts.populate);
-        if ('select' in opts)
+        }
+        if ('select' in opts) {
           p = p.select(opts.select);
-        if ('lean' in opts)
+        }
+        if ('lean' in opts) {
           p = p.lean(opts.lean);
-        if ('limit' in opts)
+        }
+        if ('limit' in opts) {
           p = p.limit(opts.limit);
+        }
       }
       return p.exec();
     }).then(questions => resolve(questions))
@@ -120,14 +125,18 @@ UserSchema.methods.getFollowings = function (opts) {
   return new Promise((resolve, reject) => {
     var p = this.model('User').find({ _id: { $in: this.following } });
     if (typeof opts !== 'undefined') {
-      if ('populate' in opts)
+      if ('populate' in opts) {
         p = p.populate(opts.populate);
-      if ('select' in opts)
+      }
+      if ('select' in opts) {
         p = p.select(opts.select);
-      if ('lean' in opts)
+      }
+      if ('lean' in opts) {
         p = p.lean(opts.lean);
-      if ('limit' in opts)
+      }
+      if ('limit' in opts) {
         p = p.limit(opts.limit);
+      }
     }
     p.exec().then(followings => resolve(followings))
             .catch(err => reject(err));

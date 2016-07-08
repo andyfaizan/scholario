@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
-
-
 const PkgSchema = new Schema({
   name: { type: String, required: true, default: '' },
   owner: { type: ObjectId, ref: 'User' },
@@ -20,7 +16,7 @@ PkgSchema.pre('remove', function (next) {
   this.model('Material').remove(
     { pkg: this._id },
     next
-  )
+  );
 });
 
 
