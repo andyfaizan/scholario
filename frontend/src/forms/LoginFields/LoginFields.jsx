@@ -42,7 +42,7 @@ export class LoginFields extends React.Component {
 
     return (
       <div>
-        <div styles={styles.loginContainer}>
+        <div style={styles.loginContainer}>
           <TextField
             {...email}
             hintText="abc@hotmail.com"
@@ -64,7 +64,7 @@ export class LoginFields extends React.Component {
           />
           <br />
           <br />
-          <a onTouchTap={this.props.onClickForgotPassword} styles={styles.forgotLink}>Passwort vergessen? </a>
+          <a onTouchTap={this.props.onClickForgotPassword} style={styles.forgotLink}>Passwort vergessen? </a>
         </div>
       </div>
     )
