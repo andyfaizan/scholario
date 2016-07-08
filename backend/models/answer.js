@@ -1,18 +1,14 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
-
-
 const AnswerSchema = new Schema({
   content: { type: String, default: '' },
-  //question: { type: ObjectId, ref: 'Question' },
+  // question: { type: ObjectId, ref: 'Question' },
   user: { type: ObjectId, ref: 'User' },
   createDate: { type: Date, default: Date.now },
   comments: [{ type: ObjectId, ref: 'Comment' }],
-  //bestAnswer: { type: Boolean, default: false },
-  //approved: { type: Boolean, default: false },
+  // bestAnswer: { type: Boolean, default: false },
+  // approved: { type: Boolean, default: false },
   votes: [{
     user: { type: ObjectId, ref: 'User' },
     voteDate: { type: Date },
@@ -25,7 +21,7 @@ AnswerSchema.pre('remove', function (next) {
     { answers: this._id },
     { $pull: { answers: this._id } },
     next
-  )
+  );
 });
 
 mongoose.model('Answer', AnswerSchema);

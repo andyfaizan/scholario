@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
-
-
 const QuestionSchema = new Schema({
   title: { type: String, default: '' },
   description: { type: String, default: '' },
@@ -21,7 +17,7 @@ const QuestionSchema = new Schema({
     voteDate: { type: Date },
     value: { type: Number, default: 1 },
   }],
-  infoMailSended: { type: Boolean, default: false},
+  infoMailSended: { type: Boolean, default: false },
 });
 
 

@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-
-
-
-const curYear = () => moment().year()
-
+const curYear = () => moment().year();
 const CourseSchema = new Schema({
   name: { type: String, default: '' },
   alias: { type: String, default: '' },
