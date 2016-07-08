@@ -115,12 +115,6 @@ function LandingView() {
             </Row>
           </Grid>
         </div>
-        <div style={styles.onlineCourseLernenImage}>
-          dsadsasad
-        </div>
-        <div style={styles.comingSoon}>
-          Coming Soon
-        </div>
         <div style={styles.addContactForm}>
           dsada
         </div>
@@ -177,13 +171,6 @@ function getStyles() {
       backgroundColor: '#3557A4',
       color: 'white',
       padding: '30px',
-    },
-    onlineCourseLernenImage: {
-      backgroundColor: '#F9F9F9',
-    },
-    comingSoon: {
-      backgroundColor: '#3557A4',
-      color: 'white',
     },
     addContactForm: {
       backgroundColor: '#F9F9F9',
