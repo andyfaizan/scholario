@@ -144,17 +144,19 @@ function getStyles() {
   return {
     avatar: {
       position: 'relative',
-      margin: 'auto',
       float: 'right',
-      marginRight: '30px',
+      marginLeft: 'auto',
       marginTop: '-37px',
+      marginRight: '30px',
+      marginBottom: 'auto',
     },
     buttonThumbsUp: {
       position: 'relative',
-      margin: 'auto',
       float: 'right',
-      marginRight: '-10px',
+      marginLeft: 'auto',
       marginTop: '-50px',
+      marginRight: '-10px',
+      marginBottom: 'auto',
     },
     textStyle: {
       paddingLeft: '70px',
@@ -172,9 +174,10 @@ function getStyles() {
     },
     studentVerify: {
       position: 'relative',
-      margin: 'auto',
+      marginLeft: 'auto',
       marginTop: 0,
       marginRight: 0,
+      marginBottom: 'auto',
       float: 'right',
     },
     buttonStyle: {

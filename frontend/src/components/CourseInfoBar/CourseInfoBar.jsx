@@ -111,19 +111,21 @@ function getStyles() {
   return {
     actionPosition: {
       position: 'relative',
-      margin: 'auto',
       marginLeft: '20px',
+      marginTop: 'auto',
+      marginRight: 'auto',
+      marginBottom: 'auto',
     },
     linkColor: {
       color: '#26A65B',
       position: 'relative',
-      marginTop: '-20px',
       marginLeft: '30px',
+      marginTop: '-20px',
     },
     pkgName: {
       position: 'relative',
-      marginTop: '10px',
       marginLeft: '-40px',
+      marginTop: '10px',
     },
     iconStyle: {
       marginTop: '4px',
@@ -144,8 +146,8 @@ function getStyles() {
     },
     text: {
       position: 'relative',
-      marginRight: '5px',
       marginLeft: '48px',
+      marginRight: '5px',
       color: 'green',
     },
   }
