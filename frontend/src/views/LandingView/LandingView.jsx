@@ -138,11 +138,16 @@ function LandingView() {
               Gerne beantworten wir Ihre Fragen personlich
             </p>
             <TextField
-              hintText="Name"
+              floatingLabelText="Name"
               style={styles.textFieldName}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
             />
             <TextField
-              hintText="Telefon"
+              floatingLabelText="Telefon"
+              style={styles.textFieldTelefon}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
             />
             <FlatButton
               backgroundColor="#3557A4"
@@ -263,6 +268,16 @@ function getStyles() {
     textFieldName: {
       marginLeft: '25%',
       marginRight: '3%',
+    },
+    textFieldTelefon: {
+      marginRight: '3%',
+    },
+    floatingLabel: {
+      opacity: '0.7',
+      color: '#26A65B',
+    },
+    underlineColor: {
+      borderColor: '#446CB3',
     },
   }
 }
