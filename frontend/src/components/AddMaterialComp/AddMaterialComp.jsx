@@ -44,21 +44,6 @@ function AddMaterialComp({ modal, show }) {
 
 function getStyles() {
   return {
-    actionPosition: {
-      position: 'absolute',
-      margin: 'auto',
-      marginTop: '90px',
-      marginLeft: '250px',
-    },
-    actionPostionLeft: {
-      position: 'absolute',
-      margin: 'auto',
-      marginTop: '90px',
-    },
-    actionMain: {
-      position: 'absolute',
-      opacity: 0.6,
-    },
     container: {
       opacity: 0.6,
       paddingRight: '3px',
@@ -78,7 +63,6 @@ function getStyles() {
       alignItems: 'center',
     },
     plusButton: {
-      position: 'absolute',
       marginTop: '40px',
       width: '70px',
       height: '70px',
