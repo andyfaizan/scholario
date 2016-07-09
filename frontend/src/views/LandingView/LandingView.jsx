@@ -16,6 +16,7 @@ import Analytics from './Analytics.png'
 import Success from './Success.png'
 import UserProfile from './UserProfile.png'
 import Video from './Video.png'
+import { ScholarioBlue, GreyBackground } from '../../styles/colors'
 
 const propTypes = {
 
@@ -37,7 +38,7 @@ function LandingView() {
             alt="No Net."
           />
           <FlatButton
-            backgroundColor="#3557A4"
+            backgroundColor={ScholarioBlue}
             label="Demo anfordern"
             style={styles.demoButton}
             labelStyle={styles.demoButtonLabelStyle}
@@ -194,11 +195,11 @@ function LandingView() {
 function getStyles() {
   return {
     landing: {
-      backgroundColor: '#FBF6EC',
+      backgroundColor: GreyBackground,
     },
     container: {
       fontWeight: 'bold',
-      backgroundColor: '#FBF6EC',
+      backgroundColor: '#F9F9F9',
       height: '87%',
       backgroundSize: 'cover', /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
       WebkitBackgroundSize: 'cover', /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
@@ -224,7 +225,7 @@ function getStyles() {
       },
     },
     courseErstellen: {
-      backgroundColor: '#F9F9F9',
+      backgroundColor: GreyBackground,
       color: '#3557A4',
       padding: '40px',
     },
