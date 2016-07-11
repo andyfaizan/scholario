@@ -9,6 +9,8 @@ import FileDownload from 'material-ui/svg-icons/file/file-download'
 
 import ReactTooltip from 'react-tooltip'
 
+import { CardBlue, White } from '../../styles/colors'
+
 import Pdf from './pdf.png'
 import Bmp from './bmp.png'
 import Doc from './doc.png'
@@ -179,7 +181,7 @@ function getStyles() {
       paddingTop: '90px',
       marginLeft: '5px',
       textAlign: 'center',
-      color: '#446CB3',
+      color: CardBlue,
     },
     deleteButton: {
       position: 'absolute',
@@ -215,8 +217,8 @@ function getStyles() {
       height: '172px',
       width: '170px',
       margin: '8.5px',
-      backgroundColor: '#446CB3',
-      color: '#ffffff',
+      backgroundColor: CardBlue,
+      color: White,
       overflow: 'inherit',
       alignItems: 'center',
     },
@@ -224,8 +226,8 @@ function getStyles() {
       float: 'left',
       height: '30px',
       width: '170px',
-      backgroundColor: '#446CB3',
-      color: '#ffffff',
+      backgroundColor: CardBlue,
+      color: White,
       overflow: 'inherit',
       alignItems: 'center',
       margin: 'auto',
@@ -233,14 +235,14 @@ function getStyles() {
       marginLeft: '-178px',
       borderStyle: 'solid',
       borderWidth: '1px',
-      borderColor: '#446CB3',
+      borderColor: CardBlue,
     },
     styleFour: {
       float: 'left',
       height: '140px',
       width: '166px',
-      backgroundColor: '#ffffff',
-      color: '#446CB3',
+      backgroundColor: White,
+      color: CardBlue,
       overflow: 'inherit',
       alignItems: 'center',
       margin: 'auto',
@@ -248,20 +250,20 @@ function getStyles() {
       marginLeft: '-176px',
       borderStyle: 'solid',
       borderWidth: '1px',
-      borderColor: '#446CB3',
+      borderColor: CardBlue,
       opacity: 1.0,
       zIndex: 1,
     },
     divStyle: {
       textAlign: 'center',
-      color: '#446CB3',
+      color: CardBlue,
       marginLeft: '5px',
       marginTop: '30px',
       opacity: 0.9,
       alignContent: 'center',
     },
     linkStyle: {
-      color: '#fff',
+      color: White,
       backgroundColor: 'transparent',
       marginLeft: '3px',
     },
