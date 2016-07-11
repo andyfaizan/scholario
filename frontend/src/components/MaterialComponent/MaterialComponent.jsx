@@ -88,7 +88,7 @@ export class MaterialComponent extends React.Component {
 
     const actionSlot = (
       <div key="actionSlot">
-        <a data-tip data-for={preparedTitle}>
+        <a style={styles.linkStyle} data-tip data-for={preparedTitle}>
           {preparedTitle}
         </a>
         <ReactTooltip
@@ -199,27 +199,6 @@ function getStyles() {
     posImg: {
       marginLeft: '58px',
     },
-    tooltip: {
-      position: 'relative',
-      display: 'inline-block',
-      marginLeft: '6px',
-      tooltiptext: {
-        visibility: 'hidden',
-        width: '120px',
-        backgroundColor: 'black',
-        color: '#fff',
-        textAlign: 'center',
-        borderRadius: '6px',
-        padding: '5px 0',
-
-        /* Position the tooltip */
-        position: 'absolute',
-        zIndex: 1,
-      },
-      ':hover': {
-        visibility: 'visible',
-      },
-    },
     downloadMaterial: {
       opacity: 0.6,
       positon: 'absolute',
@@ -284,6 +263,7 @@ function getStyles() {
     linkStyle: {
       color: '#fff',
       backgroundColor: 'transparent',
+      marginLeft: '3px',
     },
   }
 }
