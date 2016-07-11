@@ -11,7 +11,7 @@ import TextField from 'material-ui/TextField'
 
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import { ScholarioBlue, GreyBackground } from '../../styles/colors'
+import { ScholarioBlue, GreyBackground, LightGrey, White } from '../../styles/colors'
 
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'
@@ -203,7 +203,7 @@ function getStyles() {
     },
     container: {
       fontWeight: 'bold',
-      backgroundColor: '#F9F9F9',
+      backgroundColor: GreyBackground,
       height: '87%',
       backgroundSize: 'cover', /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
       WebkitBackgroundSize: 'cover', /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
@@ -216,7 +216,7 @@ function getStyles() {
     footer: {
       fontSize: '20px',
       backgroundColor: '#FBF6EC',
-      color: '#FFFFFF',
+      color: White,
       height: '10%',
     },
     dash: {
@@ -230,7 +230,7 @@ function getStyles() {
     },
     courseErstellen: {
       backgroundColor: GreyBackground,
-      color: '#3557A4',
+      color: ScholarioBlue,
       padding: '40px',
     },
     courseErlebenImageStyle: {
@@ -255,16 +255,16 @@ function getStyles() {
       marginLeft: '30px',
     },
     onlineCourseImage: {
-      backgroundColor: '#F9F9F9',
+      backgroundColor: GreyBackground,
     },
     courseErleben: {
-      backgroundColor: '#3557A4',
+      backgroundColor: ScholarioBlue,
       color: 'white',
       padding: '30px',
       fontFamily: 'Open Sans',
     },
     addContactForm: {
-      backgroundColor: '#F9F9F9',
+      backgroundColor: GreyBackground,
     },
     style: {
       height: '100px',
@@ -290,14 +290,14 @@ function getStyles() {
     headingAddContactForm: {
       textAlign: 'center',
       padding: '30px',
-      color: '#3557A4',
+      color: ScholarioBlue,
       fontFamily: 'Open Sans',
       fontSize: 'x-large',
     },
     footnoteAddContactForm: {
       textAlign: 'center',
       padding: '30px',
-      color: '#3557A4',
+      color: ScholarioBlue,
       fontFamily: 'Open Sans',
       fontSize: 'large',
     },
