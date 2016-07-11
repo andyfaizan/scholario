@@ -1,10 +1,14 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { Link } from 'react-router'
+
 import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
+
+import ReactTooltip from 'react-tooltip'
+
 import Pdf from './pdf.png'
 import Bmp from './bmp.png'
 import Doc from './doc.png'
@@ -83,8 +87,17 @@ export class MaterialComponent extends React.Component {
     }
 
     const actionSlot = (
-      <div key="actionSlot" style={styles.tooltip}>{preparedTitle}
-        <span style={styles.tooltiptext}>{this.props.materialTitle}</span>
+      <div key="actionSlot">
+        <a data-tip data-for={preparedTitle}>
+          {preparedTitle}
+        </a>
+        <ReactTooltip
+          id={preparedTitle}
+          type="info"
+          effect="float"
+        >
+          <span>{this.props.materialTitle}</span>
+        </ReactTooltip>
       </div>
     )
 
