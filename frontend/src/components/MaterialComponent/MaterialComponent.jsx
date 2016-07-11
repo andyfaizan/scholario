@@ -9,7 +9,7 @@ import FileDownload from 'material-ui/svg-icons/file/file-download'
 
 import ReactTooltip from 'react-tooltip'
 
-import { CardBlue, White } from '../../styles/colors'
+import { CardBlue, White, Transparent } from '../../styles/colors'
 
 import Pdf from './pdf.png'
 import Bmp from './bmp.png'
@@ -264,7 +264,7 @@ function getStyles() {
     },
     linkStyle: {
       color: White,
-      backgroundColor: 'transparent',
+      backgroundColor: Transparent,
       marginLeft: '3px',
     },
   }

@@ -1,13 +1,18 @@
 import React from 'react'
 import Radium from 'radium'
-import NavBarLandingPage from '../../containers/NavBarLandingPage'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import Divider from 'material-ui/Divider'
-import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
+import Divider from 'material-ui/Divider'
+import FlatButton from 'material-ui/FlatButton'
+import TextField from 'material-ui/TextField'
+
+import NavBarLandingPage from '../../containers/NavBarLandingPage'
+import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import { ScholarioBlue, GreyBackground } from '../../styles/colors'
+
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'
 import Group from './Group.png'
@@ -16,7 +21,6 @@ import Analytics from './Analytics.png'
 import Success from './Success.png'
 import UserProfile from './UserProfile.png'
 import Video from './Video.png'
-import { ScholarioBlue, GreyBackground } from '../../styles/colors'
 
 const propTypes = {
 
@@ -174,7 +178,7 @@ function LandingView() {
               underlineFocusStyle={styles.underlineColor}
             />
             <FlatButton
-              backgroundColor="#3557A4"
+              backgroundColor={ScholarioBlue}
               label="Abschicken"
               labelStyle={styles.demoButtonLabelStyle}
             />
