@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+
 import Paper from 'material-ui/Paper'
 import Friend from 'material-ui/svg-icons/social/person'
 import IconButton from 'material-ui/IconButton'

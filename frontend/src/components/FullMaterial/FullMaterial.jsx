@@ -1,17 +1,21 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import Radium from 'radium'
-import Card from 'material-ui/Card/Card'
-import CardHeader from 'material-ui/Card/CardHeader'
-import IFrame from '../IFrame/IFrame'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import ReactPlayer from 'react-player'
+
+
+import Card from 'material-ui/Card/Card'
+import CardHeader from 'material-ui/Card/CardHeader'
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back'
-import Questions from '../../containers/Questions'
 import IconButton from 'material-ui/IconButton'
-import { Link } from 'react-router'
 import Snackbar from 'material-ui/Snackbar'
+
+import IFrame from '../IFrame/IFrame'
+import Questions from '../../containers/Questions'
 
 
 const youtubeConfig = {

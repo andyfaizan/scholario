@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react'
-import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
-import CourseCard from '../../components/CourseCard/CourseCard'
-import AddCourse from '../../containers/DashboardTitleContainer'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
+import FriendsDisplayComponent from '../../components/FriendsDisplayComponent/FriendsDisplayComponent'
+import CourseCard from '../../components/CourseCard/CourseCard'
+import AddCourse from '../../containers/DashboardTitleContainer'
 
 const propTypes = {
   role: PropTypes.string,

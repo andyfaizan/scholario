@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import List from 'material-ui/List/List'
@@ -7,7 +8,9 @@ import AddBox from 'material-ui/svg-icons/content/add-box'
 import ViewList from 'material-ui/svg-icons/action/view-list'
 import IconButton from 'material-ui/IconButton'
 import Subheader from 'material-ui/Subheader'
+
 import BookmarkItem from '../../components/BookmarkItem/BookmarkItem'
+
 import ModalRoot from '../../modals/ModalRoot'
 import { ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
 

@@ -1,13 +1,16 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+
+import * as selectors from '../redux/selectors'
+
 import Card from 'material-ui/Card/Card'
 import CardActions from 'material-ui/Card/CardActions'
 import CardHeader from 'material-ui/Card/CardHeader'
 import CardText from 'material-ui/Card/CardText'
 import Divider from 'material-ui/Divider'
 import Avatar from 'material-ui/Avatar'
+
 import ChangePasswordForm from '../forms/ChangePasswordForm/ChangePasswordForm'
-import * as selectors from '../redux/selectors'
 import { putUser, PUT_USER_OK, PUT_USER_ERR } from '../redux/modules/user'
 
 const propTypes = {

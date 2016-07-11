@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
+
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import { show as showAction, LOGIN_MODAL as loginModalAction } from '../redux/modules/modal'
+
 import ModalRoot from '../modals/ModalRoot'
 
 

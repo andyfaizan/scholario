@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardHeader from 'material-ui/Card/CardHeader'
-import Avatar from 'material-ui/Avatar'
 import CardActions from 'material-ui/Card/CardActions'
+import Avatar from 'material-ui/Avatar'
 import FlatButton from 'material-ui/FlatButton'
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up'
 import Delete from 'material-ui/svg-icons/action/delete'
 import Edit from 'material-ui/svg-icons/image/edit'
 import IconButton from 'material-ui/IconButton'
+
 
 type Props = {
   answer: PropTypes.object,

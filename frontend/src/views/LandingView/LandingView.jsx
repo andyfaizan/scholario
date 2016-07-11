@@ -11,7 +11,7 @@ import TextField from 'material-ui/TextField'
 
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
-import { ScholarioBlue, GreyBackground, LightGrey, White } from '../../styles/colors'
+import { ScholarioBlue, GreyBackground, White } from '../../styles/colors'
 
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'

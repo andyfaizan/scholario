@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import Radium from 'radium'
+
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardHeader from 'material-ui/Card/CardHeader'
@@ -9,7 +11,6 @@ import Divider from 'material-ui/Divider'
 import Toolbar from 'material-ui/Toolbar/Toolbar'
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
 import Friend from 'material-ui/svg-icons/social/person'
-import { Link } from 'react-router'
 
 
 const propTypes = {

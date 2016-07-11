@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+
 import RightSectionTeacherDashboard from '../components/RightSectionTeacherDashboard/RightSectionTeacherDashboard'
 import { show, ADD_QUESTION_MODAL as addQuestionModalAction } from '../redux/modules/modal'
 

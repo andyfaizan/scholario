@@ -1,6 +1,8 @@
 import { connect } from 'react-redux'
-import SnackbarWrapper from '../components/SnackbarWrapper/SnackbarWrapper'
+
 import * as selectors from '../redux/selectors'
+
+import SnackbarWrapper from '../components/SnackbarWrapper/SnackbarWrapper'
 import { removeRequest } from '../redux/modules/request'
 
 const mapStateToProps = (state, ownProps) => {

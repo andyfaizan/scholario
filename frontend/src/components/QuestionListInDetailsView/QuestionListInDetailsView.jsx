@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react'
+
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
+
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
+
 
 const propTypes = {
   questionId: PropTypes.string,

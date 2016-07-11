@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react'
+import { Link } from 'react-router'
 import Radium from 'radium'
 import { connect } from 'react-redux'
+
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar'
 import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
-import { Link } from 'react-router'
+
 import { logout } from '../redux/modules/user'
 
 

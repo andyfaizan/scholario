@@ -1,7 +1,9 @@
 import { connect } from 'react-redux'
+
+import * as selectors from '../redux/selectors'
+
 import AddCourseComponent from '../components/AddCourseComponent/AddCourseComponent'
 import { show, CREATE_COURSE_MODAL as courseModalAction } from '../redux/modules/modal'
-import * as selectors from '../redux/selectors'
 
 
 const mapStateToProps = (state, ownProps) => ({

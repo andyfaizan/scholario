@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+
 import FullMaterial from '../components/FullMaterial/FullMaterial'
 import { voteQuestion } from '../redux/modules/question'
 

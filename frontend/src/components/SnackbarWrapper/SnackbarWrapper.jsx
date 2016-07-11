@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
+
 import Snackbar from 'material-ui/Snackbar'
+
 
 const propTypes = {
   request: PropTypes.object,

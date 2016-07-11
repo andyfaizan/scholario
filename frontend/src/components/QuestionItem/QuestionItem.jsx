@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+
+import { browserHistory } from '../../history'
+
 import ListItem from 'material-ui/List/ListItem'
 import ActionQuestionAnswer from 'material-ui/svg-icons/action/question-answer'
 import Avatar from 'material-ui/Avatar'
 import IconButton from 'material-ui/IconButton'
 import ThumbsUp from 'material-ui/svg-icons/action/thumb-up'
-import { browserHistory } from '../../history'
 
 
 const propTypes = {

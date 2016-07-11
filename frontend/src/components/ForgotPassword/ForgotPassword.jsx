@@ -1,9 +1,11 @@
 import React from 'react'
 import Radium from 'radium'
+
+import ForgotPasswordForm from '../../forms/ForgotPasswordForm/ForgotPasswordForm'
+
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
 import LiveHelp from 'material-ui/svg-icons/communication/live-help'
-import ForgotPasswordForm from '../../forms/ForgotPasswordForm/ForgotPasswordForm'
 
 
 const propTypes = {
