@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
-import DashboardToolBar from '../../containers/DashboardToolBar'
-import TeacherProfileBar from '../../containers/TeacherProfileBar'
-import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
+import DashboardToolBar from '../../containers/DashboardToolBar'
+import TeacherProfileBar from '../../containers/TeacherProfileBar'
+import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
 import * as selectors from '../../redux/selectors'
 import { getUser, requestLogin } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse,
