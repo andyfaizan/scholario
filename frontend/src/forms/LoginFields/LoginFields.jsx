@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import TextField from 'material-ui/TextField'
-import { reduxForm } from 'redux-form'
-
-export const fields = ['email', 'password']
+import { TextField } from 'redux-form-material-ui'
+import { reduxForm, Field } from 'redux-form'
 
 const validate = (values) => {
   const errors = {}
@@ -38,31 +36,28 @@ export class LoginFields extends React.Component {
 
   render() {
     const styles = getStyles()
-    const { fields: { email, password } } = this.props
 
     return (
       <div>
         <div style={styles.loginContainer}>
-          <TextField
-            {...email}
-            hintText="abc@hotmail.com"
-            errorText={email.touched && email.error ? email.error : ''}
-            floatingLabelStyle={styles.floatingLabelStyle}
+          <Field
+            name="email"
+            component={TextField}
+            label="Blah"
             floatingLabelText="Email"
+            floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
-            onKeyDown={this.checkKeyAndSubmit}
           />
           <br />
-          <TextField
-            {...password}
-            errorText={password.touched && password.error ? password.error : ''}
+          <Field
+            name="password"
+            component={TextField}
             floatingLabelText="Passwort"
             type="password"
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
-          <br />
           <br />
           <a onTouchTap={this.props.onClickForgotPassword} style={styles.forgotLink}>Passwort vergessen? </a>
         </div>
@@ -101,6 +96,5 @@ LoginFields.propTypes = propTypes
 
 export default reduxForm({
   form: 'loginForm',
-  fields,
   validate,
 })(Radium(LoginFields))
