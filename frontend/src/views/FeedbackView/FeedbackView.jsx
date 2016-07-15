@@ -17,8 +17,8 @@ const propTypes = {
   userMetadata: PropTypes.object,
   userUniversity: PropTypes.object,
   userProgram: PropTypes.object,
-  feedbackOk: PropTypes.string,
-  feedbackErr: PropTypes.string,
+  feedbackOk: PropTypes.object,
+  feedbackErr: PropTypes.object,
   push: PropTypes.func,
   getUser: PropTypes.func,
   postFeedback: PropTypes.func,
@@ -37,13 +37,11 @@ export class FeedbackView extends React.Component {
     const styles = getStyles()
 
     const { user, userUniversity, userProgram,
-      feedbackOk, feedbackErr,
+      feedbackErr,
     } = this.props
 
     let feedbackTrue = -1
-    if (feedbackOk) {
-      this.props.push('/dashboard')
-    } else if (feedbackErr) feedbackTrue = 0
+    if (feedbackErr) feedbackTrue = 0
 
     return (
       <div>
