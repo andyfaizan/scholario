@@ -2,7 +2,7 @@ import { normalize } from 'normalizr'
 import { merge } from 'lodash'
 import superagent from 'superagent'
 import superagentPromise from 'superagent-promise'
-import { replace } from 'react-router-redux'
+import { replace, push } from 'react-router-redux'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { userSchema } from '../schemas'
@@ -219,6 +219,7 @@ export function postFeedback(subject, content) {
   return {
     types: [POST_FEEDBACK_REQUEST, POST_FEEDBACK_OK, POST_FEEDBACK_ERR],
     callAPI: () => request.post(endpoint).send({ subject, content }),
+    afterOk: () => push('/dashboard'),
   }
 }
 

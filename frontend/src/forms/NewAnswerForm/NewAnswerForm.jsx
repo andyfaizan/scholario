@@ -89,7 +89,7 @@ function getStyles() {
       color: '#ffffff',
     },
     cardHeaderStyle: {
-      paddingLeft: '70',
+      paddingLeft: '70px',
       color: '#26A65B',
     },
     cardHeaderTitleStyle: {

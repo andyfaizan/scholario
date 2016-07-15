@@ -58,6 +58,7 @@ export const callAPIMiddleware = ({ dispatch, getState }) => next => action => {
     shouldCallAPI = () => true,
     payload = {},
     schema,
+    afterOk,
   } = action
 
   if (!types) {
@@ -102,6 +103,7 @@ export const callAPIMiddleware = ({ dispatch, getState }) => next => action => {
       })
       if (data.result) newAction.result = data.result
       dispatch(newAction)
+      if (afterOk) dispatch(afterOk())
     },
     error => dispatch(Object.assign({}, payload, {
       error,

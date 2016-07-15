@@ -21,20 +21,20 @@ const validate = (values) => {
 const propTypes = {
   handleSubmit: PropTypes.func,
   fields: PropTypes.object,
-  feedbackTrue: PropTypes.number,
+  status: PropTypes.number,
 }
 
 const defaultProps = {
   fields: {},
 }
 
-function ChangePassword({ fields: { password }, handleSubmit, feedbackTrue }) {
+function ChangePassword({ fields: { password }, handleSubmit, status }) {
   const styles = getStyles()
   let feedbackMessage
 
-  if (feedbackTrue === 0) {
+  if (status === 1) {
     feedbackMessage = <div style={styles.error}>Es gibt einen Fehler</div>
-  } else if (feedbackTrue === 1) {
+  } else if (status === 0) {
     feedbackMessage = <div style={styles.success}>Passwort ist verändert</div>
   } else feedbackMessage = ''
 

@@ -12,6 +12,7 @@ import Col from 'react-bootstrap/lib/Col'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import NewAnswerForm from '../../forms/NewAnswerForm/NewAnswerForm'
+import EditQuestionForm from '../../forms/EditQuestionForm'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardActions from 'material-ui/Card/CardActions'
@@ -45,6 +46,7 @@ export class Question extends React.Component {
       didGetCourseInstance: false,
       showNewAnswerForm: false,
       answerBeingEdited: null,
+      editQuestion: false,
     }
   }
 
@@ -71,6 +73,12 @@ export class Question extends React.Component {
     this.setState({
       showNewAnswerForm: !this.state.showNewAnswerForm,
       answerBeingEdited: null,
+    })
+  }
+
+  toggleEditQuestion() {
+    this.setState({
+      editQuestion: !this.state.editQuestion,
     })
   }
 
@@ -139,6 +147,7 @@ export class Question extends React.Component {
       actions.push(
         <FlatButton
           key="questionEditingButton" label="Frage bearbeiten" linkButton
+          onTouchTap={() => this.toggleEditQuestion()}
           hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
@@ -148,6 +157,41 @@ export class Question extends React.Component {
           onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack() }}
           hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
+      )
+    }
+
+    let questionEl
+    if (this.state.editQuestion) {
+      questionEl = (
+        <EditQuestionForm
+          initialValues={{ title: question.title, description: question.description }}
+          onCancel={() => this.toggleEditQuestion()}
+          onSubmit={(values) => {
+            this.props.dispatch(putQuestion(question._id, values.title, values.description, '', ''))
+            this.toggleEditQuestion()
+          }}
+        />
+      )
+    } else {
+      questionEl = (
+        <Card style={styles.cardStyle}>
+          <QuestionItem
+            key={question._id}
+            listItemClickable={questionClickable}
+            questionStatement={question.title}
+            datePosted={question.createDate}
+            questionUrl={`/question/${question._id}`}
+            currentLikes={question.votes ? question.votes.length : null}
+            onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
+            postedBy={question.user ? question.user.lastname : ''}
+          />
+          <CardText style={styles.textStyle}>
+            {question.description}
+          </CardText>
+          <CardActions style={styles.actionPadding}>
+            {actions}
+          </CardActions>
+        </Card>
       )
     }
 
@@ -193,24 +237,7 @@ export class Question extends React.Component {
             <br />
             <Row>
               <Col xs={24} md={12}>
-                <Card style={styles.cardStyle}>
-                  <QuestionItem
-                    key={question._id}
-                    listItemClickable={questionClickable}
-                    questionStatement={question.title}
-                    datePosted={question.createDate}
-                    questionUrl={`/question/${question._id}`}
-                    currentLikes={question.votes ? question.votes.length : null}
-                    onClickVote={() => this.props.dispatch(voteQuestion(question._id))}
-                    postedBy={question.user ? question.user.lastname : ''}
-                  />
-                  <CardText style={styles.textStyle}>
-                    {question.description}
-                  </CardText>
-                  <CardActions style={styles.actionPadding}>
-                    {actions}
-                  </CardActions>
-                </Card>
+                {questionEl}
               </Col>
             </Row>
             <br />
