@@ -171,23 +171,6 @@ function LandingView() {
             <p style={styles.headingAddContactForm}>
               Gerne beantworten wir Ihre Fragen persönlich
             </p>
-            <TextField
-              floatingLabelText="Name"
-              style={styles.textFieldName}
-              floatingLabelStyle={styles.floatingLabel}
-              underlineFocusStyle={styles.underlineColor}
-            />
-            <TextField
-              floatingLabelText="Telefon"
-              style={styles.textFieldTelefon}
-              floatingLabelStyle={styles.floatingLabel}
-              underlineFocusStyle={styles.underlineColor}
-            />
-            <FlatButton
-              backgroundColor={ScholarioBlue}
-              label="Abschicken"
-              labelStyle={styles.demoButtonLabelStyle}
-            />
             <SendContactForm />
             <br /><br /><br />
             <div style={styles.profilePic} >
