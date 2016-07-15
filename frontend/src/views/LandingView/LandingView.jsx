@@ -5,12 +5,13 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
+import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
-import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
+import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import { ScholarioBlue, GreyBackground, White } from '../../styles/colors'
 
 import BonnRhein from './MainPicture@3x.png'
@@ -21,6 +22,10 @@ import Analytics from './Analytics.png'
 import Success from './Success.png'
 import UserProfile from './UserProfile.png'
 import Video from './Video.png'
+import Xing from './xing.png'
+import Linkedin from './linkedin.png'
+import MailFlat from './mailFlat.png'
+import Christoph from './christoph.jpg'
 
 const propTypes = {
 
@@ -182,6 +187,37 @@ function LandingView() {
               label="Abschicken"
               labelStyle={styles.demoButtonLabelStyle}
             />
+            <br /><br /><br />
+            <div style={styles.profilePic} >
+              <a href="https://www.facebook.com/cwalpert">
+                <Avatar
+                  src={Christoph}
+                  size={100}
+                  style={styles.avatarStyle}
+                />
+              </a>
+              <a href="#">
+                <Avatar
+                  src={Xing}
+                  size={100}
+                  style={styles.avatarStyle}
+                />
+              </a>
+              <a href="#">
+                <Avatar
+                  src={Linkedin}
+                  size={100}
+                  style={styles.avatarStyle}
+                />
+              </a>
+              <a href="#">
+                <Avatar
+                  src={MailFlat}
+                  size={100}
+                  style={styles.avatarStyle}
+                />
+              </a>
+            </div>
             <p style={styles.footnoteAddContactForm}>
               Christoph Walpert - Initiator
             </p>
@@ -327,6 +363,13 @@ function getStyles() {
     },
     underlineColor: {
       borderColor: '#446CB3',
+    },
+    profilePic: {
+      marginLeft: '30%',
+      marginRight: '3%',
+    },
+    avatarStyle: {
+      marginRight: '5%',
     },
   }
 }
