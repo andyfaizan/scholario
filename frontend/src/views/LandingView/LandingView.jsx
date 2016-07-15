@@ -173,7 +173,7 @@ function LandingView() {
             <SendContactForm />
             <br /><br /><br />
             <div style={styles.profilePic} >
-              <a href="https://www.facebook.com/cwalpert">
+              <a href="#">
                 <Avatar
                   src={Christoph}
                   size={100}
