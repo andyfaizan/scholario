@@ -171,6 +171,35 @@ apiRouter.post('/feedback', passport.authenticate('jwt', { session: false }), fu
   });
 });
 
+apiRouter.post('/contact', function (req, res) {
+  req.checkBody('name', 'InvalidName').notEmpty();
+  req.checkBody('telephone', 'InvalidTelephone').notEmpty();
+
+  const errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors,
+    });
+  }
+
+  var mailOpts = {
+    from: '"Scholario" <noreply@scholario.de>',
+    to: 'chris@scholario.de',
+    subject: `[Contact] ${req.body.name}`,
+    text: `A contact request from ${req.body.name}. Please call ${req.body.telephone}.`,
+  };
+
+  if (utils.getEnv() === 'production') {
+    mailer.transporter.sendMail(mailOpts).catch(function (err) {
+      logger.error(err);
+    });
+  } else if (utils.getEnv() === 'development') {
+    logger.debug(req.body.name, req.body.telephone);
+  }
+  return res.json({});
+});
+
+
 // Test api
 apiRouter.get('/test', function (req, res) {
   res.json({
