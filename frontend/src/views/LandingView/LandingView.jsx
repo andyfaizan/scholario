@@ -12,6 +12,7 @@ import TextField from 'material-ui/TextField'
 
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
+import SendContactForm from '../../forms/SendContactForm/SendContactForm'
 import { ScholarioBlue, GreyBackground, White } from '../../styles/colors'
 
 import BonnRhein from './MainPicture@3x.png'
@@ -187,6 +188,7 @@ function LandingView() {
               label="Abschicken"
               labelStyle={styles.demoButtonLabelStyle}
             />
+            <SendContactForm />
             <br /><br /><br />
             <div style={styles.profilePic} >
               <a href="https://www.facebook.com/cwalpert">
@@ -349,20 +351,6 @@ function getStyles() {
     },
     userProfileStyle: {
       marginTop: '50%',
-    },
-    textFieldName: {
-      marginLeft: '25%',
-      marginRight: '3%',
-    },
-    textFieldTelefon: {
-      marginRight: '3%',
-    },
-    floatingLabel: {
-      opacity: '0.7',
-      color: '#26A65B',
-    },
-    underlineColor: {
-      borderColor: '#446CB3',
     },
     profilePic: {
       marginLeft: '30%',
