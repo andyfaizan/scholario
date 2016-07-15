@@ -8,7 +8,6 @@ import Col from 'react-bootstrap/lib/Col'
 import Avatar from 'material-ui/Avatar'
 import Divider from 'material-ui/Divider'
 import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
 
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
@@ -181,21 +180,21 @@ function LandingView() {
                   style={styles.avatarStyle}
                 />
               </a>
-              <a href="#">
-                <Avatar
-                  src={Xing}
-                  size={100}
-                  style={styles.avatarStyle}
-                />
-              </a>
-              <a href="#">
+              <a href="https://de.linkedin.com/in/christoph-walpert-a339baa3">
                 <Avatar
                   src={Linkedin}
                   size={100}
                   style={styles.avatarStyle}
                 />
               </a>
-              <a href="#">
+              <a href="https://www.xing.com/profile/Christoph_Walpert?sc_o=mxb_p">
+                <Avatar
+                  src={Xing}
+                  size={100}
+                  style={styles.avatarStyle}
+                />
+              </a>
+              <a href="mailto:christoph@scholario.de">
                 <Avatar
                   src={MailFlat}
                   size={100}
