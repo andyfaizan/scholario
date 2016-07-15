@@ -92,7 +92,7 @@ function LandingView() {
                   Sie wollen ihren Kurs online anbieten?
                   <br />
                   Bauen Sie mit Scholario einen Kurs ganz
-                  nach Ihren Wunschen auf.
+                  nach Ihren Wünschen auf.
                 </p>
               </Col>
               <Col xs={8} md={4}>
@@ -100,8 +100,8 @@ function LandingView() {
                   Teilnehmer einbinden
                 </p>
                 <p style={styles.courseErlebenSecondaryTextStyle}>
-                  Sie wunschen sich mehr Interaktion und Feedback?
-                  Nutzen Onlineaufgaben und Fragenfeed um
+                  Sie wünschen sich mehr Interaktion und Feedback?
+                  Nutzen Sie Onlineaufgaben und Fragenfeed um
                   mehr Teilnehmer zu erreichen.
                 </p>
               </Col>
@@ -110,8 +110,8 @@ function LandingView() {
                   Materialien teilen
                 </p>
                 <p style={styles.courseErlebenSecondaryTextStyle}>
-                  Ihre Materialien sind so gut, dass diese
-                  veroffentlichen mochten? Profitieren Sie
+                  Ihre Materialien sind so gut, dass Sie diese
+                  veröffentlichen möchten? Profitieren Sie
                   von unserem Netzwerk.
                 </p>
               </Col>
@@ -168,7 +168,7 @@ function LandingView() {
         <div style={styles.addContactForm}>
           <div>
             <p style={styles.headingAddContactForm}>
-              Gerne beantworten wir Ihre Fragen personlich
+              Gerne beantworten wir Ihre Fragen persönlich
             </p>
             <TextField
               floatingLabelText="Name"
