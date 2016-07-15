@@ -6,6 +6,7 @@ import { programReducer } from './program'
 import { universityReducer } from './university'
 import { questionReducer } from './question'
 import { answerReducer } from './answer'
+import { commentReducer } from './comment'
 import { pkgReducer } from './pkg'
 import { materialReducer } from './materials'
 import { bookmarkReducer } from './bookmark'
@@ -19,6 +20,7 @@ const entities = combineReducers({
   universities: universityReducer,
   questions: questionReducer,
   answers: answerReducer,
+  comments: commentReducer,
   pkgs: pkgReducer,
   materials: materialReducer,
   bookmarks: bookmarkReducer,
