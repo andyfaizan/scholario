@@ -21,8 +21,8 @@ const propTypes = {
   programeName: PropTypes.string,
   imageUrl: PropTypes.string,
   shortInformation: PropTypes.string,
-  putUserOk: PropTypes.string,
-  putUserErr: PropTypes.string,
+  putUserOk: PropTypes.object,
+  putUserErr: PropTypes.object,
   dispatch: PropTypes.func,
 }
 
@@ -36,9 +36,9 @@ function TeacherProfileBar({
   let nameInitial = ''
   if (firstNameUser) nameInitial = firstNameUser[0]
 
-  let changePasswordFeedback = -1
-  if (putUserOk) changePasswordFeedback = 0
-  else if (putUserErr) changePasswordFeedback = 1
+  let changePasswordStatus = -1
+  if (putUserOk) changePasswordStatus = 0
+  else if (putUserErr) changePasswordStatus = 1
 
   return (
     <div>
@@ -56,7 +56,7 @@ function TeacherProfileBar({
           {shortInformation}
           <ChangePasswordForm
             onSubmit={(data) => dispatch(putUser('', '', '', data.password))}
-            feedbackTrue={changePasswordFeedback}
+            status={changePasswordStatus}
           />
         </CardText>
         <CardActions expandable >
