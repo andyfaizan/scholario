@@ -29,6 +29,10 @@ export const answerSchema = new Schema('answers', {
   idAttribute: '_id',
 })
 
+export const commentSchema = new Schema('comments', {
+  idAttribute: '_id',
+})
+
 export const pkgSchema = new Schema('pkgs', {
   idAttribute: '_id',
 })
@@ -72,6 +76,10 @@ questionSchema.define({
 })
 
 answerSchema.define({
+  user: userSchema,
+})
+
+commentSchema.define({
   user: userSchema,
 })
 
