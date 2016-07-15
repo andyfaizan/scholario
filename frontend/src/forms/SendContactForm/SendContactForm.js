@@ -7,29 +7,29 @@ import FlatButton from 'material-ui/FlatButton'
 
 import { ScholarioBlue } from '../../styles/colors'
 
-export const fields = ['name', 'telefon']
+export const fields = ['name', 'telephone']
 
 const validate = (values) => {
   const errors = {}
   if (!values.name) {
     errors.name = 'Erforderlich'
   }
-  if (!values.telefon) {
-    errors.telefon = 'Erforderlich'
+  if (!values.telephone) {
+    errors.telephone = 'Erforderlich'
   }
   return errors
 }
 
 const propTypes = {
-  handleSubmit: Function,
-  fields: Object,
+  fields: PropTypes.object,
+  handleSubmit: PropTypes.func,
 }
 
 const defaultProps = {
   fields: {},
 }
 
-function SendContact({ fields: { name, telefon }, handleSubmit }) {
+function SendContact({ fields: { name, telephone }, handleSubmit }) {
   const styles = getStyles()
 
   return (
@@ -43,8 +43,8 @@ function SendContact({ fields: { name, telefon }, handleSubmit }) {
         underlineFocusStyle={styles.underlineColor}
       />
       <TextField
-        {...telefon}
-        errorText={telefon.touched && telefon.error ? telefon.error : ''}
+        {...telephone}
+        errorText={telephone.touched && telephone.error ? telephone.error : ''}
         floatingLabelText="Telefon"
         style={styles.textFieldTelefon}
         floatingLabelStyle={styles.floatingLabel}
@@ -54,6 +54,7 @@ function SendContact({ fields: { name, telefon }, handleSubmit }) {
         backgroundColor={ScholarioBlue}
         label="Abschicken"
         labelStyle={styles.demoButtonLabelStyle}
+        onTouchTap={handleSubmit}
       />
     </form>
   )

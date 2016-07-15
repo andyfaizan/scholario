@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
+import { connect } from 'react-redux'
 
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -13,6 +14,8 @@ import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
 import SendContactForm from '../../forms/SendContactForm/SendContactForm'
 import { ScholarioBlue, GreyBackground, White } from '../../styles/colors'
+
+import { postContact } from '../../redux/modules/user'
 
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'
@@ -28,10 +31,10 @@ import MailFlat from './mailFlat.png'
 import Christoph from './christoph.jpg'
 
 const propTypes = {
-
+  dispatch: PropTypes.func,
 }
 
-function LandingView() {
+function LandingView({ dispatch }) {
   const styles = getStyles()
 
   return (
@@ -170,7 +173,9 @@ function LandingView() {
             <p style={styles.headingAddContactForm}>
               Gerne beantworten wir Ihre Fragen persönlich
             </p>
-            <SendContactForm />
+            <SendContactForm
+              onSubmit={(values) => dispatch(postContact(values.name, values.telephone))}
+            />
             <br /><br /><br />
             <div style={styles.profilePic} >
               <a href="#">
@@ -346,4 +351,5 @@ function getStyles() {
 
 LandingView.propTypes = propTypes
 
-export default Radium(LandingView)
+export default connect(
+)(Radium(LandingView))

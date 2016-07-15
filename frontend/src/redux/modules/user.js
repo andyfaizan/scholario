@@ -50,6 +50,10 @@ export const POST_FEEDBACK_REQUEST = 'POST_FEEDBACK_REQUEST'
 export const POST_FEEDBACK_OK = 'POST_FEEDBACK_OK'
 export const POST_FEEDBACK_ERR = 'POST_FEEDBACK_ERR'
 
+export const POST_CONTACT_REQUEST = 'POST_CONTACT_REQUEST'
+export const POST_CONTACT_OK = 'POST_CONTACT_OK'
+export const POST_CONTACT_ERR = 'POST_CONTACT_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -220,6 +224,15 @@ export function postFeedback(subject, content) {
     types: [POST_FEEDBACK_REQUEST, POST_FEEDBACK_OK, POST_FEEDBACK_ERR],
     callAPI: () => request.post(endpoint).send({ subject, content }),
     afterOk: () => push('/dashboard'),
+  }
+}
+
+export function postContact(name, telephone) {
+  const endpoint = urlJoin(config.apiURL, 'contact')
+  return {
+    types: [POST_CONTACT_REQUEST, POST_CONTACT_OK, POST_CONTACT_ERR],
+    callAPI: () => request.post(endpoint).send({ name, telephone }),
+    afterOk: () => push('/'),
   }
 }
 
