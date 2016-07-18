@@ -26,6 +26,6 @@ const InteractiveSolutionSchema = new Schema({
   }],
 }, opts);
 
-const Task = mongoose.model('Task', TaskSchema);
-Task.discriminator('FileSolutionSchema', FileSolutionSchema);
-Task.discriminator('InteractiveSolutionSchema', InteractiveSolutionSchema);
+const Solution = mongoose.model('Solution', SolutionSchema);
+Solution.discriminator('FileSolutionSchema', FileSolutionSchema);
+Solution.discriminator('InteractiveSolutionSchema', InteractiveSolutionSchema);
