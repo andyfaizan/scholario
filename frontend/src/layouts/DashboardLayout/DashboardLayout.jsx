@@ -10,9 +10,13 @@ function Dashboard({ children }) {
 
   return (
     <div style={styles.dashboardLayout}>
-      <DashboardToolBar />
+      <div style={styles.dashboardRoot}>
+        <DashboardToolBar />
+      </div>
         {children}
-      <FooterLanding />
+      <div styles={styles.footer}>
+        <FooterLanding />
+      </div>
     </div>
   )
 }
@@ -21,19 +25,9 @@ function getStyles() {
   return {
     dashboardRoot: {
       backgroundColor: '#FBF6EC',
-      minHeight: '100vh',
     },
-    dashboardLayout {
+    dashboardLayout: {
       backgroundColor: ToolBarGreen,
-    },
-    container: {
-      height: '50vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      h1: {
-        margin: 0,
-      },
     },
     footer: {
       fontSize: '20px',
