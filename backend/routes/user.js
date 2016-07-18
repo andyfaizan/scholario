@@ -82,6 +82,38 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
+    const followers = yield user.getFollowers({
+      populate: [{
+        path: 'program',
+        select: 'id name university degree',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
+    const suggestions = yield user.getSuggestions({
+      populate: [{
+        path: 'program',
+        select: 'id name university degree',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
     const data = {
       _id: user._id,
       firstname: user.firstname,
@@ -91,6 +123,8 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       courseInstances: courseInstances,
       questions: questions,
       followings: followings,
+      followers: followers,
+      suggestions: suggestions,
       universities: user.universities,
       programs: user.programs,
     };
