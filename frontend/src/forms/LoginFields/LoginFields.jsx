@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { TextField } from 'redux-form-material-ui'
 import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 
 const validate = (values) => {
   const errors = {}
@@ -19,7 +19,6 @@ const validate = (values) => {
 }
 
 const propTypes = {
-  fields: PropTypes.object.isRequired,
   confirm: PropTypes.func,
   onClickForgotPassword: PropTypes.func,
 }
@@ -43,7 +42,6 @@ export class LoginFields extends React.Component {
           <Field
             name="email"
             component={TextField}
-            label="Blah"
             floatingLabelText="Email"
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
