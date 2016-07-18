@@ -144,6 +144,54 @@ UserSchema.methods.getFollowings = function (opts) {
   });
 };
 
+UserSchema.methods.getFollowers = function (opts) {
+  return new Promise((resolve, reject) => {
+    var p = this.model('User').find({ following: { $in: [this._id] } });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts) {
+        p = p.populate(opts.populate);
+      }
+      if ('select' in opts) {
+        p = p.select(opts.select);
+      }
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(followers => resolve(followers))
+            .catch(err => reject(err));
+  });
+};
+
+UserSchema.methods.getSuggestions = function (opts) {
+  return new Promise((resolve, reject) => {
+    this.model('User').find({ _id: { $in: this.following }})
+      .select('id following').lean().exec().then(followings => {
+      console.log(followings);
+      var p = this.model('User').find({ _id: { $in: followings.map(u => u.following) } });
+      if (typeof opts !== 'undefined') {
+        if ('populate' in opts) {
+          p = p.populate(opts.populate);
+        }
+        if ('select' in opts) {
+          p = p.select(opts.select);
+        }
+        if ('lean' in opts) {
+          p = p.lean(opts.lean);
+        }
+        if ('limit' in opts) {
+          p = p.limit(opts.limit);
+        }
+      }
+      p.exec().then(suggestions => resolve(suggestions))
+              .catch(err => reject(err));
+    });
+  });
+};
+
 // Virtuals
 
 // Validations
