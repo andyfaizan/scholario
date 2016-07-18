@@ -1,6 +1,7 @@
 const express = require('express');
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const co = require('co');
 const crypto = require('crypto');
@@ -151,6 +152,18 @@ router.post('/login', function (req, res) {
         programs: user.programs,
       },
     };
+
+    if (user.avatarPath) {
+      const avatarName = path.basename(user.avatarPath);
+      const avatarUrl = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname:
+        `/users/${user._id}/photos/${avatarName}`
+      });
+      data.avatarUrl = avatarUrl;
+    }
 
     return res.json(data);
   }).catch(function (err) {

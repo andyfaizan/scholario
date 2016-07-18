@@ -95,6 +95,18 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       programs: user.programs,
     };
 
+    if (user.avatarPath) {
+      const avatarName = path.basename(user.avatarPath);
+      const avatarUrl = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname:
+        `/users/${user._id}/photos/${avatarName}`
+      });
+      data.avatarUrl = avatarUrl;
+    }
+
     return res.json(data);
   }).catch(function (err) {
     logger.error(err);

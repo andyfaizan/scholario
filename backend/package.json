@@ -4,7 +4,7 @@
   "description": "Scholario Backend",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint -c .eslintrc.json ."
   },
   "repository": {
     "type": "git",
@@ -13,9 +13,6 @@
   "author": "Scholario Team",
   "license": "ISC",
   "homepage": "https://bitbucket.org/scholario/first-repo#readme",
-  "scripts": {
-    "lint": "eslint -c .eslintrc.json ."
-  },
   "dependencies": {
     "async": "^2.0.0-rc.2",
     "bcrypt": "^0.8.5",
@@ -25,6 +22,7 @@
     "cors": "^2.7.1",
     "express": "^4.13.4",
     "express-validator": "^2.20.3",
+    "fs-extra": "^0.30.0",
     "helmet": "^1.3.0",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.6.1",

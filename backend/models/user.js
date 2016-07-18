@@ -24,6 +24,7 @@ const UserSchema = new Schema({
   following: [{ type: ObjectId, ref: 'User' }],
   universities: [{ type: ObjectId, ref: 'University' }],
   programs: [{ type: ObjectId, ref: 'Program' }],
+  avatarPath: { type: String, default: '' },
 }, opts);
 
 const StudentSchema = new Schema({
