@@ -32,6 +32,7 @@ app.use(bodyParser.raw({ limit: '50mb' }));
 app.use(expressValidator());
 app.use(morgan('dev'));
 app.use(passport.initialize());
+mongoose.Promise = global.Promise;
 
 // Bootstrap models
 fs.readdirSync(models)
