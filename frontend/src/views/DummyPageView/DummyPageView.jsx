@@ -1,5 +1,6 @@
 import React from 'react'
 import Radium from 'radium'
+
 import DashboardToolBar from '../../containers/DashboardToolBar'
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
@@ -49,6 +50,7 @@ function getStyles() {
     },
   }
 }
+
 
 DummyPage.propTypes = propTypes
 
