@@ -1,5 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const fs = require('fs');
+const fse = require('fs-extra');
+const path = require('path');
+const url = require('url');
+const multer = require('multer');
 const passport = require('passport');
 const co = require('co');
 const logger = require('../logger');
@@ -133,6 +138,55 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
     logger.error(err);
     return res.status(500).json({
       err: [{ msg: 'InternalError' }],
+    });
+  });
+});
+
+router.post('/avatar', passport.authenticate('jwt', { session: false }),
+  multer({ dest: 'uploads/tmp' }).single('avatar'),
+  function (req, res) {
+  if (!req.file) {
+    return res.status(201).json({});
+  }
+
+  const avatarRoot = path.join(
+    path.dirname(__dirname), 'uploads',
+    'users', req.user.id, 'photos'
+  );
+  fse.mkdirs(avatarRoot, function (err) {
+    if (err) {
+      logger.error(err);
+      return res.status(500).json({
+        err: [{ msg: 'InternalError' }],
+      });
+    }
+
+    const avatarPath = path.join(avatarRoot, req.file.originalname);
+    var source = fs.createReadStream(req.file.path);
+    var dest = fs.createWriteStream(avatarPath);
+
+    source.pipe(dest);
+    source.on('end', () => {
+      fs.unlinkSync(req.file.path);
+      req.user.avatarPath = avatarPath;
+      req.user.save();
+      const avatarUrl = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname:
+        `/users/${req.user._id}/photos/${req.file.originalname}`
+      });
+      return res.status(201).json({
+        _id: req.user._id,
+        avatarUrl,
+      });
+    });
+    source.on('error', err => {
+      logger.error(err);
+      return res.status(500).json({
+        err: [{ msg: 'InternalError' }],
+      });
     });
   });
 });
