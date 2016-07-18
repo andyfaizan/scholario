@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
-import TextField from 'material-ui/TextField'
+import { TextField } from 'redux-form-material-ui'
 import Edit from 'material-ui/svg-icons/image/edit'
 import RaisedButton from 'material-ui/RaisedButton'
 
-
-export const fields = ['password', 'confirmPassword']
 
 const validate = (values) => {
   const errors = {}
@@ -26,14 +24,9 @@ const validate = (values) => {
 
 const propTypes = {
   handleSubmit: PropTypes.func,
-  fields: PropTypes.object,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit }) {
+function SetForgotPassword({ handleSubmit }) {
   const styles = getStyles()
 
   let feedbackMessage
@@ -60,9 +53,9 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
               <Divider />
               <CardText>
                 <div style={styles.containingEmail}>
-                  <TextField
-                    {...password}
-                    errorText={password.touched && password.error ? password.error : ''}
+                  <Field
+                    name="password"
+                    component={TextField}
                     floatingLabelText="Das neue Passwort eingeben"
                     fullWidth={false}
                     floatingLabelStyle={styles.floatingLabel}
@@ -70,8 +63,9 @@ function SetForgotPassword({ fields: { password, confirmPassword }, handleSubmit
                     style={styles.textFieldStyle}
                     type="password"
                   />
-                  <TextField
-                    {...confirmPassword}
+                  <Field
+                    name="confirmPassword"
+                    component={TextField}
                     floatingLabelText="Geben Sie Ihr neues Passwort noch Einmal"
                     fullWidth={false}
                     floatingLabelStyle={styles.floatingLabel}
@@ -185,10 +179,8 @@ function getStyles() {
 }
 
 SetForgotPassword.propTypes = propTypes
-SetForgotPassword.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'SetForgotPassword',
-  fields,
   validate,
 })(Radium(SetForgotPassword))

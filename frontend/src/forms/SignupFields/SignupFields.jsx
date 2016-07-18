@@ -29,7 +29,6 @@ const validate = (values) => {
 }
 
 const propTypes = {
-  fields: PropTypes.object.isRequired,
   universities: PropTypes.array,
   dispatch: PropTypes.func,
   handleSubmit: PropTypes.func.isRequired,

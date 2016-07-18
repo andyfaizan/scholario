@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
@@ -7,13 +7,14 @@ import ForgotPasswordForm from '../../forms/ForgotPasswordForm/ForgotPasswordFor
 
 
 const propTypes = {
+  feedbackTrue: PropTypes.number,
+  onSubmitForgotPassword: PropTypes.func,
 }
 
-function ForgotPassword() {
+function ForgotPassword({ feedbackTrue, onSubmitForgotPassword }) {
   const styles = getStyles()
 
   let feedbackMessage
-  const feedbackTrue = this.props.feedbackTrue
 
   if (feedbackTrue === 0) {
     feedbackMessage = <div style={styles.error}>Falsche E-Mail-Konto</div>
@@ -37,7 +38,7 @@ function ForgotPassword() {
             <Divider />
             <CardText>
               <div style={styles.containingEmail}>
-                <ForgotPasswordForm onSubmit={this.props.onSubmitForgotPassword} />
+                <ForgotPasswordForm onSubmit={onSubmitForgotPassword} />
               </div>
               <br />
               <div style={styles.feedback}>
