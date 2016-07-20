@@ -1,26 +1,36 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import Dropzone from 'react-dropzone'
 import LinearProgress from 'material-ui/LinearProgress'
 
-export const fields = ['files']
-
 const propTypes = {
-  fields: PropTypes.object,
   request: PropTypes.object,
   addMaterial: PropTypes.func,
   pkgId: PropTypes.string,
-}
-
-const defaultProps = {
-  fields: {},
 }
 
 let uploadError
 let correctFiles = []
 let showFiles
 let filesForPreview = []
+
+const dropComponent = (props) => (
+  <Dropzone
+    {...props}
+    onDrop={(files) => props.onDrop(files)}
+    dropStyle={props.dropStyle}
+    activeStyle={props.activeStyle}
+    disableClick={props.request}
+    accept={props.supportedTypes}
+  >
+    <div style={{ 'text-align': 'center', 'align-items': 'center' }}>
+      {showFiles ?
+        props.previewFiles(filesForPreview) :
+        <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
+    </div>
+  </Dropzone>
+)
 
 export class AddMaterial extends React.Component {
   componentWillMount() {
@@ -47,8 +57,6 @@ export class AddMaterial extends React.Component {
 
   render() {
     const styles = getStyles()
-    const { fields: { files } } = this.props
-
     const maxFileSize = 800 * 1024 * 1024
     const supportedTypes =
         'image/jpeg, image/gif, image/png, image/bmp, image/x-bmp, image/x-icon \
@@ -69,8 +77,9 @@ export class AddMaterial extends React.Component {
       <div>
         <div>
           <div>
-            <Dropzone
-              {...files} style={styles.dropStyle} activeStyle={styles.activeStyle}
+            <Field
+              name="files"
+              component={dropComponent}
               onDrop={
                 (filesToUpload) => {
                   uploadError = false
@@ -80,22 +89,23 @@ export class AddMaterial extends React.Component {
                     (file.name.replace(/\//g, '-'), correctFiles.push(file), filesForPreview.push(file))
                     : (uploadError = true)))
                   if (correctFiles.length > 0) {
-                    files.onChange(correctFiles)
+                    // files.onChange(correctFiles)
                     this.props.addMaterial(this.props.pkgId, correctFiles)
                     correctFiles = []
                     showFiles = true
                   }
-                }
-              }
-              disableClick={this.props.request}
-              accept={supportedTypes}
-            >
-              <div style={styles.containerStyle}>
-                {showFiles ?
-                  this.previewFiles(filesForPreview) :
-                  <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
-              </div>
-            </Dropzone>
+                }}
+              props={{
+                maxFileSize,
+                supportedTypes,
+                dropStyle: styles.dropStyle,
+                activeStyle: styles.activeStyle,
+                containerStyle: styles.containerStyle,
+                previewFiles: this.previewFiles,
+                pkgId: this.props.pkgId,
+                request: this.props.request,
+              }}
+            />
             {uploadError ?
               <div style={styles.errorText}>
                 <strong>Einige Datein konnte nicht hochgeladen!</strong>
@@ -145,9 +155,7 @@ function getStyles() {
 }
 
 AddMaterial.propTypes = propTypes
-AddMaterial.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'AddMaterial',
-  fields,
 })(Radium(AddMaterial))
