@@ -6,6 +6,7 @@ import { TextField, SelectField } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
 
 const propTypes = {
+  handleSubmit: PropTypes.func,
   courseInstances: PropTypes.array,
   allPkgs: PropTypes.object,
   getObjects: PropTypes.func,
@@ -29,7 +30,7 @@ export class AddQuestion extends React.Component {
     const titleLimit = 150
     const descriptionLimit = 1000
 
-    const { courseInstanceValue, pkgValue } = this.props
+    const { handleSubmit, courseInstanceValue, pkgValue } = this.props
 
     let courseItems = []
     if (this.props.courseInstances && this.props.courseInstances.length > 0) {
@@ -55,7 +56,7 @@ export class AddQuestion extends React.Component {
     }
 
     return (
-      <div>
+      <form onSubmit={handleSubmit}>
         <div style={styles.addQuestionContainer} fullWidth>
           <Field
             name="title"
@@ -118,7 +119,7 @@ export class AddQuestion extends React.Component {
           <br />
           <br />
         </div>
-      </div>
+      </form>
     )
   }
 }
@@ -147,20 +148,17 @@ function getStyles() {
 
 AddQuestion.propTypes = propTypes
 
-AddQuestion = reduxForm({
-  form: 'AddQuestion',
-})(Radium(AddQuestion))
-
+// http://redux-form.com/6.0.0-rc.1/examples/selectingFormValues/
 const selector = formValueSelector('AddQuestion')
-AddQuestion = connect(
-  state => {
-    const courseInstanceValue = selector(state, 'courseInstance')
-    const pkgValue = selector(state, 'pkg')
-    return {
-      courseInstanceValue,
-      pkgValue,
-    }
+export default connect(
+  reduxForm({
+    form: 'AddQuestion',
+  })(Radium(AddQuestion))
+, state => {
+  const courseInstanceValue = selector(state, 'courseInstance')
+  const pkgValue = selector(state, 'pkg')
+  return {
+    courseInstanceValue,
+    pkgValue,
   }
-)(AddQuestion)
-
-export default AddQuestion
+})(AddQuestion)
