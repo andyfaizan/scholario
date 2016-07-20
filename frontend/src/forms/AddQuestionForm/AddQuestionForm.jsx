@@ -1,21 +1,16 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
+import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { TextField, SelectField } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
-import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
-// Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
-export const fields = ['title', 'description', 'courseInstance', 'pkg', 'material']
 
 const propTypes = {
-  fields: PropTypes.object,
   courseInstances: PropTypes.array,
   allPkgs: PropTypes.object,
   getObjects: PropTypes.func,
-}
-
-const defaultProps = {
-  fields: {},
+  courseInstanceValue: PropTypes.string,
+  pkgValue: PropTypes.string,
 }
 
 export class AddQuestion extends React.Component {
@@ -34,7 +29,7 @@ export class AddQuestion extends React.Component {
     const titleLimit = 150
     const descriptionLimit = 1000
 
-    const { fields: { title, description, courseInstance, pkg, material } } = this.props
+    const { courseInstanceValue, pkgValue } = this.props
 
     let courseItems = []
     if (this.props.courseInstances && this.props.courseInstances.length > 0) {
@@ -43,18 +38,18 @@ export class AddQuestion extends React.Component {
     }
 
     let packageItems = []
-    if (this.props.fields.courseInstance.value && this.props.courseInstances.length > 0) {
+    if (courseInstanceValue && this.props.courseInstances.length > 0) {
       packageItems = this.props.courseInstances
-        .find(c => c._id === this.props.fields.courseInstance.value).pkgs // pkgs in courseInstance is an array
+        .find(c => c._id === courseInstanceValue).pkgs // pkgs in courseInstance is an array
         .map(p =>
           <MenuItem key={p._id} value={p._id} primaryText={p.name} />
         )
     }
 
     let materialItems = []
-    if (this.props.fields.pkg.value) {
+    if (pkgValue) {
       const pkgArray = this.props.getObjects(this.props.allPkgs)
-      const selectedPkg = pkgArray.find(p => p._id === this.props.fields.pkg.value)
+      const selectedPkg = pkgArray.find(p => p._id === pkgValue)
       materialItems = selectedPkg.materials.map(m =>
         <MenuItem key={m._id} value={m._id} primaryText={m.name} />)
     }
@@ -62,8 +57,9 @@ export class AddQuestion extends React.Component {
     return (
       <div>
         <div style={styles.addQuestionContainer} fullWidth>
-          <TextField
-            {...title}
+          <Field
+            name="title"
+            component={TextField}
             hintText={titleHint}
             floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText={titleLabel}
@@ -72,8 +68,9 @@ export class AddQuestion extends React.Component {
             maxLength={titleLimit}
           />
           <br />
-          <TextField
-            {...description}
+          <Field
+            name="description"
+            component={TextField}
             floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText={descriptionLabel}
             underlineFocusStyle={styles.focusStyle}
@@ -83,8 +80,9 @@ export class AddQuestion extends React.Component {
             maxLength={descriptionLimit}
           />
           <br />
-          <SelectFieldWrapper
-            {...courseInstance}
+          <Field
+            name="courseInstance"
+            component={SelectField}
             style={styles.blocking}
             floatingLabelText={courseLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
@@ -92,10 +90,11 @@ export class AddQuestion extends React.Component {
             fullWidth
           >
             {courseItems}
-          </SelectFieldWrapper>
+          </Field>
           <br />
-          <SelectFieldWrapper
-            {...pkg}
+          <Field
+            name="pkg"
+            component={SelectField}
             style={styles.blocking}
             floatingLabelText={packageLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
@@ -103,10 +102,11 @@ export class AddQuestion extends React.Component {
             fullWidth
           >
             {packageItems}
-          </SelectFieldWrapper>
+          </Field>
           <br />
-          <SelectFieldWrapper
-            {...material}
+          <Field
+            name="material"
+            component={SelectField}
             style={styles.blocking}
             floatingLabelText={materialLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
@@ -114,7 +114,7 @@ export class AddQuestion extends React.Component {
             fullWidth
           >
             {materialItems}
-          </SelectFieldWrapper>
+          </Field>
           <br />
           <br />
         </div>
@@ -145,14 +145,22 @@ function getStyles() {
   }
 }
 
-const mapStateToProps = () => ({
-  // initialValues: ownProps.defaultData // will pull state into form's initialValues
-})
-
 AddQuestion.propTypes = propTypes
-AddQuestion.defaultProps = defaultProps
 
-export default reduxForm({
+AddQuestion = reduxForm({
   form: 'AddQuestion',
-  fields,
-}, mapStateToProps)(Radium(AddQuestion))
+})(Radium(AddQuestion))
+
+const selector = formValueSelector('AddQuestion')
+AddQuestion = connect(
+  state => {
+    const courseInstanceValue = selector(state, 'courseInstance')
+    const pkgValue = selector(state, 'pkg')
+    return {
+      courseInstanceValue,
+      pkgValue,
+    }
+  }
+)(AddQuestion)
+
+export default AddQuestion
