@@ -4,6 +4,9 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
+import Card from 'material-ui/Card/Card'
+import CardText from 'material-ui/Card/CardText'
+
 import ProgressChart from '../../components/ProgressChart/ProgressChart'
 
 const propTypes = {
@@ -19,28 +22,31 @@ class UserProfile extends React.Component {
       <div>
         <div style={styles.rootCourse}>
           <br />
+          <br />
+          <br />
           <Grid className="container-fluid">
             <Row >
               <Col xs={16} md={8}>
                 <div>
+                  <Card >
+                    <CardText >
+                      rohan
+                    </CardText>
+                  </Card>
                   <h4>
                   </h4>
                   <br />
                   <br />
                   <br />
                   <br />
-                  <fieldset>
-                    <legend><h4>
-                    </h4></legend>
-                    <br />
-                  </fieldset>
                 </div>
                 <br />
               </Col>
               <Col xs={8} md={4}>
+                <Card >
+                  <ProgressChart />
+                </Card>
                 <br />
-                <ProgressChart />
-                <br/>
                 <ProgressChart />
               </Col>
             </Row>
