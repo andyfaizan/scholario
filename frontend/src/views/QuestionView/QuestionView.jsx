@@ -3,12 +3,13 @@ import Radium from 'radium'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
-import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
-import DashboardToolBar from '../../containers/DashboardToolBar'
-import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
+import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
+import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import QuestionItem from '../../components/QuestionItem/QuestionItem'
 import AnswerItem from '../../components/AnswerItem/AnswerItem'
 import NewAnswerForm from '../../forms/NewAnswerForm/NewAnswerForm'
@@ -17,7 +18,6 @@ import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import { postAnswer, deleteAnswer, putAnswer, voteAnswer } from '../../redux/modules/answer'
 import {
   getQuestion, voteQuestion, setCurQuestion,
@@ -222,7 +222,6 @@ export class Question extends React.Component {
     return (
       <div>
         <div style={styles.dashboardRoot}>
-          <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
             courseUrl={`/course/${courseInstance._id}`}
@@ -253,10 +252,6 @@ export class Question extends React.Component {
           <br />
         </div>
         <Feedback errorType={answerErrorType} okayType={answerOkayType} />
-
-        <div style={styles.footer} >
-          <FooterLanding />
-        </div>
       </div>
     )
   }
@@ -267,12 +262,6 @@ function getStyles() {
     dashboardRoot: {
       backgroundColor: '#FBF6EC',
       minHeight: '100vh',
-    },
-    footer: {
-      fontSize: '20px',
-      backgroundColor: 'white',
-      color: 'darkslategray',
-      height: '10%',
     },
     textStyle: {
       paddingLeft: '70px',
