@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import DashboardToolBar from '../../containers/DashboardToolBar'
+
 import PreviewMaterial from '../../containers/PreviewMaterial'
 import {
   getCourseInstance, setCurCourseInstance,
@@ -12,7 +12,6 @@ import { getMaterial, setCurMaterial } from '../../redux/modules/materials'
 import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 
 
@@ -82,7 +81,6 @@ export class MaterialView extends React.Component {
     return (
       <div>
         <div style={styles.dashboardRoot}>
-          <DashboardToolBar />
           <PreviewMaterial
             location={this.props.location}
             courseInstance={this.props.courseInstance}
@@ -94,9 +92,6 @@ export class MaterialView extends React.Component {
           <br />
           <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!" />
         </div>
-        <div style={styles.footer}>
-          <FooterLanding />
-        </div>
       </div>
     )
   }
@@ -107,12 +102,6 @@ function getStyles() {
     dashboardRoot: {
       backgroundColor: '#FBF6EC',
       minHeight: '100vh',
-    },
-    footer: {
-      fontSize: '20px',
-      backgroundColor: 'white',
-      color: 'darkslategray',
-      height: '10%',
     },
   }
 }
