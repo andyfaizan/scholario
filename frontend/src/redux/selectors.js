@@ -227,6 +227,36 @@ export function getPkgFactory(pid) {
   )
 }
 
+export const getCurCIProfPkgs = createSelector(
+  [getCurCourseInstance, getUsers],
+  (curCourseInstance, users) => {
+    if (curCourseInstance && curCourseInstance.pkgs) {
+      return curCourseInstance.pkgs.filter(p => {
+        if (users[p.owner]) {
+          return (users[p.owner].role === 'Prof')
+        }
+        return false
+      })
+    }
+    return []
+  }
+)
+
+export const getCurCIStudentPkgs = createSelector(
+  [getCurCourseInstance, getUsers],
+  (curCourseInstance, users) => {
+    if (curCourseInstance && curCourseInstance.pkgs) {
+      return curCourseInstance.pkgs.filter(p => {
+        if (users[p.owner]) {
+          return (users[p.owner].role === 'Student')
+        }
+        return false
+      })
+    }
+    return []
+  }
+)
+
 export const getCurMaterial = createSelector(
   [getCurMaterialId, getMaterials],
   (curMaterialId, materials) => materials[curMaterialId]

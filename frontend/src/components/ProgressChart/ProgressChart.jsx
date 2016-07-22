@@ -44,7 +44,7 @@ function chartData() {
         pointHighlightStroke: 'rgba(151,187,205,1)',
         data: [28, 48, 40, 19, 86, 27, 90],
       },
-    ]
+    ],
   }
 }
 
@@ -69,8 +69,8 @@ const options = {
 const graphStyle = {
   graphContainer: {
     border: '1px solid black',
-    padding: '15px'
-  }
+    padding: '15px',
+  },
 }
 
 export default ProgressChart

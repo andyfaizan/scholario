@@ -2,16 +2,17 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
 import * as selectors from '../../redux/selectors'
-import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
-import { getQuestions, voteQuestion } from '../../redux/modules/question'
-import DashboardToolBar from '../../containers/DashboardToolBar'
-import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
+
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
+import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
+import { getQuestions, voteQuestion } from '../../redux/modules/question'
+import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import QuestionToolBar from '../../components/QuestionToolBar/QuestionToolBar'
 import QuestionListInDetailsView from '../../components/QuestionListInDetailsView/QuestionListInDetailsView'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 const propTypes = {
   params: PropTypes.object,
@@ -61,7 +62,6 @@ export class DetailQuestionList extends React.Component {
     return (
       <div>
         <div style={styles.dashboardRoot}>
-          <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
             courseUrl={`/course/${courseInstance._id}`}
@@ -88,9 +88,6 @@ export class DetailQuestionList extends React.Component {
             </Row>
           </Grid>
         </div>
-        <div style={styles.footer}>
-          <FooterLanding />
-        </div>
       </div>
     )
   }
@@ -101,12 +98,6 @@ function getStyles() {
     dashboardRoot: {
       backgroundColor: '#FBF6EC',
       minHeight: '100vh',
-    },
-    footer: {
-      fontSize: '20px',
-      backgroundColor: 'white',
-      color: 'darkslategray',
-      height: '10%',
     },
   }
 }
