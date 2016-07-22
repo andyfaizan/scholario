@@ -7,6 +7,7 @@ const utils = require('../utils');
 const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
 const CourseInstance = mongoose.model('CourseInstance');
+const QuestionCreatedEvent = mongoose.model('QuestionCreatedEvent');
 const mailer = require('../mailer');
 
 var router = express.Router();
@@ -42,6 +43,11 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
   if (req.body.pkg) question.pkg = req.body.pkg;
   if (req.body.material) question.material = req.body.material;
   question.save().then(function (question) {
+    QuestionCreatedEvent({
+      by: req.user,
+      question: question,
+    }).save();
+
     var data = {
       _id: question._id,
       title: question.title,
