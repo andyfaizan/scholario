@@ -6,7 +6,6 @@ import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
-import DashboardToolBar from '../../containers/DashboardToolBar'
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
 import * as selectors from '../../redux/selectors'
@@ -14,7 +13,6 @@ import { getUser, requestLogin } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse,
   FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 
 
@@ -63,7 +61,6 @@ class DashboardView extends React.Component {
     return (
       <div>
         <div style={styles.dashboardRoot} >
-          <DashboardToolBar />
           <TeacherProfileBar
             firstNameUser={user ? user.firstname : ''}
             lastNameUser={user ? user.lastname : ''}
@@ -90,9 +87,6 @@ class DashboardView extends React.Component {
             okayType={FOLLOW_COURSE_INSTANCE_OK}
             message="Kurs gefolgt! :)"
           />
-        </div>
-        <div style={styles.footer}>
-          <FooterLanding />
         </div>
       </div>
     )
