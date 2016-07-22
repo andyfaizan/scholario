@@ -14,17 +14,17 @@ const EventSchema = new Schema({
 }, opts);
 
 const QuestionCreatedEventSchema = new Schema({
-  by: { type: ObjectId, ref: 'User' },
+  by: { type: ObjectId, ref: 'User', index: true },
   question: { type: ObjectId, ref: 'Question' },  
 }, opts);
 
-const QuestionGotAnsweredEventSchema = new Schema({
-  user: { type: ObjectId, ref: 'User' },
-  by: { type: ObjectId, ref: 'User' },
+const AnswerCreatedEventSchema = new Schema({
+  to: { type: ObjectId, ref: 'User', index: true },
+  by: { type: ObjectId, ref: 'User', index: true },
   question: { type: ObjectId, ref: 'Question' },  
   answer: { type: ObjectId, ref: 'Answer' },
 }, opts);
 
 const Event = mongoose.model('Event', EventSchema);
 Event.discriminator('QuestionCreatedEvent', QuestionCreatedEventSchema);
-Event.discriminator('QuestionGotAnsweredEvent', QuestionGotAnsweredEventSchema);
+Event.discriminator('AnswerCreatedEvent', AnswerCreatedEventSchema);

@@ -198,9 +198,9 @@ UserSchema.methods.getEvents = function (type, opts) {
     if (type === 'activities')
       p = this.model('Event').find({ by: this._id })
     else if (type === 'notifications')
-      p = this.model('Event').find({ user: this._id })
+      p = this.model('Event').find({ to: this._id })
     p
-      .select('id type user createDate seen seenDate question answer by')
+      .select('id type to by createDate seen seenDate question answer')
       .populate([{
         path: 'by',
         select: 'firstname lastname',
