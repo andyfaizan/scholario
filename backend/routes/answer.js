@@ -4,6 +4,7 @@ const passport = require('passport');
 const logger = require('../logger');
 const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
+const QuestionGotAnsweredEvent = mongoose.model('QuestionGotAnsweredEvent');
 
 var router = express.Router();
 
@@ -74,6 +75,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     question.answers.push(answer);
     return question.save();
   }).then(function (question) {
+    QuestionGotAnsweredEvent({
+      user: question.user,
+      by: req.user,
+      question: question,
+      answer: answer,
+    }).save();
+
     return res.status(201).json({
       _id: question._id,
       answers: question.answers,

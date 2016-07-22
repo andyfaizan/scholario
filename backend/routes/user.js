@@ -119,6 +119,11 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
+    const notifications = yield user.getEvents('notifications', {
+      lean: true,
+      limit: 5,
+    });
+
     const data = {
       _id: user._id,
       firstname: user.firstname,
@@ -133,6 +138,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       universities: user.universities,
       programs: user.programs,
       activities: activities,
+      notifications: notifications,
     };
 
     if (user.avatarPath) {
