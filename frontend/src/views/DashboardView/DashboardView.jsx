@@ -99,12 +99,6 @@ function getStyles() {
       backgroundColor: '#FBF6EC',
       minHeight: '100vh',
     },
-    footer: {
-      fontSize: '20px',
-      backgroundColor: 'white',
-      color: 'darkslategray',
-      height: '10%',
-    },
   }
 }
 
