@@ -17,7 +17,6 @@ import { setCurPkg, getPkg } from '../../redux/modules/pkg'
 import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 import {
   show, ADD_MATERIAL_MODAL as addMaterialModalAction,
