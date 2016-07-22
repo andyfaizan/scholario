@@ -23,6 +23,7 @@ export const getCurQuestionId = (state) => state.curs.question
 export const getRecommendedCourseInstanceIds = (state) => state.recommendedCourseInstances
 export const getRequests = (state) => state.requests
 export const getRequest = (state, type) => state.requests[type]
+export const getShallowEvents = (state) => state.entities.events
 
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
@@ -267,3 +268,19 @@ export function getMaterialFactory(mid) {
     [state => getMaterials(state)[mid]],
   )
 }
+
+export const getEvents = createSelector(
+  [getShallowEvents, getUsers, getQuestions,
+    getAnswers],
+  (shallowEvents, users, questions, answers) => {
+    const res = {}
+    _.forOwn(shallowEvents, (val, k) => {
+      res[k] = Object.assign({}, val)
+      if (res[k].user) res[k].user = users[res[k].user]
+      if (res[k].by) res[k].by = users[res[k].by]
+      if (res[k].question) res[k].question = questions[res[k].question]
+      if (res[k].answer) res[k].answer = answers[res[k].answer]
+    })
+    return res
+  }
+)
