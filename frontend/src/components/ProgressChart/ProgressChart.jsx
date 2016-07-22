@@ -1,23 +1,28 @@
 import React from 'react'
 
-import { Line as LineChart } from 'react-chartjs'
+import { Line as LineChart, Pie as PieChart } from 'react-chartjs'
 
 type Props = {
 
 };
 
 function ProgressChart() {
-    const data = chartData()
+  const data = chartData()
+  const dataTwo = chartDataTwo()
 
-    return (
-      <div>
-        <div style={graphStyle.graphContainer}>
-          <LineChart data={data}
-            options={options}
-            width="600" height="250"
-          />
-        </div>
+  return (
+    <div>
+      <div style={graphStyle.graphContainer}>
+        <LineChart
+          data={data}
+          options={options}
+          width="400" height="250"
+        />
+        <PieChart
+          data={dataTwo}
+        />
       </div>
+    </div>
     )
 }
 function chartData() {
@@ -46,6 +51,27 @@ function chartData() {
       },
     ],
   }
+}
+
+function chartDataTwo() {
+  return {
+    labels: [ "Red", "Blue", "Yellow" ],
+    datasets: [
+        {
+            data: [300, 50, 100],
+            backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+            ],
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+            ],
+        }
+      ],
+    }
 }
 
 const options = {
