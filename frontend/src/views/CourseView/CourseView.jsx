@@ -51,6 +51,21 @@ export class Course extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !(this.props.courseId === nextProps.courseId
+        && _.isEqual(this.props.params, nextProps.params)
+        && _.isEqual(this.props.userMetadata, nextProps.userMetadata)
+        && _.isEqual(this.props.courseInstance, nextProps.courseInstance)
+        && _.isEqual(this.props.profPkgs, nextProps.profPkgs)
+        && _.isEqual(this.props.studentPkgs, nextProps.studentPkgs)
+        && _.isEqual(this.props.user, nextProps.user)
+        && _.isEqual(this.props.modal, nextProps.modal)
+        && _.isEqual(this.props.recentQuestions, nextProps.recentQuestions)
+        && _.isEqual(this.props.popularQuestions, nextProps.popularQuestions)
+        && _.isEqual(this.props.location, nextProps.location)
+      )
+  }
+
   getDateFromZulu(dateString) {
     const dateParts = dateString.slice(0, 10).split('-')
     return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
