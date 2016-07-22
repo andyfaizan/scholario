@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 import Radium from 'radium'
-import { reduxForm, Field, formValueSelector } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import { TextField, SelectField } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
 
@@ -9,6 +8,7 @@ const propTypes = {
   handleSubmit: PropTypes.func,
   courseInstances: PropTypes.array,
   allPkgs: PropTypes.object,
+  formValues: PropTypes.object,
   getObjects: PropTypes.func,
   courseInstanceValue: PropTypes.string,
   pkgValue: PropTypes.string,
@@ -30,7 +30,7 @@ export class AddQuestion extends React.Component {
     const titleLimit = 150
     const descriptionLimit = 1000
 
-    const { handleSubmit, courseInstanceValue, pkgValue } = this.props
+    const { handleSubmit } = this.props
 
     let courseItems = []
     if (this.props.courseInstances && this.props.courseInstances.length > 0) {
@@ -39,18 +39,18 @@ export class AddQuestion extends React.Component {
     }
 
     let packageItems = []
-    if (courseInstanceValue && this.props.courseInstances.length > 0) {
+    if (this.props.formValues && this.props.formValues.courseInstance && this.props.courseInstances.length > 0) {
       packageItems = this.props.courseInstances
-        .find(c => c._id === courseInstanceValue).pkgs // pkgs in courseInstance is an array
+        .find(c => c._id === this.props.formValues.courseInstance).pkgs // pkgs in courseInstance is an array
         .map(p =>
           <MenuItem key={p._id} value={p._id} primaryText={p.name} />
         )
     }
 
     let materialItems = []
-    if (pkgValue) {
+    if (this.props.formValues && this.props.formValues.pkg) {
       const pkgArray = this.props.getObjects(this.props.allPkgs)
-      const selectedPkg = pkgArray.find(p => p._id === pkgValue)
+      const selectedPkg = pkgArray.find(p => p._id === this.props.formValues.pkg)
       materialItems = selectedPkg.materials.map(m =>
         <MenuItem key={m._id} value={m._id} primaryText={m.name} />)
     }
@@ -148,17 +148,6 @@ function getStyles() {
 
 AddQuestion.propTypes = propTypes
 
-// http://redux-form.com/6.0.0-rc.1/examples/selectingFormValues/
-const selector = formValueSelector('AddQuestion')
-export default connect(
-  reduxForm({
-    form: 'AddQuestion',
-  })(Radium(AddQuestion))
-, state => {
-  const courseInstanceValue = selector(state, 'courseInstance')
-  const pkgValue = selector(state, 'pkg')
-  return {
-    courseInstanceValue,
-    pkgValue,
-  }
-})(AddQuestion)
+export default reduxForm({
+  form: 'AddQuestion',
+})(Radium(AddQuestion))
