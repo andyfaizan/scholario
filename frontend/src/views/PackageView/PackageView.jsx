@@ -17,7 +17,7 @@ import { setCurPkg, getPkg } from '../../redux/modules/pkg'
 import { getQuestions } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import * as selectors from '../../redux/selectors'
-simport Feedback from '../../containers/Feedback'
+import Feedback from '../../containers/Feedback'
 import {
   show, ADD_MATERIAL_MODAL as addMaterialModalAction,
   ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
