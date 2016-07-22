@@ -5,7 +5,6 @@ import DashboardToolBar from '../../containers/DashboardToolBar'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import _ from 'lodash'
 import Questions from '../../containers/Questions'
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import PkgComponent from '../../components/PkgComponent/PkgComponent'
@@ -203,36 +202,16 @@ function getStyles() {
   }
 }
 
-const mapStateToProps = (state) => {
-  const courseInstance = selectors.getCurCourseInstance(state)
-  let profPkgs = []
-  let studentPkgs = []
-  if (!_.isEmpty(courseInstance) && courseInstance.pkgs) {
-    profPkgs = courseInstance.pkgs.filter(p => {
-      if (state.entities && state.entities.users && state.entities.users[p.owner]) {
-        return (state.entities.users[p.owner].role === 'Prof')
-      }
-      return false
-    })
-    studentPkgs = courseInstance.pkgs.filter(p => {
-      if (state.entities && state.entities.users && state.entities.users[p.owner]) {
-        return (state.entities.users[p.owner].role === 'Student')
-      }
-      return false
-    })
-  }
-
-  return {
-    user: selectors.getUser(state),
-    userMetadata: selectors.getUserMetadata(state),
-    courseInstance,
-    profPkgs,
-    studentPkgs,
-    recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
-    popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
-    modal: state.modal,
-  }
-}
+const mapStateToProps = (state) => ({
+  user: selectors.getUser(state),
+  userMetadata: selectors.getUserMetadata(state),
+  courseInstance: selectors.getCurCourseInstance(state),
+  profPkgs: selectors.getCurCIProfPkgs(state),
+  studentPkgs: selectors.getCurCIStudentPkgs(state),
+  recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
+  popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
+  modal: state.modal,
+})
 
 Course.propTypes = propTypes
 
