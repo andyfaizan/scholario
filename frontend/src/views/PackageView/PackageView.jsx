@@ -70,6 +70,21 @@ export class Package extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !(_.isEqual(this.props.location, nextProps.location)
+        && _.isEqual(this.props.params, nextProps.params)
+        && _.isEqual(this.props.user, nextProps.user)
+        && _.isEqual(this.props.userMetadata, nextProps.userMetadata)
+        && _.isEqual(this.props.courseInstance, nextProps.courseInstance)
+        && _.isEqual(this.props.pkg, nextProps.pkg)
+        && _.isEqual(this.props.recentQuestions, nextProps.recentQuestions)
+        && _.isEqual(this.props.popularQuestions, nextProps.popularQuestions)
+        && _.isEqual(this.props.modal, nextProps.modal)
+        && this.props.packageName === nextProps.packageName
+        && this.props.courseId === nextProps.courseId
+      )
+  }
+
   render() {
     const styles = getStyles()
 
