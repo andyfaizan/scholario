@@ -15,22 +15,38 @@ let correctFiles = []
 let showFiles
 let filesForPreview = []
 
-const dropComponent = (props) => (
-  <Dropzone
-    {...props}
-    onDrop={(files) => props.onDrop(files)}
-    dropStyle={props.dropStyle}
-    activeStyle={props.activeStyle}
-    disableClick={props.request}
-    accept={props.supportedTypes}
-  >
-    <div style={{ 'text-align': 'center', 'align-items': 'center' }}>
+const dropComponent = (props) => {
+  const styles = getStyles()
+  return (
+    <Dropzone
+      {...props}
+      disableClick={props.input.request}
+      accept={props.input.supportedTypes}
+      activeStyle={styles.activeStyle}
+      style={styles.dropStyle}
+      onDrop={
+        (filesToUpload) => {
+          console.log(filesToUpload)
+          console.log(props)
+          uploadError = false
+          showFiles = false
+          filesToUpload.map((file) => (file.size < props.input.maxFileSize
+            && props.input.supportedTypes.indexOf(file.type) > -1 ?
+            (file.name.replace(/\//g, '-'), correctFiles.push(file), filesForPreview.push(file))
+            : (uploadError = true)))
+          if (correctFiles.length > 0) {
+            props.input.onChange(correctFiles)
+            props.input.addMaterial(props.input.pkgId, correctFiles)
+            correctFiles = []
+            showFiles = true
+          }
+        }}
+    >
       {showFiles ?
-        props.previewFiles(filesForPreview) :
+        props.input.previewFiles(filesForPreview) :
         <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
-    </div>
-  </Dropzone>
-)
+    </Dropzone>
+) }
 
 export class AddMaterial extends React.Component {
   componentWillMount() {
@@ -80,30 +96,13 @@ export class AddMaterial extends React.Component {
             <Field
               name="files"
               component={dropComponent}
-              onDrop={
-                (filesToUpload) => {
-                  uploadError = false
-                  showFiles = false
-                  filesToUpload.map((file) => (file.size < maxFileSize
-                    && supportedTypes.indexOf(file.type) > -1 ?
-                    (file.name.replace(/\//g, '-'), correctFiles.push(file), filesForPreview.push(file))
-                    : (uploadError = true)))
-                  if (correctFiles.length > 0) {
-                    // files.onChange(correctFiles)
-                    this.props.addMaterial(this.props.pkgId, correctFiles)
-                    correctFiles = []
-                    showFiles = true
-                  }
-                }}
               props={{
                 maxFileSize,
                 supportedTypes,
-                dropStyle: styles.dropStyle,
-                activeStyle: styles.activeStyle,
-                containerStyle: styles.containerStyle,
                 previewFiles: this.previewFiles,
                 pkgId: this.props.pkgId,
                 request: this.props.request,
+                addMaterial: this.props.addMaterial,
               }}
             />
             {uploadError ?
