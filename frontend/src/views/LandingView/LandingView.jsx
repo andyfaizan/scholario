@@ -28,7 +28,7 @@ import Video from './Video.png'
 import Xing from './xing.png'
 import Linkedin from './linkedin.png'
 import MailFlat from './mailFlat.png'
-import Christoph from './christoph.jpg'
+import Christoph from './christoph.png'
 
 const propTypes = {
   dispatch: PropTypes.func,
