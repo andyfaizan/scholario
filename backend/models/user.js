@@ -144,6 +144,28 @@ UserSchema.methods.getFollowings = function (opts) {
   });
 };
 
+UserSchema.methods.getAnswer = function (opts) {
+  const Answer = mongoose.model('Answer');
+  return new Promise((resolve, reject) => {
+    var p = Answer.find({ user: this.id });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts) {
+        p = p.populate(opts.populate);
+      }
+      if ('select' in opts) {
+        p = p.select(opts.select);
+      }
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(courseInstances => resolve(courseInstances))
+            .catch(err => reject(err));
+  });
+};
 // Virtuals
 
 // Validations

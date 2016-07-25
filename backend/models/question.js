@@ -20,5 +20,4 @@ const QuestionSchema = new Schema({
   infoMailSended: { type: Boolean, default: false },
 });
 
-
 mongoose.model('Question', QuestionSchema);
