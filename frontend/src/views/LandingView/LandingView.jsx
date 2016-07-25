@@ -178,13 +178,11 @@ function LandingView({ dispatch }) {
             />
             <br /><br /><br />
             <div style={styles.profilePic} >
-              <a href="#">
-                <Avatar
-                  src={Christoph}
-                  size={100}
-                  style={styles.avatarStyle}
-                />
-              </a>
+              <Avatar
+                src={Christoph}
+                size={100}
+                style={styles.avatarStyle}
+              />
               <a href="https://de.linkedin.com/in/christoph-walpert-a339baa3">
                 <Avatar
                   src={Linkedin}
