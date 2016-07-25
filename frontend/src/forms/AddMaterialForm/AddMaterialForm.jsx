@@ -10,6 +10,10 @@ const propTypes = {
   pkgId: PropTypes.string,
 }
 
+const dropComponentPropTypes = {
+  input: PropTypes.object,
+}
+
 let uploadError
 let correctFiles = []
 let showFiles
@@ -26,8 +30,6 @@ const dropComponent = (props) => {
       style={styles.dropStyle}
       onDrop={
         (filesToUpload) => {
-          console.log(filesToUpload)
-          console.log(props)
           uploadError = false
           showFiles = false
           filesToUpload.map((file) => (file.size < props.input.maxFileSize
@@ -42,11 +44,13 @@ const dropComponent = (props) => {
           }
         }}
     >
-      {showFiles ?
-        props.input.previewFiles(filesForPreview) :
-        <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
+    {showFiles ?
+      props.input.previewFiles(filesForPreview) :
+      <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
     </Dropzone>
 ) }
+
+dropComponent.propTypes = dropComponentPropTypes
 
 export class AddMaterial extends React.Component {
   componentWillMount() {
@@ -72,7 +76,6 @@ export class AddMaterial extends React.Component {
   }
 
   render() {
-    const styles = getStyles()
     const maxFileSize = 800 * 1024 * 1024
     const supportedTypes =
         'image/jpeg, image/gif, image/png, image/bmp, image/x-bmp, image/x-icon \
@@ -105,10 +108,9 @@ export class AddMaterial extends React.Component {
                 addMaterial: this.props.addMaterial,
               }}
             />
+          {/* TODO Fix uploadError. No error shown currently */}
             {uploadError ?
-              <div style={styles.errorText}>
-                <strong>Einige Datein konnte nicht hochgeladen!</strong>
-              </div>
+              <strong>Einige Datein konnte nicht hochgeladen!</strong>
               : null}
             {this.props.request ? <LinearProgress mode="indeterminate" /> : null}
           </div>
@@ -125,7 +127,7 @@ function getStyles() {
       align: 'center',
     },
     previewStyle: {
-      marginRight: '10px',
+      margin: '5px',
       width: '150px',
     },
     errorText: {
