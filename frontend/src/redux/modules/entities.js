@@ -10,6 +10,7 @@ import { commentReducer } from './comment'
 import { pkgReducer } from './pkg'
 import { materialReducer } from './materials'
 import { bookmarkReducer } from './bookmark'
+import { eventReducer } from './event'
 
 
 const entities = combineReducers({
@@ -24,6 +25,7 @@ const entities = combineReducers({
   pkgs: pkgReducer,
   materials: materialReducer,
   bookmarks: bookmarkReducer,
+  events: eventReducer,
 })
 
 export default entities

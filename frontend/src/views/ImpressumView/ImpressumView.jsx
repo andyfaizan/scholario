@@ -10,7 +10,15 @@ function Impressum() {
   return (
     <div style={styles.dashboardRoot}>
       <h1>Impressum</h1>
-      <p>Christoph Walpert  c/o Gustav Walpert<br />
+      <p>
+        Projekt von: <br />
+        Professor Dr. Peter Becker <br />
+        Hochschule Bonn-Rhein-Sieg <br />
+        Fachbereich Informatik <br />
+        Labor für experimentelles Informations- und Wissensmanagement
+      </p>
+      <p>Projektleitung von: <br />
+        Christoph Walpert  c/o Gustav Walpert<br />
         Magnolienweg 2<br />
         53177 Bonn<br />
         015781054064<br />
@@ -207,6 +215,7 @@ function getStyles() {
     dashboardRoot: {
       backgroundColor: '#FBF6EC',
       minHeight: '100vh',
+      padding: '15px',
     },
     footer: {
       fontSize: '20px',

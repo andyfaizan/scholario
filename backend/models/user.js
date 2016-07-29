@@ -192,6 +192,40 @@ UserSchema.methods.getSuggestions = function (opts) {
   });
 };
 
+UserSchema.methods.getEvents = function (type, opts) {
+  return new Promise((resolve, reject) => {
+    var p;
+    if (type === 'activities')
+      p = this.model('Event').find({ by: this._id })
+    else if (type === 'notifications')
+      p = this.model('Event').find({ to: this._id })
+    p
+      .select('id type to by createDate seen seenDate question answer')
+      .populate([{
+        path: 'by',
+        select: 'firstname lastname',
+      }, {
+        path: 'question',
+        select: 'id title',
+      }, {
+        path: 'answer',
+        select: 'id content',
+      }]);
+    if (typeof opts !== 'undefined') {
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(notifications => resolve(notifications))
+            .catch(err => reject(err));
+  });
+};
+
+
+
 // Virtuals
 
 // Validations

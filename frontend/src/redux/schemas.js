@@ -45,12 +45,18 @@ export const bookmarkSchema = new Schema('bookmarks', {
   idAttribute: '_id',
 })
 
+export const eventSchema = new Schema('events', {
+  idAttribute: '_id',
+})
+
 userSchema.define({
   courseInstances: arrayOf(courseInstanceSchema),
   universities: arrayOf(universitySchema),
   programs: arrayOf(programSchema),
   followings: arrayOf(userSchema),
   questions: arrayOf(questionSchema),
+  activities: arrayOf(eventSchema),
+  notifications: arrayOf(eventSchema),
 })
 
 programSchema.define({
@@ -96,4 +102,11 @@ materialSchema.define({
 
 bookmarkSchema.define({
   pkg: pkgSchema,
+})
+
+eventSchema.define({
+  to: userSchema,
+  by: userSchema,
+  question: questionSchema,
+  answer: answerSchema,
 })

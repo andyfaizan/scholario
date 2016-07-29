@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Radium from 'radium'
 
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
@@ -8,6 +9,7 @@ import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 
 import ProgressChart from '../../components/ProgressChart/ProgressChart'
+import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 
 const propTypes = {
 
@@ -30,7 +32,7 @@ class UserProfile extends React.Component {
                 <div>
                   <Card >
                     <CardText >
-                      rohan
+                      <UserDetailDisplay />
                     </CardText>
                   </Card>
                   <h4>
@@ -76,4 +78,4 @@ function getStyles() {
   }
 }
 
-export default UserProfile
+export default Radium(UserProfile)
