@@ -17,7 +17,7 @@ function ActivityOfUser() {
       <ListItem
         leftAvatar={
           <Avatar>
-            Z
+            wZ
           </Avatar>
         }
       >
