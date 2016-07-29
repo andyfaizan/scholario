@@ -21,9 +21,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
                          }, {
                            path: 'programs',
                            select: 'id name university degree',
-                         }, {
-                           path: 'following',
-                           select: 'id name',
                          }]);
 
     if (!user) {
@@ -85,9 +82,49 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
-    const answers = yield user.getAnswer();// .populate('Answer');
+    const answers = yield user.getAnswer();
 
-  //  const answers = yield Answer.findOne({ user: req.user._id });
+    const followers = yield user.getFollowers({
+      populate: [{
+        path: 'program',
+        select: 'id name university degree',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
+    const suggestions = yield user.getSuggestions({
+      populate: [{
+        path: 'program',
+        select: 'id name university degree',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
+    const activities = yield user.getEvents('activities', {
+      lean: true,
+      limit: 5,
+    });
+
+    const notifications = yield user.getEvents('notifications', {
+      lean: true,
+      limit: 5,
+    });
 
     const data = {
       _id: user._id,
@@ -98,10 +135,13 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       courseInstances: courseInstances,
       questions: questions,
       followings: followings,
-      ifollow: user.following,
       answers: answers,
+      followers: followers,
+      suggestions: suggestions,
       universities: user.universities,
       programs: user.programs,
+      activities: activities,
+      notifications: notifications,
     };
 
     if (user.avatarPath) {

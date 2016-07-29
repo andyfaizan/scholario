@@ -94,7 +94,7 @@ export function login(email, password) {
                 const user = {
                   token: res.body.user.token,
                   _id: res.body.user._id,
-                  fetchedData: true,
+                  fetchedData: false,
                 }
                 dispatch(hide('LOGIN_MODAL'))
                 dispatch(removeRequest('LOGIN_ERR'))

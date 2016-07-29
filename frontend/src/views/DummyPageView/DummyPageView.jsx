@@ -1,7 +1,5 @@
 import React from 'react'
 import Radium from 'radium'
-import DashboardToolBar from '../../containers/DashboardToolBar'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 
 const propTypes = {
 }
@@ -12,15 +10,11 @@ function DummyPage() {
   return (
     <div>
       <div style={styles.dashboardRoot}>
-        <DashboardToolBar />
         <div style={styles.container}>
           <h1>
             Coming soon.
           </h1>
         </div>
-      </div>
-      <div style={styles.footer}>
-        <FooterLanding />
       </div>
     </div>
   )
@@ -41,14 +35,9 @@ function getStyles() {
         margin: 0,
       },
     },
-    footer: {
-      fontSize: '20px',
-      backgroundColor: '#FBF6EC',
-      color: 'darkslategray',
-      height: '10%',
-    },
   }
 }
+
 
 DummyPage.propTypes = propTypes
 

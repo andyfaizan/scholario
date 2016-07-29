@@ -7,10 +7,11 @@ import { Route, IndexRoute } from 'react-router'
 // very easy to navigate to files regardless of how deeply nested
 // your current file is.
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
-import Dashboard from '../layouts/DashboardLayout/DashboardLayout'
+import DashboardLayout from '../layouts/DashboardLayout/DashboardLayout'
 import LandingView from '../views/LandingView/LandingView'
 import DashboardView from '../views/DashboardView/DashboardView'
 import CourseView from '../views/CourseView/CourseView'
+import UserProfileView from '../views/UserProfileView/UserProfileView'
 import MaterialView from '../views/MaterialView/MaterialView'
 import DetailQuestionListView from '../views/DetailQuestionListView/DetailQuestionListView'
 import QuestionView from '../views/QuestionView/QuestionView'
@@ -23,7 +24,7 @@ import DummyPageView from '../views/DummyPageView/DummyPageView'
 export default () => (
   <Route path="/" component={CoreLayout}>
     <IndexRoute component={LandingView} />
-    <Route component={Dashboard}>
+    <Route component={DashboardLayout}>
       <Route path="dashboard" component={DashboardView} />
       <Route path="connects" component={DummyPageView} />
       <Route path="forgot-password" component={ForgotPasswordView} />

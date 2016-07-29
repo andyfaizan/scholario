@@ -162,10 +162,97 @@ UserSchema.methods.getAnswer = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(courseInstances => resolve(courseInstances))
+    p.exec().then(answers => resolve(answers))
             .catch(err => reject(err));
   });
 };
+
+UserSchema.methods.getFollowers = function (opts) {
+  return new Promise((resolve, reject) => {
+    var p = this.model('User').find({ following: { $in: [this._id] } });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts) {
+        p = p.populate(opts.populate);
+      }
+      if ('select' in opts) {
+        p = p.select(opts.select);
+      }
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(followers => resolve(followers))
+            .catch(err => reject(err));
+  });
+};
+
+UserSchema.methods.getSuggestions = function (opts) {
+  return new Promise((resolve, reject) => {
+    this.model('User').find({ _id: { $in: this.following } })
+    .select('id following').lean().exec().then(followings => {
+      var followingsList = [];
+      for (var i = 0; i < followings.length; i++) {
+        if (followings[i].following.length > 0) followingsList = followingsList.concat(followings[i].following);
+      }
+      var p = this.model('User').find({ _id: { $in: followingsList } });
+      if (typeof opts !== 'undefined') {
+        if ('populate' in opts) {
+          p = p.populate(opts.populate);
+        }
+        if ('select' in opts) {
+          p = p.select(opts.select);
+        }
+        if ('lean' in opts) {
+          p = p.lean(opts.lean);
+        }
+        if ('limit' in opts) {
+          p = p.limit(opts.limit);
+        }
+      }
+      p.exec().then(suggestions => resolve(suggestions))
+              .catch(err => reject(err));
+    });
+  });
+};
+
+UserSchema.methods.getEvents = function (type, opts) {
+  return new Promise((resolve, reject) => {
+    var p;
+    if (type === 'activities') {
+      p = this.model('Event').find({ by: this._id });
+    }
+    else if (type === 'notifications') {
+      p = this.model('Event').find({ to: this._id });
+    }
+    p
+      .select('id type to by createDate seen seenDate question answer')
+      .populate([{
+        path: 'by',
+        select: 'firstname lastname',
+      }, {
+        path: 'question',
+        select: 'id title',
+      }, {
+        path: 'answer',
+        select: 'id content',
+      }]);
+    if (typeof opts !== 'undefined') {
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(notifications => resolve(notifications))
+            .catch(err => reject(err));
+  });
+};
+
+
 // Virtuals
 
 // Validations

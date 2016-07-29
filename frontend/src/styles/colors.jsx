@@ -1,4 +1,5 @@
 export const greenBase = '#e8eaf6'
+export const ToolBarGreen = '#26A65B'
 
 export const ScholarioBlue = '#3557A4'
 export const CardBlue = '#446CB3'

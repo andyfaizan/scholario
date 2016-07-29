@@ -2,6 +2,7 @@ const express = require('express');
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const url = require('url');
 const jwt = require('jsonwebtoken');
 const co = require('co');
 const crypto = require('crypto');
@@ -134,6 +135,38 @@ router.post('/login', function (req, res) {
       limit: 5,
     });
 
+    const followers = yield user.getFollowers({
+      populate: [{
+        path: 'program',
+        select: 'id name university degree',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
+    const suggestions = yield user.getSuggestions({
+      populate: [{
+        path: 'program',
+        select: 'id name university degree',
+      }, {
+        path: 'university',
+        select: 'id name',
+      }, {
+        path: 'universities',
+        select: 'id name',
+      }],
+      select: 'id firstname lastname universities programs',
+      lean: true,
+      limit: 5,
+    });
+
     const token = jwt.sign({ sub: user.email, role: user.role }, config.secret, {
       expresInMinutes: 1440,
     });
@@ -148,6 +181,8 @@ router.post('/login', function (req, res) {
         courseInstances: courseInstances,
         questions: questions,
         followings: followings,
+        followers: followers,
+        suggestions: suggestions,
         universities: user.universities,
         programs: user.programs,
       },

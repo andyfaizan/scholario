@@ -1,22 +1,22 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
-import DashboardToolBar from '../../containers/DashboardToolBar'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import _ from 'lodash'
-import Questions from '../../containers/Questions'
+
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import PkgComponent from '../../components/PkgComponent/PkgComponent'
 import AddPkgComponent from '../../components/AddPkgComponent/AddPkgComponent'
+
+import Questions from '../../containers/Questions'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import { deletePkg } from '../../redux/modules/pkg'
 import { show, ADD_PACKAGE_MODAL as addPackageModalAction } from '../../redux/modules/modal'
 import * as selectors from '../../redux/selectors'
-import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import Feedback from '../../containers/Feedback'
 
 const propTypes = {
@@ -114,7 +114,6 @@ export class Course extends React.Component {
     return (
       <div>
         <div style={styles.rootCourse}>
-          <DashboardToolBar />
           <CourseInfoBar
             courseTitle={courseInstance.course ? courseInstance.course.name : ''}
             courseUrl={`/course/${courseInstance._id}`}
@@ -172,9 +171,6 @@ export class Course extends React.Component {
           <br />
         </div>
         <Feedback errorType="ADD_PKG_ERR" okayType="ADD_PKG_OK" message="Ordner Erstellt!" />
-        <div style={styles.footer}>
-          <FooterLanding />
-        </div>
       </div>
     )
   }
@@ -185,12 +181,6 @@ function getStyles() {
     rootCourse: {
       backgroundColor: '#FBF6EC',
       minHeight: '100vh',
-    },
-    footer: {
-      fontSize: '20px',
-      backgroundColor: 'white',
-      color: 'darkslategray',
-      height: '10%',
     },
     legend: {
       textAlign: 'center',
@@ -203,36 +193,16 @@ function getStyles() {
   }
 }
 
-const mapStateToProps = (state) => {
-  const courseInstance = selectors.getCurCourseInstance(state)
-  let profPkgs = []
-  let studentPkgs = []
-  if (!_.isEmpty(courseInstance) && courseInstance.pkgs) {
-    profPkgs = courseInstance.pkgs.filter(p => {
-      if (state.entities && state.entities.users && state.entities.users[p.owner]) {
-        return (state.entities.users[p.owner].role === 'Prof')
-      }
-      return false
-    })
-    studentPkgs = courseInstance.pkgs.filter(p => {
-      if (state.entities && state.entities.users && state.entities.users[p.owner]) {
-        return (state.entities.users[p.owner].role === 'Student')
-      }
-      return false
-    })
-  }
-
-  return {
-    user: selectors.getUser(state),
-    userMetadata: selectors.getUserMetadata(state),
-    courseInstance,
-    profPkgs,
-    studentPkgs,
-    recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
-    popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
-    modal: state.modal,
-  }
-}
+const mapStateToProps = (state) => ({
+  user: selectors.getUser(state),
+  userMetadata: selectors.getUserMetadata(state),
+  courseInstance: selectors.getCurCourseInstance(state),
+  profPkgs: selectors.getCurCIProfPkgs(state),
+  studentPkgs: selectors.getCurCIStudentPkgs(state),
+  recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
+  popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
+  modal: state.modal,
+})
 
 Course.propTypes = propTypes
 
