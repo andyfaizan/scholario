@@ -15,14 +15,13 @@ function ActivityOfUser() {
   return (
     <div>
       <ListItem
-            disabled={true}
-            leftAvatar={
-              <Avatar>
-              Z
-              </Avatar>
-          }
-        >
-          Activity Detail
+        leftAvatar={
+          <Avatar>
+            Z
+          </Avatar>
+        }
+      >
+        Activity Detail
       </ListItem>
     </div>
   )

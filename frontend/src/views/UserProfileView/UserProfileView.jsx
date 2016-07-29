@@ -15,50 +15,47 @@ const propTypes = {
 
 }
 
-class UserProfile extends React.Component {
+function UserProfile() {
+  const styles = getStyles()
 
-  render() {
-    const styles = getStyles()
-
-    return (
-      <div>
-        <div style={styles.rootCourse}>
-          <br />
-          <br />
-          <br />
-          <Grid className="container-fluid">
-            <Row >
-              <Col xs={16} md={8}>
-                <div>
-                  <Card >
-                    <CardText >
-                      <UserDetailDisplay />
-                    </CardText>
-                  </Card>
-                  <h4>
-                  </h4>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                </div>
-                <br />
-              </Col>
-              <Col xs={8} md={4}>
+  return (
+    <div>
+      <div style={styles.rootCourse}>
+        <br />
+        <br />
+        <br />
+        <Grid className="container-fluid">
+          <Row >
+            <Col xs={16} md={8}>
+              <div>
                 <Card >
-                  <ProgressChart />
+                  <CardText >
+                    <UserDetailDisplay />
+                  </CardText>
                 </Card>
+                <h4>
+                </h4>
                 <br />
+                <br />
+                <br />
+                <br />
+              </div>
+              <br />
+            </Col>
+            <Col xs={8} md={4}>
+              <Card >
                 <ProgressChart />
-              </Col>
-            </Row>
-          </Grid>
-          <br />
-          <br />
-        </div>
+              </Card>
+              <br />
+              <ProgressChart />
+            </Col>
+          </Row>
+        </Grid>
+        <br />
+        <br />
       </div>
+    </div>
     )
-  }
 }
 
 function getStyles() {
@@ -77,5 +74,7 @@ function getStyles() {
     },
   }
 }
+
+UserProfile.propTypes = propTypes
 
 export default Radium(UserProfile)

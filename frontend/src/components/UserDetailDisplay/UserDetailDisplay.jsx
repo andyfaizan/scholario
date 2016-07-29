@@ -16,30 +16,29 @@ const propTypes = {
 }
 
 function UserDetailDisplay() {
-    const styles = getStyles()
+  const styles = getStyles()
 
-    return (
-      <div>
-        <ListItem
-            disabled={true}
-            leftAvatar={
-              <Avatar>
-              A
-              </Avatar>
-          }
-        >
-          Letter Avatar  custom colors and size
-        </ListItem>
-        <div style={styles.userMetadata}>
-          <h5>RWTH AAachen</h5>
-          <h5>Media  Informatics</h5>
-          <h5>Social Connects </h5>
-          <br/>
-        </div>
-        <Divider />
-        <br/>
-        <ActivityOfUser />
+  return (
+    <div>
+      <ListItem
+        leftAvatar={
+          <Avatar>
+            A
+          </Avatar>
+        }
+      >
+        Letter Avatar  custom colors and size
+      </ListItem>
+      <div style={styles.userMetadata}>
+        <h5>RWTH AAachen</h5>
+        <h5>Media  Informatics</h5>
+        <h5>Social Connects </h5>
+        <br />
       </div>
+      <Divider />
+      <br />
+      <ActivityOfUser />
+    </div>
     )
 }
 
