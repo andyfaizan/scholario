@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 
+
 export const fields = []
 
 const validate = () => {

@@ -32,7 +32,7 @@ function ForgotPassword({ fields: { email }, handleSubmit }) {
         fullWidth={false}
         floatingLabelStyle={styles.floatingLabel}
         underlineFocusStyle={styles.underlineColor}
-        style={styles.stextFieldStyle}
+        style={styles.textFieldStyle}
       />
       <IconButton
         iconStyle={styles.medium}
