@@ -51,6 +51,7 @@ export class LoginFields extends React.Component {
             floatingLabelText="Email"
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
+            fullWidth
           />
           <br />
           <TextField
@@ -61,6 +62,7 @@ export class LoginFields extends React.Component {
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
+            fullWidth
           />
           <br />
           <br />

@@ -28,7 +28,7 @@ import Video from './Video.png'
 import Xing from './xing.png'
 import Linkedin from './linkedin.png'
 import MailFlat from './mailFlat.png'
-import Christoph from './christoph.jpg'
+import Christoph from './christoph.png'
 
 const propTypes = {
   dispatch: PropTypes.func,
@@ -178,13 +178,11 @@ function LandingView({ dispatch }) {
             />
             <br /><br /><br />
             <div style={styles.profilePic} >
-              <a href="#">
-                <Avatar
-                  src={Christoph}
-                  size={100}
-                  style={styles.avatarStyle}
-                />
-              </a>
+              <Avatar
+                src={Christoph}
+                size={100}
+                style={styles.avatarStyle}
+              />
               <a href="https://de.linkedin.com/in/christoph-walpert-a339baa3">
                 <Avatar
                   src={Linkedin}
