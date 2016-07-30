@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import TextField from 'material-ui/TextField'
-import { reduxForm } from 'redux-form'
-
-export const fields = ['email', 'password']
+import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 
 const validate = (values) => {
   const errors = {}
@@ -21,7 +19,6 @@ const validate = (values) => {
 }
 
 const propTypes = {
-  fields: PropTypes.object.isRequired,
   confirm: PropTypes.func,
   onClickForgotPassword: PropTypes.func,
 }
@@ -38,25 +35,23 @@ export class LoginFields extends React.Component {
 
   render() {
     const styles = getStyles()
-    const { fields: { email, password } } = this.props
 
     return (
       <div>
         <div style={styles.loginContainer}>
-          <TextField
-            {...email}
-            hintText="abc@hotmail.com"
-            errorText={email.touched && email.error ? email.error : ''}
-            floatingLabelStyle={styles.floatingLabelStyle}
+          <Field
+            name="email"
+            component={TextField}
             floatingLabelText="Email"
+            floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
             fullWidth
           />
           <br />
-          <TextField
-            {...password}
-            errorText={password.touched && password.error ? password.error : ''}
+          <Field
+            name="password"
+            component={TextField}
             floatingLabelText="Passwort"
             type="password"
             floatingLabelStyle={styles.floatingLabelStyle}
@@ -64,7 +59,6 @@ export class LoginFields extends React.Component {
             onKeyDown={this.checkKeyAndSubmit}
             fullWidth
           />
-          <br />
           <br />
           <a onTouchTap={this.props.onClickForgotPassword} style={styles.forgotLink}>Passwort vergessen? </a>
         </div>
@@ -103,6 +97,5 @@ LoginFields.propTypes = propTypes
 
 export default reduxForm({
   form: 'loginForm',
-  fields,
   validate,
 })(Radium(LoginFields))

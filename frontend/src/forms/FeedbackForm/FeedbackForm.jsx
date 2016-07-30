@@ -1,14 +1,11 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-
+import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'
-import TextField from 'material-ui/TextField'
 import Edit from 'material-ui/svg-icons/image/edit'
 import RaisedButton from 'material-ui/RaisedButton'
-
-export const fields = ['subject', 'content']
 
 const validate = () => {
   const errors = {}
@@ -17,20 +14,15 @@ const validate = () => {
 
 const propTypes = {
   handleSubmit: PropTypes.func,
-  fields: PropTypes.object,
-  feedbackTrue: PropTypes.number,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function FeedbackForm({ fields: { subject, content }, handleSubmit, feedbackTrue }) {
+function FeedbackForm({ handleSubmit }) {
   const styles = getStyles()
   let feedbackMessage
+  const feedbackTrue = -1
 
   if (feedbackTrue === 0) {
-    feedbackMessage = <div style={styles.error}>There is an error submiting Form</div>
+    feedbackMessage = <div style={styles.error}>Das Formular konnte nicht abgeschickt werden</div>
   } else if (feedbackTrue === 1) {
     feedbackMessage = <div style={styles.success}>Feedback-Formular wurde eingestellt</div>
   } else feedbackMessage = ''
@@ -50,16 +42,18 @@ function FeedbackForm({ fields: { subject, content }, handleSubmit, feedbackTrue
               <Divider />
               <CardText>
                 <div style={styles.containingEmail}>
-                  <TextField
-                    {...subject}
+                  <Field
+                    name="subject"
+                    component={TextField}
                     floatingLabelText="Thema"
                     fullWidth={false}
                     floatingLabelStyle={styles.floatingLabel}
                     underlineFocusStyle={styles.underlineColor}
                     style={styles.textFieldStyle}
                   />
-                  <TextField
-                    {...content}
+                  <Field
+                    name="content"
+                    component={TextField}
                     floatingLabelText="Feedback zu unserer Webseite"
                     hintText="Bewerte Scholario hart aber fair :)"
                     fullWidth={false}
@@ -175,10 +169,8 @@ function getStyles() {
 }
 
 FeedbackForm.propTypes = propTypes
-FeedbackForm.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'FeedbackForm',
-  fields,
   validate,
 })(Radium(FeedbackForm))

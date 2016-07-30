@@ -25,6 +25,13 @@ export const getRequests = (state) => state.requests
 export const getRequest = (state, type) => state.requests[type]
 export const getShallowEvents = (state) => state.entities.events
 
+export const getQuestionFormValues = (state) => {
+  if (state.form && state.form.AddQuestion) {
+    return (state.form.AddQuestion.values)
+  }
+  return null
+}
+
 export const getUserUniversity = createSelector(
   [getUser, getUniversities],
   (user, universities) => {

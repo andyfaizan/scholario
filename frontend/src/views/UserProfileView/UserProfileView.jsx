@@ -1,19 +1,19 @@
-import React, { PropTypes } from 'react'
+import React from 'react' // { PropTypes }
 
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
-const propTypes = {
-
-}
+// const propTypes = {
+//
+// }
 
 class UserProfile extends React.Component {
 
   render() {
     return (
       <div>
-        <div style={styles.rootCourse}>
+        <div>
           <br />
           <Grid className="container-fluid">
             <Row >

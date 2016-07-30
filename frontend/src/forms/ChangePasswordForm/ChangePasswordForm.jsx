@@ -1,11 +1,8 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-
-import TextField from 'material-ui/TextField'
+import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 import FlatButton from 'material-ui/FlatButton'
-
-export const fields = ['password']
 
 const validate = (values) => {
   const errors = {}
@@ -15,7 +12,6 @@ const validate = (values) => {
   } else if (values.password.length < 8) {
     errors.password = 'Mindestens 8 zeichnen'
   }
-
   return errors
 }
 
@@ -25,11 +21,7 @@ const propTypes = {
   status: PropTypes.number,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function ChangePassword({ fields: { password }, handleSubmit, status }) {
+function ChangePassword({ handleSubmit, status }) {
   const styles = getStyles()
   let feedbackMessage
 
@@ -42,9 +34,9 @@ function ChangePassword({ fields: { password }, handleSubmit, status }) {
   return (
     <form onSubmit={handleSubmit}>
       <div >
-        <TextField
-          {...password}
-          errorText={password.touched && password.error ? password.error : ''}
+        <Field
+          name="password"
+          component={TextField}
           floatingLabelText="Neues Passwort"
           floatingLabelStyle={styles.floatingLabel}
           underlineFocusStyle={styles.underlineColor}
@@ -80,10 +72,8 @@ function getStyles() {
 }
 
 ChangePassword.propTypes = propTypes
-ChangePassword.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'ChangePassword',
-  fields,
   validate,
 })(Radium(ChangePassword))

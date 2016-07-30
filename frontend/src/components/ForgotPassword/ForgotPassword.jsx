@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
 
 import ForgotPasswordForm from '../../forms/ForgotPasswordForm/ForgotPasswordForm'
@@ -9,13 +9,14 @@ import LiveHelp from 'material-ui/svg-icons/communication/live-help'
 
 
 const propTypes = {
+  feedbackTrue: PropTypes.number,
+  onSubmitForgotPassword: PropTypes.func,
 }
 
-function ForgotPassword() {
+function ForgotPassword({ feedbackTrue, onSubmitForgotPassword }) {
   const styles = getStyles()
 
   let feedbackMessage
-  const feedbackTrue = this.props.feedbackTrue
 
   if (feedbackTrue === 0) {
     feedbackMessage = <div style={styles.error}>Falsche E-Mail-Konto</div>
@@ -39,7 +40,7 @@ function ForgotPassword() {
             <Divider />
             <CardText>
               <div style={styles.containingEmail}>
-                <ForgotPasswordForm onSubmit={this.props.onSubmitForgotPassword} />
+                <ForgotPasswordForm onSubmit={onSubmitForgotPassword} />
               </div>
               <br />
               <div style={styles.feedback}>
