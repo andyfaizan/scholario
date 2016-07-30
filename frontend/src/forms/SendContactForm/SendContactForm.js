@@ -29,6 +29,7 @@ function SendContact({ handleSubmit }) {
     <form onSubmit={handleSubmit}>
       <Field
         name="name"
+        component={TextField}
         floatingLabelText="Name"
         style={styles.textFieldName}
         floatingLabelStyle={styles.floatingLabel}
@@ -36,6 +37,7 @@ function SendContact({ handleSubmit }) {
       />
       <Field
         name="telephone"
+        component={TextField}
         floatingLabelText="Telefon"
         style={styles.textFieldTelefon}
         floatingLabelStyle={styles.floatingLabel}
