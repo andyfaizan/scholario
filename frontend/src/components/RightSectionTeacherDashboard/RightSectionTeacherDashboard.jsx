@@ -86,8 +86,6 @@ function RightSectionTeacherDashboard({
                 />
                 ) : null
               }
-
-
             </div>
           </List>
         </CardText>

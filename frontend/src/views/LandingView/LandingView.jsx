@@ -12,10 +12,10 @@ import FlatButton from 'material-ui/FlatButton'
 
 import FooterLanding from '../../components/FooterLanding/FooterLanding'
 import NavBarLandingPage from '../../containers/NavBarLandingPage'
-import SendContactForm from '../../forms/SendContactForm/SendContactForm'
+// import SendContactForm from '../../forms/SendContactForm/SendContactForm'
 import { ScholarioBlue, GreyBackground, White } from '../../styles/colors'
 
-import { postContact } from '../../redux/modules/user'
+// import { postContact } from '../../redux/modules/user'
 
 import BonnRhein from './MainPicture@3x.png'
 import CreateIcon from './CreateIconx1.png'
@@ -173,9 +173,9 @@ function LandingView({ dispatch }) {
             <p style={styles.headingAddContactForm}>
               Gerne beantworten wir Ihre Fragen persönlich
             </p>
-            <SendContactForm
+            {/* <SendContactForm
               onSubmit={(values) => dispatch(postContact(values.name, values.telephone))}
-            />
+            />*/}
             <br /><br /><br />
             <div style={styles.profilePic} >
               <Avatar

@@ -82,6 +82,8 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
+    const answers = yield user.getAnswer();
+
     const followers = yield user.getFollowers({
       populate: [{
         path: 'program',
@@ -133,6 +135,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       courseInstances: courseInstances,
       questions: questions,
       followings: followings,
+      answers: answers,
       followers: followers,
       suggestions: suggestions,
       universities: user.universities,
@@ -148,7 +151,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
         slashes: true,
         host: 'uploads.scholario.de',
         pathname:
-        `/users/${user._id}/photos/${avatarName}`
+        `/users/${user._id}/photos/${avatarName}`,
       });
       data.avatarUrl = avatarUrl;
     }
@@ -247,7 +250,7 @@ router.post('/avatar', passport.authenticate('jwt', { session: false }),
       });
     });
   });
-});
+  });
 
 
 module.exports = router;

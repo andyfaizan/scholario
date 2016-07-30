@@ -7,22 +7,23 @@ type Props = {
 };
 
 function ProgressChart() {
-    const data = chartData()
+  const data = chartData()
 
-    return (
-      <div>
-        <div style={graphStyle.graphContainer}>
-          <LineChart data={data}
-            options={options}
-            width="600" height="250"
-          />
-        </div>
+  return (
+    <div>
+      <div style={graphStyle.graphContainer}>
+        <LineChart
+          data={data}
+          options={options}
+          width="330" height="250"
+        />
       </div>
+    </div>
     )
 }
 function chartData() {
   return {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', ],
     datasets: [
       {
         label: 'My First dataset',
@@ -32,7 +33,7 @@ function chartData() {
         pointStrokeColor: '#fff',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: [65, 59, 80, 81, 56, ],
       },
       {
         label: 'My Second dataset',
@@ -42,7 +43,7 @@ function chartData() {
         pointStrokeColor: '#fff',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(151,187,205,1)',
-        data: [28, 48, 40, 19, 86, 27, 90],
+        data: [28, 48, 40, 19, 86,],
       },
     ],
   }
@@ -68,7 +69,7 @@ const options = {
 
 const graphStyle = {
   graphContainer: {
-    border: '1px solid black',
+    border: '1px solid white',
     padding: '15px',
   },
 }

@@ -144,6 +144,29 @@ UserSchema.methods.getFollowings = function (opts) {
   });
 };
 
+UserSchema.methods.getAnswer = function (opts) {
+  const Answer = mongoose.model('Answer');
+  return new Promise((resolve, reject) => {
+    var p = Answer.find({ user: this.id });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts) {
+        p = p.populate(opts.populate);
+      }
+      if ('select' in opts) {
+        p = p.select(opts.select);
+      }
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(answers => resolve(answers))
+            .catch(err => reject(err));
+  });
+};
+
 UserSchema.methods.getFollowers = function (opts) {
   return new Promise((resolve, reject) => {
     var p = this.model('User').find({ following: { $in: [this._id] } });
@@ -168,10 +191,13 @@ UserSchema.methods.getFollowers = function (opts) {
 
 UserSchema.methods.getSuggestions = function (opts) {
   return new Promise((resolve, reject) => {
-    this.model('User').find({ _id: { $in: this.following }})
-      .select('id following').lean().exec().then(followings => {
-      console.log(followings);
-      var p = this.model('User').find({ _id: { $in: followings.map(u => u.following) } });
+    this.model('User').find({ _id: { $in: this.following } })
+    .select('id following').lean().exec().then(followings => {
+      var followingsList = [];
+      for (var i = 0; i < followings.length; i++) {
+        if (followings[i].following.length > 0) followingsList = followingsList.concat(followings[i].following);
+      }
+      var p = this.model('User').find({ _id: { $in: followingsList } });
       if (typeof opts !== 'undefined') {
         if ('populate' in opts) {
           p = p.populate(opts.populate);
@@ -195,10 +221,12 @@ UserSchema.methods.getSuggestions = function (opts) {
 UserSchema.methods.getEvents = function (type, opts) {
   return new Promise((resolve, reject) => {
     var p;
-    if (type === 'activities')
-      p = this.model('Event').find({ by: this._id })
-    else if (type === 'notifications')
-      p = this.model('Event').find({ to: this._id })
+    if (type === 'activities') {
+      p = this.model('Event').find({ by: this._id });
+    }
+    else if (type === 'notifications') {
+      p = this.model('Event').find({ to: this._id });
+    }
     p
       .select('id type to by createDate seen seenDate question answer')
       .populate([{
@@ -223,7 +251,6 @@ UserSchema.methods.getEvents = function (type, opts) {
             .catch(err => reject(err));
   });
 };
-
 
 
 // Virtuals

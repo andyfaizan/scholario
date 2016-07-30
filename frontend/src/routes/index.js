@@ -37,6 +37,7 @@ export default () => (
       <Route path="question/:id" component={QuestionView} />
       <Route path="impressum" component={ImpressumView} />
       <Route path="feed" component={DummyPageView} />
+      <Route path="user-profile" component={UserProfileView} />
     </Route>
 
   </Route>
