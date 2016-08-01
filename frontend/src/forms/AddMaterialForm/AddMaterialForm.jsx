@@ -14,7 +14,6 @@ const dropComponentPropTypes = {
   input: PropTypes.object,
 }
 
-let uploadError
 let correctFiles = []
 let showFiles
 let filesForPreview = []
@@ -30,12 +29,11 @@ const dropComponent = (props) => {
       style={styles.dropStyle}
       onDrop={
         (filesToUpload) => {
-          uploadError = false
           showFiles = false
           filesToUpload.map((file) => (file.size < props.input.maxFileSize
             && props.input.supportedTypes.indexOf(file.type) > -1 ?
             (file.name.replace(/\//g, '-'), correctFiles.push(file), filesForPreview.push(file))
-            : (uploadError = true)))
+            : (props.input.onUploadError(file.name))))
           if (correctFiles.length > 0) {
             props.input.onChange(correctFiles)
             props.input.addMaterial(props.input.pkgId, correctFiles)
@@ -53,11 +51,23 @@ const dropComponent = (props) => {
 dropComponent.propTypes = dropComponentPropTypes
 
 export class AddMaterial extends React.Component {
+  constructor(props) {
+    super(props)
+    this.onUploadError = this.onUploadError.bind(this)
+    this.state = {
+      uploadError: '',
+    }
+  }
   componentWillMount() {
-    uploadError = false
     showFiles = false
     correctFiles = []
     filesForPreview = []
+  }
+
+  onUploadError(filename) {
+    this.setState({
+      uploadError: filename,
+    })
   }
 
   previewFiles(files) {
@@ -106,11 +116,12 @@ export class AddMaterial extends React.Component {
                 pkgId: this.props.pkgId,
                 request: this.props.request,
                 addMaterial: this.props.addMaterial,
+                onUploadError: this.onUploadError,
               }}
             />
           {/* TODO Fix uploadError. No error shown currently */}
-            {uploadError ?
-              <strong>Einige Datein konnte nicht hochgeladen!</strong>
+            {this.state.uploadError ?
+              <strong>{this.state.uploadError} konnte nicht hochgeladen!</strong>
               : null}
             {this.props.request ? <LinearProgress mode="indeterminate" /> : null}
           </div>

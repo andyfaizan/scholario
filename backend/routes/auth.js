@@ -82,90 +82,6 @@ router.post('/login', function (req, res) {
       });
     }
     user = yield user.authenticate(req.body.password);
-    const courseInstances = yield user.getCourseInstances({
-      select: 'id prof course semester',
-      populate: [{
-        path: 'course',
-        select: 'name university program',
-        populate: [{
-          path: 'university',
-          select: 'id name',
-        }, {
-          path: 'program',
-          select: 'id name university',
-        }],
-      }, {
-        path: 'prof',
-        select: 'firstname lastname role universities programs',
-        populate: [{
-          path: 'universities',
-          select: 'name',
-        }, {
-          path: 'programs',
-          select: 'name university degree',
-        }],
-      }],
-      lean: true,
-      limit: 5,
-    });
-
-    const questions = yield user.getQuestions({
-      populate: [{
-        path: 'user',
-        select: 'id firstname lastname',
-      }],
-      select: 'id title course user createDate votes',
-      lean: true,
-      limit: 5,
-    });
-
-    const followings = yield user.getFollowings({
-      populate: [{
-        path: 'program',
-        select: 'id name university degree',
-      }, {
-        path: 'university',
-        select: 'id name',
-      }, {
-        path: 'universities',
-        select: 'id name',
-      }],
-      select: 'id firstname lastname universities programs',
-      lean: true,
-      limit: 5,
-    });
-
-    const followers = yield user.getFollowers({
-      populate: [{
-        path: 'program',
-        select: 'id name university degree',
-      }, {
-        path: 'university',
-        select: 'id name',
-      }, {
-        path: 'universities',
-        select: 'id name',
-      }],
-      select: 'id firstname lastname universities programs',
-      lean: true,
-      limit: 5,
-    });
-
-    const suggestions = yield user.getSuggestions({
-      populate: [{
-        path: 'program',
-        select: 'id name university degree',
-      }, {
-        path: 'university',
-        select: 'id name',
-      }, {
-        path: 'universities',
-        select: 'id name',
-      }],
-      select: 'id firstname lastname universities programs',
-      lean: true,
-      limit: 5,
-    });
 
     const token = jwt.sign({ sub: user.email, role: user.role }, config.secret, {
       expresInMinutes: 1440,
@@ -178,11 +94,6 @@ router.post('/login', function (req, res) {
         firstname: user.firstname,
         lastname: user.lastname,
         role: user.role,
-        courseInstances: courseInstances,
-        questions: questions,
-        followings: followings,
-        followers: followers,
-        suggestions: suggestions,
         universities: user.universities,
         programs: user.programs,
       },
