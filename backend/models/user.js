@@ -225,7 +225,7 @@ UserSchema.methods.getEvents = function (type, opts) {
       p = this.model('Event').find({ by: this._id });
     }
     else if (type === 'notifications') {
-      p = this.model('Event').find({ to: this._id });
+      p = this.model('Event').find({ to: { $in: [this._id] } });
     }
     p
       .select('id type to by createDate seen seenDate question answer')

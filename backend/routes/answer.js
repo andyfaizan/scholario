@@ -76,7 +76,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     return question.save();
   }).then(function (question) {
     AnswerCreatedEvent({
-      to: question.user,
+      to: [question.user],
       by: req.user,
       question: question,
       answer: answer,

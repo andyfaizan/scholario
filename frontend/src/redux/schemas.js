@@ -105,7 +105,7 @@ bookmarkSchema.define({
 })
 
 eventSchema.define({
-  to: userSchema,
+  to: arrayOf(userSchema),
   by: userSchema,
   question: questionSchema,
   answer: answerSchema,
