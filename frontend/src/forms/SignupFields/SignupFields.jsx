@@ -1,14 +1,10 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/MenuItem'
-import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
-import { reduxForm } from 'redux-form'
+import { TextField, SelectField } from 'redux-form-material-ui'
+import { reduxForm, Field } from 'redux-form'
 import { getUniversities } from '../../redux/modules/university'
 import { getPrograms } from '../../redux/modules/program'
-
-
-export const fields = ['firstname', 'lastname', 'email', 'password', 'university', 'program']
 
 const validate = (values) => {
   const errors = {}
@@ -33,7 +29,6 @@ const validate = (values) => {
 }
 
 const propTypes = {
-  fields: PropTypes.object.isRequired,
   universities: PropTypes.array,
   dispatch: PropTypes.func,
   handleSubmit: PropTypes.func.isRequired,
@@ -60,59 +55,58 @@ export class SignupFields extends React.Component {
   render() {
     const styles = getStyles()
 
-    const { fields: { email, password, firstname, lastname, university, program } } = this.props
-
     let programItems = []
-    if (this.props.fields.university.value) {
-      programItems = this.props.universities
-        .find(u => u._id === this.props.fields.university.value).programs
-        .map(p =>
-          <MenuItem key={p._id} value={p._id} primaryText={p.name} />
-        )
-    }
+    // if (this.props.fields.university.value) {
+    //   programItems = this.props.universities
+    //     .find(u => u._id === this.props.fields.university.value).programs
+    //     .map(p =>
+    //       <MenuItem key={p._id} value={p._id} primaryText={p.name} />
+    //     )
+    // }
 
     return (
       <div>
         <div style={styles.signupContainer}>
-          <TextField
-            {...firstname}
+          <Field
+            name="firstname"
             hintText="Steve"
-            errorText={firstname.touched && firstname.error ? firstname.error : ''}
+            component={TextField}
             floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText="Vorname"
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
-          <TextField
-            {...lastname}
+          <Field
+            name="lastname"
             hintText="Jobs"
-            errorText={lastname.touched && lastname.error ? lastname.error : ''}
+            component={TextField}
             floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText="Nachname"
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
-          <TextField
-            {...email}
+          <Field
+            name="email"
             hintText="abc@gmail.com"
-            errorText={email.touched && email.error ? email.error : ''}
+            component={TextField}
             floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText="Email"
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
-          <TextField
-            {...password}
-            errorText={password.touched && password.error ? password.error : ''}
+          <Field
+            name="password"
             floatingLabelText="Passwort"
+            component={TextField}
             type="password"
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           />
-          <SelectFieldWrapper
-            {...university}
+          <Field
+            name="university"
             style={styles.blocking}
+            component={SelectField}
             floatingLabelText="Hochschule"
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
@@ -121,17 +115,18 @@ export class SignupFields extends React.Component {
             {this.props.universities.map(u =>
               <MenuItem key={u._id} value={u._id} primaryText={u.name} />
             )}
-          </SelectFieldWrapper>
-          <SelectFieldWrapper
-            {...program}
+          </Field>
+          <Field
+            name="program"
             style={styles.blocking}
+            component={SelectField}
             floatingLabelText="Program"
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}
             onKeyDown={this.checkKeyAndSubmit}
           >
             {programItems}
-          </SelectFieldWrapper>
+          </Field>
         </div>
       </div>
     )
@@ -181,6 +176,5 @@ SignupFields.propTypes = propTypes
 
 export default reduxForm({
   form: 'signupForm',
-  fields,
   validate,
 })(Radium(SignupFields))

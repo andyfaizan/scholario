@@ -1,12 +1,8 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
-import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
+import { reduxForm, Field } from 'redux-form'
+import { TextField, SelectField } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
-
-export const fields = ['course', 'teacher', 'assistant', 'semester',
-'subject', 'uni', 'info']
 
 const validate = (values) => {
   const errors = {}
@@ -31,11 +27,7 @@ const validate = (values) => {
   return errors
 }
 
-const propTypes = {
-  fields: PropTypes.object,
-}
-
-function CreateCourse({ fields: { course, teacher, assistant, semester, subject, uni, info } }) {
+function CreateCourse() {
   const styles = getStyles()
   const courseHint = 'Kursname'
   const courseLabel = 'Kurs'
@@ -63,71 +55,72 @@ function CreateCourse({ fields: { course, teacher, assistant, semester, subject,
 
   return (
     <div>
-      <div style={styles.createCourseContainer} fullWidth>
+      <div style={styles.createCourseContainer}>
         {/* TODO extract presentational TextField component
         */}
-        <TextField
-          {...course}
+        <Field
+          name="course"
+          component={TextField}
           hintText={courseHint}
-          errorText={course.touched && course.error ? course.error : ''}
           floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={courseLabel}
           underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
-        <TextField
-          {...teacher}
+        <Field
+          name="teacher"
+          component={TextField}
           hintText={teacherHint}
-          errorText={teacher.touched && teacher.error ? teacher.error : ''}
           floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={teacherLabel}
           underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
-        <TextField
-          {...assistant}
+        <Field
+          name="assistant"
+          component={TextField}
           hintText={assistantHint}
-          errorText={assistant.touched && assistant.error ? assistant.error : ''}
           floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={assistantLabel}
           underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
-        <TextField
-          {...subject}
+        <Field
+          name="subject"
+          component={TextField}
           hintText={subjectHint}
-          errorText={subject.touched && subject.error ? subject.error : ''}
           floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={subjectLabel}
           underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
-        <SelectFieldWrapper
-          {...semester}
+        <Field
+          name="semester"
+          component={SelectField}
           floatingLabelText={semesterLabel}
           floatingLabelStyle={styles.floatingLabelStyle}
           fullWidth
         >
           {menuItems}
-        </SelectFieldWrapper>
+        </Field>
         <br />
-        <TextField
-          {...uni}
+        <Field
+          name="uni"
+          component={TextField}
           hintText={uniHint}
-          errorText={uni.touched && uni.error ? uni.error : ''}
           floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={uniLabel}
           underlineFocusStyle={styles.focusStyle}
           fullWidth
         />
         <br />
-        <TextField
-          {...info}
-          errorText={info.touched && info.error ? info.error : ''}
+        <Field
+          name="info"
+          component={TextField}
           floatingLabelStyle={styles.floatingLabelStyle}
           floatingLabelText={infoLabel}
           underlineFocusStyle={styles.focusStyle}
@@ -165,10 +158,7 @@ function getStyles() {
   }
 }
 
-CreateCourse.propTypes = propTypes
-
 export default reduxForm({
   form: 'CreateCourse',
-  fields,
   validate,
 })(Radium(CreateCourse))

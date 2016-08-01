@@ -17,7 +17,6 @@ const propTypes = {
 function AddCourseComponent({ modal, openModal, courseModal }) {
   const styles = getStyles()
 
-  console.log(courseModal)
   const actions = (
     <div>
       <IconButton disableTouchRipple style={styles.buttonStyle} tooltip="In Course">

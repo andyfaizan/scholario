@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+import _ from 'lodash'
 
 import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import PkgComponent from '../../components/PkgComponent/PkgComponent'
@@ -49,6 +50,21 @@ export class Course extends React.Component {
     if (!this.props.userMetadata.fetchedData) {
       this.props.dispatch(getUser())
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !(this.props.courseId === nextProps.courseId
+        && _.isEqual(this.props.params, nextProps.params)
+        && _.isEqual(this.props.userMetadata, nextProps.userMetadata)
+        && _.isEqual(this.props.courseInstance, nextProps.courseInstance)
+        && _.isEqual(this.props.profPkgs, nextProps.profPkgs)
+        && _.isEqual(this.props.studentPkgs, nextProps.studentPkgs)
+        && _.isEqual(this.props.user, nextProps.user)
+        && _.isEqual(this.props.modal, nextProps.modal)
+        && _.isEqual(this.props.recentQuestions, nextProps.recentQuestions)
+        && _.isEqual(this.props.popularQuestions, nextProps.popularQuestions)
+        && _.isEqual(this.props.location, nextProps.location)
+      )
   }
 
   getDateFromZulu(dateString) {

@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardHeader from 'material-ui/Card/CardHeader'
 import CardActions from 'material-ui/Card/CardActions'
-import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
-
-export const fields = ['title', 'description']
+import { TextField } from 'redux-form-material-ui'
 
 const validate = (values) => {
   const errors = {}
@@ -24,17 +22,12 @@ const validate = (values) => {
 }
 
 const propTypes = {
-  fields: PropTypes.object,
   initialValues: PropTypes.object,
   handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function EditQuestion({ fields: { title, description }, handleSubmit, onCancel }) {
+function EditQuestion({ handleSubmit, onCancel }) {
   const styles = getStyles()
 
   return (
@@ -47,22 +40,23 @@ function EditQuestion({ fields: { title, description }, handleSubmit, onCancel }
       />
       <form onSubmit={handleSubmit}>
         <CardText style={styles.textStyle}>
-          <TextField
-            {...title}
-            errorText={title.touched && title.error ? title.error : ''}
-            fullWidth
+          <Field
+            name="title"
+            component={TextField}
             floatingLabelText="Titel"
             floatingLabelStyle={styles.floatingLabel}
             underlineFocusStyle={styles.underlineColor}
+            fullWidth
           />
-          <TextField
-            {...description}
+          <Field
+            name="description"
+            component={TextField}
             multiLine
             rows={2}
-            fullWidth
             floatingLabelText="Text"
             floatingLabelStyle={styles.floatingLabel}
             underlineFocusStyle={styles.underlineColor}
+            fullWidth
           />
         </CardText>
         <CardActions style={styles.actionPadding}>
@@ -114,10 +108,8 @@ function getStyles() {
 }
 
 EditQuestion.propTypes = propTypes
-EditQuestion.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'EditQuestion',
-  fields,
   validate,
 })(Radium(EditQuestion))

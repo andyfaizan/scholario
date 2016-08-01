@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import Radium from 'radium'
 
-import TextField from 'material-ui/TextField'
+import { TextField } from 'redux-form-material-ui'
 import FlatButton from 'material-ui/FlatButton'
 
 import { ScholarioBlue } from '../../styles/colors'
-
-export const fields = ['name', 'telephone']
 
 const validate = (values) => {
   const errors = {}
@@ -21,30 +19,25 @@ const validate = (values) => {
 }
 
 const propTypes = {
-  fields: PropTypes.object,
   handleSubmit: PropTypes.func,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function SendContact({ fields: { name, telephone }, handleSubmit }) {
+function SendContact({ handleSubmit }) {
   const styles = getStyles()
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        {...name}
-        errorText={name.touched && name.error ? name.error : ''}
+      <Field
+        name="name"
+        component={TextField}
         floatingLabelText="Name"
         style={styles.textFieldName}
         floatingLabelStyle={styles.floatingLabel}
         underlineFocusStyle={styles.underlineColor}
       />
-      <TextField
-        {...telephone}
-        errorText={telephone.touched && telephone.error ? telephone.error : ''}
+      <Field
+        name="telephone"
+        component={TextField}
         floatingLabelText="Telefon"
         style={styles.textFieldTelefon}
         floatingLabelStyle={styles.floatingLabel}
@@ -83,10 +76,8 @@ function getStyles() {
 }
 
 SendContact.propTypes = propTypes
-SendContact.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'SendContact',
-  fields,
   validate,
 })(Radium(SendContact))

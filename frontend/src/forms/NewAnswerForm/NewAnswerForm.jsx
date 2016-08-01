@@ -1,14 +1,12 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 import CardHeader from 'material-ui/Card/CardHeader'
 import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
-
-export const fields = ['content']
+import { TextField } from 'redux-form-material-ui'
 
 const validate = () => {
   const errors = {}
@@ -16,17 +14,12 @@ const validate = () => {
 }
 
 const propTypes = {
-  fields: PropTypes.object,
   initialValues: PropTypes.object,
   handleSubmit: PropTypes.func,
   onCancel: PropTypes.func,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function NewAnswer({ fields: { content }, handleSubmit, onCancel }) {
+function NewAnswer({ handleSubmit, onCancel }) {
   const styles = getStyles()
 
   return (
@@ -40,8 +33,9 @@ function NewAnswer({ fields: { content }, handleSubmit, onCancel }) {
         />
         <form onSubmit={handleSubmit}>
           <CardText style={styles.textStyle}>
-            <TextField
-              {...content}
+            <Field
+              name="content"
+              component={TextField}
               floatingLabelText="Deine Antwort"
               multiLine
               rows={2}
@@ -100,10 +94,8 @@ function getStyles() {
 }
 
 NewAnswer.propTypes = propTypes
-NewAnswer.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'NewAnswer',
-  fields,
   validate,
 })(Radium(NewAnswer))

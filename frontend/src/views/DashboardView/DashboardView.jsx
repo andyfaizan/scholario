@@ -5,9 +5,9 @@ import { connect } from 'react-redux'
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
+import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getUser, requestLogin } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse,
@@ -52,6 +52,18 @@ class DashboardView extends React.Component {
         nextProps.courseInstances.length === 0) {
       this.props.getRecommendedCourseInstances('', this.props.user.program)
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !(_.isEqual(this.props.user, nextProps.user)
+        && _.isEqual(this.props.userMetadata, nextProps.userMetadata)
+        && _.isEqual(this.props.userUniversity, nextProps.userUniversity)
+        && _.isEqual(this.props.userProgram, nextProps.userProgram)
+        && _.isEqual(this.props.courseInstances, nextProps.courseInstances)
+        && _.isEqual(this.props.questions, nextProps.questions)
+        && _.isEqual(this.props.connects, nextProps.connects)
+        && _.isEqual(this.props.location, nextProps.location)
+      )
   }
 
   render() {

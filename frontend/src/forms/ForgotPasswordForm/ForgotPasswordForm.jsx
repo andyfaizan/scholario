@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
+import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 import Mail from 'material-ui/svg-icons/communication/mail-outline'
 import IconButton from 'material-ui/IconButton'
-
-export const fields = ['email']
 
 const validate = () => {
   const errors = {}
@@ -14,20 +12,16 @@ const validate = () => {
 
 const propTypes = {
   handleSubmit: PropTypes.func,
-  fields: PropTypes.object,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function ForgotPassword({ fields: { email }, handleSubmit }) {
+function ForgotPassword({ handleSubmit }) {
   const styles = getStyles()
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        {...email}
+      <Field
+        name="email"
+        component={TextField}
         floatingLabelText="Deine Email Addresse"
         fullWidth={false}
         floatingLabelStyle={styles.floatingLabel}
@@ -87,10 +81,8 @@ function getStyles() {
 }
 
 ForgotPassword.propTypes = propTypes
-ForgotPassword.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'ForgotPassword',
-  fields,
   validate,
 })(Radium(ForgotPassword))
