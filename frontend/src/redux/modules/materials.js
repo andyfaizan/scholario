@@ -5,7 +5,7 @@ import superagentPromise from 'superagent-promise'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { materialSchema } from '../schemas'
-import { setUpProgress, resetProgress } from './Misc'
+import { setUpProgress } from './Misc'
 
 const request = superagentPromise(superagent, Promise)
 
