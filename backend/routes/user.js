@@ -83,6 +83,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
     });
 
     const answers = yield user.getAnswer();
+    const comments = yield user.getComments();
 
     const followers = yield user.getFollowers({
       populate: [{
@@ -126,6 +127,36 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
+    // console.log(answers);
+    // console.log(questions.length);
+    var likesReceived = 0;
+
+    for (var i = 0; i < questions.length; i++) {
+      likesReceived += questions[i].votes.length;
+    }
+
+    for (var i = 0; i < answers.length; i++) {
+      likesReceived += answers[i].votes.length;
+    }
+
+    for (var i = 0; i < comments.length; i++) {
+      likesReceived += comments[i].votes.length
+    }
+    // console.log(comments);
+
+    // const likesReceived = answers.votes.length + questions.votes.length + comments.votes.length;
+
+    const questionsAnswered = answers.length;
+    const materials = yield user.getMaterials();
+
+    const materialUploaded = materials.length;
+
+    const stats = {
+      likesReceived: likesReceived,
+      materialUploaded: materialUploaded,
+      questionsAnswered: questionsAnswered,
+    };
+
     const data = {
       _id: user._id,
       firstname: user.firstname,
@@ -142,6 +173,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       programs: user.programs,
       activities: activities,
       notifications: notifications,
+      stats: stats,
     };
 
     if (user.avatarPath) {
