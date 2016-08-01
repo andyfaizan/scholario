@@ -60,6 +60,7 @@ export const callAPIMiddleware = ({ dispatch, getState }) => next => action => {
     schema,
     afterOk,
     onProgressDispatch,
+    // onProgressOverDispatch,
   } = action
 
   if (!types) {
@@ -109,6 +110,7 @@ export const callAPIMiddleware = ({ dispatch, getState }) => next => action => {
       })
       if (data.result) newAction.result = data.result
       dispatch(newAction)
+      // if (onProgressOverDispatch) dispatch(onProgressOverDispatch())
       if (afterOk) dispatch(afterOk())
     },
     error => dispatch(Object.assign({}, payload, {

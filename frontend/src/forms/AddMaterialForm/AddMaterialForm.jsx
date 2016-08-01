@@ -77,6 +77,7 @@ export class AddMaterial extends React.Component {
   }
 
   render() {
+    const uploadText = 'Wird hochgeladen'
     const maxFileSize = 800 * 1024 * 1024
     const supportedTypes =
         'image/jpeg, image/gif, image/png, image/bmp, image/x-bmp, image/x-icon \
@@ -115,10 +116,13 @@ export class AddMaterial extends React.Component {
               : null}
             {
               this.props.request ?
-                <LinearProgress
-                  mode="determinate"
-                  value={this.props.progress}
-                />
+                <div>
+                  <strong>{uploadText} {Math.floor(this.props.progress)}%</strong>
+                  <LinearProgress
+                    mode="determinate"
+                    value={this.props.progress}
+                  />
+                </div>
               : null
             }
           </div>

@@ -5,7 +5,7 @@ import superagentPromise from 'superagent-promise'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { materialSchema } from '../schemas'
-import { setUpProgress } from './Misc'
+import { setUpProgress, resetProgress } from './Misc'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -63,6 +63,7 @@ export function postMaterial(pid, files) {
     payload: { pid },
     schema: { materials: arrayOf(materialSchema) },
     onProgressDispatch: (e) => setUpProgress(e.percent),
+    // onProgressOverDispatch: () => resetProgress(),
   }
 }
 
