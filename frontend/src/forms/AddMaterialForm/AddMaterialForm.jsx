@@ -8,6 +8,7 @@ const propTypes = {
   request: PropTypes.object,
   addMaterial: PropTypes.func,
   pkgId: PropTypes.string,
+  progress: PropTypes.number,
 }
 
 const dropComponentPropTypes = {
@@ -112,7 +113,14 @@ export class AddMaterial extends React.Component {
             {uploadError ?
               <strong>Einige Datein konnte nicht hochgeladen!</strong>
               : null}
-            {this.props.request ? <LinearProgress mode="indeterminate" /> : null}
+            {
+              this.props.request ?
+                <LinearProgress
+                  mode="determinate"
+                  value={this.props.progress}
+                />
+              : null
+            }
           </div>
         </div>
       </div>

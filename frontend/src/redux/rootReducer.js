@@ -10,6 +10,7 @@ import { questionReducer } from './modules/AskQuestion'
 import { requestReducer } from './modules/request'
 import { pkgReducer } from './modules/AddPkg'
 import { materialReducer } from './modules/materials'
+import { miscReducer } from './modules/Misc'
 
 export default combineReducers({
   modal,
@@ -22,6 +23,7 @@ export default combineReducers({
   questionReducer,
   pkgReducer,
   materialReducer,
+  misc: miscReducer,
   // curCourseInstance: curCourseInstanceReducer,
   // curPkg: curPkgReducer,
   router,

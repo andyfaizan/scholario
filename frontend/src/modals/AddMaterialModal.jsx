@@ -16,6 +16,7 @@ const propTypes = {
   postOk: PropTypes.string,
   hide: PropTypes.func.isRequired,
   addMaterial: PropTypes.func,
+  progress: PropTypes.number,
 }
 
 export class AddMaterialModal extends React.Component {
@@ -49,6 +50,7 @@ export class AddMaterialModal extends React.Component {
             request={this.props.request}
             addMaterial={this.props.addMaterial}
             pkgId={this.props.pkgId}
+            progress={this.props.progress}
           />
           <div style={styles.fileSizeContainer}>
             <strong>Max file size : 800 MB</strong>
@@ -76,6 +78,7 @@ const mapStateToProps = (state) => ({
   pkgId: selectors.getCurPkgId(state),
   request: selectors.getRequest(state, POST_MATERIAL_REQUEST),
   postOk: selectors.getRequest(state, POST_MATERIAL_OK),
+  progress: selectors.getCurFileProgress(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
