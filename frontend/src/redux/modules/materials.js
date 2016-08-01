@@ -22,6 +22,10 @@ export const POST_MATERIAL_REQUEST = 'POST_MATERIAL_REQUEST'
 export const POST_MATERIAL_OK = 'POST_MATERIAL_OK'
 export const POST_MATERIAL_ERR = 'POST_MATERIAL_ERR'
 
+export const VOTE_MATERIAL_REQUEST = 'VOTE_MATERIAL_REQUEST'
+export const VOTE_MATERIAL_OK = 'VOTE_MATERIAL_OK'
+export const VOTE_MATERIAL_ERR = 'VOTE_MATERIAL_ERR'
+
 export const DELETE_MATERIAL_REQUEST = 'DELETE_MATERIAL_REQUEST'
 export const DELETE_MATERIAL_OK = 'DELETE_MATERIAL_OK'
 export const DELETE_MATERIAL_ERR = 'DELETE_MATERIAL_ERR'
@@ -64,6 +68,16 @@ export function postMaterial(pid, files) {
     schema: { materials: arrayOf(materialSchema) },
     onProgressDispatch: (e) => setUpProgress(e.percent),
     // onProgressOverDispatch: () => resetProgress(),
+  }
+}
+
+export function voteMaterial(mid) {
+  const endpoint = urlJoin(config.apiURL, 'materials', mid, 'vote')
+  return {
+    types: [VOTE_MATERIAL_REQUEST, VOTE_MATERIAL_OK, VOTE_MATERIAL_ERR],
+    callAPI: () => request.get(endpoint),
+    payload: { mid },
+    schema: materialSchema,
   }
 }
 
