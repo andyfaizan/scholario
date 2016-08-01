@@ -224,7 +224,7 @@ UserSchema.methods.getFollowers = function (opts) {
 UserSchema.methods.getPkgs = function (opts) {
   const Pkg = mongoose.model('Pkg');
   return new Promise((resolve, reject) => {
-    var p = Pkg.find({ owner: this.id });
+    var p = Pkg.find({ owner: this._id });
     if (typeof opts !== 'undefined') {
       if ('populate' in opts) {
         p = p.populate(opts.populate);
@@ -250,8 +250,8 @@ UserSchema.methods.getMaterials = function (opts) {
   return new Promise((resolve, reject) => {
     this.getPkgs({
       select: 'id',
-    }).then(function (Pkgs) {
-      var p = Material.find({ Pkgs: { $in: Pkgs.map(getPkgsIds) } });
+    }).then(function (pkgs) {
+      var p = Material.find({ pkg: { $in: pkgs.map(getPkgsIds) } });
       if (typeof opts !== 'undefined') {
         if ('populate' in opts) {
           p = p.populate(opts.populate);

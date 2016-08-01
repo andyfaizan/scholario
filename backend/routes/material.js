@@ -131,4 +131,43 @@ router.put('/:mid/rename', passport.authenticate('jwt', { session: false }), fun
   });
 });
 
+router.get('/:mid/vote', passport.authenticate('jwt', { session: false }), function (req, res) {
+  req.checkParams('mid', 'InvalidMaterialId').notEmpty().isMongoId();
+
+  const errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors,
+    });
+  }
+
+  Material.findOne({ _id: req.params.mid }).then(function (material) {
+    if (!material) {
+      return res.status(404).json({
+        err: [{ msg: 'MaterialNotFound' }],
+      });
+    }
+
+    for (var i = 0; i < material.votes.length; i++) {
+      if (material.votes[i].user.toString() === req.user.id.toString()) {
+        return res.json({
+          _id: material._id,
+          votes: material.votes,
+        });
+      }
+    }
+    material.votes.push({ user: req.user._id, voteDate: Date.now() });
+    material.save();
+
+    return res.json({
+      _id: material._id,
+      votes: material.votes,
+    });
+  }).catch(function (err) {
+    return res.json({
+      err: [{ msg: err.message }],
+    });
+  });
+});
+
 module.exports = router;

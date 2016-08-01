@@ -8,6 +8,11 @@ const MaterialSchema = new Schema({
   mimetype: { type: String, default: '' },
   size: { type: Number, default: 0 },
   pkg: { type: ObjectId, ref: 'Pkg' },
+  votes: [{
+    user: { type: ObjectId, ref: 'User' },
+    voteDate: { type: Date },
+    value: { type: Number, default: 1 },
+  }],
   createDate: { type: Date, default: Date.now },
   modifiedDate: { type: Date },
 });
