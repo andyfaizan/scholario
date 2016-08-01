@@ -72,6 +72,20 @@ export class MaterialView extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !(_.isEqual(this.props.params, nextProps.params)
+        && _.isEqual(this.props.location, nextProps.location)
+        && _.isEqual(this.props.userMetadata, nextProps.userMetadata)
+        && _.isEqual(this.props.courseInstance, nextProps.courseInstance)
+        && _.isEqual(this.props.pkg, nextProps.pkg)
+        && _.isEqual(this.props.material, nextProps.material)
+        && _.isEqual(this.props.recentQuestions, nextProps.recentQuestions)
+        && _.isEqual(this.props.popularQuestions, nextProps.popularQuestions)
+        && _.isEqual(this.props.requests, nextProps.requests)
+        && this.props.curPkgId === nextProps.curPkgId
+      )
+  }
+
   render() {
     const styles = getStyles()
 

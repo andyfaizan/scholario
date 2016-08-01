@@ -1,52 +1,33 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
-
-export const fields = ['title', 'url']
-
-const validate = (values) => {
-  const errors = {}
-  if (!values.title) {
-    errors.password = 'Erforderlich'
-  }
-  if (!values.url) {
-    errors.password = 'Erforderlich'
-  }
-
-  return errors
-}
+import { reduxForm, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 
 const propTypes = {
-  fields: PropTypes.object,
   handleSubmit: PropTypes.func,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function AddBookmark({ fields: { title, url }, handleSubmit }) {
+function AddBookmark({ handleSubmit }) {
   const styles = getStyles()
   return (
     <form onSubmit={handleSubmit}>
-      <div className={styles.addBookmarkContainer} fullWidth>
-        <TextField
-          {...title}
-          errorText={title.touched && title.error ? title.error : ''}
+      <div style={styles.addBookmarkContainer}>
+        <Field
+          name="title"
+          component={TextField}
+          fullWidth
           floatingLabelText="Titel"
           floatingLabelStyle={styles.floatingLabelStyle}
-          underlineFocusStyle={styles.underlineStyle}
-          fullWidth
+          underlineFocusStyle={styles.focusStyle}
         />
         <br />
-        <TextField
-          {...url}
-          errorText={url.touched && url.error ? url.error : ''}
+        <Field
+          name="url"
+          component={TextField}
+          fullWidth
           floatingLabelText="URL"
           floatingLabelStyle={styles.floatingLabelStyle}
-          underlineFocusStyle={styles.underlineStyle}
-          fullWidth
+          underlineFocusStyle={styles.focusStyle}
         />
       </div>
     </form>
@@ -76,10 +57,7 @@ function getStyles() {
 }
 
 AddBookmark.propTypes = propTypes
-AddBookmark.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'AddBookmark',
-  fields,
-  validate,
 })(Radium(AddBookmark))

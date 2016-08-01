@@ -1,22 +1,15 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
-import { reduxForm } from 'redux-form'
-import TextField from 'material-ui/TextField'
+import { reduxForm, Field } from 'redux-form'
+import { TextField, SelectField } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
-import SelectFieldWrapper from '../../components/SelectFieldWrapper/SelectFieldWrapper'
 import { load } from '../../redux/modules/AddPkg'
 // Inspiration: http://redux-form.com/5.1.0/#/examples/initializing-from-state?_k=r7lr04
-export const fields = ['name', 'courseInstance', 'access']
 
 const propTypes = {
-  fields: PropTypes.object,
   defaultData: PropTypes.object,
   courseInstances: PropTypes.array,
   dispatch: PropTypes.func,
-}
-
-const defaultProps = {
-  fields: {},
 }
 
 export class AddPackage extends React.Component {
@@ -30,8 +23,6 @@ export class AddPackage extends React.Component {
     const nameHint = 'Packagename'
     const courseLabel = 'Kurs'
 
-    const { fields: { name, courseInstance } } = this.props
-
     let courseItems = []
     if (this.props.courseInstances && this.props.courseInstances.length > 0) {
       courseItems = this.props.courseInstances
@@ -41,8 +32,9 @@ export class AddPackage extends React.Component {
     return (
       <div>
         <div style={styles.addPackageContainer} fullWidth>
-          <TextField
-            {...name}
+          <Field
+            name="name"
+            component={TextField}
             hintText={nameHint}
             floatingLabelStyle={styles.floatingLabelStyle}
             floatingLabelText={nameLabel}
@@ -50,8 +42,9 @@ export class AddPackage extends React.Component {
             fullWidth
           />
           <br />
-          <SelectFieldWrapper
-            {...courseInstance}
+          <Field
+            name="courseInstance"
+            component={SelectField}
             style={styles.blocking}
             floatingLabelText={courseLabel}
             floatingLabelStyle={styles.floatingLabelStyle}
@@ -59,7 +52,7 @@ export class AddPackage extends React.Component {
             fullWidth
           >
             {courseItems}
-          </SelectFieldWrapper>
+          </Field>
           <br />
            {/* <SelectFieldWrapper
               {...access}
@@ -106,9 +99,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 AddPackage.propTypes = propTypes
-AddPackage.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'AddPkg',
-  fields,
 }, mapStateToProps)(Radium(AddPackage))

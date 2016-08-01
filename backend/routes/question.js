@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const co = require('co');
+const _ = require('lodash');
 const logger = require('../logger');
 const utils = require('../utils');
 const Question = mongoose.model('Question');
@@ -34,19 +35,16 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     });
   }
 
-  const question = new Question({
-    title: req.body.title,
-    description: req.body.description,
-    user: req.user,
-    courseInstance: req.body.courseInstance,
-  });
-  if (req.body.pkg) question.pkg = req.body.pkg;
-  if (req.body.material) question.material = req.body.material;
-  question.save().then(function (question) {
-    QuestionCreatedEvent({
-      by: req.user,
-      question: question,
-    }).save();
+  co(function *() {
+    var question = new Question({
+      title: req.body.title,
+      description: req.body.description,
+      user: req.user,
+      courseInstance: req.body.courseInstance,
+    });
+    if (req.body.pkg) question.pkg = req.body.pkg;
+    if (req.body.material) question.material = req.body.material;
+    question = yield question.save();
 
     var data = {
       _id: question._id,
@@ -60,7 +58,18 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     if (question.pkg) data.pkg = question.pkg;
     if (question.material) data.material = question.material;
 
-    return res.json(data);
+    res.json(data);
+
+    const ci = yield CourseInstance.findOne({ _id: req.body.courseInstance }).exec();
+    const tos = [];
+    _.forEach(ci.participants, (val) => {
+      if (val.toString() !== req.user.id) tos.push(val);
+    });
+    QuestionCreatedEvent({
+      to: tos,
+      by: req.user,
+      question: question,
+    }).save();
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({

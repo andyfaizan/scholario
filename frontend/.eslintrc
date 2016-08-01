@@ -16,6 +16,12 @@
     "__COVERAGE__" : false,
     "__BASENAME__" : false
   },
+  "settings": {
+    "import/resolver": {
+      node: {},
+      webpack: {}
+    }
+  },
   "rules": {
     "semi" : [2, "never"],
     "indent": ["error", 2],

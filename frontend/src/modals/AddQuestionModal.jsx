@@ -16,6 +16,7 @@ const propTypes = {
   location: PropTypes.object,
   courseInstances: PropTypes.array,
   allPkgs: PropTypes.object,
+  formValues: PropTypes.object,
   hide: PropTypes.func.isRequired,
   addQuestion: PropTypes.func,
 }
@@ -34,6 +35,7 @@ export class AddQuestionModal extends React.Component {
   }
 
   onAddQuestionSubmit = (data) => {
+    console.log(data)
     this.props.addQuestion(data)
     this.props.hide()
   }
@@ -67,7 +69,7 @@ export class AddQuestionModal extends React.Component {
   }
 
   create = () => {
-    this.refs.myForm.submit()  // will return a promise
+    this.refs.myForm.submit() // will return a promise
   }
 
 
@@ -150,6 +152,7 @@ export class AddQuestionModal extends React.Component {
             onSubmit={this.onAddQuestionSubmit}
             courseInstances={this.props.courseInstances}
             allPkgs={this.props.allPkgs}
+            formValues={this.props.formValues}
             initialValues={this.data}
             getObjects={this.getObjects}
           />
@@ -172,6 +175,7 @@ const mapStateToProps = (state) => ({
   modal: state.modal,
   courseInstances: selectors.getUserCourseInstances(state),
   allPkgs: selectors.getPkgs(state),
+  formValues: selectors.getQuestionFormValues(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({

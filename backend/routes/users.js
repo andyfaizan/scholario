@@ -11,6 +11,7 @@ const Student = mongoose.model('Student');
 const Prof = mongoose.model('Prof');
 const University = mongoose.model('University');
 const Program = mongoose.model('Program');
+const UserFollowedEvent = mongoose.model('UserFollowedEvent');
 
 var router = express.Router();
 
@@ -132,9 +133,14 @@ router.get('/:uid/follow', passport.authenticate('jwt', { session: false }), fun
       req.user.following.push(req.params.uid);
       req.user.save();
     }
-    return res.json({
+    res.json({
       err: [],
     });
+
+    UserFollowedEvent({
+      to: [user],
+      by: req.user,
+    }).save();
   }).catch(function (err) {
     return res.json({
       err: [{ msg: err.message }],
