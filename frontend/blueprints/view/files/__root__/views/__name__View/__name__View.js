@@ -7,9 +7,9 @@ const propTypes = {
 }
 
 export class <%= pascalEntityName %> extends React.Component {
-  const styles = getStyles()
 
   render () {
+    const styles = getStyles()
     return (
       <div></div>
     )
