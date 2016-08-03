@@ -5,13 +5,11 @@ const propTypes = {
 
 }
 
-export class <%= pascalEntityName %> extends React.Component {
+function <%= pascalEntityName %>({}) {
 
-  render() {
-    return (
-      <div></div>
-    )
-  }
+  return (
+    <div></div>
+  )
 }
 
 <%= pascalEntityName %>.propTypes = propTypes
@@ -22,6 +20,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {}
 }
+
+<%= pascalEntityName %>.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
