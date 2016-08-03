@@ -67,7 +67,6 @@ export function postMaterial(pid, files) {
     payload: { pid },
     schema: { materials: arrayOf(materialSchema) },
     onProgressDispatch: (e) => setUpProgress(e.percent),
-    // onProgressOverDispatch: () => resetProgress(),
   }
 }
 

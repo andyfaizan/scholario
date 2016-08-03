@@ -1,7 +1,8 @@
+import { POST_MATERIAL_OK } from './materials'
+
 // Constants
 
 export const FILE_UP_PROGRESS = 'FILE_UP_PROGRESS'
-export const RESET_PROGRESS = 'RESET_PROGRESS'
 
 // Action Creators
 export function setUpProgress(e) {
@@ -13,23 +14,20 @@ export function setUpProgress(e) {
   }
 }
 
-export function resetProgress() {
-  return {
-    type: RESET_PROGRESS,
-    payload: {
-      progress: 0,
-    },
-  }
-}
-
 // Reducer
 export function miscReducer(state = {}, action) {
   switch (action.type) {
   case FILE_UP_PROGRESS:
-  case RESET_PROGRESS:
     if (action.payload && action.payload.progress) {
       return Object.assign({}, state, {
         progress: action.payload.progress,
+      })
+    }
+    return state
+  case POST_MATERIAL_OK:
+    if (action && action.pid) {
+      return Object.assign({}, state, {
+        progress: 0,
       })
     }
     return state
