@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import Radium from 'radium'
+import { connect } from 'react-redux'
 
-type Props = {
+const propTypes = {
 
-};
+}
+
 export class <%= pascalEntityName %> extends React.Component {
-  props: Props;
+  const styles = getStyles()
 
   render () {
     return (
@@ -13,4 +16,22 @@ export class <%= pascalEntityName %> extends React.Component {
   }
 }
 
-export default <%= pascalEntityName %>
+function getStyles() {
+  return {
+
+  }
+}
+
+<%= pascalEntityName %>.propTypes = propTypes
+
+const mapStateToProps = (state) => {
+  return {}
+}
+const mapDispatchToProps = (dispatch) => {
+  return {}
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Radium(<%= pascalEntityName %>))
