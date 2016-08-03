@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
-type Props = {
+const propTypes = {
 
 }
+
 export class <%= pascalEntityName %> extends React.Component {
-  props: Props;
 
   render() {
     return (
@@ -14,6 +13,8 @@ export class <%= pascalEntityName %> extends React.Component {
     )
   }
 }
+
+<%= pascalEntityName %>.propTypes = propTypes
 
 const mapStateToProps = (state) => {
   return {}
