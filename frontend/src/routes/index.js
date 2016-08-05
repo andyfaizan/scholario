@@ -20,6 +20,7 @@ import ForgotPasswordView from '../views/ForgotPasswordView/ForgotPasswordView'
 import ImpressumView from '../views/ImpressumView/ImpressumView'
 import FeedbackView from '../views/FeedbackView/FeedbackView'
 import DummyPageView from '../views/DummyPageView/DummyPageView'
+import SettingsViewView from '../views/SettingsViewView/SettingsViewView'
 
 export default () => (
   <Route path="/" component={CoreLayout}>
@@ -38,6 +39,7 @@ export default () => (
       <Route path="impressum" component={ImpressumView} />
       <Route path="feed" component={DummyPageView} />
       <Route path="user-profile" component={UserProfileView} />
+      <Route path="settings" component={SettingsViewView} />
     </Route>
 
   </Route>

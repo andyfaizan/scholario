@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 
 import Card from 'material-ui/Card/Card'
-import CardText from 'material-ui/Card/CardText'
+import { TextField } from 'redux-form-material-ui'
 
 export const fields = []
 
