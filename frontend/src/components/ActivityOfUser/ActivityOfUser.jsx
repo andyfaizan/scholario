@@ -10,7 +10,7 @@ const propTypes = {
 }
 
 function ActivityOfUser() {
-  const styles = getStyles()
+  // const styles = getStyles()
 
   return (
     <div>
@@ -27,19 +27,19 @@ function ActivityOfUser() {
   )
 }
 
-function getStyles() {
-  return {
-    forgotPassword: {
-      display: 'table-cell',
-      verticalAlign: 'middle',
-    },
-    userMetadata: {
-      position: 'relative',
-      marginLeft: '75px',
-      marginTop: '-10px',
-    },
-  }
-}
+// function getStyles() {
+//   return {
+//     forgotPassword: {
+//       display: 'table-cell',
+//       verticalAlign: 'middle',
+//     },
+//     userMetadata: {
+//       position: 'relative',
+//       marginLeft: '75px',
+//       marginTop: '-10px',
+//     },
+//   }
+// }
 
 ActivityOfUser.propTypes = propTypes
 

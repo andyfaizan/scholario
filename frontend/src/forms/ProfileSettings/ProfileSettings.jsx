@@ -34,7 +34,6 @@ function ProfileSettings({ fields: { personName, university, program, email,
           title="Profileinstellungen"
           subtitle="Aktualisieren Sie Ihre aktuellen Informationen reagarding Profil."
         />
-        <br />
         <fieldset style={styles.fieldsetStyle}>
           <legend><h4>Ihre Profildaten</h4></legend>
           <div style={styles.standardFieldFormatting}>

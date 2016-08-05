@@ -108,14 +108,12 @@ function getStyles() {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: selectors.getUser(state),
-    userMetadata: selectors.getUserMetadata(state),
-    userUniversity: selectors.getUserUniversity(state),
-    userProgram: selectors.getUserProgram(state),
-  }
-}
+const mapStateToProps = (state) => ({
+  user: selectors.getUser(state),
+  userMetadata: selectors.getUserMetadata(state),
+  userUniversity: selectors.getUserUniversity(state),
+  userProgram: selectors.getUserProgram(state),
+})
 
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => {
