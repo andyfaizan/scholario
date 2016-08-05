@@ -6,14 +6,30 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
 import ProfileSettings from '../../forms/ProfileSettings/ProfileSettings'
+import PrivacySettings from '../../forms/PrivacySettings/PrivacySettings'
+import NotificationSettings from '../../forms/NotificationSettings/NotificationSettings'
+import MailSettings from '../../forms/MailSettings/MailSettings'
 
 const propTypes = {
 }
 
 export class SettingsView extends React.Component {
-
   render() {
     const styles = getStyles()
+    const pathProfile = '/profile-settings'
+    const pathPricacy = '/privacy-settings'
+    const pathNotification = '/notification-settings'
+    const pathMail = '/mail-settings'
+    let displayActiveForm
+
+    if( location.pathname === pathProfile )
+      displayActiveForm = <ProfileSettings />
+    else if( location.pathname === pathPricacy )
+      displayActiveForm = <PrivacySettings />
+    else if( location.pathname === pathNotification )
+      displayActiveForm = <NotificationSettings />
+    else if( location.pathname === pathMail )
+      displayActiveForm = <MailSettings />
 
     return (
       <div>
@@ -23,7 +39,7 @@ export class SettingsView extends React.Component {
             <Row >
               <Col xs={16} md={8}>
                 <div>
-                  <ProfileSettings />
+                  { displayActiveForm }
                 </div>
                 <br />
               </Col>
