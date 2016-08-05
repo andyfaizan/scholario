@@ -96,7 +96,7 @@ router.delete('/:mid', passport.authenticate('jwt', { session: false }), functio
   });
 });
 
-router.put('/:mid/rename', passport.authenticate('jwt', { session: false }), function (req,res) {
+router.put('/:mid/rename', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('mid', 'InvalidMaterialId').notEmpty().isMongoId();
   req.checkBody('name', 'InvalidName').notEmpty();
 
@@ -148,7 +148,7 @@ router.get('/:mid/vote', passport.authenticate('jwt', { session: false }), funct
       });
     }
 
-    for (var i = 0; i < material.votes.length; i++) {
+    for (let i = 0; i < material.votes.length; i++) {
       if (material.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
           _id: material._id,

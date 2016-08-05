@@ -15,13 +15,13 @@ var router = express.Router();
 router.get('/', passport.authenticate('jwt', { session: false }), function (req, res) {
   co(function *() {
     var user = yield User.findOne({ _id: req.user._id })
-                         .populate([{
-                           path: 'universities',
-                           select: 'id name',
-                         }, {
-                           path: 'programs',
-                           select: 'id name university degree',
-                         }]);
+      .populate([{
+        path: 'universities',
+        select: 'id name',
+      }, {
+        path: 'programs',
+        select: 'id name university degree',
+      }]);
 
     if (!user) {
       return res.status(404).json({
@@ -83,7 +83,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
     });
 
     const answers = yield user.getAnswer();
-    const comments = yield user.getComments();
 
     const followers = yield user.getFollowers({
       populate: [{
@@ -127,36 +126,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       limit: 5,
     });
 
-    // console.log(answers);
-    // console.log(questions.length);
-    var likesReceived = 0;
-
-    for (var i = 0; i < questions.length; i++) {
-      likesReceived += questions[i].votes.length;
-    }
-
-    for (var i = 0; i < answers.length; i++) {
-      likesReceived += answers[i].votes.length;
-    }
-
-    for (var i = 0; i < comments.length; i++) {
-      likesReceived += comments[i].votes.length
-    }
-    // console.log(comments);
-
-    // const likesReceived = answers.votes.length + questions.votes.length + comments.votes.length;
-
-    const questionsAnswered = answers.length;
-    const materials = yield user.getMaterials();
-
-    const materialUploaded = materials.length;
-
-    const stats = {
-      likesReceived: likesReceived,
-      materialUploaded: materialUploaded,
-      questionsAnswered: questionsAnswered,
-    };
-
     const data = {
       _id: user._id,
       firstname: user.firstname,
@@ -173,7 +142,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       programs: user.programs,
       activities: activities,
       notifications: notifications,
-      stats: stats,
     };
 
     if (user.avatarPath) {
@@ -238,50 +206,47 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
 router.post('/avatar', passport.authenticate('jwt', { session: false }),
   multer({ dest: 'uploads/tmp' }).single('avatar'),
   function (req, res) {
-  if (!req.file) {
-    return res.status(201).json({});
-  }
+    if (!req.file) return res.status(201).json({});
 
-  const avatarRoot = path.join(
-    path.dirname(__dirname), 'uploads',
-    'users', req.user.id, 'photos'
-  );
-  fse.mkdirs(avatarRoot, function (err) {
-    if (err) {
-      logger.error(err);
-      return res.status(500).json({
-        err: [{ msg: 'InternalError' }],
+    const avatarRoot = path.join(
+      path.dirname(__dirname), 'uploads',
+      'users', req.user.id, 'photos'
+    );
+    fse.mkdirs(avatarRoot, function (err) {
+      if (err) {
+        logger.error(err);
+        return res.status(500).json({
+          err: [{ msg: 'InternalError' }],
+        });
+      }
+
+      const avatarPath = path.join(avatarRoot, req.file.originalname);
+      const source = fs.createReadStream(req.file.path);
+      const dest = fs.createWriteStream(avatarPath);
+
+      source.pipe(dest);
+      source.on('end', () => {
+        fs.unlinkSync(req.file.path);
+        req.user.avatarPath = avatarPath;
+        req.user.save();
+        const avatarUrl = url.format({
+          protocol: 'http',
+          slashes: true,
+          host: 'uploads.scholario.de',
+          pathname: `/users/${req.user._id}/photos/${req.file.originalname}`,
+        });
+        return res.status(201).json({
+          _id: req.user._id,
+          avatarUrl,
+        });
       });
-    }
-
-    const avatarPath = path.join(avatarRoot, req.file.originalname);
-    var source = fs.createReadStream(req.file.path);
-    var dest = fs.createWriteStream(avatarPath);
-
-    source.pipe(dest);
-    source.on('end', () => {
-      fs.unlinkSync(req.file.path);
-      req.user.avatarPath = avatarPath;
-      req.user.save();
-      const avatarUrl = url.format({
-        protocol: 'http',
-        slashes: true,
-        host: 'uploads.scholario.de',
-        pathname:
-        `/users/${req.user._id}/photos/${req.file.originalname}`
-      });
-      return res.status(201).json({
-        _id: req.user._id,
-        avatarUrl,
+      source.on('error', err => {
+        logger.error(err);
+        return res.status(500).json({
+          err: [{ msg: 'InternalError' }],
+        });
       });
     });
-    source.on('error', err => {
-      logger.error(err);
-      return res.status(500).json({
-        err: [{ msg: 'InternalError' }],
-      });
-    });
-  });
   });
 
 

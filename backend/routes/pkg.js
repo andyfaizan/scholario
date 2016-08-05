@@ -53,13 +53,13 @@ router.get('/:pid', passport.authenticate('jwt', { session: false }), function (
       });
     }
 
-    var materials = yield Material
+    const materials = yield Material
       .find({ pkg: req.params.pid })
       .select('name ext mimetype size pkg createDate')
       .lean(true)
       .exec();
 
-    for (var i = 0; i < materials.length; i++) {
+    for (let i = 0; i < materials.length; i++) {
       materials[i].url = url.format({
         protocol: 'http',
         slashes: true,
@@ -79,50 +79,6 @@ router.get('/:pid', passport.authenticate('jwt', { session: false }), function (
     pkg.bookmarks = bookmarks;
     return res.json(pkg);
   });
-/*  Pkg.findOne({ _id: req.params.pid }).then(function (pkg) {*/
-     // if (!pkg) {
-      // return res.json({
-        // err: [{ 'msg': 'Material not found' }],
-      // });
-    // }
-    // fs.readdir(pkg.root, function (err, files) {
-      // if (err) {
-        // return res.json({
-          // 'err': [{'msg': err.message}],
-        // });
-      // }
-      // var paths = [];
-      // var data = [];
-      // for (var i = 0; i < files.length; i++) {
-        // paths.push(path.join(material.root, files[i]));
-        // data.push({
-          // 'name': files[i],
-          // 'type': '',
-          // 'size': 0,
-          // 'createdBy': {
-            // id: req.user._id,
-            // name: req.user.name,
-          // },
-        // });
-      // }
-      // async.map(paths, fs.stat, function (err, results) {
-        // if (err) {
-          // return res.json({
-            // err: [{'msg': err.message}],
-          // });
-        // }
-        // for (var i = 0; i < files.length; i++) {
-          // if (results[i].isFile()) data[i].type = 'file';
-          // else if (results[i].isDirectory()) data[i].type = 'dir';
-          // data[i].size = results[i].size;
-        // }
-        // return res.json({
-          // err: [],
-          // contents: data
-        // });
-      // });
-    // });
-  /* });*/
 });
 
 /**
@@ -194,7 +150,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       }).save();
       const pkgRoot = path.join(courseInstance.pkgsRoot, pkg.id.toString());
 
-      fs.mkdirSync(pkgRoot, 0755);
+      fs.mkdirSync(pkgRoot, parseInt('0755', 8));
 
       if (!req.files || req.files.length === 0) {
         return res.status(201).json({
@@ -210,16 +166,17 @@ router.post('/', passport.authenticate('jwt', { session: false }),
 
       _.each(req.files, f => {
         var parsed = path.parse(f.originalname);
-        var material = new Material({
+        const material = new Material({
           name: parsed.name,
           ext: parsed.ext,
           mimetype: parsed.mimetype,
           size: f.size,
           pkg: pkg._id,
-        }).save((err, material, numAffected) => {
+        });
+        material.save(() => {
           materials.push(material);
-          var source = fs.createReadStream(f.path);
-          var dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
+          const source = fs.createReadStream(f.path);
+          const dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
 
           source.pipe(dest);
           source.on('end', () => {
@@ -253,7 +210,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     });
   });
 
-router.delete('/:pid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:pid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('pid', 'InvalidPkgId').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
@@ -320,25 +277,29 @@ router.post('/:pid/materials', passport.authenticate('jwt', { session: false }),
 
       _.each(req.files, f => {
         var parsed = path.parse(f.originalname);
-        var material = new Material({
+        const material = new Material({
           name: parsed.name,
           ext: parsed.ext,
           mimetype: f.mimetype,
           size: f.size,
           pkg: req.params.pid,
-        }).save((err, material, numAffected) => {
+        });
+        material.save(() => {
           materials.push(material);
-          var source = fs.createReadStream(f.path);
-          var dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
+          const source = fs.createReadStream(f.path);
+          const dest = fs.createWriteStream(path.join(pkgRoot, f.originalname));
 
           source.pipe(dest);
           source.on('end', () => {
             movedNum++;
             fs.unlinkSync(f.path);
             if (movedNum === req.files.length) {
-              return res.status(201).json({
+              res.status(201).json({
                 materials,
               });
+
+              // Update stats
+              req.user.updateStats('materialsUploaded', pkg.courseInstance._id);
             }
           });
           source.on('error', err => {
@@ -349,7 +310,6 @@ router.post('/:pid/materials', passport.authenticate('jwt', { session: false }),
           });
         });
       });
-
     }).catch(function (err) {
       logger.error(err);
       return res.status(500).json({
@@ -358,7 +318,7 @@ router.post('/:pid/materials', passport.authenticate('jwt', { session: false }),
     });
   });
 
-router.post('/:pid/bookmarks', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.post('/:pid/bookmarks', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('pid', 'InvalidPackageId').notEmpty().isMongoId();
   req.checkBody('title', 'InvalidTitle').notEmpty();
   req.checkBody('url', 'InvalidUrl').notEmpty().isURL();
@@ -384,7 +344,7 @@ router.post('/:pid/bookmarks', passport.authenticate('jwt', {session: false}), f
       });
     }
 
-    var bookmark = Bookmark({
+    let bookmark = new Bookmark({
       title: req.body.title,
       url: req.body.url,
       pkg: pkg,
