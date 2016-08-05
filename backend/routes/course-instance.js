@@ -177,7 +177,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
 
   co(function *() {
     var promise;
-    var courseInstances;
     if (req.query.q) {
       promise = Course.find({ name: { $regex: req.query.q, $options: 'i' } });
     } else {
@@ -195,7 +194,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       });
     }
 
-    courseInstances = yield CourseInstance
+    const courseInstances = yield CourseInstance
       .find({ course: { $in: courses } })
       .select('course prof semester')
       .populate([{
@@ -213,17 +212,16 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
         }],
       }])
       .lean(true)
-      .exec()
-      .then(function (courseInstances) {
-        return res.status(200).json({
-          courseInstances,
-        });
-      }).catch(function (err) {
-        logger.error(err);
-        return res.status(500).json({
-          err: [{ msg: 'InternalError' }],
-        });
-      });
+      .exec();
+
+    return res.status(200).json({
+      courseInstances,
+    });
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
   });
 });
 
@@ -245,8 +243,8 @@ router.get('/:cid/questions', passport.authenticate('jwt', { session: false }), 
     }
     return Question.find({ courseInstance: course._id });
   }).then(function (questions) {
-    var data = [];
-    for (var i = 0; i < questions.length; i++) {
+    const data = [];
+    for (let i = 0; i < questions.length; i++) {
       data.push({
         id: questions[i]._id,
         title: questions[i].title,
@@ -302,34 +300,34 @@ router.get('/:cid/follow',
   // if(req.course.req.user.programs)
 
     CourseInstance
-    .findOne({ _id: req.params.cid })
-    .populate('course')
-    .then(function (course) {
-      if (!course) {
-        return res.status(404).json({
-          err: [{ msg: 'CourseNotFound' }],
-        });
-      }
+      .findOne({ _id: req.params.cid })
+      .populate('course')
+      .then(function (course) {
+        if (!course) {
+          return res.status(404).json({
+            err: [{ msg: 'CourseNotFound' }],
+          });
+        }
 
 
-      if (req.user.universities.indexOf(course.course.university) === -1) {
-        return res.status(401).json({
-          err: [{ msg: 'PermissionDenied' }],
-        });
-      }
+        if (req.user.universities.indexOf(course.course.university) === -1) {
+          return res.status(401).json({
+            err: [{ msg: 'PermissionDenied' }],
+          });
+        }
 
-      if (course.participants.indexOf(req.user._id) === -1) {     // proof is the != korrekt?
-        course.participants.push(req.user._id);
-        course.save();
+        if (course.participants.indexOf(req.user._id) === -1) {     // proof is the != korrekt?
+          course.participants.push(req.user._id);
+          course.save();
+          return res.json({
+            err: [],
+          });
+        }
+      }).catch(function (err) {
         return res.json({
-          err: [],
+          err: [{ msg: err.message }],
         });
-      }
-    }).catch(function (err) {
-      return res.json({
-        err: [{ msg: err.message }],
       });
-    });
   });
 
 router.get('/:cid/unfollow', passport.authenticate('jwt', { session: false }),
@@ -531,7 +529,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         course = yield course.save();
       }
 
-      var courseInstance = CourseInstance({
+      let courseInstance = CourseInstance({
         description: req.body.description,
         course: course,
         prof: req.user,
@@ -542,8 +540,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       });
       courseInstance = yield courseInstance.save();
 
-      var pkgsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', courseInstance.id);
-      fs.mkdir(pkgsRoot, 0755, function (err, dir) {
+      const pkgsRoot = path.join(path.dirname(__dirname), 'uploads', 'courses', courseInstance.id);
+      fs.mkdir(pkgsRoot, parseInt('0755', 8), function (err) {
         if (err) {
           logger.error(err);
           return res.status(500).json({

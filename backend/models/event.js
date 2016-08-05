@@ -16,13 +16,13 @@ const EventSchema = new Schema({
 const QuestionCreatedEventSchema = new Schema({
   to: [{ type: ObjectId, ref: 'User', index: true }],
   by: { type: ObjectId, ref: 'User', index: true },
-  question: { type: ObjectId, ref: 'Question' },  
+  question: { type: ObjectId, ref: 'Question' },
 }, opts);
 
 const AnswerCreatedEventSchema = new Schema({
   to: [{ type: ObjectId, ref: 'User', index: true }],
   by: { type: ObjectId, ref: 'User', index: true },
-  question: { type: ObjectId, ref: 'Question' },  
+  question: { type: ObjectId, ref: 'Question' },
   answer: { type: ObjectId, ref: 'Answer' },
 }, opts);
 

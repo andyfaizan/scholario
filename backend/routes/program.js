@@ -45,27 +45,28 @@ router.get('/', function (req, res) {
     });
   }
 
-  var p = Program.find()
+  let p = Program.find();
   if (req.query.q) {
     p = Program.find({ name: { $regex: req.query.q, $options: 'i' } });
   }
-  p.select('id name university degree')
-   .populate([{
-     path: 'university',
-     select: 'id name',
-   }])
-   .lean(true)
-   .exec()
-   .then(function (programs) {
-     return res.status(200).json({
-       programs,
-     });
-   }).catch(function (err) {
-     logger.error(err);
-     return res.status(500).json({
-       err: [{ msg: 'InternalError' }],
-     });
-   });
+  p
+    .select('id name university degree')
+    .populate([{
+      path: 'university',
+      select: 'id name',
+    }])
+    .lean(true)
+    .exec()
+    .then(function (programs) {
+      return res.status(200).json({
+        programs,
+      });
+    }).catch(function (err) {
+      logger.error(err);
+      return res.status(500).json({
+        err: [{ msg: 'InternalError' }],
+      });
+    });
 });
 
 module.exports = router;

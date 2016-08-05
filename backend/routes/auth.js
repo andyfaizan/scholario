@@ -67,14 +67,14 @@ router.post('/login', function (req, res) {
   }
 
   co(function *() {
-    var user = yield User.findOne({ email: req.body.email })
-                    .populate([{
-                      path: 'universities',
-                      select: 'id name',
-                    }, {
-                      path: 'programs',
-                      select: 'id name university degree',
-                    }]);
+    const user = yield User.findOne({ email: req.body.email })
+      .populate([{
+        path: 'universities',
+        select: 'id name',
+      }, {
+        path: 'programs',
+        select: 'id name university degree',
+      }]);
 
     if (!user) {
       return res.status(404).json({
@@ -105,8 +105,7 @@ router.post('/login', function (req, res) {
         protocol: 'http',
         slashes: true,
         host: 'uploads.scholario.de',
-        pathname:
-        `/users/${user._id}/photos/${avatarName}`
+        pathname: `/users/${user._id}/photos/${avatarName}`,
       });
       data.avatarUrl = avatarUrl;
     }
@@ -119,14 +118,14 @@ router.post('/login', function (req, res) {
           msg: 'UserOrPassIncorrect',
         }],
       });
-    } else {
-      logger.error(err);
-      return res.status(500).json({
-        err: [{
-          msg: 'InternalError',
-        }],
-      });
     }
+
+    logger.error(err);
+    return res.status(500).json({
+      err: [{
+        msg: 'InternalError',
+      }],
+    });
   });
 });
 

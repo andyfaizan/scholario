@@ -183,7 +183,7 @@ apiRouter.post('/contact', function (req, res) {
     });
   }
 
-  var mailOpts = {
+  const mailOpts = {
     from: '"Scholario" <noreply@scholario.de>',
     to: 'chris@scholario.de',
     subject: `[Contact] ${req.body.name}`,

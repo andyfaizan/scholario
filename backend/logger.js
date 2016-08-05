@@ -1,7 +1,6 @@
 const winston = require('winston');
 
 
-
 var logger = new (winston.Logger)({
   exitOnError: false,
   transports: [
@@ -13,12 +12,12 @@ var logger = new (winston.Logger)({
     new (winston.transports.File)({
       name: 'info-log',
       filename: 'log/info.log',
-      level: 'info'
+      level: 'info',
     }),
     new (winston.transports.Console)({
       level: 'debug',
     }),
-  ]
+  ],
 });
 
 module.exports = logger;
