@@ -39,7 +39,6 @@ export default () => (
       <Route path="impressum" component={ImpressumView} />
       <Route path="feed" component={DummyPageView} />
       <Route path="user-profile" component={UserProfileView} />
-      <Route path="settings" component={SettingsViewView} />
       <Route path="profile-settings" component={SettingsViewView} />
       <Route path="notification-settings" component={SettingsViewView} />
       <Route path="privacy-settings" component={SettingsViewView} />

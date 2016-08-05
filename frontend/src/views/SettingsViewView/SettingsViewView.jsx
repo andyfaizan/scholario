@@ -52,14 +52,15 @@ export class SettingsView extends React.Component {
     const pathMail = '/mail-settings'
     let displayActiveForm
 
-    if( location.pathname === pathProfile )
+    if (location.pathname === pathProfile) {
       displayActiveForm = <ProfileSettings />
-    else if( location.pathname === pathPricacy )
+    } else if (location.pathname === pathPricacy) {
       displayActiveForm = <PrivacySettings />
-    else if( location.pathname === pathNotification )
+    } else if (location.pathname === pathNotification) {
       displayActiveForm = <NotificationSettings />
-    else if( location.pathname === pathMail )
+    } else if (location.pathname === pathMail) {
       displayActiveForm = <MailSettings />
+    }
 
     return (
       <div>
@@ -76,7 +77,7 @@ export class SettingsView extends React.Component {
             <Row >
               <Col xs={24} md={12}>
                 <div>
-                  { displayActiveForm }
+                  {displayActiveForm}
                 </div>
                 <br />
               </Col>
