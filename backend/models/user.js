@@ -1,9 +1,10 @@
+/* global Promise */
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-const opts = {
+const schemaOpts = {
   discriminatorKey: 'role',
 };
 
@@ -25,15 +26,29 @@ const UserSchema = new Schema({
   universities: [{ type: ObjectId, ref: 'University' }],
   programs: [{ type: ObjectId, ref: 'Program' }],
   avatarPath: { type: String, default: '' },
-}, opts);
+  stats: {
+    likesReceived: [{
+      courseInstance: { type: ObjectId, ref: 'CourseInstance' },
+      value: { type: Number, default: 0 },
+    }],
+    materialsUploaded: [{
+      courseInstance: { type: ObjectId, ref: 'CourseInstance' },
+      value: { type: Number, default: 0 },
+    }],
+    questionsAnswered: [{
+      courseInstance: { type: ObjectId, ref: 'CourseInstance' },
+      value: { type: Number, default: 0 },
+    }],
+  },
+}, schemaOpts);
 
 const StudentSchema = new Schema({
   // university: { type: ObjectId, ref: 'University' },
   // program: { type: ObjectId, ref: 'Program' },
-}, opts);
+}, schemaOpts);
 
 const ProfSchema = new Schema({
-}, opts);
+}, schemaOpts);
 
 // Indices
 
@@ -89,8 +104,9 @@ UserSchema.methods.getCourseInstances = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(courseInstances => resolve(courseInstances))
-            .catch(err => reject(err));
+    p.exec()
+      .then(courseInstances => resolve(courseInstances))
+      .catch(err => reject(err));
   });
 };
 
@@ -139,8 +155,9 @@ UserSchema.methods.getFollowings = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(followings => resolve(followings))
-            .catch(err => reject(err));
+    p.exec()
+      .then(followings => resolve(followings))
+      .catch(err => reject(err));
   });
 };
 
@@ -162,8 +179,9 @@ UserSchema.methods.getAnswer = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(answers => resolve(answers))
-            .catch(err => reject(err));
+    p.exec()
+      .then(answers => resolve(answers))
+      .catch(err => reject(err));
   });
 };
 
@@ -185,8 +203,9 @@ UserSchema.methods.getComments = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(comments => resolve(comments))
-            .catch(err => reject(err));
+    p.exec()
+      .then(comments => resolve(comments))
+      .catch(err => reject(err));
   });
 };
 
@@ -207,19 +226,11 @@ UserSchema.methods.getFollowers = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(followers => resolve(followers))
-            .catch(err => reject(err));
+    p.exec()
+      .then(followers => resolve(followers))
+      .catch(err => reject(err));
   });
 };
-
-/* UserSchema.methods.getLikes = function (opts) {
-  const Question = mongoose.model('Question');
-  const Answer = mongoose.model('Answer');
-  const Comment = mongoose.model('Comment');
-  return new Promise((resolve, reject) => {
-    var p = Q
-  })
-}*/
 
 UserSchema.methods.getPkgs = function (opts) {
   const Pkg = mongoose.model('Pkg');
@@ -239,8 +250,9 @@ UserSchema.methods.getPkgs = function (opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(Pkgs => resolve(Pkgs))
-            .catch(err => reject(err));
+    p.exec()
+      .then(Pkgs => resolve(Pkgs))
+      .catch(err => reject(err));
   });
 };
 
@@ -275,29 +287,30 @@ UserSchema.methods.getMaterials = function (opts) {
 UserSchema.methods.getSuggestions = function (opts) {
   return new Promise((resolve, reject) => {
     this.model('User').find({ _id: { $in: this.following } })
-    .select('id following').lean().exec().then(followings => {
-      var followingsList = [];
-      for (var i = 0; i < followings.length; i++) {
-        if (followings[i].following.length > 0) followingsList = followingsList.concat(followings[i].following);
-      }
-      var p = this.model('User').find({ _id: { $in: followingsList } });
-      if (typeof opts !== 'undefined') {
-        if ('populate' in opts) {
-          p = p.populate(opts.populate);
+      .select('id following').lean().exec().then(followings => {
+        var followingsList = [];
+        for (let i = 0; i < followings.length; i++) {
+          if (followings[i].following.length > 0) followingsList = followingsList.concat(followings[i].following);
         }
-        if ('select' in opts) {
-          p = p.select(opts.select);
+        let p = this.model('User').find({ _id: { $in: followingsList } });
+        if (typeof opts !== 'undefined') {
+          if ('populate' in opts) {
+            p = p.populate(opts.populate);
+          }
+          if ('select' in opts) {
+            p = p.select(opts.select);
+          }
+          if ('lean' in opts) {
+            p = p.lean(opts.lean);
+          }
+          if ('limit' in opts) {
+            p = p.limit(opts.limit);
+          }
         }
-        if ('lean' in opts) {
-          p = p.lean(opts.lean);
-        }
-        if ('limit' in opts) {
-          p = p.limit(opts.limit);
-        }
-      }
-      p.exec().then(suggestions => resolve(suggestions))
-              .catch(err => reject(err));
-    });
+        p.exec()
+          .then(suggestions => resolve(suggestions))
+          .catch(err => reject(err));
+      });
   });
 };
 
@@ -306,8 +319,7 @@ UserSchema.methods.getEvents = function (type, opts) {
     var p;
     if (type === 'activities') {
       p = this.model('Event').find({ by: this._id });
-    }
-    else if (type === 'notifications') {
+    } else if (type === 'notifications') {
       p = this.model('Event').find({ to: { $in: [this._id] } });
     }
     p
@@ -330,11 +342,30 @@ UserSchema.methods.getEvents = function (type, opts) {
         p = p.limit(opts.limit);
       }
     }
-    p.exec().then(notifications => resolve(notifications))
-            .catch(err => reject(err));
+    p.exec()
+      .then(notifications => resolve(notifications))
+      .catch(err => reject(err));
   });
 };
 
+UserSchema.methods.updateStats = function (type, ci) {
+  return new Promise((resolve) => {
+    let found = false;
+    for (let i = 0; i < this.stats[type].length; i++) {
+      if (this.stats[type][i].courseInstance.toString() === ci.toString()) {
+        found = true;
+        this.stats[type][i].value += 1;
+        break;
+      }
+    }
+
+    if (!found) {
+      this.stats[type].push({ courseInstance: ci, value: 1 });
+    }
+    this.save();
+    resolve();
+  });
+};
 
 // Virtuals
 
@@ -344,5 +375,5 @@ UserSchema.path('email').validate(function (email) {
 }, 'Email is not valid.');
 
 const User = mongoose.model('User', UserSchema);
-const Student = User.discriminator('Student', StudentSchema);
-const Prof = User.discriminator('Prof', ProfSchema);
+User.discriminator('Student', StudentSchema);
+User.discriminator('Prof', ProfSchema);

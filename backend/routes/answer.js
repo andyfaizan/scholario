@@ -1,10 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const co = require('co');
 const logger = require('../logger');
 const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
 const AnswerCreatedEvent = mongoose.model('AnswerCreatedEvent');
+const User = mongoose.model('User');
 
 var router = express.Router();
 
@@ -18,14 +20,15 @@ router.get('/:aid/vote', passport.authenticate('jwt', { session: false }), funct
     });
   }
 
-  Answer.findOne({ _id: req.params.aid }).then(function (answer) {
+  co(function *() {
+    const answer = yield Answer.findOne({ _id: req.params.aid });
     if (!answer) {
       return res.status(404).json({
         err: [{ msg: 'AnswerNotFound' }],
       });
     }
 
-    for (var i = 0; i < answer.votes.length; i++) {
+    for (let i = 0; i < answer.votes.length; i++) {
       if (answer.votes[i].user.toString() === req.user.id.toString()) {
         return res.json({
           _id: answer._id,
@@ -33,13 +36,19 @@ router.get('/:aid/vote', passport.authenticate('jwt', { session: false }), funct
         });
       }
     }
+
     answer.votes.push({ user: req.user._id, voteDate: Date.now() });
     answer.save();
 
-    return res.json({
+    res.json({
       _id: answer._id,
       votes: answer.votes,
     });
+
+    // Update stats
+    const question = yield Question.findOne({ answers: { $in: [answer] } });
+    const user = yield User.findOne({ _id: answer.user });
+    user.updateStats('likesReceived', question.courseInstance);
   }).catch(function (err) {
     return res.json({
       err: [{ msg: err.message }],
@@ -82,10 +91,13 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
       answer: answer,
     }).save();
 
-    return res.status(201).json({
+    res.status(201).json({
       _id: question._id,
       answers: question.answers,
     });
+
+    // Update stats
+    req.user.updateStats('questionsAnswered', question.courseInstance);
   }).catch(function (err) {
     logger.error(err);
     return res.json({
