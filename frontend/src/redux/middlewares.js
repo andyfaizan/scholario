@@ -59,6 +59,7 @@ export const callAPIMiddleware = ({ dispatch, getState }) => next => action => {
     payload = {},
     schema,
     afterOk,
+    onProgressDispatch,
   } = action
 
   if (!types) {
@@ -90,6 +91,11 @@ export const callAPIMiddleware = ({ dispatch, getState }) => next => action => {
 
   let p = callAPI()
   if (getState().user.token) p = p.set('Authorization', `JWT ${getState().user.token}`)
+  if (onProgressDispatch) {
+    p.on('progress', (e) => {
+      dispatch(onProgressDispatch(e))
+    })
+  }
   return p.end().then(
     response => {
       let data = response.body

@@ -167,6 +167,29 @@ UserSchema.methods.getAnswer = function (opts) {
   });
 };
 
+UserSchema.methods.getComments = function (opts) {
+  const Comment = mongoose.model('Comment');
+  return new Promise((resolve, reject) => {
+    var p = Comment.find({ user: this.id });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts) {
+        p = p.populate(opts.populate);
+      }
+      if ('select' in opts) {
+        p = p.select(opts.select);
+      }
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(comments => resolve(comments))
+            .catch(err => reject(err));
+  });
+};
+
 UserSchema.methods.getFollowers = function (opts) {
   return new Promise((resolve, reject) => {
     var p = this.model('User').find({ following: { $in: [this._id] } });
@@ -186,6 +209,66 @@ UserSchema.methods.getFollowers = function (opts) {
     }
     p.exec().then(followers => resolve(followers))
             .catch(err => reject(err));
+  });
+};
+
+/* UserSchema.methods.getLikes = function (opts) {
+  const Question = mongoose.model('Question');
+  const Answer = mongoose.model('Answer');
+  const Comment = mongoose.model('Comment');
+  return new Promise((resolve, reject) => {
+    var p = Q
+  })
+}*/
+
+UserSchema.methods.getPkgs = function (opts) {
+  const Pkg = mongoose.model('Pkg');
+  return new Promise((resolve, reject) => {
+    var p = Pkg.find({ owner: this._id });
+    if (typeof opts !== 'undefined') {
+      if ('populate' in opts) {
+        p = p.populate(opts.populate);
+      }
+      if ('select' in opts) {
+        p = p.select(opts.select);
+      }
+      if ('lean' in opts) {
+        p = p.lean(opts.lean);
+      }
+      if ('limit' in opts) {
+        p = p.limit(opts.limit);
+      }
+    }
+    p.exec().then(Pkgs => resolve(Pkgs))
+            .catch(err => reject(err));
+  });
+};
+
+UserSchema.methods.getMaterials = function (opts) {
+  const Material = mongoose.model('Material');
+  const getPkgsIds = (Pkg) => Pkg._id;
+  return new Promise((resolve, reject) => {
+    this.getPkgs({
+      select: 'id',
+    }).then(function (pkgs) {
+      var p = Material.find({ pkg: { $in: pkgs.map(getPkgsIds) } });
+      if (typeof opts !== 'undefined') {
+        if ('populate' in opts) {
+          p = p.populate(opts.populate);
+        }
+        if ('select' in opts) {
+          p = p.select(opts.select);
+        }
+        if ('lean' in opts) {
+          p = p.lean(opts.lean);
+        }
+        if ('limit' in opts) {
+          p = p.limit(opts.limit);
+        }
+      }
+      return p.exec();
+    }).then(materials => resolve(materials))
+      .catch(err => reject(err));
   });
 };
 
@@ -225,7 +308,7 @@ UserSchema.methods.getEvents = function (type, opts) {
       p = this.model('Event').find({ by: this._id });
     }
     else if (type === 'notifications') {
-      p = this.model('Event').find({ to: this._id });
+      p = this.model('Event').find({ to: { $in: [this._id] } });
     }
     p
       .select('id type to by createDate seen seenDate question answer')

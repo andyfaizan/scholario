@@ -1,19 +1,18 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
-type Props = {
+const propTypes = {
 
 }
-export class <%= pascalEntityName %> extends React.Component {
-  props: Props;
 
-  render() {
-    return (
-      <div></div>
-    )
-  }
+function <%= pascalEntityName %>({}) {
+
+  return (
+    <div></div>
+  )
 }
+
+<%= pascalEntityName %>.propTypes = propTypes
 
 const mapStateToProps = (state) => {
   return {}
@@ -21,6 +20,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {}
 }
+
+<%= pascalEntityName %>.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
