@@ -37,8 +37,13 @@ function DashboardToolBar({ dispatch }) {
             style={styles.iconStyle}
             iconButtonElement={<IconButton disableTouchRipple touch> <NavigationMenu color="white" /> </IconButton>}
           >
-            <MenuItem primaryText="Benutzer Einstellungen" />
-            <MenuItem primaryText="Feed Einstellungen" />
+            <MenuItem primaryText="Profil Einstellungen" containerElement={<Link to="/profile-settings" />} />
+            <MenuItem
+              primaryText="Benachrichtigung Einstellungen"
+              containerElement={<Link to="/notification-settings" />}
+            />
+            <MenuItem primaryText="Privatsphäre Einstellungen" containerElement={<Link to="/privacy-settings" />} />
+            <MenuItem primaryText="Post Einstellungen" containerElement={<Link to="/mail-settings" />} />
             <MenuItem primaryText="Logout" onTouchTap={() => dispatch(logout())} />
           </IconMenu>
         </ToolbarGroup>

@@ -1,20 +1,20 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
 import LeftSectionTeacherDashboard from '../../components/LeftSectionTeacherDashboard/LeftSectionTeacherDashboard'
-import _ from 'lodash'
 import * as selectors from '../../redux/selectors'
 import { getUser, requestLogin } from '../../redux/modules/user'
 import { getRecommendedCourseInstances, followCourse,
   FOLLOW_COURSE_INSTANCE_OK, FOLLOW_COURSE_INSTANCE_ERR } from '../../redux/modules/course-instance'
 import { getQuestions } from '../../redux/modules/question'
 import Feedback from '../../containers/Feedback'
-
 
 const propTypes = {
   user: PropTypes.object,

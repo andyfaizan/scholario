@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { reduxForm, Field } from 'redux-form'
+
 import { TextField } from 'redux-form-material-ui'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import Divider from 'material-ui/Divider'

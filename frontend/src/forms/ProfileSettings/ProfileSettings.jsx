@@ -1,8 +1,11 @@
 import React, { PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 
-import Card from 'material-ui/Card/Card'
-import CardText from 'material-ui/Card/CardText'
+import { Card, CardTitle } from 'material-ui/Card'
+import { TextField } from 'redux-form-material-ui'
+import RaisedButton from 'material-ui/RaisedButton'
+
+import { ToolBarGreen, CardBlue } from '../../styles/colors'
 
 export const fields = []
 
@@ -20,20 +23,148 @@ const defaultProps = {
   fields: {},
 }
 
-function ProfileSettings({ fields: { university },  handleSubmit }) {
+function ProfileSettings({ fields: { personName, university, program, email,
+  password, facebookConnect, linkedinConnect, xingConnect }, handleSubmit }) {
   const styles = getStyles()
 
   return (
     <form onSubmit={handleSubmit}>
       <Card>
-        <TextField
-        {...university}
-        floatingLabelText="Ihre Hochschule Name"
-        fullWidth={false}
-        floatingLabelStyle={styles.floatingLabel}
-        underlineFocusStyle={styles.underlineColor}
-        style={styles.textFieldStyle}
-      />
+        <CardTitle
+          title="Profileinstellungen"
+          subtitle="Aktualisieren Sie Ihre aktuellen Informationen reagarding Profil."
+        />
+        <br />
+        <fieldset style={styles.fieldsetStyle}>
+          <legend><h4>Ihre Profildaten</h4></legend>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...personName}
+              floatingLabelText="Dein Name"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <div style={styles.standardFieldFormatting} >
+            <TextField
+              {...university}
+              floatingLabelText="Ihre Hochschule Name"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...program}
+              floatingLabelText="Ihr Programmnamen"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <br />
+          <div style={styles.standardFieldFormatting}>
+            <RaisedButton
+              label="Update- Profildaten"
+              primary={false}
+              labelColor="#ffffff"
+              backgroundColor="#446CB3"
+              style={styles.buttonStyle}
+              linkButton
+              onTouchTap={handleSubmit}
+            />
+          </div>
+          <br />
+        </fieldset>
+        <fieldset style={styles.fieldsetStyle}>
+          <legend><h4>Ihre E-Mail- Daten</h4></legend>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...email}
+              floatingLabelText="Deine Emailadresse"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...password}
+              floatingLabelText="Ihr Passwort"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <br />
+          <div style={styles.standardFieldFormatting}>
+            <RaisedButton
+              label="Update- E-Mail- Daten"
+              primary={false}
+              labelColor="#ffffff"
+              backgroundColor="#446CB3"
+              style={styles.buttonStyle}
+              linkButton
+              onTouchTap={handleSubmit}
+            />
+          </div>
+          <br />
+        </fieldset>
+        <fieldset style={styles.fieldsetStyle}>
+          <legend><h4>Ihre sozialen Connects</h4></legend>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...facebookConnect}
+              floatingLabelText="Ihre Facebook - Link"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...linkedinConnect}
+              floatingLabelText="Ihre LinkedIn - Link"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <div style={styles.standardFieldFormatting}>
+            <TextField
+              {...xingConnect}
+              floatingLabelText="Ihre Xing - Link"
+              fullWidth={false}
+              floatingLabelStyle={styles.floatingLabel}
+              underlineFocusStyle={styles.underlineColor}
+              style={styles.textFieldStyle}
+            />
+          </div>
+          <br />
+          <div style={styles.standardFieldFormatting}>
+            <RaisedButton
+              label="Update Social Verbindungen"
+              primary={false}
+              labelColor="#ffffff"
+              backgroundColor="#446CB3"
+              style={styles.buttonStyle}
+              linkButton
+              onTouchTap={handleSubmit}
+            />
+          </div>
+          <br />
+        </fieldset>
+        <br />
+        <br />
       </Card>
     </form>
   )
@@ -43,11 +174,11 @@ function getStyles() {
   return {
     floatingLabel: {
       opacity: '0.7',
-      fontSize: '80%',
-      color: '#26A65B',
+      fontSize: '60%',
+      color: ToolBarGreen,
     },
     underlineColor: {
-      borderColor: '#446CB3',
+      borderColor: CardBlue,
     },
     iconStyle: {
       height: '50px',
@@ -55,26 +186,20 @@ function getStyles() {
       opacity: '0.8',
     },
     textFieldStyle: {
-      width: '80%',
-      padding: '0',
+      width: '90%',
       fontSize: '200%',
     },
-    mediumIcon: {
-      width: '120px',
-      height: '120px',
-      paddingRight: '10px',
-      paddingLeft: '10px',
-      paddingTop: '10px',
-      paddingBottom: '0px',
-      marginTop: '0px',
-      marginRight: '0px',
+    standardFieldFormatting: {
+      marginLeft: '10%',
     },
-    medium: {
-      width: '60px',
-      height: '60px',
+    fieldsetStyle: {
+      marginLeft: '10%',
+      marginRight: '10%',
+      marginTop: '5%',
+      marginBottom: '5%',
     },
-    sendEmail: {
-      opacity: '0.8',
+    buttonStyle: {
+      width: '80%',
     },
   }
 }
