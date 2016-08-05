@@ -73,7 +73,7 @@ export class SettingsView extends React.Component {
             programeName={userProgram ? userProgram.name : ''}
           />
           <br />
-          <Grid className="container-fluid">
+          <Grid>
             <Row >
               <Col xs={24} md={12}>
                 <div>
