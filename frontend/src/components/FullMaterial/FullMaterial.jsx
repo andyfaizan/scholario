@@ -16,6 +16,7 @@ import Snackbar from 'material-ui/Snackbar'
 
 import IFrame from '../IFrame/IFrame'
 import Questions from '../../containers/Questions'
+import ImageViewer from '../ImageViewer/ImageViewer'
 
 
 const youtubeConfig = {
@@ -96,7 +97,8 @@ const getFrame = (material) => {
   }
 
   if (fileType === 'image') {
-    return <img src={material.url} style={styles.mediaStyle} alt={material.name} />
+    // return <img src={material.url} style={styles.mediaStyle} alt={material.name} />
+    return <ImageViewer src={material.url} />
   }
   if (fileType === 'av' && ReactPlayer.canPlay(material.url)) {
     return (
