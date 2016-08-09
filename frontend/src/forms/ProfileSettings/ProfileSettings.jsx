@@ -1,13 +1,11 @@
 import React, { PropTypes } from 'react'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 
 import { Card, CardTitle } from 'material-ui/Card'
 import { TextField } from 'redux-form-material-ui'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import { ToolBarGreen, CardBlue } from '../../styles/colors'
-
-export const fields = []
 
 const validate = () => {
   const errors = {}
@@ -16,15 +14,9 @@ const validate = () => {
 
 const propTypes = {
   handleSubmit: PropTypes.func,
-  fields: PropTypes.object,
 }
 
-const defaultProps = {
-  fields: {},
-}
-
-function ProfileSettings({ fields: { personName, university, program, email,
-  password, facebookConnect, linkedinConnect, xingConnect }, handleSubmit }) {
+function ProfileSettings({ handleSubmit }) {
   const styles = getStyles()
 
   return (
@@ -37,8 +29,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
         <fieldset style={styles.fieldsetStyle}>
           <legend><h4>Ihre Profildaten</h4></legend>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...personName}
+            <Field
+              name="personName"
+              component={TextField}
               floatingLabelText="Dein Name"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -47,8 +40,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
             />
           </div>
           <div style={styles.standardFieldFormatting} >
-            <TextField
-              {...university}
+            <Field
+              name="university"
+              component={TextField}
               floatingLabelText="Ihre Hochschule Name"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -57,8 +51,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
             />
           </div>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...program}
+            <Field
+              name="program"
+              component={TextField}
               floatingLabelText="Ihr Programmnamen"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -83,8 +78,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
         <fieldset style={styles.fieldsetStyle}>
           <legend><h4>Ihre E-Mail- Daten</h4></legend>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...email}
+            <Field
+              name="email"
+              component={TextField}
               floatingLabelText="Deine Emailadresse"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -93,8 +89,10 @@ function ProfileSettings({ fields: { personName, university, program, email,
             />
           </div>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...password}
+            <Field
+              name="password"
+              type="password"
+              component={TextField}
               floatingLabelText="Ihr Passwort"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -119,8 +117,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
         <fieldset style={styles.fieldsetStyle}>
           <legend><h4>Ihre sozialen Connects</h4></legend>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...facebookConnect}
+            <Field
+              name="facebookConnect"
+              component={TextField}
               floatingLabelText="Ihre Facebook - Link"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -129,8 +128,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
             />
           </div>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...linkedinConnect}
+            <Field
+              name="linkedinConnect"
+              component={TextField}
               floatingLabelText="Ihre LinkedIn - Link"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -139,8 +139,9 @@ function ProfileSettings({ fields: { personName, university, program, email,
             />
           </div>
           <div style={styles.standardFieldFormatting}>
-            <TextField
-              {...xingConnect}
+            <Field
+              name="xingConnect"
+              component={TextField}
               floatingLabelText="Ihre Xing - Link"
               fullWidth={false}
               floatingLabelStyle={styles.floatingLabel}
@@ -204,10 +205,8 @@ function getStyles() {
 }
 
 ProfileSettings.propTypes = propTypes
-ProfileSettings.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'ProfileSettings',
-  fields,
   validate,
 })(ProfileSettings)
