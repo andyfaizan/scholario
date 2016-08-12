@@ -11,16 +11,22 @@ const SolutionSchema = new Schema({
   user: { type: ObjectId, ref: 'User' },
   createDate: { type: Date, default: Date.now },
   modifyDate: { type: Date },
-  grade: { type: Number, default: 0 },
+  grade: {
+    from: { type: Number, default: 0 },
+    to: { type: Number, default: 100 },
+    acquired: { type: Number, default: 0 },
+  },
 }, opts);
 
 const FileSolutionSchema = new Schema({
   filePath: { type: String, default: '' },
+  assignment: { type: ObjectId, ref: 'Assignment' },
 }, opts);
 
 const InteractiveSolutionSchema = new Schema({
   taskSolutions: [{
     task: { type: ObjectId, ref: 'Task' },
+    type: { type: String, enum: ['multipleChoice', 'text'] },
     choice: { type: Number, default: 0 },
     text: { type: String, default: '' },
   }],

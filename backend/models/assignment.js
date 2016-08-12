@@ -9,8 +9,11 @@ const opts = {
 
 const AssignmentSchema = new Schema({
   name: { type: String, default: '' },
+  courseInstance: { type: ObjectId, ref: 'CourseInstance' },
   createDate: { type: Date, default: Date.now },
   modifyDate: { type: Date },
+  access: { type: String, enum: ['private', 'public'], default: 'public' },
+  accessWhitelist: [{ type: ObjectId, ref: 'User' }],
 }, opts);
 
 const InteractiveAssignmentSchema = new Schema({
