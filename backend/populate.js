@@ -17,23 +17,25 @@ const CourseInstance = mongoose.model('CourseInstance');
 const University = mongoose.model('University');
 const Program = mongoose.model('Program');
 
-var data = fs.readFileSync('teilnehmeranalysis.csv');
+let data = fs.readFileSync('teilnehmeranalysis.csv');
 
-connect()
-  .on('error', console.log)
-  .on('disconnected', connect)
-  .once('open', listen);
+function connect() {
+  var options = { server: { socketOptions: { keepAlive: 1 } } };
+  return mongoose.connect(config.dbURI, options).connection;
+}
 
-function listen () {
+function listen() {
   co(function *() {
     var courseInstance = yield CourseInstance.findOne({ _id: '574bfb5f667b9cb671ec2e12' });
     var records = parse(data);
-    for (var i = 1; i < records.length; i++) {
-      var name = records[i][1].split(', ');
-      var university = yield University.findOne({ _id: '57209234ed88f1b688ddf817' });
-      var program = yield Program.findOne({ _id: records[i][2] === 'BIS' ? '574bf9b834ce5aec0d1714a0' : '574bf99a34ce5aec0d17149f' });
-      var password = passwordGenerator();
-      var user = Student({
+    for (let i = 1; i < records.length; i++) {
+      let name = records[i][1].split(', ');
+      let university = yield University.findOne({ _id: '57209234ed88f1b688ddf817' });
+      let program = yield Program.findOne({
+        _id: records[i][2] === 'BIS' ? '574bf9b834ce5aec0d1714a0' : '574bf99a34ce5aec0d17149f',
+      });
+      let password = passwordGenerator();
+      let user = Student({
         firstname: name[1],
         lastname: name[0],
         email: records[i][3],
@@ -47,7 +49,7 @@ function listen () {
       courseInstance = yield courseInstance.save();
 
       console.log(user, password);
-      var mailOpts = {
+      const mailOpts = {
         from: '"Scholario" <noreply@scholario.de>',
         to: user.email,
         subject: 'Accountinformation für Scholario',
@@ -71,18 +73,18 @@ Liked uns auf Facebook (https://www.facebook.com/scholario/ ) um über Neuerunge
 
 Wir wünschen Dir viel Spaß mit unserem neuen Produkt und viel Erfolg bei der Klausur!
 
-Euer`};
+Euer` };
       mailer.transporter.sendMail(mailOpts).catch(function (err) {
         console.log(err);
       });
     }
-    return 1
+    return 1;
   }).catch(function (err) {
     console.log(err);
   });
 }
 
-function connect () {
-  var options = { server: { socketOptions: { keepAlive: 1 } } };
-  return mongoose.connect(config.dbURI, options).connection;
-}
+connect()
+  .on('error', console.log)
+  .on('disconnected', connect)
+  .once('open', listen);

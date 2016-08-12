@@ -13,8 +13,8 @@ router.get('/', passport.authenticate('jwt', { session: false }),
       .populate('prof university')
       .exec()
       .then(function (courses) {
-        var data = [];
-        for (var i = 0; i < courses.length; i++) {
+        const data = [];
+        for (let i = 0; i < courses.length; i++) {
           data.push({
             id: courses[i]._id,
             name: courses[i].name,

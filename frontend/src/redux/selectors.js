@@ -20,6 +20,7 @@ export const getCurCourseInstanceId = (state) => state.curs.courseInstance
 export const getCurPkgId = (state) => state.curs.pkg
 export const getCurMaterialId = (state) => state.curs.material
 export const getCurQuestionId = (state) => state.curs.question
+export const getCurFileProgress = (state) => state.misc.progress
 export const getRecommendedCourseInstanceIds = (state) => state.recommendedCourseInstances
 export const getRequests = (state) => state.requests
 export const getRequest = (state, type) => state.requests[type]

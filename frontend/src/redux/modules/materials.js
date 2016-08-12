@@ -5,6 +5,7 @@ import superagentPromise from 'superagent-promise'
 import urlJoin from 'url-join'
 import config from '../../config'
 import { materialSchema } from '../schemas'
+import { setUpProgress } from './Misc'
 
 const request = superagentPromise(superagent, Promise)
 
@@ -29,6 +30,8 @@ export const DELETE_MATERIAL_REQUEST = 'DELETE_MATERIAL_REQUEST'
 export const DELETE_MATERIAL_OK = 'DELETE_MATERIAL_OK'
 export const DELETE_MATERIAL_ERR = 'DELETE_MATERIAL_ERR'
 
+export const ABORT_POST_MATERIAL = 'ABORT_POST_MATERIAL'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -38,6 +41,12 @@ export function setCurMaterial(mid) {
     payload: {
       mid,
     },
+  }
+}
+
+export function abortPostMaterial() {
+  return {
+    type: ABORT_POST_MATERIAL,
   }
 }
 
@@ -65,6 +74,7 @@ export function postMaterial(pid, files) {
     callAPI: () => callP,
     payload: { pid },
     schema: { materials: arrayOf(materialSchema) },
+    onProgressDispatch: (e) => setUpProgress(e.percent),
   }
 }
 
@@ -96,6 +106,18 @@ export function materialReducer(state = {}, action) {
   case DELETE_MATERIAL_OK:
     if (action && action.mid) {
       return _.omit(state, action.mid)
+    }
+    return state
+  case POST_MATERIAL_REQUEST:
+    if (action && action.pid) {
+      return Object.assign({}, state, {
+        postReq: request.post(urlJoin(config.apiURL, 'pkgs', action.pid, 'materials')),
+      })
+    }
+    return state
+  case ABORT_POST_MATERIAL:
+    if (action) {
+      console.log(state.postReq.abort())
     }
     return state
   default:

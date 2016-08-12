@@ -9,12 +9,12 @@ const Question = mongoose.model('Question');
 const Answer = mongoose.model('Answer');
 const CourseInstance = mongoose.model('CourseInstance');
 const QuestionCreatedEvent = mongoose.model('QuestionCreatedEvent');
+const User = mongoose.model('User');
 const mailer = require('../mailer');
 
 var router = express.Router();
 
 router.post('/', passport.authenticate('jwt', { session: false }), function (req, res) {
-
   req.checkBody('title', 'InvalidTitle').notEmpty();
   req.checkBody('description', 'InvalidDescription').notEmpty();
   req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
@@ -46,7 +46,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), function (req
     if (req.body.material) question.material = req.body.material;
     question = yield question.save();
 
-    var data = {
+    const data = {
       _id: question._id,
       title: question.title,
       description: question.description,
@@ -185,7 +185,7 @@ router.get('/:qid', passport.authenticate('jwt', { session: false }), function (
       }],
     }])
     .lean(true)
-    .then(function(question) {
+    .then(function (question) {
       if (!question) {
         return res.status(404).json({
           err: [{
@@ -193,8 +193,8 @@ router.get('/:qid', passport.authenticate('jwt', { session: false }), function (
           }],
         });
       }
-      for (var i = 0; i < question.answers.length; i++) {
-        for (var j = 0; j < question.answers[i].comments; j++) {
+      for (let i = 0; i < question.answers.length; i++) {
+        for (let j = 0; j < question.answers[i].comments; j++) {
           question.answers[i].comments[j].answer = question.answers[i]._id;
         }
       }
@@ -207,7 +207,7 @@ router.get('/:qid', passport.authenticate('jwt', { session: false }), function (
     });
 });
 
-router.delete('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.delete('/:qid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('qid', 'InvalidQuestionId').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
@@ -241,7 +241,7 @@ router.delete('/:qid', passport.authenticate('jwt', {session: false}), function 
   });
 });
 
-router.put('/:qid', passport.authenticate('jwt', {session: false}), function (req, res) {
+router.put('/:qid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('qid', 'InvalidQuestionId').notEmpty().isMongoId();
   if (req.body.title) req.checkBody('title', 'InvalidTitle').notEmpty();
   if (req.body.description) req.checkBody('description', 'InvalidDescription').notEmpty();
@@ -276,29 +276,29 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
         _id: question._id,
         approvedAnswer: approvedAnswer._id,
       });
-    } else {
-      if (question.user.toString() !== req.user.id.toString()) {
-        return res.status(401).json({
-          err: [{ msg: 'PermissionDenied' }],
-        });
-      }
+    }
 
-      if (req.body.title) question.title = req.body.title;
-      if (req.body.description) question.description = req.body.description;
-      if (req.body.bestAnswer) {
-        const bestAnswer = yield Answer.findOne({ _id: req.body.bestAnswer });
-        if (bestAnswer) question.bestAnswer = req.body.bestAnswer;
-      }
-      question = yield question.save();
-
-      return res.status(200).json({
-        _id: question._id,
-        title: question.title,
-        description: question.description,
-        bestAnswer: question.bestAnswer,
-        approvedAnswer: question.approvedAnswer,
+    if (question.user.toString() !== req.user.id.toString()) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
       });
     }
+
+    if (req.body.title) question.title = req.body.title;
+    if (req.body.description) question.description = req.body.description;
+    if (req.body.bestAnswer) {
+      const bestAnswer = yield Answer.findOne({ _id: req.body.bestAnswer });
+      if (bestAnswer) question.bestAnswer = req.body.bestAnswer;
+    }
+    question = yield question.save();
+
+    return res.status(200).json({
+      _id: question._id,
+      title: question.title,
+      description: question.description,
+      bestAnswer: question.bestAnswer,
+      approvedAnswer: question.approvedAnswer,
+    });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
@@ -307,31 +307,6 @@ router.put('/:qid', passport.authenticate('jwt', {session: false}), function (re
   });
 });
 
-/**
-router.post('/:qid/answers', passport.authenticate('jwt', {session: false}), function (req, res) {
-  req.checkBody('question', 'Invalide question').notEmpty().isMongoId();
-  req.checkBody('content', 'Invalid content').notEmpty();
-
-  var errors = req.validationErrors();
-  if (errors) {
-    return res.json({
-      'err': errors
-    });
-  }
-
-  var answer = new Answer({
-    content: req.body.content,
-    question: req.body._qid,
-    user: req.user,
-  });
-  answer.save();
-
-
-  return res.json({
-    err: '',
-  });
-});
-**/
 router.post('/:qid/answers', passport.authenticate('jwt', { session: false }), function (req, res) {
   // req.checkBody('question', 'Invalide question').notEmpty().isMongoId();
   req.checkBody('content', 'Invalid content').notEmpty();
@@ -371,78 +346,70 @@ router.post('/:qid/answers', passport.authenticate('jwt', { session: false }), f
 });
 
 router.get('/:qid/vote', passport.authenticate('jwt', { session: false }), function (req, res) {
-  Question.findOne({ _id: req.params.qid })
-    .populate([{
-      path: 'courseInstance',
-      select: 'participants prof',
-      populate: [{
-        path: 'prof',
-        select: 'email',
-      }],
-    }])
-    .then(function (question) {
-      if (!question) {
-        return res.status(404).json({
-          err: [{ msg: 'QuestionNotFound' }],
+  co(function *() {
+    const question = yield Question.findOne({ _id: req.params.qid })
+      .populate([{
+        path: 'courseInstance',
+        select: 'participants prof',
+        populate: [{
+          path: 'prof',
+          select: 'email',
+        }],
+      }]);
+
+    if (!question) {
+      return res.status(404).json({
+        err: [{ msg: 'QuestionNotFound' }],
+      });
+    }
+
+    for (let i = 0; i < question.votes.length; i++) {
+      if (question.votes[i].user.toString() === req.user.id.toString()) {
+        return res.json({
+          _id: question._id,
+          votes: question.votes,
         });
       }
+    }
+    question.votes.push({ user: req.user._id, voteDate: Date.now() });
+    question.save();
 
-      for (var i = 0; i < question.votes.length; i++) {
-        if (question.votes[i].user.toString() === req.user.id.toString()) {
-          return res.json({
-            _id: question._id,
-            votes: question.votes,
-          });
-        }
-      }
-      question.votes.push({ user: req.user._id, voteDate: Date.now() });
+    if ((question.infoMailSended === 'false') &&
+    (question.votes.length / question.courseInstance.participants.length) >= 0.05) {
+      question.infoMailSended = 'true';
       question.save();
 
-      if ((question.infoMailSended === 'false') &&
-      (question.votes.length / question.courseInstance.participants.length) >= 0.05) {
-        question.infoMailSended = 'true';
-        question.save();
+      const topRatedQuestion = `https://www.scholario.de/question/${question._id}`;
+      const mailOpts = {
+        from: '"Scholario" <noreply@scholario.de>',
+        to: question.courseInstance.prof.email,
+        subject: 'Informationmail about Question',
+        text: 'Es gibt eine Frage die viele interessiert.\n' + topRatedQuestion,
+      };
 
-        const topRatedQuestion = `https://www.scholario.de/question/${question._id}`;
-        const mailOpts = {
-          from: '"Scholario" <noreply@scholario.de>',
-          to: question.courseInstance.prof.email,
-          subject: 'Informationmail about Question',
-          text: 'Es gibt eine Frage die viele interessiert.\n' + topRatedQuestion,
-        };
-
-        mailer.transporter.sendMail(mailOpts).catch(function (err) {
-          logger.error(err);
-        });
-      }
-
-    // var data = [];
-    // for (var i = 0; i < question.votes.length; i++) {
-      // console.log(question.votes[i])
-      // data[i] = {
-        // voteDate: question.votes[i].voteDate,
-        // user: {
-          // _id: question.votes[i].user._id,
-          // firstname: question.votes[i].user.firstname,
-          // lastname: question.votes[i].user.lastname,
-        // }
-      // }
-    /* }*/
-
-      return res.json({
-        _id: question._id,
-        votes: question.votes,
+      mailer.transporter.sendMail(mailOpts).catch(function (err) {
+        logger.error(err);
       });
-    }).catch(function (err) {
-      logger.error(err);
-      return res.status(500).json({
-        err: [{ msg: 'InternalError' }],
-      });
+    }
+
+    res.json({
+      _id: question._id,
+      votes: question.votes,
     });
+
+    // Update stats
+    const user = yield User.findOne({ _id: question.user });
+    user.updateStats('likesReceived', question.courseInstance._id);
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
+  });
 });
 
 router.get('/:qid/:aid/votes', passport.authenticate('jwt', { session: false }), function (req, res) {
-  Answer.findOne({ _id: req.params.aid}).then(function (answer) {
+  Answer.findOne({ _id: req.params.aid }).then(function (answer) {
     if (!answer) {
       return res.status(404).json({
         err: [{ msg: 'AnswerNotFound' }],
@@ -463,73 +430,50 @@ router.get('/:qid/:aid/votes', passport.authenticate('jwt', { session: false }),
   });
 });
 
-
-/* ===============================
-.select('id title description course user createDate answers votes')
-        .populate([{
-          path: 'course',
-          select: 'name',
-        }, {
-          path: 'user',
-          select: 'firstname lastname',
-        }, {
-          path: 'answers',
-            select: 'content createDate votes user',
-                populate: {
-                  path: 'user',
-                  select: 'firstname lastname',
-                }
-        }])
-        .lean(true)
-*/
-// ===============================
-
 router.get('/:qid/:aid/bestanswer', passport.authenticate('jwt', { session: false }), utils.hasPermission('Prof'),
-  function (req,res ) {
-
+  function (req, res) {
     Question
-    .findOne({ _id: req.params.qid, answers: { $in: [req.params.aid] } })
-    .select('courseInstance answers')
-    .populate([{
-      path: 'courseInstance',
-      select: 'prof',
-      populate: {
-        path: 'prof',
-        select: 'id',
-      },
-    }, {
-      path: 'answers',
-      select: 'id bestAnswer',
-    }])
-    .exec()
-    .then(function (question) {
-      if (!question) {
-        return res.status(404).json({
-          err: [{ msg: 'AnswerOrQuestionNotFound' }],
-        });
-      }
+      .findOne({ _id: req.params.qid, answers: { $in: [req.params.aid] } })
+      .select('courseInstance answers')
+      .populate([{
+        path: 'courseInstance',
+        select: 'prof',
+        populate: {
+          path: 'prof',
+          select: 'id',
+        },
+      }, {
+        path: 'answers',
+        select: 'id bestAnswer',
+      }])
+      .exec()
+      .then(function (question) {
+        if (!question) {
+          return res.status(404).json({
+            err: [{ msg: 'AnswerOrQuestionNotFound' }],
+          });
+        }
 
-      if (question.courseInstance.prof.id === req.user._id) {
-        Answer.findOne({ _id: req.params.aid }).then(function (answer) {
-          if (!answer) {
-            return res.status(404).json({
-              err: [{ msg: 'AnswerNotFound' }],
-            });
-          }
-          answer.bestAnswer = true;
-          answer.save();
+        if (question.courseInstance.prof.id === req.user._id) {
+          Answer.findOne({ _id: req.params.aid }).then(function (answer) {
+            if (!answer) {
+              return res.status(404).json({
+                err: [{ msg: 'AnswerNotFound' }],
+              });
+            }
+            answer.bestAnswer = true;
+            answer.save();
+          });
+        }
+        return res.json({
+          err: [],
         });
-      }
-      return res.json({
-        err: [],
+      }).catch(function (err) {
+        return res.json({
+          err: [{ msg: err.message }],
+        });
       });
-    }).catch(function (err) {
-      return res.json({
-        err: [{ msg: err.message }],
-      });
-    });
   });
 
-// router.get('/:qid/:aid/satisfyinganswer', passport.authenticate('jwt', {session: false}), function(req,res) {
 
 module.exports = router;

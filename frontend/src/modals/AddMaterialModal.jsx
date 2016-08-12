@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { hide, ADD_MATERIAL_MODAL as addMaterialModalAction } from '../redux/modules/modal'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
+// import FlatButton from 'material-ui/FlatButton'
 import AddMaterialForm from '../forms/AddMaterialForm/AddMaterialForm'
 import * as selectors from '../redux/selectors'
-import { postMaterial, POST_MATERIAL_REQUEST, POST_MATERIAL_OK } from '../redux/modules/materials'
+import { postMaterial, abortPostMaterial, POST_MATERIAL_REQUEST, POST_MATERIAL_OK } from '../redux/modules/materials'
 
 
 const propTypes = {
@@ -16,7 +17,16 @@ const propTypes = {
   postOk: PropTypes.string,
   hide: PropTypes.func.isRequired,
   addMaterial: PropTypes.func,
+  progress: PropTypes.number,
+  // abort: PropTypes.func,
 }
+
+// <FlatButton
+//   label="Abbrechen"
+//   secondary
+//   labelStyle={styles.labelStyle2}
+//   onTouchTap={this.props.abort}
+// />,
 
 export class AddMaterialModal extends React.Component {
   render() {
@@ -49,6 +59,7 @@ export class AddMaterialModal extends React.Component {
             request={this.props.request}
             addMaterial={this.props.addMaterial}
             pkgId={this.props.pkgId}
+            progress={this.props.progress}
           />
           <div style={styles.fileSizeContainer}>
             <strong>Max file size : 800 MB</strong>
@@ -65,6 +76,9 @@ function getStyles() {
       color: 'white',
       fontWeight: 'bold',
     },
+    labelStyle2: {
+      color: 'black',
+    },
     fileSizeContainer: {
       marginLeft: '30px',
     },
@@ -76,6 +90,7 @@ const mapStateToProps = (state) => ({
   pkgId: selectors.getCurPkgId(state),
   request: selectors.getRequest(state, POST_MATERIAL_REQUEST),
   postOk: selectors.getRequest(state, POST_MATERIAL_OK),
+  progress: selectors.getCurFileProgress(state),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -83,6 +98,7 @@ const mapDispatchToProps = (dispatch) => ({
   addMaterial: (pkgId, data) => {
     dispatch(postMaterial(pkgId, data))
   },
+  abort: () => dispatch(abortPostMaterial()),
 })
 
 AddMaterialModal.propTypes = propTypes

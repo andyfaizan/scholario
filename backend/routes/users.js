@@ -16,32 +16,15 @@ const UserFollowedEvent = mongoose.model('UserFollowedEvent');
 var router = express.Router();
 
 router.get('/:uid', passport.authenticate('jwt', { session: false }), function (req, res) {
-/*  User.findOne({ _id: req.params.uid }).then(function (user) {
-    if (!user) throw (Error('User not found'));
-    return res.json({
-      firstname: user.firstname,
-      lastname: user.lastname,
-      username: user.username,
-    });
-  }).catch(function (err) {
-    return res.json({
-      err: err.message,
-    });
-  });
-});
-*/
-
-// -------------------Start new Code--------------------
-
   co(function *() {
     var user = yield User.findOne({ _id: req.params.uid })
-                         .populate([{
-                           path: 'universities',
-                           select: 'id name',
-                         }, {
-                           path: 'programs',
-                           select: 'id name university degree',
-                         }]);
+      .populate([{
+        path: 'universities',
+        select: 'id name',
+      }, {
+        path: 'programs',
+        select: 'id name university degree',
+      }]);
 
     if (!user) {
       return res.status(404).json({
@@ -76,16 +59,6 @@ router.get('/:uid', passport.authenticate('jwt', { session: false }), function (
       limit: 5,
     });
 
-    const questions = yield user.getQuestions({
-      populate: [{
-        path: 'user',
-        select: 'id firstname lastname',
-      }],
-      select: 'id title course user createDate votes',
-      lean: true,
-      limit: 5,
-    });
-
     const followings = yield user.getFollowings({
       populate: [{
         path: 'program',
@@ -102,6 +75,55 @@ router.get('/:uid', passport.authenticate('jwt', { session: false }), function (
       limit: 5,
     });
 
+    /* const courseInstanceIds = courseInstances.map(ci => ci._id);
+    // console.log(courseInstanceIds);
+    const likesReceived = _.fromPairs(courseInstances.map(ci => [ci._id, 0]));
+    // console.log(likesReceived);
+    const statUserQuestions = yield Question
+      .find({ user: user, courseInstance: { $in: courseInstanceIds } })
+      .select('id votes')
+      .exec();
+    // console.log(statUserQuestions);
+
+    const statQuestions = yield Question
+      .find({ courseInstance: { $in: courseInstanceIds }, answers: { $exists: true, $not: { $size: 0 } } })
+      .select('id courseInstance answers')
+      .populate({
+        path: 'answers',
+        match: { user: user },
+      })
+      .exec();
+    // console.log(statQuestions);
+
+    _.forEach(statUserQuestions, function (question) {
+      likesReceived[question.courseInstance] += 1;
+    });
+    _.forEach(statQuestions, function (question) {
+      if (question.answers && question.answers.length > 0) {
+        likesReceived[question.courseInstance] += _.sum(question.answers.map(a => a.votes.length));
+      }
+    });
+    console.log(likesReceived);
+
+    const statPkgs = yield Pkg
+      .find({ owner: req.user, courseInstance: { $in: courseInstanceIds } })
+      .exec();
+    const statMaterials = yield Material
+      .find({ pkg: { $in: statPkgs } });
+    _.forEach(statMaterials, function (material) {
+      console.log(material.pkg);
+    });
+    const answers = yield user.getAnswers();
+    const questionsAnswered = yield Question
+      .find({ answers: { $in: answers }, courseInstance: { $in: courseInstances } })
+      .count();
+
+    const stats = {
+      likesReceived: likesReceived,
+      materialsUploaded: materialsUploaded,
+      questionsAnswered: questionsAnswered,
+    }; */
+
     const data = {
       _id: user._id,
       firstname: user.firstname,
@@ -109,10 +131,10 @@ router.get('/:uid', passport.authenticate('jwt', { session: false }), function (
       bio: user.bio,
       role: user.role,
       courseInstances: courseInstances,
-      questions: questions,
       followings: followings,
       universities: user.universities,
       programs: user.programs,
+      stats: user.stats,
     };
 
     return res.json(data);
@@ -123,8 +145,6 @@ router.get('/:uid', passport.authenticate('jwt', { session: false }), function (
     });
   });
 });
-
-// ---------------------------------------
 
 router.get('/:uid/follow', passport.authenticate('jwt', { session: false }), function (req, res) {
   User.findOne({ _id: req.user._id }).then(function (user) {
@@ -298,12 +318,12 @@ router.post('/', function (req, res) {
       return res.status(400).json({
         err: [{ msg: 'EmailExists' }],
       });
-    } else {
-      logger.error(err);
-      return res.status(500).json({
-        err: [{ msg: 'InternalError' }],
-      });
     }
+
+    logger.error(err);
+    return res.status(500).json({
+      err: [{ msg: 'InternalError' }],
+    });
   });
 });
 

@@ -76,7 +76,6 @@ router.delete('/:cmid', passport.authenticate('jwt', { session: false }), functi
       });
     }
     return comment.remove();
-
   }).then(function () {
     return res.status(200).json({
     });
@@ -88,7 +87,7 @@ router.delete('/:cmid', passport.authenticate('jwt', { session: false }), functi
   });
 });
 
-router.put('/:cmid', passport.authenticate('jwt', { session: false }), function (req,res) {
+router.put('/:cmid', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkParams('cmid', 'InvalidCommentId').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
@@ -98,7 +97,7 @@ router.put('/:cmid', passport.authenticate('jwt', { session: false }), function 
     });
   }
 
-  co( function *() {
+  co(function *() {
     var comment = yield Comment.findOne({ _id: req.params.cmid });
 
     if (!comment) {

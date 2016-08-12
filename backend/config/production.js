@@ -7,7 +7,7 @@ module.exports = {
     secure: false,
     auth: {
       user: 'noreply',
-      pass: ''
-    }
+      pass: '',
+    },
   },
 };

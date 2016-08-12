@@ -43,23 +43,23 @@ router.get('/', function (req, res) {
     });
   }
 
-  var p = University.find();
+  let p = University.find();
   if (req.query.q) {
     p = University.find({ name: { $regex: req.query.q, $options: 'i' } });
   }
   p.select('id name')
-   .lean(true)
-   .exec()
-   .then(function (universities) {
-     return res.status(200).json({
-       universities,
-     });
-   }).catch(function (err) {
-     logger.error(err);
-     return res.status(500).json({
-       err: [{ msg: 'InternalError' }],
-     });
-   });
+    .lean(true)
+    .exec()
+    .then(function (universities) {
+      return res.status(200).json({
+        universities,
+      });
+    }).catch(function (err) {
+      logger.error(err);
+      return res.status(500).json({
+        err: [{ msg: 'InternalError' }],
+      });
+    });
 });
 
 module.exports = router;

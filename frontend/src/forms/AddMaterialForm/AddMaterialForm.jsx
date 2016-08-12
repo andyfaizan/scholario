@@ -8,6 +8,7 @@ const propTypes = {
   request: PropTypes.object,
   addMaterial: PropTypes.func,
   pkgId: PropTypes.string,
+  progress: PropTypes.number,
 }
 
 const dropComponentPropTypes = {
@@ -42,9 +43,11 @@ const dropComponent = (props) => {
           }
         }}
     >
-    {showFiles ?
-      props.input.previewFiles(filesForPreview) :
-      <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
+      <div style={styles.containerStyle}>
+      {showFiles ?
+        props.input.previewFiles(filesForPreview) :
+        <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
+      </div>
     </Dropzone>
 ) }
 
@@ -75,9 +78,13 @@ export class AddMaterial extends React.Component {
     const imgArray = []
 
     for (let i = 0; i < files.length; i++) {
+      if (i > 5) break
       if (files[i].type.indexOf('image') > -1) {
         imgArray.push(<img src={files[i].preview} style={styles.previewStyle} alt="Preview" />)
       }
+    }
+    if (files.length > 6) {
+      imgArray.push(<div><br /><strong>und noch {files.length - 6} mehr...</strong></div>)
     }
     if (imgArray.length === 0) {
       return <strong>Kein Preview</strong>
@@ -86,6 +93,7 @@ export class AddMaterial extends React.Component {
   }
 
   render() {
+    const uploadText = 'Wird hochgeladen:'
     const maxFileSize = 800 * 1024 * 1024
     const supportedTypes =
         'image/jpeg, image/gif, image/png, image/bmp, image/x-bmp, image/x-icon \
@@ -123,7 +131,17 @@ export class AddMaterial extends React.Component {
             {this.state.uploadError ?
               <strong>{this.state.uploadError} konnte nicht hochgeladen!</strong>
               : null}
-            {this.props.request ? <LinearProgress mode="indeterminate" /> : null}
+            {
+              this.props.request ?
+                <div style={getStyles().progressStyle}>
+                  <strong>{uploadText} {Math.floor(this.props.progress)}%</strong>
+                  <LinearProgress
+                    mode="determinate"
+                    value={this.props.progress}
+                  />
+                </div>
+              : null
+            }
           </div>
         </div>
       </div>
@@ -136,6 +154,11 @@ function getStyles() {
     containerStyle: {
       textAlign: 'center',
       align: 'center',
+    },
+    progressStyle: {
+      marginLeft: '30px',
+      marginRight: '30px',
+      textAlign: 'right',
     },
     previewStyle: {
       margin: '5px',

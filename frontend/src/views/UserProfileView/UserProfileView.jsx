@@ -1,16 +1,19 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Radium from 'radium'
+
 import Grid from 'react-bootstrap/lib/Grid'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
+
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
+
 import ProgressChart from '../../components/ProgressChart/ProgressChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 
-const propTypes = {
+// const propTypes = {
 
-}
+// }
 
 function UserProfile() {
   const styles = getStyles()
@@ -72,6 +75,6 @@ function getStyles() {
   }
 }
 
-UserProfile.propTypes = propTypes
+// UserProfile.propTypes = propTypes
 
 export default Radium(UserProfile)
