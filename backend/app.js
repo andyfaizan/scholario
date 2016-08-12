@@ -84,6 +84,7 @@ const universityRouter = require('./routes/university');
 const programRouter = require('./routes/program');
 const bookmarkRouter = require('./routes/bookmark');
 const assignmentRouter = require('./routes/assignment');
+const solutionRouter = require('./routes/solution');
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/user', userRouter);
 apiRouter.use('/users', usersRouter);
@@ -98,6 +99,7 @@ apiRouter.use('/universities', universityRouter);
 apiRouter.use('/programs', programRouter);
 apiRouter.use('/bookmarks', bookmarkRouter);
 apiRouter.use('/assignments', assignmentRouter);
+apiRouter.use('/solutions', solutionRouter);
 
 // Email verification
 app.get('/email-verification/:code', function (req, res) {

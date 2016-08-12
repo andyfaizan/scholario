@@ -9,6 +9,7 @@ const opts = {
 
 const SolutionSchema = new Schema({
   user: { type: ObjectId, ref: 'User' },
+  assignment: { type: ObjectId, ref: 'Assignment' },
   createDate: { type: Date, default: Date.now },
   modifyDate: { type: Date },
   grade: {
@@ -20,7 +21,6 @@ const SolutionSchema = new Schema({
 
 const FileSolutionSchema = new Schema({
   filePath: { type: String, default: '' },
-  assignment: { type: ObjectId, ref: 'Assignment' },
 }, opts);
 
 const InteractiveSolutionSchema = new Schema({
@@ -33,5 +33,5 @@ const InteractiveSolutionSchema = new Schema({
 }, opts);
 
 const Solution = mongoose.model('Solution', SolutionSchema);
-Solution.discriminator('FileSolutionSchema', FileSolutionSchema);
-Solution.discriminator('InteractiveSolutionSchema', InteractiveSolutionSchema);
+Solution.discriminator('FileSolution', FileSolutionSchema);
+Solution.discriminator('InteractiveSolution', InteractiveSolutionSchema);
