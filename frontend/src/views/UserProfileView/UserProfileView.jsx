@@ -9,6 +9,7 @@ import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 
 import ProgressChart from '../../components/ProgressChart/ProgressChart'
+import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 
 // const propTypes = {
@@ -44,7 +45,7 @@ function UserProfile() {
             </Col>
             <Col xs={8} md={4}>
               <Card >
-                <ProgressChart />
+                <VerticalBarChart />
               </Card>
               <br />
             </Col>
