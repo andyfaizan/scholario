@@ -13,7 +13,7 @@ import PrivacySettings from '../../forms/PrivacySettings/PrivacySettings'
 import NotificationSettings from '../../forms/NotificationSettings/NotificationSettings'
 import MailSettings from '../../forms/MailSettings/MailSettings'
 import * as selectors from '../../redux/selectors'
-import { getUser, putUser } from '../../redux/modules/user'
+import { getUser } from '../../redux/modules/user'
 
 
 const propTypes = {

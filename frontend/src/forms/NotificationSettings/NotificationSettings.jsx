@@ -2,9 +2,7 @@ import React, { PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 
 import { Card, CardTitle } from 'material-ui/Card'
-import Toggle from 'material-ui/Toggle';
-
-import { ToolBarGreen, CardBlue } from '../../styles/colors'
+import Toggle from 'material-ui/Toggle'
 
 export const fields = []
 
@@ -23,7 +21,7 @@ const defaultProps = {
 }
 
 function NotificationSettings({ handleSubmit }) {
-    const styles = getStyles()
+  const styles = getStyles()
   return (
     <form onSubmit={handleSubmit}>
       <Card>
@@ -32,43 +30,43 @@ function NotificationSettings({ handleSubmit }) {
           subtitle="Legen Sie Ihre Einstellungen für die Benachrichtigungen."
         />
         <fieldset style={styles.fieldsetStyle}>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <div style={styles.block}>
             <Toggle
-              label="Question"
-              defaultToggled={true}
+              label="Benachrichtigungen für Fragen"
+              defaultToggled={1}
               style={styles.toggle}
             />
-            <br/>
+            <br />
             <Toggle
-              label="Question"
-              defaultToggled={true}
+              label="Benachrichtigungen für Material"
+              defaultToggled={1}
               style={styles.toggle}
             />
-            <br/>
+            <br />
             <Toggle
-              label="Question"
-              defaultToggled={true}
+              label="Benachrichtigungen für den Fortschritt in jedem Kurs"
+              defaultToggled={1}
               style={styles.toggle}
             />
-            <br/>
+            <br />
             <Toggle
-              label="Question"
-              defaultToggled={true}
+              label="Benachrichtigungen von Aktivitäten von Freunden"
+              defaultToggled={1}
               style={styles.toggle}
             />
-            <br/>
+            <br />
             <Toggle
-              label="Question"
-              defaultToggled={true}
+              label="Benachrichtigungen wichtige Ankündigungen"
+              defaultToggled={1}
               style={styles.toggle}
             />
-            <br/>
+            <br />
           </div>
         </fieldset>
-        <br/>
-        <br/>
+        <br />
+        <br />
       </Card>
     </form>
   )
@@ -90,7 +88,7 @@ function getStyles() {
     },
     block: {
       maxWidth: '50%',
-      marginLeft: '25%',
+      marginLeft: '20%',
     },
     toggle: {
       marginBottom: '16',
