@@ -13,7 +13,7 @@ import PrivacySettings from '../../forms/PrivacySettings/PrivacySettings'
 import NotificationSettings from '../../forms/NotificationSettings/NotificationSettings'
 import MailSettings from '../../forms/MailSettings/MailSettings'
 import * as selectors from '../../redux/selectors'
-import { getUser } from '../../redux/modules/user'
+import { getUser, putUser } from '../../redux/modules/user'
 
 
 const propTypes = {
@@ -22,6 +22,7 @@ const propTypes = {
   userUniversity: PropTypes.object,
   userProgram: PropTypes.object,
   getUser: PropTypes.func,
+  putUser: PropTypes.func,
   location: PropTypes.object,
 }
 
@@ -43,6 +44,10 @@ export class SettingsView extends React.Component {
       )
   }
 
+  handleProfileSubmit(data) {
+    this.props.putUser(data)
+  }
+
   render() {
     const styles = getStyles()
     const { user, userUniversity, userProgram } = this.props
@@ -53,7 +58,7 @@ export class SettingsView extends React.Component {
     let displayActiveForm
 
     if (location.pathname === pathProfile) {
-      displayActiveForm = <ProfileSettings />
+      displayActiveForm = <ProfileSettings onSubmit={this.handleProfileSubmit} />
     } else if (location.pathname === pathPricacy) {
       displayActiveForm = <PrivacySettings />
     } else if (location.pathname === pathNotification) {
@@ -118,6 +123,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => {
     dispatch(getUser())
+  },
+  putUser: (data) => {
+    console.log(data)
+    // dispatch(putUser(data.name, data.name, '', data.password))
   },
 })
 
