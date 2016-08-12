@@ -128,4 +128,49 @@ router.put('/:cmid', passport.authenticate('jwt', { session: false }), function 
   });
 });
 
+// -------------------------------------------
+
+router.get('/:cid/vote', passport.authenticate('jwt', { session: false }), function (req, res) {
+  req.checkParams('aid', 'InvalidCommentId').notEmpty().isMongoId();
+
+  const errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors,
+    });
+  }
+
+  Comment.findOne({ _id: req.params.cid }).then(function (comment) {
+    if (!comment) {
+      return res.status(404).json({
+        err: [{ msg: 'CommentNotFound' }],
+      });
+    }
+
+    for (var i = 0; i < comment.votes.length; i++) {
+      if (comment.votes[i].user.toString() === req.user.id.toString()) {
+        comment.votes.pull(req.user._id);
+        comment.save();
+        /* return res.json({
+          _id: comment._id,
+          votes: comment.votes,
+        });*/
+      }
+      else {
+        comment.votes.push({ user: req.user._id, voteDate: Date.now() });
+        comment.save();
+      }
+    }
+    return res.json({
+      _id: comment._id,
+      votes: comment.votes,
+    });
+  }).catch(function (err) {
+    return res.json({
+      err: [{ msg: err.message }],
+    });
+  });
+});
+
+
 module.exports = router;
