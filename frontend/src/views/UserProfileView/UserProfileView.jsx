@@ -47,7 +47,6 @@ function UserProfile() {
                 <ProgressChart />
               </Card>
               <br />
-              <ProgressChart />
             </Col>
           </Row>
         </Grid>
