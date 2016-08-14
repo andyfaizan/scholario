@@ -7,10 +7,13 @@ import Col from 'react-bootstrap/lib/Col'
 
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
+import List from 'material-ui/List/List'
+import Divider from 'material-ui/Divider'
 
 import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 import FeedItem from '../../components/FeedItem/FeedItem'
+import Stat from '../../components/Stat/Stat'
 
 // const propTypes = {
 
@@ -55,6 +58,18 @@ function UserProfile() {
               <FeedItem />
               <FeedItem />
               <FeedItem />
+            </Col>
+            <Col xs={8} md={4}>
+              <br />
+              <Card >
+                <List>
+                  <Stat />
+                  <Divider />
+                  <Stat />
+                  <Divider />
+                  <Stat />
+                </List>
+              </Card>
             </Col>
           </Row>
         </Grid>
