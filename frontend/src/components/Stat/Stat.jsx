@@ -7,35 +7,33 @@ import Avatar from 'material-ui/Avatar'
 import { ScholarioBlue, greenBase } from '../../styles/colors'
 
 const propTypes = {
-  totalAmount: PropTypes.number,
+  amount: PropTypes.number,
   content: PropTypes.string,
 }
 
 const defaultProps = {
-  totalAmount: '10',
+  amount: '10',
   content: 'What is a REST api?',
 }
 
-function Stat({ totalAmount, content }) {
+function Stat({ amount, content }) {
   const styles = getStyles()
 
   return (
     <ListItem
-      disabled
       style={styles.item}
+      primaryText={content}
       leftAvatar={
         <Avatar
           color={ScholarioBlue}
           backgroundColor={greenBase}
-          size={50}
+          size={40}
           style={styles.avatar}
         >
-          {totalAmount}
+          {amount}
         </Avatar>
       }
-    >
-      {content}
-    </ListItem>
+    />
   )
 }
 

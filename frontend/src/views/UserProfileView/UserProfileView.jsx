@@ -7,17 +7,54 @@ import Col from 'react-bootstrap/lib/Col'
 
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
-import List from 'material-ui/List/List'
-import Divider from 'material-ui/Divider'
 
 import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 import FeedItem from '../../components/FeedItem/FeedItem'
-import Stat from '../../components/Stat/Stat'
+import StatsBox from '../../components/StatsBox/StatsBox'
 
 // const propTypes = {
 
 // }
+
+const sampleData = {
+  topAnswerStats: [
+    {
+      amount: '5',
+      content: 'What is GDP?',
+    },
+    {
+      amount: '7',
+      content: 'Explain Bayes Theorem',
+    },
+    {
+      amount: '11',
+      content: 'Game theory discussion',
+    },
+  ],
+  topUploadStats: [
+    {
+      amount: '12',
+      content: 'Notes on Probability Theory',
+    },
+    {
+      amount: '45',
+      content: 'Case study on KPMG',
+    },
+    {
+      amount: '32',
+      content: 'Harvard Video Lecture',
+    },
+    {
+      amount: '3',
+      content: 'Economics flowchart',
+    },
+    {
+      amount: '67',
+      content: 'Essay on the Great Depression',
+    },
+  ],
+}
 
 function UserProfile() {
   const styles = getStyles()
@@ -61,15 +98,9 @@ function UserProfile() {
             </Col>
             <Col xs={8} md={4}>
               <br />
-              <Card >
-                <List>
-                  <Stat />
-                  <Divider />
-                  <Stat />
-                  <Divider />
-                  <Stat />
-                </List>
-              </Card>
+              <StatsBox title={'Top Answers'} totalAmount={43} statsList={sampleData.topAnswerStats} />
+              <br />
+              <StatsBox title={'Top Uploads'} totalAmount={23} statsList={sampleData.topUploadStats} />
             </Col>
           </Row>
         </Grid>
