@@ -8,9 +8,9 @@ import Col from 'react-bootstrap/lib/Col'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 
-import ProgressChart from '../../components/ProgressChart/ProgressChart'
 import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
+import FeedItem from '../../components/FeedItem/FeedItem'
 
 // const propTypes = {
 
@@ -48,6 +48,13 @@ function UserProfile() {
                 <VerticalBarChart />
               </Card>
               <br />
+            </Col>
+          </Row>
+          <Row >
+            <Col xs={16} md={8}>
+              <FeedItem />
+              <FeedItem />
+              <FeedItem />
             </Col>
           </Row>
         </Grid>

@@ -8,11 +8,8 @@ import Col from 'react-bootstrap/lib/Col'
 import Avatar from 'material-ui/Avatar'
 import FlatButton from 'material-ui/FlatButton'
 import PersonAdd from 'material-ui/svg-icons/social/person-add'
-import Divider from 'material-ui/Divider'
 
 import Christoph from './christoph.png'
-
-import ActivityOfUser from '../../components/ActivityOfUser/ActivityOfUser'
 
 const propTypes = {
   nameInitialForAvatar: PropTypes.string,
@@ -79,10 +76,6 @@ function UserDetailDisplay({ fullName, universityName, programEnrolled, socialCo
           </Col>
         </Row>
       </Grid>
-      <br />
-      <br />
-      <br />
-      <ActivityOfUser />
     </div>
     )
 }
