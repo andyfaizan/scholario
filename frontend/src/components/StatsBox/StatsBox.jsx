@@ -4,6 +4,7 @@ import Radium from 'radium'
 import List from 'material-ui/List/List'
 import Card from 'material-ui/Card/Card'
 import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
 
 import Stat from '../Stat/Stat'
 
@@ -42,6 +43,7 @@ function StatsBox({ statsList, title, totalAmount }) {
           <Subheader style={styles.subheader}>
             <h4>{title} ({totalAmount})</h4>
           </Subheader>
+          <Divider />
           {statsList.map((stat) => <Stat amount={stat.amount} content={stat.content} />)}
         </List>
       </Card>
@@ -56,7 +58,7 @@ function getStyles() {
     },
     subheader: {
       color: '#26A65B',
-      paddingTop: '10px',
+      paddingTop: '5px',
     },
   }
 }

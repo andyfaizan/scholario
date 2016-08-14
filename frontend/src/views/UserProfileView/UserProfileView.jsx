@@ -74,14 +74,9 @@ function UserProfile() {
                     <UserDetailDisplay />
                   </CardText>
                 </Card>
-                <h4>
-                </h4>
-                <br />
-                <br />
                 <br />
                 <br />
               </div>
-              <br />
             </Col>
             <Col xs={8} md={4}>
               <Card >
