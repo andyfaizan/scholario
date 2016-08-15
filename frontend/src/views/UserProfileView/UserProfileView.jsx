@@ -13,35 +13,11 @@ import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisp
 import FeedItem from '../../components/FeedItem/FeedItem'
 import TopAnswersBox from '../../containers/TopAnswersBox'
 import TopUploadsBox from '../../containers/TopUploadsBox'
+import UploadActivityNews from '../../containers/UploadActivityNews'
 
 // const propTypes = {
 
 // }
-
-const sampleData = {
-  topUploadStats: [
-    {
-      amount: '12',
-      content: 'Notes on Probability Theory',
-    },
-    {
-      amount: '45',
-      content: 'Case study on KPMG',
-    },
-    {
-      amount: '32',
-      content: 'Harvard Video Lecture',
-    },
-    {
-      amount: '3',
-      content: 'Economics flowchart',
-    },
-    {
-      amount: '67',
-      content: 'Essay on the Great Depression',
-    },
-  ],
-}
 
 function UserProfile() {
   const styles = getStyles()
@@ -74,7 +50,7 @@ function UserProfile() {
           </Row>
           <Row >
             <Col xs={16} md={8}>
-              <FeedItem />
+              <UploadActivityNews />
               <FeedItem />
               <FeedItem />
             </Col>
