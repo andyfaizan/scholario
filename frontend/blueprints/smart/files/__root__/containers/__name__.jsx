@@ -12,8 +12,6 @@ function <%= pascalEntityName %>({}) {
   )
 }
 
-<%= pascalEntityName %>.propTypes = propTypes
-
 const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
