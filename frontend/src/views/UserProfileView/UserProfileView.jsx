@@ -10,10 +10,10 @@ import CardText from 'material-ui/Card/CardText'
 
 import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
-import FeedItem from '../../components/FeedItem/FeedItem'
 import TopAnswersBox from '../../containers/TopAnswersBox'
 import TopUploadsBox from '../../containers/TopUploadsBox'
 import UploadActivityNews from '../../containers/UploadActivityNews'
+import CourseActivityNews from '../../containers/CourseActivityNews'
 
 // const propTypes = {
 
@@ -51,8 +51,7 @@ function UserProfile() {
           <Row >
             <Col xs={16} md={8}>
               <UploadActivityNews />
-              <FeedItem />
-              <FeedItem />
+              <CourseActivityNews />
             </Col>
             <Col xs={8} md={4}>
               <br />
