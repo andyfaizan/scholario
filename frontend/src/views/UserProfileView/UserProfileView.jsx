@@ -14,6 +14,7 @@ import TopAnswersBox from '../../containers/TopAnswersBox'
 import TopUploadsBox from '../../containers/TopUploadsBox'
 import UploadActivityNews from '../../containers/UploadActivityNews'
 import CourseActivityNews from '../../containers/CourseActivityNews'
+import AnswerActivityNews from '../../containers/AnswerActivityNews'
 
 // const propTypes = {
 
@@ -52,6 +53,7 @@ function UserProfile() {
             <Col xs={16} md={8}>
               <UploadActivityNews />
               <CourseActivityNews />
+              <AnswerActivityNews />
             </Col>
             <Col xs={8} md={4}>
               <br />
