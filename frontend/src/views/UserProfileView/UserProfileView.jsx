@@ -12,26 +12,13 @@ import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 import FeedItem from '../../components/FeedItem/FeedItem'
 import StatsBox from '../../components/StatsBox/StatsBox'
+import TopAnswersBox from '../../containers/TopAnswersBox'
 
 // const propTypes = {
 
 // }
 
 const sampleData = {
-  topAnswerStats: [
-    {
-      amount: '5',
-      content: 'What is GDP?',
-    },
-    {
-      amount: '7',
-      content: 'Explain Bayes Theorem',
-    },
-    {
-      amount: '11',
-      content: 'Game theory discussion',
-    },
-  ],
   topUploadStats: [
     {
       amount: '12',
@@ -93,7 +80,7 @@ function UserProfile() {
             </Col>
             <Col xs={8} md={4}>
               <br />
-              <StatsBox title={'Top Answers'} totalAmount={43} statsList={sampleData.topAnswerStats} />
+              <TopAnswersBox />
               <br />
               <StatsBox title={'Top Uploads'} totalAmount={23} statsList={sampleData.topUploadStats} />
             </Col>
