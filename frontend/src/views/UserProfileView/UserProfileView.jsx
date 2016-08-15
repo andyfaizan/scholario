@@ -11,8 +11,8 @@ import CardText from 'material-ui/Card/CardText'
 import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
 import FeedItem from '../../components/FeedItem/FeedItem'
-import StatsBox from '../../components/StatsBox/StatsBox'
 import TopAnswersBox from '../../containers/TopAnswersBox'
+import TopUploadsBox from '../../containers/TopUploadsBox'
 
 // const propTypes = {
 
@@ -82,7 +82,7 @@ function UserProfile() {
               <br />
               <TopAnswersBox />
               <br />
-              <StatsBox title={'Top Uploads'} totalAmount={23} statsList={sampleData.topUploadStats} />
+              <TopUploadsBox />
             </Col>
           </Row>
         </Grid>
