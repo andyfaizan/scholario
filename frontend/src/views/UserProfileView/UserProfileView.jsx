@@ -8,8 +8,13 @@ import Col from 'react-bootstrap/lib/Col'
 import Card from 'material-ui/Card/Card'
 import CardText from 'material-ui/Card/CardText'
 
-import ProgressChart from '../../components/ProgressChart/ProgressChart'
+import VerticalBarChart from '../../components/VerticalBarChart/VerticalBarChart'
 import UserDetailDisplay from '../../components/UserDetailDisplay/UserDetailDisplay'
+import TopAnswersBox from '../../containers/TopAnswersBox'
+import TopUploadsBox from '../../containers/TopUploadsBox'
+import UploadActivityNews from '../../containers/UploadActivityNews'
+import CourseActivityNews from '../../containers/CourseActivityNews'
+import AnswerActivityNews from '../../containers/AnswerActivityNews'
 
 // const propTypes = {
 
@@ -33,21 +38,28 @@ function UserProfile() {
                     <UserDetailDisplay />
                   </CardText>
                 </Card>
-                <h4>
-                </h4>
-                <br />
-                <br />
                 <br />
                 <br />
               </div>
-              <br />
             </Col>
             <Col xs={8} md={4}>
               <Card >
-                <ProgressChart />
+                <VerticalBarChart />
               </Card>
               <br />
-              <ProgressChart />
+            </Col>
+          </Row>
+          <Row >
+            <Col xs={16} md={8}>
+              <UploadActivityNews />
+              <CourseActivityNews />
+              <AnswerActivityNews />
+            </Col>
+            <Col xs={8} md={4}>
+              <br />
+              <TopAnswersBox />
+              <br />
+              <TopUploadsBox />
             </Col>
           </Row>
         </Grid>

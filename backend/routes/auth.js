@@ -67,7 +67,7 @@ router.post('/login', function (req, res) {
   }
 
   co(function *() {
-    const user = yield User.findOne({ email: req.body.email })
+    let user = yield User.findOne({ email: req.body.email })
       .populate([{
         path: 'universities',
         select: 'id name',
