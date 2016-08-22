@@ -15,6 +15,7 @@ import TopUploadsBox from '../../containers/TopUploadsBox'
 import UploadActivityNews from '../../containers/UploadActivityNews'
 import CourseActivityNews from '../../containers/CourseActivityNews'
 import AnswerActivityNews from '../../containers/AnswerActivityNews'
+import ImageGridBox from '../../components/ImageGridBox/ImageGridBox'
 
 // const propTypes = {
 
@@ -60,6 +61,8 @@ function UserProfile() {
               <TopAnswersBox />
               <br />
               <TopUploadsBox />
+              <br />
+              <ImageGridBox />
             </Col>
           </Row>
         </Grid>
