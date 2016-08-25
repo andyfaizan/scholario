@@ -9,6 +9,7 @@ const passport = require('passport');
 const co = require('co');
 const logger = require('../logger');
 const User = mongoose.model('User');
+const University = mongoose.model('University');
 
 var router = express.Router();
 
@@ -170,6 +171,7 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
   if (req.body.lastname) req.checkBody('lastname', 'InvalidLastname').notEmpty();
   if (req.body.password) req.checkBody('password', 'InvalidPassword').notEmpty();
   if (req.body.bio) req.checkBody('bio', 'InvalidBio').notEmpty();
+  if (req.body.university) req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
   if (errors) {
@@ -184,9 +186,19 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
     if (req.body.firstname) user.firstname = req.body.firstname;
     if (req.body.lastname) user.lastname = req.body.lastname;
     if (req.body.bio) user.bio = req.body.bio;
+    if (req.body.university) { // user.university = university;
+      if (user.universities.indexOf(req.body.university) === -1) {
+        user.universities.push(req.body.university);
+      }
+      else {
+        user.universities.pull(req.body.university);
+      }
+    }
     if (req.body.password) {
       yield user.updatePassword(req.body.password);
     }
+
+    console.log(user);
 
     user = yield user.save();
     return res.status(200).json({
@@ -194,6 +206,7 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
       firstname: user.firstname,
       lastname: user.lastname,
       bio: user.bio,
+      university: user.university,
     });
   }).catch(function (err) {
     logger.error(err);
