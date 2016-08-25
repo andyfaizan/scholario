@@ -21,6 +21,7 @@ import ImpressumView from '../views/ImpressumView/ImpressumView'
 import FeedbackView from '../views/FeedbackView/FeedbackView'
 import DummyPageView from '../views/DummyPageView/DummyPageView'
 import SettingsViewView from '../views/SettingsViewView/SettingsViewView'
+import NewCourseView from '../views/NewCourseView/NewCourseView'
 
 export default () => (
   <Route path="/" component={CoreLayout}>
@@ -43,6 +44,7 @@ export default () => (
       <Route path="notification-settings" component={SettingsViewView} />
       <Route path="privacy-settings" component={SettingsViewView} />
       <Route path="mail-settings" component={SettingsViewView} />
+      <Route path="course-view" component={NewCourseView} />
     </Route>
 
   </Route>
