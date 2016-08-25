@@ -13,12 +13,12 @@ function ChapterTabs() {
 
   return (
     <div>
-      <Card>
+      <Card style={styles.style}>
         <CardHeader
           title="URL Avatar"
         />
         <CardText>
-          <Tabs>
+          <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
             <Tab label="Lehrplan" >
               <div>
                 <h2>Tab One</h2>
@@ -47,7 +47,21 @@ function ChapterTabs() {
 
 function getStyles() {
   return {
-
+    tabItemContainerStyle: {
+      backgroundColor: '#26A65B',
+      fontWeight: 'bold',
+    },
+    inkBarStyle: {
+      backgroundColor: '#446CB3',
+    },
+    style: {
+      float: 'left',
+      height: '300px',
+      width: '600px',
+      margin: '8.5px',
+      overflow: 'inherit',
+      alignItems: 'center',
+    },
   }
 }
 

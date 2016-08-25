@@ -69,13 +69,13 @@ export class AnswerItem extends React.Component {
         <FlatButton
           key="answerEditingButton" label="Antwort bearbeiten" linkButton
           onTouchTap={onClickEditAnswer} hoverColor="#26A65B"
-          style={styles.buttonStyle} rippleColor="#ffffff" icon={<Edit />}
+          style={styles.buttonStyle} backgroundColor="#446CB3" rippleColor="#ffffff" icon={<Edit />}
         />
       )
       actions.push(
         <FlatButton
           key="answerDeletingButton" label="Antwort löschen" linkButton
-          onTouchTap={onClickDelAnswer} hoverColor="#26A65B"
+          onTouchTap={onClickDelAnswer} backgroundColor="#446CB3" hoverColor="#26A65B"
           style={styles.buttonStyle} rippleColor="#ffffff" icon={<Delete />}
         />
       )
@@ -84,7 +84,8 @@ export class AnswerItem extends React.Component {
       actions.push(
         <FlatButton
           key="bestAnswerButton" label="gute Antwort" linkButton
-          onTouchTap={onClickBestAnswer} hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
+          onTouchTap={onClickBestAnswer} backgroundColor="#446CB3"
+          hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -93,7 +94,8 @@ export class AnswerItem extends React.Component {
       actions.push(
         <FlatButton
           key="answerApprovingButton" label="Antwort überprüfen" linkButton
-          onTouchTap={onClickApproveAnswer} hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
+          onTouchTap={onClickApproveAnswer} backgroundColor="#446CB3"
+          hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -166,7 +168,7 @@ function getStyles() {
     },
     actionPadding: {
       paddingLeft: '52px',
-      backgroundColor: '#446cB3',
+      backgroundColor: '#ffffff',
       color: '#ffffff',
     },
     teacherVerify: {

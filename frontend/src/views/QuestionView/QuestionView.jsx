@@ -130,14 +130,14 @@ export class Question extends React.Component {
     let actions = [
       <FlatButton
         key="questionAnsweringButton" label="Frage Beantworten" linkButton
-        onTouchTap={this.toggleNewAnswerForm} hoverColor="#26A65B" style={styles.buttonStyle}
+        onTouchTap={this.toggleNewAnswerForm} backgroundColor="#446CB3" hoverColor="#26A65B" style={styles.buttonStyle}
         rippleColor="#ffffff" icon={<Reply />}
       />,
     ]
     const showMaterialAction = (
       <FlatButton
         key="go to related material view" label="Material anzeigen" linkButton
-        onTouchTap={showMaterial} hoverColor="#26A65B"
+        onTouchTap={showMaterial} backgroundColor="#446CB3" hoverColor="#26A65B"
         style={styles.buttonStyle} rippleColor="#ffffff" icon={<Pageview />}
       />
     )
@@ -148,14 +148,14 @@ export class Question extends React.Component {
         <FlatButton
           key="questionEditingButton" label="Frage bearbeiten" linkButton
           onTouchTap={() => this.toggleEditQuestion()}
-          hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
+          backgroundColor="#446CB3" hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
       actions.push(
         <FlatButton
           key="questionDeletingButton" label="Frage löschen" linkButton
           onTouchTap={() => { this.props.dispatch(deleteQuestion(question._id)); browserHistory.goBack() }}
-          hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
+          backgroundColor="#446CB3" hoverColor="#26A65B" style={styles.buttonStyle} rippleColor="#ffffff"
         />
       )
     }
@@ -269,7 +269,7 @@ function getStyles() {
     },
     actionPadding: {
       paddingLeft: '52px',
-      backgroundColor: '#446CB3',
+      backgroundColor: '#ffffff',
       color: '#ffffff',
     },
     buttonStyle: {
