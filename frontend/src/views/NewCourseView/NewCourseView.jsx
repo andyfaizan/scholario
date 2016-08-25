@@ -8,19 +8,17 @@ const propTypes = {
 
 }
 
-export class NewCourse extends React.Component {
+function NewCourse() {
+  const styles = getStyles()
 
-  render () {
-    const styles = getStyles()
-    return (
-      <div>
-        <div style={styles.rootCourse} >
-          <br/>
-          <ChapterTabs />
-        </div>
+  return (
+    <div>
+      <div style={styles.rootCourse} >
+        <br />
+        <ChapterTabs />
       </div>
+    </div>
     )
-  }
 }
 
 function getStyles() {
