@@ -19,7 +19,7 @@ function ChapterTabs() {
         />
         <CardText>
           <Tabs>
-            <Tab label="Item One" >
+            <Tab label="Lehrplan" >
               <div>
                 <h2>Tab One</h2>
                 <p>
@@ -30,7 +30,7 @@ function ChapterTabs() {
                 </p>
               </div>
             </Tab>
-            <Tab label="Item Two" >
+            <Tab label="Sonstige Vermögensgegenstände" >
               <div>
                 <h2 >Tab Two</h2>
                 <p>

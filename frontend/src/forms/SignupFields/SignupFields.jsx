@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
+
 import MenuItem from 'material-ui/MenuItem'
+
 import { TextField, SelectField } from 'redux-form-material-ui'
 import { reduxForm, Field } from 'redux-form'
 import { getUniversities } from '../../redux/modules/university'
