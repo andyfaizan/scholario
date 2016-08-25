@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
+import {Tabs, Tab} from 'material-ui/Tabs';
 
 const propTypes = {
 
@@ -15,13 +16,29 @@ function ChapterTabs() {
       <Card>
         <CardHeader
           title="URL Avatar"
-          subtitle="Subtitle"
         />
         <CardText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+          <Tabs>
+            <Tab label="Item One" >
+              <div>
+                <h2>Tab One</h2>
+                <p>
+                  This is an example tab.
+                </p>
+                <p>
+                  You can put any sort of HTML or react component in here. It even keeps the component state!
+                </p>
+              </div>
+            </Tab>
+            <Tab label="Item Two" >
+              <div>
+                <h2 >Tab Two</h2>
+                <p>
+                  This is another example tab.
+                </p>
+              </div>
+            </Tab>
+          </Tabs>
         </CardText>
       </Card>
     </div>
