@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs'
 
 const propTypes = {
 
