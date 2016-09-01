@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 
 import TeacherProfileBar from '../../containers/TeacherProfileBar'
-import ProfileSettings from '../../forms/ProfileSettings/ProfileSettings'
+import ProfileSettings from '../../components/ProfileSettings/ProfileSettings'
 import PrivacySettings from '../../forms/PrivacySettings/PrivacySettings'
 import NotificationSettings from '../../forms/NotificationSettings/NotificationSettings'
 import MailSettings from '../../forms/MailSettings/MailSettings'
@@ -54,7 +54,13 @@ export class SettingsView extends React.Component {
     let displayActiveForm
 
     if (location.pathname === pathProfile) {
-      displayActiveForm = <ProfileSettings onSubmit={(data) => { this.props.putUser(data) }} />
+      displayActiveForm = (
+        <ProfileSettings
+          handleProfileDataSubmit={(data) => { this.props.putUser(data) }}
+          handleEmailSubmit={() => {}}
+          handleSocialConnectsSubmit={() => {}}
+        />
+      )
     } else if (location.pathname === pathPricacy) {
       displayActiveForm = <PrivacySettings />
     } else if (location.pathname === pathNotification) {
