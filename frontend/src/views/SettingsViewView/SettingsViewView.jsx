@@ -44,10 +44,6 @@ export class SettingsView extends React.Component {
       )
   }
 
-  handleProfileSubmit(data) {
-    this.props.putUser(data)
-  }
-
   render() {
     const styles = getStyles()
     const { user, userUniversity, userProgram } = this.props
@@ -58,7 +54,7 @@ export class SettingsView extends React.Component {
     let displayActiveForm
 
     if (location.pathname === pathProfile) {
-      displayActiveForm = <ProfileSettings onSubmit={this.handleProfileSubmit} />
+      displayActiveForm = <ProfileSettings onSubmit={(data) => { this.props.putUser(data) }} />
     } else if (location.pathname === pathPricacy) {
       displayActiveForm = <PrivacySettings />
     } else if (location.pathname === pathNotification) {
