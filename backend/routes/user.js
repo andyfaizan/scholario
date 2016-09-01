@@ -172,6 +172,7 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
   if (req.body.password) req.checkBody('password', 'InvalidPassword').notEmpty();
   if (req.body.bio) req.checkBody('bio', 'InvalidBio').notEmpty();
   if (req.body.university) req.checkBody('university', 'InvalidUniversity').notEmpty().isMongoId();
+  if (req.body.program) req.checkBody('program', 'InvalidProgram').notEmpty().isMongoId();
 
   const errors = req.validationErrors();
   if (errors) {
@@ -186,19 +187,34 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
     if (req.body.firstname) user.firstname = req.body.firstname;
     if (req.body.lastname) user.lastname = req.body.lastname;
     if (req.body.bio) user.bio = req.body.bio;
-    if (req.body.university) { // user.university = university;
+    if (req.body.university) {
       if (user.universities.indexOf(req.body.university) === -1) {
         user.universities.push(req.body.university);
       }
       else {
-        user.universities.pull(req.body.university);
+        user.universities.pull(req.body.university);  // If a university gets pulled, the programs must also be pulled
+      }
+    }
+
+    console.log(user);
+    console.log('---------------------program-------------------------------');
+    console.log(req.body.program);
+    console.log(user.programs.indexOf(req.body.program));
+    console.log('---------------------University----------------------------');
+    console.log(req.body.university);
+    console.log(user.universities.indexOf(req.body.university));
+    if (req.body.program) {
+      if (user.programs.indexOf(req.body.program) === -1) {
+        user.programs.push(req.body.program);
+      }
+      else {
+        user.programs.pull(req.body.program);
       }
     }
     if (req.body.password) {
       yield user.updatePassword(req.body.password);
     }
-
-    console.log(user);
+    // console.log(user);
 
     user = yield user.save();
     return res.status(200).json({
