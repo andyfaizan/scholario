@@ -13,7 +13,7 @@ import PrivacySettings from '../../forms/PrivacySettings/PrivacySettings'
 import NotificationSettings from '../../forms/NotificationSettings/NotificationSettings'
 import MailSettings from '../../forms/MailSettings/MailSettings'
 import * as selectors from '../../redux/selectors'
-import { getUser } from '../../redux/modules/user'
+import { getUser, putUser } from '../../redux/modules/user'
 
 
 const propTypes = {
@@ -127,8 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getUser())
   },
   putUser: (data) => {
-    console.log(data)
-    // dispatch(putUser(data.name, data.name, '', data.password))
+    dispatch(putUser(data.firstname, data.lastname, '', ''))
   },
 })
 

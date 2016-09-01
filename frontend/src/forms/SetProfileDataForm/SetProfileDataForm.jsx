@@ -24,9 +24,20 @@ function SetProfileData({ handleSubmit }) {
         <legend><h4>Ihre Profildaten</h4></legend>
         <div style={styles.standardFieldFormatting}>
           <Field
-            name="personName"
+            name="firstname"
             component={TextField}
-            floatingLabelText="Dein Name"
+            floatingLabelText="Ihr Vorname"
+            fullWidth={false}
+            floatingLabelStyle={styles.floatingLabel}
+            underlineFocusStyle={styles.underlineColor}
+            style={styles.textFieldStyle}
+          />
+        </div>
+        <div style={styles.standardFieldFormatting}>
+          <Field
+            name="lastname"
+            component={TextField}
+            floatingLabelText="Ihr Nachname"
             fullWidth={false}
             floatingLabelStyle={styles.floatingLabel}
             underlineFocusStyle={styles.underlineColor}
