@@ -29,6 +29,13 @@ export class LoginFields extends React.Component {
     this.checkKeyAndSubmit = this.checkKeyAndSubmit.bind(this)
   }
 
+  componentDidMount() {
+    this.refs.emailField
+      .getRenderedComponent()
+      .getRenderedComponent()
+      .focus()
+  }
+
   checkKeyAndSubmit = (e) => {
     if (e.keyCode === 13) this.props.confirm()
   }
@@ -42,6 +49,8 @@ export class LoginFields extends React.Component {
           <Field
             name="email"
             component={TextField}
+            ref="emailField"
+            withRef
             floatingLabelText="Email"
             floatingLabelStyle={styles.floatingLabelStyle}
             underlineFocusStyle={styles.focusStyle}

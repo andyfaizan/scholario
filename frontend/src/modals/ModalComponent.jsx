@@ -52,32 +52,11 @@ export class ModalComponent extends React.Component {
 
   sendLoginRequest = (data) => {
     this.props.onLoginSubmit(data)
-    // this.props.hide()
-    // browserHistory.push('/dashboard')
-    // this.props.router.push('/dashboard')
-    // this.context.router.push('/dashboard')
-
-    // TODO async wait and then check
-    // if (this.props.user.token !== ''){
-    //   this.props.hide()
-    //   this.context.router.push('/dashboard')
-    // } else {
-    //     this.showError()
-    // }
   }
 
   sendSignupRequest = (data) => {
     this.props.onSignupSubmit(data)
     this.props.hide()
-      // this.context.router.push('/dashboard')
-
-      // TODO async wait and then check
-      // if (this.props.user.token !== ''){
-      //   this.props.hide()
-      //   this.context.router.push('/dashboard')
-      // } else {
-      //     this.showError()
-      // }
   }
 
   render() {
@@ -124,9 +103,6 @@ export class ModalComponent extends React.Component {
               confirm={this.confirmSignup}
             />
           </div>
-          {/* <div ref="signupErrorText">
-            Falsche Email oder Kennwort
-          </div>*/}
           <div style={styles.buttonStyle}>
             <RaisedButton
               label="Registrieren"
