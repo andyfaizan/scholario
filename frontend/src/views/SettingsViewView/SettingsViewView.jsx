@@ -127,7 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getUser())
   },
   putUser: (data) => {
-    dispatch(putUser(data.firstname, data.lastname, '', ''))
+    dispatch(putUser(data.firstname, data.lastname, data.university, data.program, '', ''))
   },
 })
 

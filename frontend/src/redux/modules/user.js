@@ -115,13 +115,16 @@ export function getUser() {
   }
 }
 
-export function putUser(firstname = '', lastname = '', bio = '', password = '') {
+export function putUser(firstname = '', lastname = '', university = '', program = '', bio = '', password = '') {
   const endpoint = urlJoin(config.apiURL, 'user')
   const data = {}
   if (firstname) data.firstname = firstname
   if (lastname) data.lastname = lastname
   if (bio) data.bio = bio
   if (password) data.password = password
+  // Added by Andy
+  if (university) data.university = university
+  if (program) data.program = program
 
   return {
     types: [PUT_USER_REQUEST, PUT_USER_OK, PUT_USER_ERR],
