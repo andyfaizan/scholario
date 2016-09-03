@@ -1,42 +1,40 @@
-// Constants
-// export const constants = { }
+import urlJoin from 'url-join'
+import { merge } from 'lodash'
+import config from '../../config'
+import superagent from 'superagent'
+import superagentPromise from 'superagent-promise'
+import { userSchema } from '../schemas'
 
-export const NOTIFICATION_OFF = 'NOTIFICATION_OFF'
-export const NOTIFICATION_ON = 'NOTIFICATION_ON'
+const request = superagentPromise(superagent, Promise)
 
-export const QUESTION_NOTIFICATIONS = 'QUESTION_NOTIFICATIONS'
-export const MATERIAL_NOTIFICATIONS = 'MATERIAL_NOTIFICATIONS'
-export const FRIEND_NOTIFICATIONS = 'FRIEND_NOTIFICATIONS'
-export const COURSE_NOTIFICATIONS = 'COURSE_NOTIFICATIONS'
-export const ANNOUNCEMENT_NOTIFICATIONS = 'ANNOUNCEMENT_NOTIFICATIONS'
+export const PUT_NOTIFICATION_REQUEST = 'PUT_NOTIFICATION_REQUEST'
+export const PUT_NOTIFICATION_OK = 'PUT_NOTIFICATION_OK'
+export const PUT_NOTIFICATION_ERR = 'PUT_NOTIFICATION_ERR'
 
+export function putNotifications(questions = '', material = '', friends = '', course = '', announcements = '') {
+  const endpoint = urlJoin(config.apiURL, 'notifications')
 
-// Action Creators
-// export const actions = { }
+  const data = {}
+  if (questions) data.questions = questions
+  if (material) data.material = material
+  if (friends) data.friends = friends
+  if (course) data.course = course
+  if (announcements) data.announcements = announcements
 
-export function noticationOff(notificationType) {
   return {
-    type: NOTIFICATION_OFF,
-    state: false,
-    notificationType,
-  }
-}
-
-export function noticationOn(notificationType) {
-  return {
-    type: NOTIFICATION_ON,
-    state: true,
-    notificationType,
+    types: [PUT_NOTIFICATION_REQUEST, PUT_NOTIFICATION_OK, PUT_NOTIFICATION_ERR],
+    callAPI: () => request.put(endpoint).send(data),
+    schema: userSchema,
   }
 }
 
 // Reducer
 export function notificationsReducer(state = {}, action) {
   switch (action.type) {
-  case NOTIFICATION_ON:
-  case NOTIFICATION_OFF:
-    return { state: action.state, notificationType: action.notificationType }
   default:
+    if (action.response && action.response.notifications) {
+      return merge({}, state, action.response.entities.notifications)
+    }
     return state
   }
 }

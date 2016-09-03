@@ -14,6 +14,7 @@ import NotificationSettings from '../../forms/NotificationSettings/NotificationS
 import MailSettings from '../../forms/MailSettings/MailSettings'
 import * as selectors from '../../redux/selectors'
 import { getUser, putUser, putUserEmail, putUserSocial } from '../../redux/modules/user'
+import { putNotifications } from '../../redux/modules/notifications'
 
 
 const propTypes = {
@@ -25,6 +26,7 @@ const propTypes = {
   putUser: PropTypes.func,
   putUserEmail: PropTypes.func,
   putUserSocial: PropTypes.func,
+  putNotifications: PropTypes.func,
   location: PropTypes.object,
 }
 
@@ -66,7 +68,7 @@ export class SettingsView extends React.Component {
     } else if (location.pathname === pathPricacy) {
       displayActiveForm = <PrivacySettings />
     } else if (location.pathname === pathNotification) {
-      displayActiveForm = <NotificationSettings />
+      displayActiveForm = <NotificationSettings handleSubmit={(data) => { this.props.putNotifications(data) }} />
     } else if (location.pathname === pathMail) {
       displayActiveForm = <MailSettings />
     }
@@ -136,6 +138,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   putUserSocial: (data) => {
     dispatch(putUserSocial(data.facebook, data.linkedin, data.xing))
+  },
+  putNotifications: (data) => {
+    dispatch(putNotifications(data.questions, data.material, data.friends, data.course, data.announcements))
   },
 })
 

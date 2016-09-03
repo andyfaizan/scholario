@@ -11,6 +11,7 @@ import { requestReducer } from './modules/request'
 import { pkgReducer } from './modules/AddPkg'
 import { materialReducer } from './modules/materials'
 import { miscReducer } from './modules/Misc'
+import { notificationsReducer } from './modules/notifications'
 
 export default combineReducers({
   modal,
@@ -24,6 +25,7 @@ export default combineReducers({
   pkgReducer,
   materialReducer,
   misc: miscReducer,
+  notifications: notificationsReducer,
   // curCourseInstance: curCourseInstanceReducer,
   // curPkg: curPkgReducer,
   router,

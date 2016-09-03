@@ -1,10 +1,8 @@
 import React, { PropTypes } from 'react'
-import { reduxForm } from 'redux-form'
+import { Field, reduxForm } from 'redux-form'
 
 import { Card, CardTitle } from 'material-ui/Card'
-import Toggle from 'material-ui/Toggle'
-
-export const fields = []
+import { Toggle } from 'redux-form-material-ui'
 
 const validate = () => {
   const errors = {}
@@ -13,11 +11,6 @@ const validate = () => {
 
 const propTypes = {
   handleSubmit: PropTypes.func,
-  fields: PropTypes.object,
-}
-
-const defaultProps = {
-  fields: {},
 }
 
 function NotificationSettings({ handleSubmit }) {
@@ -33,34 +26,54 @@ function NotificationSettings({ handleSubmit }) {
           <br />
           <br />
           <div style={styles.block}>
-            <Toggle
+            <Field
+              name="questions"
+              component={Toggle}
               label="Benachrichtigungen für Fragen"
-              defaultToggled={1}
+              defaultToggled
+              labelPosition="left"
               style={styles.toggle}
+              onToggle={handleSubmit}
             />
             <br />
-            <Toggle
+            <Field
+              name="material"
+              component={Toggle}
               label="Benachrichtigungen für Material"
-              defaultToggled={1}
+              defaultToggled
+              labelPosition="left"
               style={styles.toggle}
+              onToggle={handleSubmit}
             />
             <br />
-            <Toggle
+            <Field
+              name="course"
+              component={Toggle}
               label="Benachrichtigungen für den Fortschritt in jedem Kurs"
-              defaultToggled={1}
+              defaultToggled
+              labelPosition="left"
               style={styles.toggle}
+              onToggle={handleSubmit}
             />
             <br />
-            <Toggle
+            <Field
+              name="friends"
+              component={Toggle}
               label="Benachrichtigungen von Aktivitäten von Freunden"
-              defaultToggled={1}
+              defaultToggled
+              labelPosition="left"
               style={styles.toggle}
+              onToggle={handleSubmit}
             />
             <br />
-            <Toggle
+            <Field
+              name="announcements"
+              component={Toggle}
               label="Benachrichtigungen wichtige Ankündigungen"
-              defaultToggled={1}
+              defaultToggled
+              labelPosition="left"
               style={styles.toggle}
+              onToggle={handleSubmit}
             />
             <br />
           </div>
@@ -97,10 +110,8 @@ function getStyles() {
 }
 
 NotificationSettings.propTypes = propTypes
-NotificationSettings.defaultProps = defaultProps
 
 export default reduxForm({
   form: 'NotificationSettings',
-  fields,
   validate,
 })(NotificationSettings)
