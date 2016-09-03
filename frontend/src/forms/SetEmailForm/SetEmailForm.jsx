@@ -26,7 +26,7 @@ function SetEmail({ handleSubmit }) {
           <Field
             name="email"
             component={TextField}
-            floatingLabelText="Deine Emailadresse"
+            floatingLabelText="Ihr Emailadresse"
             fullWidth={false}
             floatingLabelStyle={styles.floatingLabel}
             underlineFocusStyle={styles.underlineColor}

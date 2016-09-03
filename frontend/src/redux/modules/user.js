@@ -54,6 +54,14 @@ export const POST_CONTACT_REQUEST = 'POST_CONTACT_REQUEST'
 export const POST_CONTACT_OK = 'POST_CONTACT_OK'
 export const POST_CONTACT_ERR = 'POST_CONTACT_ERR'
 
+export const PUT_EMAIL_REQUEST = 'PUT_EMAIL_REQUEST'
+export const PUT_EMAIL_OK = 'PUT_EMAIL_OK'
+export const PUT_EMAIL_ERR = 'PUT_EMAIL_ERR'
+
+export const PUT_SOCIAL_REQUEST = 'PUT_SOCIAL_REQUEST'
+export const PUT_SOCIAL_OK = 'PUT_SOCIAL_OK'
+export const PUT_SOCIAL_ERR = 'PUT_SOCIAL_ERR'
+
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -128,6 +136,32 @@ export function putUser(firstname = '', lastname = '', university = '', program 
 
   return {
     types: [PUT_USER_REQUEST, PUT_USER_OK, PUT_USER_ERR],
+    callAPI: () => request.put(endpoint).send(data),
+    schema: userSchema,
+  }
+}
+
+export function putUserEmail(email = '', password = '') {
+  const endpoint = urlJoin(config.apiURL, 'user', '/email') // TODO temporary
+  const data = {}
+  if (email) data.email = email
+  if (password) data.password = password
+
+  return {
+    types: [PUT_EMAIL_REQUEST, PUT_EMAIL_OK, PUT_EMAIL_ERR],
+    callAPI: () => request.put(endpoint).send(data),
+    schema: userSchema,
+  }
+}
+export function putUserSocial(facebook = '', linkedin = '', xing = '') {
+  const endpoint = urlJoin(config.apiURL, 'user', '/social') // TODO temporary
+  const data = {}
+  if (facebook) data.facebook = facebook
+  if (linkedin) data.linkedin = linkedin
+  if (xing) data.xing = xing
+
+  return {
+    types: [PUT_SOCIAL_REQUEST, PUT_SOCIAL_OK, PUT_SOCIAL_ERR],
     callAPI: () => request.put(endpoint).send(data),
     schema: userSchema,
   }

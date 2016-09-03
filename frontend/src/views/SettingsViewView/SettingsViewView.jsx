@@ -13,7 +13,7 @@ import PrivacySettings from '../../forms/PrivacySettings/PrivacySettings'
 import NotificationSettings from '../../forms/NotificationSettings/NotificationSettings'
 import MailSettings from '../../forms/MailSettings/MailSettings'
 import * as selectors from '../../redux/selectors'
-import { getUser, putUser } from '../../redux/modules/user'
+import { getUser, putUser, putUserEmail, putUserSocial } from '../../redux/modules/user'
 
 
 const propTypes = {
@@ -23,6 +23,8 @@ const propTypes = {
   userProgram: PropTypes.object,
   getUser: PropTypes.func,
   putUser: PropTypes.func,
+  putUserEmail: PropTypes.func,
+  putUserSocial: PropTypes.func,
   location: PropTypes.object,
 }
 
@@ -57,8 +59,8 @@ export class SettingsView extends React.Component {
       displayActiveForm = (
         <ProfileSettings
           handleProfileDataSubmit={(data) => { this.props.putUser(data) }}
-          handleEmailSubmit={() => {}}
-          handleSocialConnectsSubmit={() => {}}
+          handleEmailSubmit={(data) => { this.props.putUserEmail(data) }}
+          handleSocialConnectsSubmit={(data) => { this.props.putUserSocial(data) }}
         />
       )
     } else if (location.pathname === pathPricacy) {
@@ -128,6 +130,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   putUser: (data) => {
     dispatch(putUser(data.firstname, data.lastname, data.university, data.program, '', ''))
+  },
+  putUserEmail: (data) => {
+    dispatch(putUserEmail(data.email, data.password))
+  },
+  putUserSocial: (data) => {
+    dispatch(putUserSocial(data.facebook, data.linkedin, data.xing))
   },
 })
 
