@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 import { Card, CardTitle } from 'material-ui/Card'
-import { Toggle } from 'redux-form-material-ui'
+// import { Toggle } from 'redux-form-material-ui'
+import Toggle from 'material-ui/Toggle'
 
 const validate = () => {
   const errors = {}
@@ -12,6 +13,25 @@ const validate = () => {
 const propTypes = {
   handleSubmit: PropTypes.func,
 }
+
+const togglePropTypes = {
+  input: PropTypes.object,
+}
+
+const renderToggle = (props) => {
+  const styles = getStyles()
+  return (
+    <Toggle
+      label={props.input.label}
+      onToggle={props.input.onToggle}
+      style={styles.toggle}
+    />
+  )
+}
+// TODO or not TODO defaultToggled
+
+renderToggle.propTypes = togglePropTypes
+
 
 function NotificationSettings({ handleSubmit }) {
   const styles = getStyles()
@@ -28,51 +48,36 @@ function NotificationSettings({ handleSubmit }) {
           <div style={styles.block}>
             <Field
               name="questions"
-              component={Toggle}
+              component={renderToggle}
               label="Benachrichtigungen für Fragen"
-              defaultToggled
-              labelPosition="left"
-              style={styles.toggle}
               onToggle={handleSubmit}
             />
             <br />
             <Field
               name="material"
-              component={Toggle}
+              component={renderToggle}
               label="Benachrichtigungen für Material"
-              defaultToggled
-              labelPosition="left"
-              style={styles.toggle}
               onToggle={handleSubmit}
             />
             <br />
             <Field
               name="course"
-              component={Toggle}
+              component={renderToggle}
               label="Benachrichtigungen für den Fortschritt in jedem Kurs"
-              defaultToggled
-              labelPosition="left"
-              style={styles.toggle}
               onToggle={handleSubmit}
             />
             <br />
             <Field
               name="friends"
-              component={Toggle}
+              component={renderToggle}
               label="Benachrichtigungen von Aktivitäten von Freunden"
-              defaultToggled
-              labelPosition="left"
-              style={styles.toggle}
               onToggle={handleSubmit}
             />
             <br />
             <Field
               name="announcements"
-              component={Toggle}
+              component={renderToggle}
               label="Benachrichtigungen wichtige Ankündigungen"
-              defaultToggled
-              labelPosition="left"
-              style={styles.toggle}
               onToggle={handleSubmit}
             />
             <br />
