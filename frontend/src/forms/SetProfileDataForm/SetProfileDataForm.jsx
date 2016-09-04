@@ -12,6 +12,8 @@ import { ToolBarGreen, CardBlue } from '../../styles/colors'
 //   return errors
 // }
 
+// TODO http://redux-form.com/6.0.2/examples/initializeFromState/
+
 const propTypes = {
   handleSubmit: PropTypes.func,
 }
