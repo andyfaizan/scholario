@@ -3,46 +3,63 @@ import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import { Tabs, Tab } from 'material-ui/Tabs'
+import Button from 'react-bootstrap/lib/Button'
+import Well from 'react-bootstrap/lib/Well'
+import Collapse from 'react-bootstrap/lib/Collapse'
 
 const propTypes = {
 
 }
 
-function ChapterTabs() {
-  const styles = getStyles()
 
-  return (
-    <div>
-      <Card style={styles.style}>
-        <CardHeader
-          title="URL Avatar"
-        />
-        <CardText>
-          <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
-            <Tab label="Lehrplan" >
-              <div>
-                <h2>Tab One</h2>
-                <p>
-                  This is an example tab.
-                </p>
-                <p>
-                  You can put any sort of HTML or react component in here. It even keeps the component state!
-                </p>
-              </div>
-            </Tab>
-            <Tab label="Sonstige Vermögensgegenstände" >
-              <div>
-                <h2 >Tab Two</h2>
-                <p>
-                  This is another example tab.
-                </p>
-              </div>
-            </Tab>
-          </Tabs>
-        </CardText>
-      </Card>
-    </div>
-  )
+export class ChapterTabs extends React.Component {
+  constructor(...args) {
+    super(...args);
+
+    this.state = {};
+  }
+
+  render() {
+    const styles = getStyles()
+
+    return (
+      <div>
+        <Card style={styles.style}>
+          <CardHeader
+            title="URL Avatar"
+            actAsExpander={true}
+            showExpandableButton={true}
+          />
+          <CardText expandable={true} >
+            <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
+              <Tab label="Lehrplan" >
+                <div>
+                  <div>
+                    <Button onClick={ ()=> this.setState({ open: !this.state.open })}>
+                      click
+                    </Button>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                          Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </Well>
+                      </div>
+                    </Collapse>
+                  </div>
+                </div>
+              </Tab>
+              <Tab label="Sonstige Vermögensgegenstände" >
+                <div>
+                  <h2 >Tab Two</h2>
+                </div>
+              </Tab>
+            </Tabs>
+          </CardText>
+        </Card>
+      </div>
+    )
+  }
 }
 
 function getStyles() {
@@ -56,9 +73,8 @@ function getStyles() {
     },
     style: {
       float: 'left',
-      height: '300px',
       width: '700px',
-      margin: '8.5px',
+      margin: '0.5px',
       overflow: 'inherit',
       alignItems: 'center',
     },

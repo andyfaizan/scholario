@@ -149,6 +149,8 @@ export class NewCourse extends React.Component {
               <Col xs={16} md={8}>
                 <div>
                   <ChapterTabs />
+                  <ChapterTabs />
+                  <ChapterTabs />
                 </div>
                 <br />
               </Col>
