@@ -38,17 +38,139 @@ const propTypes = {
   location: PropTypes.object,
 }
 
-function NewCourse() {
-  const styles = getStyles()
+export class NewCourse extends React.Component {
+  constructor(props) {
+    super(props)
+    this.getDateFromZulu = this.getDateFromZulu.bind(this)
+  }
 
-  return (
-    <div>
-      <div style={styles.rootCourse} >
-        <br />
-        <ChapterTabs />
+  componentDidMount() {
+    const cid = this.props.params.id
+    this.props.dispatch(setCurCourseInstance(cid))
+    this.props.dispatch(getCourseInstance(cid))
+    this.props.dispatch(getQuestions(cid))
+    if (!this.props.userMetadata.fetchedData) {
+      this.props.dispatch(getUser())
+    }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !(this.props.courseId === nextProps.courseId
+        && _.isEqual(this.props.params, nextProps.params)
+        && _.isEqual(this.props.userMetadata, nextProps.userMetadata)
+        && _.isEqual(this.props.courseInstance, nextProps.courseInstance)
+        && _.isEqual(this.props.profPkgs, nextProps.profPkgs)
+        && _.isEqual(this.props.studentPkgs, nextProps.studentPkgs)
+        && _.isEqual(this.props.user, nextProps.user)
+        && _.isEqual(this.props.modal, nextProps.modal)
+        && _.isEqual(this.props.recentQuestions, nextProps.recentQuestions)
+        && _.isEqual(this.props.popularQuestions, nextProps.popularQuestions)
+        && _.isEqual(this.props.location, nextProps.location)
+      )
+  }
+
+  getDateFromZulu(dateString) {
+    const dateParts = dateString.slice(0, 10).split('-')
+    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+  }
+
+  render() {
+    const styles = getStyles()
+
+    const { courseInstance, profPkgs, studentPkgs, user } = this.props
+    let profPkgEls = []
+    let studentPkgEls
+    let addPkgCompProf
+    let addPkgStd
+
+    if (profPkgs) {
+      profPkgEls = profPkgs.map(pkg =>
+        <PkgComponent
+          key={pkg._id} pkgTitle={pkg.name} pkgNotifications={10}
+          dateUploaded={pkg ? this.getDateFromZulu(pkg.createDate) : ''}
+          semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
+          keywords={['Blue ', 'Green ', 'Red ']}
+          pkgUrl={`/package/${pkg._id}`}
+          user={user}
+          owner={pkg.owner}
+          onClickDeletePkg={() => this.props.dispatch(deletePkg(pkg._id, courseInstance._id))}
+        />
+      )
+    }
+
+    if (studentPkgs) {
+      studentPkgEls = studentPkgs.map(pkg =>
+        <PkgComponent
+          key={pkg._id} pkgTitle={pkg.name} pkgNotifications={10}
+          dateUploaded={this.getDateFromZulu(pkg.createDate)}
+          semesterInstance={`${pkg.semesterTerm} ${pkg.semesterYear}`}
+          keywords={['Blue ', 'Green ', 'Red ']}
+          pkgUrl={`/package/${pkg._id}`}
+          user={user}
+          owner={pkg.owner}
+          onClickDeletePkg={() => this.props.dispatch(deletePkg(pkg._id, courseInstance._id))}
+        />
+      )
+    }
+
+    if (this.props.user.role === 'Student') {
+      addPkgStd = (
+        <AddPkgComponent
+          modal={this.props.modal}
+          show={() => this.props.dispatch(show(addPackageModalAction))}
+        />
+      )
+    } else if (this.props.user.role === 'Prof') {
+      addPkgCompProf = (
+        <AddPkgComponent
+          modal={this.props.modal}
+          show={() => this.props.dispatch(show(addPackageModalAction))}
+        />
+      )
+    }
+
+    return (
+      <div>
+        <div style={styles.rootCourse}>
+          <CourseInfoBar
+            courseTitle={courseInstance.course ? courseInstance.course.name : ''}
+            courseUrl={`/course/${courseInstance._id}`}
+            semesterInstance={
+              courseInstance.semester ? `${courseInstance.semester.term} ${courseInstance.semester.year}` : ''
+            }
+            teachersName={courseInstance.prof ? `${courseInstance.prof.firstname} ${courseInstance.prof.lastname}` : ''}
+            shortInformation={courseInstance.description}
+            participantsNum={courseInstance.participantsNum}
+            userRole={this.props.user ? this.props.user.role : ''}
+          />
+          <br />
+          <Grid className="container-fluid">
+            <Row >
+              <Col xs={16} md={8}>
+                <div>
+                  <ChapterTabs />
+                </div>
+                <br />
+              </Col>
+              <Col xs={8} md={4}>
+                <Questions
+                  recentQuestions={this.props.recentQuestions}
+                  popularQuestions={this.props.popularQuestions}
+                  location={this.props.location}
+                  linkToQuestionsList={`/course/${courseInstance._id}/questions`}
+                  onClickVote={(qid) => this.props.dispatch(voteQuestion(qid))}
+                />
+                <br />
+              </Col>
+            </Row>
+          </Grid>
+          <br />
+          <br />
+        </div>
+        <Feedback errorType="ADD_PKG_ERR" okayType="ADD_PKG_OK" message="Ordner Erstellt!" />
       </div>
-    </div>
     )
+  }
 }
 
 function getStyles() {
