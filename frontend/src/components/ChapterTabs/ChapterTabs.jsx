@@ -57,7 +57,7 @@ function getStyles() {
     style: {
       float: 'left',
       height: '300px',
-      width: '600px',
+      width: '700px',
       margin: '8.5px',
       overflow: 'inherit',
       alignItems: 'center',
