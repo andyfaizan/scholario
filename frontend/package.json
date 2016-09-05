@@ -76,6 +76,7 @@
     "moment": "^2.13.0",
     "normalizr": "^2.0.1",
     "pug": "^2.0.0-beta3",
+    "pui-react-collapse": "^5.3.1",
     "radium": "^0.17.1",
     "react": "^15.2.1",
     "react-bootstrap-grid": "^1.0.0",
