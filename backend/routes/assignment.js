@@ -5,13 +5,15 @@ const path = require('path');
 const fse = require('fs-extra');
 const url = require('url');
 const co = require('co');
+const _ = require('lodash');
 const multer = require('multer');
 const logger = require('../logger');
 const utils = require('../utils');
 const CourseInstance = mongoose.model('CourseInstance');
-// const Assignment = mongoose.model('Assignment');
+const Assignment = mongoose.model('Assignment');
 const FileAssignment = mongoose.model('FileAssignment');
 const InteractiveAssignment = mongoose.model('InteractiveAssignment');
+const Solution = mongoose.model('Solution');
 
 var router = express.Router();
 
@@ -150,5 +152,55 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       });
     });
   });
+
+router.get('/:aid', passport.authenticate('jwt', { session: false }), function (req, res) {
+  req.checkParams('aid', 'InvalidId').notEmpty().isMongoId();
+
+  const errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors,
+    });
+  }
+
+  co(function *() {
+    let assignment = yield Assignment.findOne({ _id: req.params.aid })
+      .select('_id name courseInstance createDate modifyDate access accessWhitelist')
+      .lean(true)
+      .exec();
+    if (!assignment) {
+      return res.status(404).json({
+        err: [{ msg: 'AssignmentNotFound' }],
+      });
+    }
+
+    let solutions = yield Solution.find({ assignment: assignment._id })
+      .select('_id assignment user createDate modifyDate grade comment filePath')
+      .lean(true)
+      .exec();
+
+    for (let i = 0; i < solutions.length; i++) {
+      solutions[i].fileUrl = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname: `/solutions/${solutions[i]._id}/${path.basename(solutions[i].filePath)}`,
+      });
+      solutions[i] = _.omit(solutions[i], 'filePath');
+    }
+
+    assignment.solutions = solutions;
+
+    return res.status(200).json(assignment);
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{
+        msg: 'InternalError',
+      }],
+    });
+  });
+});
+
 
 module.exports = router;

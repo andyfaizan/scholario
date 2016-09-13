@@ -17,6 +17,7 @@ const SolutionSchema = new Schema({
     to: { type: Number, default: 100 },
     acquired: { type: Number, default: 0 },
   },
+  comment: { type: String, default: '' },
 }, opts);
 
 const FileSolutionSchema = new Schema({
