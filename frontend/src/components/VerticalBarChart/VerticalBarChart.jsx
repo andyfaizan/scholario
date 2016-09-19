@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Radium from 'radium'
 
 import { Bar as BarChart } from 'react-chartjs'
