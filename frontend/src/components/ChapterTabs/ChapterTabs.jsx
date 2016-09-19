@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
@@ -7,9 +7,11 @@ import Button from 'react-bootstrap/lib/Button'
 import Well from 'react-bootstrap/lib/Well'
 import Collapse from 'react-bootstrap/lib/Collapse'
 
-// const propTypes = {
-
-// }
+const propTypes = {
+  chapterName: PropTypes.string,
+  studentPkgs: PropTypes.array,
+  teacherPkgs: PropTypes.array,
+}
 
 
 export class ChapterTabs extends React.Component {
