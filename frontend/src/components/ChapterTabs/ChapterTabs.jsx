@@ -27,22 +27,22 @@ export class ChapterTabs extends React.Component {
         <Card style={styles.style}>
           <CardHeader
             title="URL Avatar"
-            actAsExpander={true}
-            showExpandableButton={true}
+            actAsExpander
+            showExpandableButton
           />
-          <CardText expandable={true} >
+          <CardText expandable >
             <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
               <Tab label="Lehrplan" >
                 <div>
                   <div>
-                    <Button onClick={ ()=> this.setState({ open: !this.state.open })}>
+                    <Button onClick={() => this.setState({ open: !this.state.open })}>
                       click
                     </Button>
                     <Collapse in={this.state.open}>
                       <div>
                         <Well>
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                          Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
                         </Well>
                       </div>
                     </Collapse>
