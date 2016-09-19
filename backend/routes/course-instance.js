@@ -420,7 +420,7 @@ router.get('/:cid/participants', passport.authenticate('jwt', { session: false }
 
     co(function *() {
       var course = yield CourseInstance.findOne({ _id: req.params.cid })
-        .select('description prof assistants semester course participants')
+        .select('prof course participants')
         .populate([{
           path: 'participants',
           select: 'firstname lastname email',
@@ -442,7 +442,7 @@ router.get('/:cid/participants', passport.authenticate('jwt', { session: false }
         });
       }
 
-      return res.status(200).json(course);
+      return res.status(200).json(course.participants);
     }).catch(function (err) {
       logger.error(err);
       return res.json({
