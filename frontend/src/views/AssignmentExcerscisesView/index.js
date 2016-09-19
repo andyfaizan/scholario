@@ -1,0 +1,2 @@
+import AssignmentExcerscisesView from './AssignmentExcerscisesView'
+export default AssignmentExcerscisesView
