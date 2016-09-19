@@ -3,9 +3,12 @@ import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import { Tabs, Tab } from 'material-ui/Tabs'
+
 import Button from 'react-bootstrap/lib/Button'
 import Well from 'react-bootstrap/lib/Well'
 import Collapse from 'react-bootstrap/lib/Collapse'
+
+import PkgComponent from '../../components/PkgComponent/PkgComponent'
 
 const propTypes = {
   chapterName: PropTypes.string,
@@ -33,13 +36,34 @@ export class ChapterTabs extends React.Component {
             showExpandableButton
           />
           <CardText expandable >
-            <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
-              <Tab label="Lehrplan" >
+            <Tabs style={styles.basic} tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
+              <Tab label="Lehrplan" onClick={() => this.setState({ open: !this.state.open })}>
                 <div>
                   <div>
-                    <Button onClick={() => this.setState({ open: !this.state.open })}>
-                      click
-                    </Button>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
+                        </Well>
+                      </div>
+                    </Collapse>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
+                        </Well>
+                      </div>
+                    </Collapse>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
+                        </Well>
+                      </div>
+                    </Collapse>
                     <Collapse in={this.state.open}>
                       <div>
                         <Well>
@@ -79,6 +103,9 @@ function getStyles() {
       margin: '0.5px',
       overflow: 'inherit',
       alignItems: 'center',
+    },
+    basic: {
+      backgroundColor: '#ecf0f1',
     },
   }
 }

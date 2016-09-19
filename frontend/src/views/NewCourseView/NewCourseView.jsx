@@ -150,7 +150,6 @@ export class NewCourse extends React.Component {
                 <div>
                   <ChapterTabs />
                   <ChapterTabs />
-                  <ChapterTabs />
                 </div>
                 <br />
               </Col>
