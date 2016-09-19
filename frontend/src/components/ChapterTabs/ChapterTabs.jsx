@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
@@ -7,16 +7,16 @@ import Button from 'react-bootstrap/lib/Button'
 import Well from 'react-bootstrap/lib/Well'
 import Collapse from 'react-bootstrap/lib/Collapse'
 
-const propTypes = {
+// const propTypes = {
 
-}
+// }
 
 
 export class ChapterTabs extends React.Component {
   constructor(...args) {
-    super(...args);
+    super(...args)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -81,6 +81,6 @@ function getStyles() {
   }
 }
 
-ChapterTabs.propTypes = propTypes
+// ChapterTabs.propTypes = propTypes
 
 export default Radium(ChapterTabs)

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { GridList, GridTile } from 'material-ui/GridList'
 import Card from 'material-ui/Card/Card'
 import Subheader from 'material-ui/Subheader'
