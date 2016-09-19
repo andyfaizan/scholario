@@ -3,20 +3,25 @@ import Radium from 'radium'
 
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 import { Tabs, Tab } from 'material-ui/Tabs'
+
 import Button from 'react-bootstrap/lib/Button'
 import Well from 'react-bootstrap/lib/Well'
 import Collapse from 'react-bootstrap/lib/Collapse'
 
-const propTypes = {
+import PkgComponent from '../../components/PkgComponent/PkgComponent'
 
+const propTypes = {
+  chapterName: PropTypes.string,
+  studentPkgs: PropTypes.array,
+  teacherPkgs: PropTypes.array,
 }
 
 
 export class ChapterTabs extends React.Component {
   constructor(...args) {
-    super(...args);
+    super(...args)
 
-    this.state = {};
+    this.state = {}
   }
 
   render() {
@@ -27,22 +32,43 @@ export class ChapterTabs extends React.Component {
         <Card style={styles.style}>
           <CardHeader
             title="URL Avatar"
-            actAsExpander={true}
-            showExpandableButton={true}
+            actAsExpander
+            showExpandableButton
           />
-          <CardText expandable={true} >
-            <Tabs tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
-              <Tab label="Lehrplan" >
+          <CardText expandable >
+            <Tabs style={styles.basic} tabItemContainerStyle={styles.tabItemContainerStyle} inkBarStyle={styles.inkBarStyle}>
+              <Tab label="Lehrplan" onClick={() => this.setState({ open: !this.state.open })}>
                 <div>
                   <div>
-                    <Button onClick={ ()=> this.setState({ open: !this.state.open })}>
-                      click
-                    </Button>
                     <Collapse in={this.state.open}>
                       <div>
                         <Well>
-                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                          Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
+                        </Well>
+                      </div>
+                    </Collapse>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
+                        </Well>
+                      </div>
+                    </Collapse>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
+                        </Well>
+                      </div>
+                    </Collapse>
+                    <Collapse in={this.state.open}>
+                      <div>
+                        <Well>
+                          Anim pariatur cliche reprehenderit,
+                          Nihil anim keffiyeh helvetica, craft.
                         </Well>
                       </div>
                     </Collapse>
@@ -78,9 +104,12 @@ function getStyles() {
       overflow: 'inherit',
       alignItems: 'center',
     },
+    basic: {
+      backgroundColor: '#ecf0f1',
+    },
   }
 }
 
-ChapterTabs.propTypes = propTypes
+// ChapterTabs.propTypes = propTypes
 
 export default Radium(ChapterTabs)
