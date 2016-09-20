@@ -166,5 +166,63 @@ router.put('/:sid', passport.authenticate('jwt', { session: false }), function (
   });
 });
 
+router.put('/', passport.authenticate('jwt', { session: false }), function (req, res) {
+  req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
+  req.checkBody('assignmentName', 'InvalidAssignmentName').notEmpty();
+  req.checkBody('user', 'InvalidUser').notEmpty().isMongoId();
+
+  const errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors,
+    });
+  }
+
+  co(function *() {
+    const assignment = yield Assignment.findOne({
+      courseInstance: req.body.courseInstance,
+      name: req.body.assignmentName,
+    });
+    const solution = yield Solution.findOne({ assignment: assignment._id, user: req.body.user })
+      .populate([{
+        path: 'assignment',
+        select: 'courseInstance',
+        populate: [{
+          path: 'courseInstance',
+        }],
+      }]);
+    if (!solution) {
+      return res.status(404).json({
+        err: [{ msg: 'SolutionNotFound' }],
+      });
+    }
+
+    if (req.body.grade) {
+      if (req.user.id !== solution.assignment.courseInstance.prof.toString()) {
+        return res.status(400).json({
+          err: [{ msg: 'PermissionDenied' }],
+        });
+      }
+
+      solution.grade = req.body.grade;
+      solution.comment = req.body.comment;
+      solution.save();
+
+      return res.status(200).json({
+        _id: solution._id,
+        grade: solution.grade,
+        comment: solution.comment,
+      });
+    }
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{
+        msg: 'InternalError',
+      }],
+    });
+  });
+});
+
 
 module.exports = router;
