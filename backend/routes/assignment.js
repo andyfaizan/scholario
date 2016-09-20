@@ -25,6 +25,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
     req.checkBody('access', 'InvalidAccess').optional().isIn(['private', 'public']);
     req.checkBody('accessWhitelist', 'InvalidAccessWhitelist').optional();
+    req.checkBody('minGrade', 'InvalidMinGrade').optional().isFloat();
+    req.checkBody('maxGrade', 'InvalidMaxGrade').optional().isFloat();
 
     const errors = req.validationErrors();
     if (errors) {
@@ -64,6 +66,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             assignment.accessWhitelist = JSON.parse(req.body.accessWhitelist); // Form data is not parsed automatically
           }
         }
+        if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
+        if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
         assignment = yield assignment.save();
 
         const assignmentRoot = path.join(
@@ -103,6 +107,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
               fileUrl: fileUrl,
               access: assignment.access,
               accessWhitelist: assignment.accessWhitelist,
+              minGrade: assignment.minGrade,
+              maxGrade: assignment.maxGrade,
             });
           });
           source.on('error', err => {
@@ -130,6 +136,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             assignment.accessWhitelist = JSON.parse(req.body.accessWhitelist); // Form data is not parsed automatically
           }
         }
+        if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
+        if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
 
         assignment = yield assignment.save();
 
@@ -141,6 +149,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
           createDate: assignment.createDate,
           access: assignment.access,
           accessWhitelist: assignment.accessWhitelist,
+          minGrade: assignment.minGrade,
+          maxGrade: assignment.maxGrade,
         });
       }
     }).catch(function (err) {
@@ -165,7 +175,7 @@ router.get('/:aid', passport.authenticate('jwt', { session: false }), function (
 
   co(function *() {
     let assignment = yield Assignment.findOne({ _id: req.params.aid })
-      .select('_id name courseInstance createDate modifyDate access accessWhitelist')
+      .select('_id name courseInstance createDate modifyDate access accessWhitelist minGrade maxGrade')
       .lean(true)
       .exec();
     if (!assignment) {
@@ -215,7 +225,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
 
   co(function *() {
     let assignment = yield Assignment.findOne({ courseInstance: req.query.cid, name: req.query.name })
-      .select('_id name courseInstance createDate modifyDate access accessWhitelist')
+      .select('_id name courseInstance createDate modifyDate access accessWhitelist minGrade maxGrade')
       .lean(true)
       .exec();
     if (!assignment) {

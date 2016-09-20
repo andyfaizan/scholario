@@ -18,6 +18,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
   function (req, res) {
     req.checkBody('assignment', 'InvalidAssignment').notEmpty().isMongoId();
     req.checkBody('type', 'InvalidType').notEmpty().isIn(['file', 'interactive']);
+    req.checkBody('grade', 'InvalidGrade').optional().isFloat();
 
     const errors = req.validationErrors();
     if (errors) {
@@ -145,6 +146,11 @@ router.put('/:sid', passport.authenticate('jwt', { session: false }), function (
           err: [{ msg: 'PermissionDenied' }],
         });
       }
+      if (req.body.grade < solution.assignment.minGrade || req.body.grade > solution.assignment.maxGrade) {
+        return res.status(400).json({
+          err: [{ msg: 'InvalidGradeRange' }],
+        });
+      }
 
       solution.grade = req.body.grade;
       solution.comment = req.body.comment;
@@ -201,6 +207,11 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
       if (req.user.id !== solution.assignment.courseInstance.prof.toString()) {
         return res.status(400).json({
           err: [{ msg: 'PermissionDenied' }],
+        });
+      }
+      if (req.body.grade < solution.assignment.minGrade || req.body.grade > solution.assignment.maxGrade) {
+        return res.status(400).json({
+          err: [{ msg: 'InvalidGradeRange' }],
         });
       }
 

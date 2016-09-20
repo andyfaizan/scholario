@@ -14,6 +14,8 @@ const AssignmentSchema = new Schema({
   modifyDate: { type: Date },
   access: { type: String, enum: ['private', 'public'], default: 'public' },
   accessWhitelist: [{ type: ObjectId, ref: 'User' }],
+  minGrade: { type: Number, default: 0 },
+  maxGrade: { type: Number, default: 100 },
 }, opts);
 
 const InteractiveAssignmentSchema = new Schema({

@@ -12,11 +12,7 @@ const SolutionSchema = new Schema({
   assignment: { type: ObjectId, ref: 'Assignment' },
   createDate: { type: Date, default: Date.now },
   modifyDate: { type: Date },
-  grade: {
-    from: { type: Number, default: 0 },
-    to: { type: Number, default: 100 },
-    acquired: { type: Number, default: 0 },
-  },
+  grade: { type: Number, default: 0 },
   comment: { type: String, default: '' },
 }, opts);
 
