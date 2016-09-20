@@ -154,6 +154,7 @@ router.put('/:sid', passport.authenticate('jwt', { session: false }), function (
 
       solution.grade = req.body.grade;
       solution.comment = req.body.comment;
+      solution.graded = true;
       solution.save();
 
       return res.status(200).json({
@@ -217,6 +218,7 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
 
       solution.grade = req.body.grade;
       solution.comment = req.body.comment;
+      solution.graded = true;
       solution.save();
 
       return res.status(200).json({

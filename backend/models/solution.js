@@ -14,6 +14,7 @@ const SolutionSchema = new Schema({
   modifyDate: { type: Date },
   grade: { type: Number, default: 0 },
   comment: { type: String, default: '' },
+  graded: { type: Boolean, default: false },
 }, opts);
 
 const FileSolutionSchema = new Schema({
