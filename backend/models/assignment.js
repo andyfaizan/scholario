@@ -23,7 +23,7 @@ const InteractiveAssignmentSchema = new Schema({
 }, opts);
 
 const FileAssignmentSchema = new Schema({
-  filePath: { type: String, default: '' },
+  filePaths: [{ type: String, default: '' }],
 }, opts);
 
 AssignmentSchema.index({ courseInstance: 1, name: 1 }, { unique: true });

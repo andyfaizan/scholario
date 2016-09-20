@@ -18,7 +18,7 @@ const Solution = mongoose.model('Solution');
 var router = express.Router();
 
 router.post('/', passport.authenticate('jwt', { session: false }),
-  multer({ dest: 'uploads/tmp' }).single('assignment'),
+  multer({ dest: 'uploads/tmp' }).array('assignment'),
   utils.hasPermission('Prof'), function (req, res) {
     req.checkBody('name', 'InvalidName').notEmpty();
     req.checkBody('type', 'InvalidType').notEmpty().isIn(['file', 'interactive']);
@@ -43,7 +43,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         });
       }
       if (req.body.type === 'file') {
-        if (!req.file) {
+        if (!req.files || req.files.length === 0) {
           return res.status(404).json({
             err: [{ msg: 'FileMissing' }],
           });
@@ -70,6 +70,8 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
         assignment = yield assignment.save();
 
+        let movedNum = 0;
+        let fileUrls = [];
         const assignmentRoot = path.join(
           path.dirname(__dirname), 'uploads',
           'assignments', assignment.id
@@ -82,39 +84,45 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             });
           }
 
-          const filePath = path.join(assignmentRoot, req.file.originalname);
-          const source = fse.createReadStream(req.file.path);
-          const dest = fse.createWriteStream(filePath);
+          _.each(req.files, f => {
+            const filePath = path.join(assignmentRoot, f.originalname);
+            const source = fse.createReadStream(f.path);
+            const dest = fse.createWriteStream(filePath);
 
-          source.pipe(dest);
-          source.on('end', () => {
-            fse.unlinkSync(req.file.path);
-            assignment.filePath = filePath;
-            assignment.save();
-            const fileUrl = url.format({
-              protocol: 'http',
-              slashes: true,
-              host: 'uploads.scholario.de',
-              pathname: `/assignments/${assignment._id}/${req.file.originalname}`,
-            });
+            source.pipe(dest);
+            source.on('end', () => {
+              movedNum++;
+              fse.unlinkSync(f.path);
+              assignment.filePaths.push(filePath);
+              const fileUrl = url.format({
+                protocol: 'http',
+                slashes: true,
+                host: 'uploads.scholario.de',
+                pathname: `/assignments/${assignment._id}/${f.originalname}`,
+              });
+              fileUrls.push(fileUrl);
 
-            return res.status(201).json({
-              _id: assignment._id,
-              name: assignment.name,
-              courseInstance: req.body.courseInstance,
-              type: assignment.type,
-              createDate: assignment.createDate,
-              fileUrl: fileUrl,
-              access: assignment.access,
-              accessWhitelist: assignment.accessWhitelist,
-              minGrade: assignment.minGrade,
-              maxGrade: assignment.maxGrade,
+              if (movedNum === req.files.length) {
+                assignment.save();
+                return res.status(201).json({
+                  _id: assignment._id,
+                  name: assignment.name,
+                  courseInstance: req.body.courseInstance,
+                  type: assignment.type,
+                  createDate: assignment.createDate,
+                  fileUrls: fileUrls,
+                  access: assignment.access,
+                  accessWhitelist: assignment.accessWhitelist,
+                  minGrade: assignment.minGrade,
+                  maxGrade: assignment.maxGrade,
+                });
+              }
             });
-          });
-          source.on('error', err => {
-            logger.error(err);
-            return res.status(500).json({
-              err: [{ msg: 'InternalError' }],
+            source.on('error', err => {
+              logger.error(err);
+              return res.status(500).json({
+                err: [{ msg: 'InternalError' }],
+              });
             });
           });
         });
@@ -175,7 +183,7 @@ router.get('/:aid', passport.authenticate('jwt', { session: false }), function (
 
   co(function *() {
     let assignment = yield Assignment.findOne({ _id: req.params.aid })
-      .select('_id name courseInstance createDate modifyDate access accessWhitelist minGrade maxGrade')
+      .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
       .lean(true)
       .exec();
     if (!assignment) {
@@ -183,6 +191,17 @@ router.get('/:aid', passport.authenticate('jwt', { session: false }), function (
         err: [{ msg: 'AssignmentNotFound' }],
       });
     }
+
+    assignment.fileUrls = [];
+    for (let i = 0; i < assignment.filePaths.length; i++) {
+      assignment.fileUrls[i] = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname: `/assignments/${assignment._id}/${path.basename(assignment.filePaths[i])}`,
+      });
+    }
+    assignment = _.omit(assignment, 'filePaths');
 
     let solutions = yield Solution.find({ assignment: assignment._id })
       .select('_id assignment user createDate modifyDate grade comment filePath')
@@ -225,7 +244,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
 
   co(function *() {
     let assignment = yield Assignment.findOne({ courseInstance: req.query.cid, name: req.query.name })
-      .select('_id name courseInstance createDate modifyDate access accessWhitelist minGrade maxGrade')
+      .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
       .lean(true)
       .exec();
     if (!assignment) {
@@ -233,6 +252,17 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
         err: [{ msg: 'AssignmentNotFound' }],
       });
     }
+
+    assignment.fileUrls = [];
+    for (let i = 0; i < assignment.filePaths.length; i++) {
+      assignment.fileUrls[i] = url.format({
+        protocol: 'http',
+        slashes: true,
+        host: 'uploads.scholario.de',
+        pathname: `/assignments/${assignment._id}/${path.basename(assignment.filePaths[i])}`,
+      });
+    }
+    assignment = _.omit(assignment, 'filePaths');
 
     let solutions = yield Solution.find({ assignment: assignment._id })
       .select('_id assignment user createDate modifyDate grade comment filePath')
