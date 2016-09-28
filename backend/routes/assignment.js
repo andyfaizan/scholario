@@ -36,130 +36,232 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     }
 
     co(function *() {
-      const ci = yield CourseInstance.findOne({ _id: req.body.courseInstance });
-      if (!ci) {
-        return res.status(404).json({
-          err: [{ msg: 'CourseInstanceNotFound' }],
-        });
-      }
-      if (req.body.type === 'file') {
-        if (!req.files || req.files.length === 0) {
-          return res.status(404).json({
-            err: [{ msg: 'FileMissing' }],
-          });
-        }
-
-        let assignment = new FileAssignment({
-          name: req.body.name,
-          courseInstance: req.body.courseInstance,
-        });
-        if (req.body.access) {
-          if (req.body.access === 'public') assignment.access = req.body.access;
-          else if (req.body.access === 'private') {
-            if (!req.body.accessWhitelist) {
-              return res.status(400).json({
-                err: [{ msg: 'InvalidAccess' }],
-              });
-            }
-
-            assignment.access = req.body.access;
-            assignment.accessWhitelist = JSON.parse(req.body.accessWhitelist); // Form data is not parsed automatically
-          }
-        }
+      let assignment;
+      assignment = yield Assignment.findOne({
+        courseInstance: req.body.courseInstance,
+        name: req.body.name,
+        access: req.body.access,
+        accessWhitelist: JSON.parse(req.body.accessWhitelist),
+      });
+      // Assignment exists, only update
+      if (assignment) {
         if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
         if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
-        assignment = yield assignment.save();
 
-        let movedNum = 0;
-        let fileUrls = [];
-        const assignmentRoot = path.join(
-          path.dirname(__dirname), 'uploads',
-          'assignments', assignment.id
-        );
-        fse.mkdirs(assignmentRoot, function (err) {
-          if (err) {
-            logger.error(err);
-            return res.status(500).json({
-              err: [{ msg: 'InternalError' }],
-            });
-          }
-
-          _.each(req.files, f => {
-            const filePath = path.join(assignmentRoot, f.originalname);
-            const source = fse.createReadStream(f.path);
-            const dest = fse.createWriteStream(filePath);
-
-            source.pipe(dest);
-            source.on('end', () => {
-              movedNum++;
-              fse.unlinkSync(f.path);
-              assignment.filePaths.push(filePath);
-              const fileUrl = url.format({
-                protocol: 'http',
-                slashes: true,
-                host: 'uploads.scholario.de',
-                pathname: `/assignments/${assignment._id}/${f.originalname}`,
-              });
-              fileUrls.push(fileUrl);
-
-              if (movedNum === req.files.length) {
-                assignment.save();
-                return res.status(201).json({
-                  _id: assignment._id,
-                  name: assignment.name,
-                  courseInstance: req.body.courseInstance,
-                  type: assignment.type,
-                  createDate: assignment.createDate,
-                  fileUrls: fileUrls,
-                  access: assignment.access,
-                  accessWhitelist: assignment.accessWhitelist,
-                  minGrade: assignment.minGrade,
-                  maxGrade: assignment.maxGrade,
-                });
-              }
-            });
-            source.on('error', err => {
+        if (req.files) {
+          let movedNum = 0;
+          let fileUrls = [];
+          const assignmentRoot = path.join(
+            path.dirname(__dirname), 'uploads',
+            'assignments', assignment.id
+          );
+          fse.mkdirs(assignmentRoot, function (err) {
+            if (err) {
               logger.error(err);
               return res.status(500).json({
                 err: [{ msg: 'InternalError' }],
               });
+            }
+
+            _.each(req.files, f => {
+              const filePath = path.join(assignmentRoot, f.originalname);
+              const source = fse.createReadStream(f.path);
+              const dest = fse.createWriteStream(filePath);
+
+              source.pipe(dest);
+              source.on('end', () => {
+                movedNum++;
+                fse.unlinkSync(f.path);
+                if (assignment.filePaths.indexOf(filePath) === -1) assignment.filePaths.push(filePath);
+                if (movedNum === req.files.length) {
+                  assignment.modifyDate = Date.now();
+                  assignment.save();
+                  for (let i = 0; i < assignment.filePaths.length; i++) {
+                    const fileUrl = url.format({
+                      protocol: 'http',
+                      slashes: true,
+                      host: 'uploads.scholario.de',
+                      pathname: `/assignments/${assignment._id}/${path.basename(assignment.filePaths[i])}`,
+                    });
+                    fileUrls.push(fileUrl);
+                  }
+
+                  return res.status(200).json({
+                    _id: assignment._id,
+                    name: assignment.name,
+                    courseInstance: req.body.courseInstance,
+                    type: assignment.type,
+                    createDate: assignment.createDate,
+                    fileUrls: fileUrls,
+                    access: assignment.access,
+                    accessWhitelist: assignment.accessWhitelist,
+                    minGrade: assignment.minGrade,
+                    maxGrade: assignment.maxGrade,
+                  });
+                }
+              });
+              source.on('error', err => {
+                logger.error(err);
+                return res.status(500).json({
+                  err: [{ msg: 'InternalError' }],
+                });
+              });
             });
           });
-        });
-      } else if (req.body.type === 'interactive') {
-        let assignment = InteractiveAssignment({
-          name: req.body.name,
-          courseInstance: req.body.courseInstance,
-        });
-        if (req.body.access) {
-          if (req.body.access === 'public') assignment.access = req.body.access;
-          else if (req.body.access === 'private') {
-            if (!req.body.accessWhitelist) {
-              return res.status(400).json({
-                err: [{ msg: 'InvalidAccess' }],
+        } else {
+          assignment.modifyDate = Date.now();
+          assignment.save();
+
+          const fileUrls = [];
+          for (let i = 0; i < assignment.filePaths.length; i++) {
+            const fileUrl = url.format({
+              protocol: 'http',
+              slashes: true,
+              host: 'uploads.scholario.de',
+              pathname: `/assignments/${assignment._id}/${path.basename(assignment.filePaths[i])}`,
+            });
+            fileUrls.push(fileUrl);
+          }
+
+          return res.status(200).json({
+            _id: assignment._id,
+            name: assignment.name,
+            courseInstance: req.body.courseInstance,
+            type: assignment.type,
+            createDate: assignment.createDate,
+            fileUrls: fileUrls,
+            access: assignment.access,
+            accessWhitelist: assignment.accessWhitelist,
+            minGrade: assignment.minGrade,
+            maxGrade: assignment.maxGrade,
+          });
+        }
+      } else {
+        const ci = yield CourseInstance.findOne({ _id: req.body.courseInstance });
+        if (!ci) {
+          return res.status(404).json({
+            err: [{ msg: 'CourseInstanceNotFound' }],
+          });
+        }
+        if (req.body.type === 'file') {
+          if (!req.files || req.files.length === 0) {
+            return res.status(404).json({
+              err: [{ msg: 'FileMissing' }],
+            });
+          }
+
+          assignment = new FileAssignment({
+            name: req.body.name,
+            courseInstance: req.body.courseInstance,
+          });
+          if (req.body.access) {
+            if (req.body.access === 'public') assignment.access = req.body.access;
+            else if (req.body.access === 'private') {
+              if (!req.body.accessWhitelist) {
+                return res.status(400).json({
+                  err: [{ msg: 'InvalidAccess' }],
+                });
+              }
+
+              assignment.access = req.body.access;
+              assignment.accessWhitelist = JSON.parse(req.body.accessWhitelist);
+            }
+          }
+          if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
+          if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
+          assignment = yield assignment.save();
+
+          let movedNum = 0;
+          let fileUrls = [];
+          const assignmentRoot = path.join(
+            path.dirname(__dirname), 'uploads',
+            'assignments', assignment.id
+          );
+          fse.mkdirs(assignmentRoot, function (err) {
+            if (err) {
+              logger.error(err);
+              return res.status(500).json({
+                err: [{ msg: 'InternalError' }],
               });
             }
 
-            assignment.access = req.body.access;
-            assignment.accessWhitelist = JSON.parse(req.body.accessWhitelist); // Form data is not parsed automatically
+            _.each(req.files, f => {
+              const filePath = path.join(assignmentRoot, f.originalname);
+              const source = fse.createReadStream(f.path);
+              const dest = fse.createWriteStream(filePath);
+
+              source.pipe(dest);
+              source.on('end', () => {
+                movedNum++;
+                fse.unlinkSync(f.path);
+                assignment.filePaths.push(filePath);
+                const fileUrl = url.format({
+                  protocol: 'http',
+                  slashes: true,
+                  host: 'uploads.scholario.de',
+                  pathname: `/assignments/${assignment._id}/${f.originalname}`,
+                });
+                fileUrls.push(fileUrl);
+
+                if (movedNum === req.files.length) {
+                  assignment.save();
+                  return res.status(201).json({
+                    _id: assignment._id,
+                    name: assignment.name,
+                    courseInstance: req.body.courseInstance,
+                    type: assignment.type,
+                    createDate: assignment.createDate,
+                    fileUrls: fileUrls,
+                    access: assignment.access,
+                    accessWhitelist: assignment.accessWhitelist,
+                    minGrade: assignment.minGrade,
+                    maxGrade: assignment.maxGrade,
+                  });
+                }
+              });
+              source.on('error', err => {
+                logger.error(err);
+                return res.status(500).json({
+                  err: [{ msg: 'InternalError' }],
+                });
+              });
+            });
+          });
+        } else if (req.body.type === 'interactive') {
+          assignment = InteractiveAssignment({
+            name: req.body.name,
+            courseInstance: req.body.courseInstance,
+          });
+          if (req.body.access) {
+            if (req.body.access === 'public') assignment.access = req.body.access;
+            else if (req.body.access === 'private') {
+              if (!req.body.accessWhitelist) {
+                return res.status(400).json({
+                  err: [{ msg: 'InvalidAccess' }],
+                });
+              }
+
+              assignment.access = req.body.access;
+              assignment.accessWhitelist = JSON.parse(req.body.accessWhitelist);
+            }
           }
+          if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
+          if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
+
+          assignment = yield assignment.save();
+
+          return res.status(201).json({
+            _id: assignment._id,
+            name: assignment.name,
+            courseInstance: assignment.courseInstance,
+            type: assignment.type,
+            createDate: assignment.createDate,
+            access: assignment.access,
+            accessWhitelist: assignment.accessWhitelist,
+            minGrade: assignment.minGrade,
+            maxGrade: assignment.maxGrade,
+          });
         }
-        if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
-        if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
-
-        assignment = yield assignment.save();
-
-        return res.status(201).json({
-          _id: assignment._id,
-          name: assignment.name,
-          courseInstance: assignment.courseInstance,
-          type: assignment.type,
-          createDate: assignment.createDate,
-          access: assignment.access,
-          accessWhitelist: assignment.accessWhitelist,
-          minGrade: assignment.minGrade,
-          maxGrade: assignment.maxGrade,
-        });
       }
     }).catch(function (err) {
       logger.error(err);
