@@ -234,6 +234,7 @@ router.get('/:aid', passport.authenticate('jwt', { session: false }), function (
 router.get('/', passport.authenticate('jwt', { session: false }), function (req, res) {
   req.checkQuery('cid', 'InvalidId').notEmpty().isMongoId();
   req.checkQuery('name', 'InvalidName').notEmpty();
+  req.checkQuery('user', 'InvalidUser').optional().isMongoId(); // The assignment for a particular user, accessWhitelist
 
   const errors = req.validationErrors();
   if (errors) {
@@ -243,10 +244,22 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
   }
 
   co(function *() {
-    let assignment = yield Assignment.findOne({ courseInstance: req.query.cid, name: req.query.name })
-      .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
-      .lean(true)
-      .exec();
+    let assignment;
+    if (req.query.user) {
+      assignment = yield Assignment.findOne({
+        courseInstance: req.query.cid,
+        name: req.query.name,
+        accessWhitelist: [req.query.user],
+      })
+        .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
+        .lean(true)
+        .exec();
+    } else {
+      assignment = yield Assignment.findOne({ courseInstance: req.query.cid, name: req.query.name })
+        .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
+        .lean(true)
+        .exec();
+    }
     if (!assignment) {
       return res.status(404).json({
         err: [{ msg: 'AssignmentNotFound' }],
