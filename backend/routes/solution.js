@@ -235,6 +235,10 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
         comment: solution.comment,
       });
     }
+
+    return res.status(200).json({
+      _id: solution._id,
+    });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({
