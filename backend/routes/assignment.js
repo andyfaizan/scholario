@@ -384,12 +384,12 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
 
     assignment.fileUrls = [];
     for (let i = 0; i < assignment.filePaths.length; i++) {
-      assignment.fileUrls[i] = encodeURIComponent(url.format({
+      assignment.fileUrls[i] = url.format({
         protocol: 'http',
         slashes: true,
         host: 'uploads.scholario.de',
-        pathname: `/assignments/${assignment._id}/${path.basename(assignment.filePaths[i])}`,
-      }));
+        pathname: `/assignments/${assignment._id}/${encodeURIComponent(path.basename(assignment.filePaths[i]))}`,
+      });
     }
     assignment = _.omit(assignment, 'filePaths');
 
@@ -399,12 +399,12 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
       .exec();
 
     for (let i = 0; i < solutions.length; i++) {
-      solutions[i].fileUrl = encodeURIComponent(url.format({
+      solutions[i].fileUrl = url.format({
         protocol: 'http',
         slashes: true,
         host: 'uploads.scholario.de',
-        pathname: `/solutions/${solutions[i]._id}/${path.basename(solutions[i].filePath)}`,
-      }));
+        pathname: `/solutions/${solutions[i]._id}/${encodeURIComponent(path.basename(solutions[i].filePath))}`,
+      });
       solutions[i] = _.omit(solutions[i], 'filePath');
     }
 
