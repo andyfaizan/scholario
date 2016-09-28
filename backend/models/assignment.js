@@ -27,7 +27,7 @@ const FileAssignmentSchema = new Schema({
   filePaths: [{ type: String, default: '' }],
 }, opts);
 
-AssignmentSchema.index({ courseInstance: 1, name: 1 }, { unique: true });
+AssignmentSchema.index({ courseInstance: 1, name: 1, accessWhitelist: 1 }, { unique: true });
 
 const Assignment = mongoose.model('Assignment', AssignmentSchema);
 Assignment.discriminator('InteractiveAssignment', InteractiveAssignmentSchema);
