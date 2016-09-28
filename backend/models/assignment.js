@@ -16,6 +16,7 @@ const AssignmentSchema = new Schema({
   accessWhitelist: [{ type: ObjectId, ref: 'User' }],
   minGrade: { type: Number, default: 0 },
   maxGrade: { type: Number, default: 100 },
+  deadline: { type: Date },
 }, opts);
 
 const InteractiveAssignmentSchema = new Schema({

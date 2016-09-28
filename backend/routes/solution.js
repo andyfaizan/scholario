@@ -6,6 +6,7 @@ const fse = require('fs-extra');
 const url = require('url');
 const co = require('co');
 const multer = require('multer');
+const moment = require('moment');
 const logger = require('../logger');
 const Assignment = mongoose.model('Assignment');
 const Solution = mongoose.model('Solution');
@@ -38,6 +39,13 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         if (assignment.accessWhitelist.indexOf(req.user._id) === -1) {
           return res.status(401).json({
             err: [{ msg: 'PermissionDenied' }],
+          });
+        }
+      }
+      if (assignment.deadline) {
+        if (moment().isAfter(assignment.deadline)) {
+          return res.status(400).json({
+            err: [{ msg: 'DeadlinePassed' }],
           });
         }
       }

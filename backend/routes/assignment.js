@@ -27,6 +27,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
     req.checkBody('accessWhitelist', 'InvalidAccessWhitelist').optional();
     req.checkBody('minGrade', 'InvalidMinGrade').optional().isFloat();
     req.checkBody('maxGrade', 'InvalidMaxGrade').optional().isFloat();
+    req.checkBody('deadline', 'InvalidDeadline').optional().isDate();
 
     const errors = req.validationErrors();
     if (errors) {
@@ -47,6 +48,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
       if (assignment) {
         if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
         if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
+        if (req.body.deadline) assignment.deadline = new Date(req.body.deadline);
 
         if (req.files) {
           let movedNum = 0;
@@ -97,6 +99,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
                     accessWhitelist: assignment.accessWhitelist,
                     minGrade: assignment.minGrade,
                     maxGrade: assignment.maxGrade,
+                    deadline: assignment.deadline,
                   });
                 }
               });
@@ -134,6 +137,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             accessWhitelist: assignment.accessWhitelist,
             minGrade: assignment.minGrade,
             maxGrade: assignment.maxGrade,
+            deadline: assignment.deadline,
           });
         }
       } else {
@@ -169,6 +173,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
           }
           if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
           if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
+          if (req.body.deadline) assignment.deadline = new Date(req.body.deadline);
           assignment = yield assignment.save();
 
           let movedNum = 0;
@@ -216,6 +221,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
                     accessWhitelist: assignment.accessWhitelist,
                     minGrade: assignment.minGrade,
                     maxGrade: assignment.maxGrade,
+                    deadline: assignment.deadline,
                   });
                 }
               });
@@ -247,6 +253,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
           }
           if (req.body.minGrade) assignment.minGrade = req.body.minGrade;
           if (req.body.maxGrade) assignment.maxGrade = req.body.maxGrade;
+          if (req.body.deadline) assignment.deadline = new Date(req.body.deadline);
 
           assignment = yield assignment.save();
 
@@ -260,6 +267,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             accessWhitelist: assignment.accessWhitelist,
             minGrade: assignment.minGrade,
             maxGrade: assignment.maxGrade,
+            deadline: assignment.deadline,
           });
         }
       }
@@ -285,7 +293,9 @@ router.get('/:aid', passport.authenticate('jwt', { session: false }), function (
 
   co(function *() {
     let assignment = yield Assignment.findOne({ _id: req.params.aid })
-      .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
+      .select(
+        'name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade deadline'
+      )
       .lean(true)
       .exec();
     if (!assignment) {
@@ -353,12 +363,16 @@ router.get('/', passport.authenticate('jwt', { session: false }), function (req,
         name: req.query.name,
         accessWhitelist: [req.query.user],
       })
-        .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
+        .select(
+          'name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade deadline'
+        )
         .lean(true)
         .exec();
     } else {
       assignment = yield Assignment.findOne({ courseInstance: req.query.cid, name: req.query.name })
-        .select('_id name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade')
+        .select(
+          'name courseInstance createDate modifyDate access accessWhitelist filePaths minGrade maxGrade deadline'
+        )
         .lean(true)
         .exec();
     }
