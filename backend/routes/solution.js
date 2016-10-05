@@ -199,6 +199,7 @@ router.put('/', passport.authenticate('jwt', { session: false }), function (req,
     const assignment = yield Assignment.findOne({
       courseInstance: req.body.courseInstance,
       name: req.body.assignmentName,
+      accessWhitelist: [req.body.user],
     });
     const solution = yield Solution.findOne({ assignment: assignment._id, user: req.body.user })
       .populate([{
