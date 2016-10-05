@@ -89,10 +89,12 @@ export function loginErr(err) {
 }
 
 export function login(email, password) {
+  const endpoint = urlJoin(config.apiURL, 'auth', '/login')
+
   return (dispatch) => {
     dispatch(loginRequest())
     return superagent
-            .post('https://api.scholario.de/auth/login')
+            .post(endpoint)
             .send({ email, password })
             .end((err, res) => {
               if (err || !res.ok) {
@@ -192,10 +194,11 @@ export function createUserErr(err) {
 }
 
 export function createUser(firstname, lastname, email, password, role, university, program) {
+  const endpoint = urlJoin(config.apiURL, 'users')
   return (dispatch) => {
     dispatch(createUserRequest())
     return superagent
-    .post('https://api.scholario.de/users')
+    .post(endpoint)
     .accept('json')
     .send({ firstname, lastname, email, password, role, university, program })
       .end((err, res) => {
