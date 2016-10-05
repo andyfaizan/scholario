@@ -133,6 +133,8 @@ export class Package extends React.Component {
             shortInformation={courseInstance.description}
             participantsNum={courseInstance.participantsNum}
             pkgName={this.props.pkg.name}
+            modal={this.props.modal}
+            show={() => this.props.dispatch(show(addMaterialModalAction))}
           />
           <br />
           <Grid className="container-fluid">

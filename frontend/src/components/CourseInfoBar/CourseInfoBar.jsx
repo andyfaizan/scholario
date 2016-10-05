@@ -3,14 +3,17 @@ import { Link } from 'react-router'
 import Radium from 'radium'
 
 import Card from 'material-ui/Card/Card'
-import CardText from 'material-ui/Card/CardText'
+// import CardText from 'material-ui/Card/CardText'
 import CardHeader from 'material-ui/Card/CardHeader'
 import CardActions from 'material-ui/Card/CardActions'
 import FlatButton from 'material-ui/FlatButton'
-import Divider from 'material-ui/Divider'
+// import Divider from 'material-ui/Divider'
 import Toolbar from 'material-ui/Toolbar/Toolbar'
 import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
-import Friend from 'material-ui/svg-icons/social/person'
+// import Friend from 'material-ui/svg-icons/social/person'
+import UploadFile from 'material-ui/svg-icons/file/file-upload'
+import ModalRoot from '../../modals/ModalRoot'
+import { ADD_MATERIAL_MODAL as addMaterialModalAction } from '../../redux/modules/modal'
 
 
 const propTypes = {
@@ -28,11 +31,13 @@ const propTypes = {
   topFiveUsersProfileLink: PropTypes.array,
   userRole: PropTypes.string,
   pkgName: PropTypes.string,
+  modal: PropTypes.object,
+  show: PropTypes.func,
 }
 
 function CourseInfoBar({
-  courseTitle, teachersName, semesterInstance, shortInformation,
-  courseUrl, participantsNum, pkgName }) {
+  courseTitle, teachersName, semesterInstance,
+  courseUrl, pkgName, modal, show }) {
   const styles = getStyles()
 
   let labelForPkgName
@@ -53,6 +58,12 @@ function CourseInfoBar({
     courseName = courseTitle
   }
 
+  let addMaterialModal
+  if (modal && modal.visible &&
+      modal.modalType === addMaterialModalAction) {
+    addMaterialModal = <ModalRoot modalType={addMaterialModalAction} />
+  }
+
   return (
     <div>
       <Card>
@@ -71,23 +82,27 @@ function CourseInfoBar({
           title={teachersName}
           subtitle={semesterInstance}
           actAsExpander
-          showExpandableButton
           style={styles.text}
           titleColor="#26A65B"
         />
-        <Divider />
-        <CardText expandable>
+        {/* <CardText>
           <div style={styles.actionPosition} >
             {shortInformation}
           </div>
-        </CardText>
-        <CardActions expandable >
+        </CardText>*/}
+        <CardActions >
           <div style={styles.actionPosition} >
-            <Friend color="#26A65B" />
-            <div style={styles.linkColor} >
-              {participantsNum}
-            </div>
+            <FlatButton
+              label={"Upload Assignment"}
+              backgroundColor="#446CB3"
+              hoverColor="#26A65B"
+              style={styles.buttonStyle}
+              rippleColor="#ffffff"
+              icon={<UploadFile />}
+              onTouchTap={show}
+            />
           </div>
+          {addMaterialModal}
           {/*
           <FlatButton label="Bearbeiten Kurs"
             hoverColor="#26A65B" />
@@ -112,7 +127,7 @@ function getStyles() {
   return {
     actionPosition: {
       position: 'relative',
-      marginLeft: '20px',
+      marginLeft: '55px',
       marginTop: 'auto',
       marginRight: 'auto',
       marginBottom: 'auto',
@@ -140,7 +155,7 @@ function getStyles() {
       color: '#26A65B',
     },
     buttonStyle: {
-      color: 'black',
+      color: 'white',
     },
     separator: {
       backgroundColor: 'black',
