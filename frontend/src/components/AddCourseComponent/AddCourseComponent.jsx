@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton'
 import AddCircle from 'material-ui/svg-icons/content/add'
 
 import ModalRoot from '../../modals/ModalRoot'
-
+import CardBlue from '../../styles/colors'
 
 const propTypes = {
   openModal: PropTypes.func,
@@ -43,7 +43,7 @@ function getStyles() {
       textAlign: 'center',
       display: 'inline-block',
       borderRadius: '13px',
-      backgroundColor: '#446CB3',
+      backgroundColor: CardBlue,
     },
     buttonStyle: {
       margin: 'auto',

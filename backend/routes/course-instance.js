@@ -1,10 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 const express = require('express');
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
-// const _ = require('lodash');
+const _ = require('lodash');
 const co = require('co');
 const logger = require('../logger');
 const utils = require('../utils');
@@ -16,6 +17,7 @@ const Pkg = mongoose.model('Pkg');
 // const Material = mongoose.model('Material');
 const University = mongoose.model('University');
 const Program = mongoose.model('Program');
+const Assignment = mongoose.model('Assignment');
 
 var router = express.Router();
 
@@ -29,25 +31,6 @@ router.get('/:cid', passport.authenticate('jwt', { session: false }), function (
     });
   }
 
-
-//-------------
-  CourseInstance
-    .findOne({ _id: req.params.cid })
-    .populate('following')
-    .then(function (course) {
-      if (!course) {
-        return res.status(404).json({
-          err: [{ msg: 'CourseNotFound' }],
-        });
-      }
-
-      if (course.following.indexOf(req.user._id) === -1) {
-        return res.status(401).json({
-          err: [{ msg: 'PermissionDenied' }],
-        });
-      }
-    });
-//-------------
   co(function *() {
     var course = yield CourseInstance.findOne({ _id: req.params.cid })
       .select('description prof assistants semester course participants')
@@ -73,6 +56,14 @@ router.get('/:cid', passport.authenticate('jwt', { session: false }), function (
         err: [{
           msg: 'CourseNotFound.',
         }],
+      });
+    }
+
+    const participantIds = course.participants.map(p => p.toString());
+    if (course.prof._id.toString() !== req.user.id.toString() &&
+        participantIds.indexOf(req.user.id.toString()) === -1) {
+      return res.status(401).json({
+        err: [{ msg: 'PermissionDenied' }],
       });
     }
 
@@ -105,8 +96,33 @@ router.get('/:cid', passport.authenticate('jwt', { session: false }), function (
       .lean(true)
       .exec();
 
+    const assignments = yield Assignment
+      .find({
+        $or: [
+          { courseInstance: course._id, access: 'public' },
+          { courseInstance: course._id, access: 'private', accessWhitelist: req.user },
+        ],
+      })
+      .select('name courseInstance type createDate modifyDate minGrade maxGrade deadline filePaths')
+      .lean(true)
+      .exec();
+
+    for (let j = 0; j < assignments.length; j++) {
+      assignments[j].fileUrls = [];
+      for (let i = 0; i < assignments[j].filePaths.length; i++) {
+        assignments[j].fileUrls[i] = url.format({
+          protocol: 'http',
+          slashes: true,
+          host: 'uploads.scholario.de',
+          pathname: `/assignments/${assignments[j]._id}/${path.basename(assignments[j].filePaths[i])}`,
+        });
+      }
+      assignments[j] = _.omit(assignments[j], 'filePaths');
+    }
+
     course.questions = questions;
     course.pkgs = pkgs;
+    course.assignments = assignments;
     course.participantsNum = course.participants.length;
     return res.status(200).json(course);
   }).catch(function (err) {
