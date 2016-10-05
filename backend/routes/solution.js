@@ -6,6 +6,7 @@ const fse = require('fs-extra');
 const url = require('url');
 const co = require('co');
 const multer = require('multer');
+const moment = require('moment');
 const logger = require('../logger');
 const Assignment = mongoose.model('Assignment');
 const Solution = mongoose.model('Solution');
@@ -18,6 +19,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
   function (req, res) {
     req.checkBody('assignment', 'InvalidAssignment').notEmpty().isMongoId();
     req.checkBody('type', 'InvalidType').notEmpty().isIn(['file', 'interactive']);
+    req.checkBody('grade', 'InvalidGrade').optional().isFloat();
 
     const errors = req.validationErrors();
     if (errors) {
@@ -37,6 +39,13 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         if (assignment.accessWhitelist.indexOf(req.user._id) === -1) {
           return res.status(401).json({
             err: [{ msg: 'PermissionDenied' }],
+          });
+        }
+      }
+      if (assignment.deadline) {
+        if (moment().isAfter(assignment.deadline)) {
+          return res.status(400).json({
+            err: [{ msg: 'DeadlinePassed' }],
           });
         }
       }
@@ -145,9 +154,15 @@ router.put('/:sid', passport.authenticate('jwt', { session: false }), function (
           err: [{ msg: 'PermissionDenied' }],
         });
       }
+      if (req.body.grade < solution.assignment.minGrade || req.body.grade > solution.assignment.maxGrade) {
+        return res.status(400).json({
+          err: [{ msg: 'InvalidGradeRange' }],
+        });
+      }
 
       solution.grade = req.body.grade;
       solution.comment = req.body.comment;
+      solution.graded = true;
       solution.save();
 
       return res.status(200).json({
@@ -156,6 +171,71 @@ router.put('/:sid', passport.authenticate('jwt', { session: false }), function (
         comment: solution.comment,
       });
     }
+  }).catch(function (err) {
+    logger.error(err);
+    return res.status(500).json({
+      err: [{
+        msg: 'InternalError',
+      }],
+    });
+  });
+});
+
+router.put('/', passport.authenticate('jwt', { session: false }), function (req, res) {
+  req.checkBody('courseInstance', 'InvalidCourseInstance').notEmpty().isMongoId();
+  req.checkBody('assignmentName', 'InvalidAssignmentName').notEmpty();
+  req.checkBody('user', 'InvalidUser').notEmpty().isMongoId();
+  req.checkBody('grade', 'InvalidGrade').notEmpty();
+  req.checkBody('comment', 'InvalidComment').notEmpty();
+
+  const errors = req.validationErrors();
+  if (errors) {
+    return res.status(400).json({
+      err: errors,
+    });
+  }
+
+  co(function *() {
+    const assignment = yield Assignment.findOne({
+      courseInstance: req.body.courseInstance,
+      name: req.body.assignmentName,
+      accessWhitelist: [req.body.user],
+    });
+    const solution = yield Solution.findOne({ assignment: assignment._id, user: req.body.user })
+      .populate([{
+        path: 'assignment',
+        select: 'courseInstance',
+        populate: [{
+          path: 'courseInstance',
+        }],
+      }]);
+    if (!solution) {
+      return res.status(404).json({
+        err: [{ msg: 'SolutionNotFound' }],
+      });
+    }
+
+    if (req.user.id !== solution.assignment.courseInstance.prof.toString()) {
+      return res.status(400).json({
+        err: [{ msg: 'PermissionDenied' }],
+      });
+    }
+    if (req.body.grade < solution.assignment.minGrade || req.body.grade > solution.assignment.maxGrade) {
+      return res.status(400).json({
+        err: [{ msg: 'InvalidGradeRange' }],
+      });
+    }
+
+    solution.grade = req.body.grade;
+    solution.comment = req.body.comment;
+    solution.graded = true;
+    solution.save();
+
+    return res.status(200).json({
+      _id: solution._id,
+      grade: solution.grade,
+      comment: solution.comment,
+    });
   }).catch(function (err) {
     logger.error(err);
     return res.status(500).json({

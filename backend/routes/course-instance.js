@@ -407,6 +407,51 @@ router.get('/:cid/pkgs', passport.authenticate('jwt', { session: false }), funct
     });
 });
 
+router.get('/:cid/participants', passport.authenticate('jwt', { session: false }),
+  utils.hasPermission('Prof'), function (req, res) {
+    req.checkParams('cid', 'InvalidId').notEmpty().isMongoId();
+
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        err: errors,
+      });
+    }
+
+    co(function *() {
+      var course = yield CourseInstance.findOne({ _id: req.params.cid })
+        .select('prof course participants')
+        .populate([{
+          path: 'participants',
+          select: 'firstname lastname email',
+        }])
+        .lean(true)
+        .exec();
+
+      if (!course) {
+        return res.status(404).json({
+          err: [{
+            msg: 'CourseNotFound.',
+          }],
+        });
+      }
+
+      if (req.user.id !== course.prof.toString()) {
+        return res.status(401).json({
+          err: [{ msg: 'PermissionDenied' }],
+        });
+      }
+
+      return res.status(200).json(course.participants);
+    }).catch(function (err) {
+      logger.error(err);
+      return res.json({
+        err: err.message,
+      });
+    });
+  });
+
+
 /**
  * @api {post} /courses Create new course
  * @apiVersion 0.1.0

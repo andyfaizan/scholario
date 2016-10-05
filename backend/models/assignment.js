@@ -14,6 +14,9 @@ const AssignmentSchema = new Schema({
   modifyDate: { type: Date },
   access: { type: String, enum: ['private', 'public'], default: 'public' },
   accessWhitelist: [{ type: ObjectId, ref: 'User' }],
+  minGrade: { type: Number, default: 0 },
+  maxGrade: { type: Number, default: 100 },
+  deadline: { type: Date },
 }, opts);
 
 const InteractiveAssignmentSchema = new Schema({
@@ -21,8 +24,10 @@ const InteractiveAssignmentSchema = new Schema({
 }, opts);
 
 const FileAssignmentSchema = new Schema({
-  filePath: { type: String, default: '' },
+  filePaths: [{ type: String, default: '' }],
 }, opts);
+
+AssignmentSchema.index({ courseInstance: 1, name: 1, accessWhitelist: 1 }, { unique: true });
 
 const Assignment = mongoose.model('Assignment', AssignmentSchema);
 Assignment.discriminator('InteractiveAssignment', InteractiveAssignmentSchema);
