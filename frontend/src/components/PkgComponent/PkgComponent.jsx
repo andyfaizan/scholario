@@ -6,7 +6,9 @@ import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
+import UploadFile from 'material-ui/svg-icons/file/file-upload'
 
+import { White } from '../../styles/colors'
 
 const propTypes = {
   pkgTitle: PropTypes.string,
@@ -32,37 +34,79 @@ function PkgComponent({
     </div>
   )
 
-  if (user && owner && user._id === owner) {
-    container = (
-      <div key="IndependentPackage">
-        <div style={styles.container}>
-          {keywords}
+  if (user.role === 'Prof') {
+    if (user && owner && user._id === owner) {
+      container = (
+        <div key="IndependentPackage">
+          <div style={styles.container}>
+            {keywords}
+          </div>
+          <div key="deleteKey" style={styles.deleteButton}>
+            <IconButton disableTouchRipple tooltip="Pkg löschen" onTouchTap={onClickDeletePkg}>
+              <Delete color="White" />
+            </IconButton>
+          </div>
+          <div style={styles.downloadPkg}>
+            <IconButton disableTouchRipple tooltip="Download-Paket">
+              <FileDownload color="White" />
+            </IconButton>
+          </div>
         </div>
-        <div key="deleteKey" style={styles.deleteButton}>
-          <IconButton disableTouchRipple tooltip="Pkg löschen" onTouchTap={onClickDeletePkg}>
-            <Delete color="White" />
-          </IconButton>
+      )
+    } else {
+      container = (
+        <div key="IndependentPackage">
+          <div style={styles.container}>
+            {keywords}
+          </div>
+          <div style={styles.downloadPkg}>
+            <IconButton disableTouchRipple tooltip="Download-Paket">
+              <FileDownload color="White" />
+            </IconButton>
+            <IconButton disableTouchRipple tooltip="Upload-Assignment">
+              <UploadFile color="White" />
+            </IconButton>
+          </div>
         </div>
-        <div style={styles.downloadPkg}>
-          <IconButton disableTouchRipple tooltip="Download-Paket">
-            <FileDownload color="White" />
-          </IconButton>
+      )
+    }
+  } else
+  {
+    if (user && owner && user._id === owner) {
+      container = (
+        <div key="IndependentPackage">
+          <div style={styles.container}>
+            {keywords}
+          </div>
+          <div key="deleteKey" style={styles.deleteButton}>
+            <IconButton disableTouchRipple tooltip="Pkg löschen" onTouchTap={onClickDeletePkg}>
+              <Delete color="White" />
+            </IconButton>
+          </div>
+          <div style={styles.downloadPkg}>
+            <IconButton disableTouchRipple tooltip="Download-Paket">
+              <FileDownload color="White" />
+            </IconButton>
+          </div>
         </div>
-      </div>
-    )
-  } else {
-    container = (
-      <div key="IndependentPackage">
-        <div style={styles.container}>
-          {keywords}
+      )
+    } else {
+      container = (
+        <div key="IndependentPackage">
+          <div style={styles.container}>
+            {keywords}
+          </div>
+          <div style={styles.downloadPkg}>
+            <IconButton disableTouchRipple tooltip="Download-Paket">
+              <FileDownload color="White" />
+            </IconButton>
+            // <IconButton disableTouchRipple tooltip="Upload-Assignment">
+            //   <UploadFile color="White" />
+            // </IconButton>
+          </div>
         </div>
-        <div style={styles.downloadPkg}>
-          <IconButton disableTouchRipple tooltip="Download-Paket">
-            <FileDownload color="White" />
-          </IconButton>
-        </div>
-      </div>
-    )
+      )
+    }
   }
 
   /*
@@ -214,6 +258,9 @@ function getStyles() {
       marginLeft: '20px',
       marginTop: '0px',
       opacity: 0.8,
+    },
+    uploadPkg: {
+
     },
   }
 }
