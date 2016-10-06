@@ -90,10 +90,12 @@ export class Package extends React.Component {
     const styles = getStyles()
 
     const { user, pkg, courseInstance } = this.props
-    const errorType = 'POST_MATERIAL_ERR'
-    const okayType = 'POST_MATERIAL_OK'
+    const materialOkayType = 'POST_MATERIAL_OK'
+    const materialErrorType = 'POST_MATERIAL_ERR'
     const questionOkayType = 'ADD_QUESTION_OK'
     const questionErrorType = 'ADD_QUESTION_ERR'
+    const solutionOkayType = 'POST_SOLUTION_OK'
+    const solutionErrorType = 'POST_SOLUTION_ERR'
 
     let materialsNew = []
     let addMaterial
@@ -166,8 +168,9 @@ export class Package extends React.Component {
           </Grid>
           <br />
         </div>
-        <Feedback errorType={errorType} okayType={okayType} />
+        <Feedback errorType={materialErrorType} okayType={materialOkayType} />
         <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!" />
+        <Feedback errorType={solutionErrorType} okayType={solutionOkayType} message="Lösung Hochgeladen!" />
       </div>
     )
   }
