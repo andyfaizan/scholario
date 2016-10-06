@@ -1,4 +1,4 @@
-describe('(Component) UploadAssignmentModal', () => {
+describe('(Component) UploadSolutionModal', () => {
   it('exists', () => {
 
   })

@@ -32,7 +32,7 @@ export function getAssignments(aid) {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-export function solutionReducer(state = {}, action) {
+export function assignmentReducer(state = {}, action) {
   switch (action.type) {
   default:
     if (action.response && action.response.entities && action.response.entities.materials) {

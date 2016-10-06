@@ -46,7 +46,7 @@ const dropComponent = (props) => {
       <div style={styles.containerStyle}>
       {showFiles ?
         props.input.previewFiles(filesForPreview) :
-        <strong>Zieh deine Datein hier hin, oder clicke zum Durchsuchen</strong>}
+        <strong>Zieh deine Datein hier hin, oder klicke zum Durchsuchen</strong>}
       </div>
     </Dropzone>
 ) }

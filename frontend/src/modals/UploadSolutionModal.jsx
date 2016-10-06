@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 import Radium from 'radium'
 import { connect } from 'react-redux'
-import { hide, UPLOAD_ASSIGNMENT_MODAL as uploadAssignmentModalAction } from '../redux/modules/modal'
+import { hide, UPLOAD_SOLUTION_MODAL as uploadSolutionModalAction } from '../redux/modules/modal'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
-import UploadAssignmentForm from '../forms/UploadAssignmentForm/UploadAssignmentForm'
+import UploadSolutionForm from '../forms/UploadSolutionForm/UploadSolutionForm'
 import * as selectors from '../redux/selectors'
 import { postSolution, POST_SOLUTION_REQUEST, POST_SOLUTION_OK } from '../redux/modules/solutions'
 
@@ -18,10 +18,10 @@ const propTypes = {
   progress: PropTypes.number,
 }
 
-export class UploadAssignmentModal extends React.Component {
+export class UploadSolutionModal extends React.Component {
   render() {
     const styles = getStyles()
-    const title = 'Loesung Hochladen'
+    const title = 'Lösung Hochladen'
 
     const actions = [
       <RaisedButton
@@ -44,11 +44,12 @@ export class UploadAssignmentModal extends React.Component {
           autoScrollBodyContent
           autoDetectWindowHeight
         >
-          <UploadAssignmentForm
+          <UploadSolutionForm
             ref="myForm"
             request={this.props.request}
-            addMaterial={this.props.sendSolution}
+            sendSolution={this.props.sendSolution}
             progress={this.props.progress}
+            aId={1}
           />
         </Dialog>
       </div>
@@ -76,14 +77,14 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  hide: () => dispatch(hide(uploadAssignmentModalAction)),
+  hide: () => dispatch(hide(uploadSolutionModalAction)),
   sendSolution: (aId, data) => {
     dispatch(postSolution(aId, data))
   },
 })
 
-UploadAssignmentModal.propTypes = propTypes
+UploadSolutionModal.propTypes = propTypes
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(Radium(UploadAssignmentModal))
+  mapDispatchToProps)(Radium(UploadSolutionModal))

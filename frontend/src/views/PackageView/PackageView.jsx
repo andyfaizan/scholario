@@ -21,7 +21,7 @@ import Feedback from '../../containers/Feedback'
 import {
   show, ADD_MATERIAL_MODAL as addMaterialModalAction,
   ADD_BOOKMARK_MODAL as addBookmarkModalAction,
-  UPLOAD_ASSIGNMENT_MODAL as uploadAssignmentModalAction } from '../../redux/modules/modal'
+  UPLOAD_SOLUTION_MODAL as uploadSolutionModalAction } from '../../redux/modules/modal'
 import { deleteBookmark } from '../../redux/modules/bookmark'
 import { deleteMaterial } from '../../redux/modules/materials'
 
@@ -135,7 +135,7 @@ export class Package extends React.Component {
             participantsNum={courseInstance.participantsNum}
             pkgName={this.props.pkg.name}
             modal={this.props.modal}
-            show={() => this.props.dispatch(show(uploadAssignmentModalAction))}
+            show={() => this.props.dispatch(show(uploadSolutionModalAction))}
           />
           <br />
           <Grid className="container-fluid">

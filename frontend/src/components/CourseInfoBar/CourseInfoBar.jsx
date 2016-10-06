@@ -13,7 +13,7 @@ import ToolbarGroup from 'material-ui/Toolbar/ToolbarGroup'
 // import Friend from 'material-ui/svg-icons/social/person'
 import UploadFile from 'material-ui/svg-icons/file/file-upload'
 import ModalRoot from '../../modals/ModalRoot'
-import { UPLOAD_ASSIGNMENT_MODAL as uploadAssignmentModalAction } from '../../redux/modules/modal'
+import { UPLOAD_SOLUTION_MODAL as uploadSolutionModalAction } from '../../redux/modules/modal'
 
 
 const propTypes = {
@@ -58,10 +58,10 @@ function CourseInfoBar({
     courseName = courseTitle
   }
 
-  let uploadAssignmentModal
+  let uploadSolutionModal
   if (modal && modal.visible &&
-      modal.modalType === uploadAssignmentModalAction) {
-    uploadAssignmentModal = <ModalRoot modalType={uploadAssignmentModalAction} />
+      modal.modalType === uploadSolutionModalAction) {
+    uploadSolutionModal = <ModalRoot modalType={uploadSolutionModalAction} />
   }
 
   return (
@@ -102,7 +102,7 @@ function CourseInfoBar({
               onTouchTap={show}
             />
           </div>
-          {uploadAssignmentModal}
+          {uploadSolutionModal}
           {/*
           <FlatButton label="Bearbeiten Kurs"
             hoverColor="#26A65B" />
