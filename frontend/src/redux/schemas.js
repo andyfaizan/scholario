@@ -49,6 +49,15 @@ export const eventSchema = new Schema('events', {
   idAttribute: '_id',
 })
 
+export const assignmentSchema = new Schema('assignments', {
+  idAttribute: '_id',
+})
+
+export const solutionSchema = new Schema('solutions', {
+  idAttribute: '_id',
+})
+
+
 userSchema.define({
   courseInstances: arrayOf(courseInstanceSchema),
   universities: arrayOf(universitySchema),
@@ -73,6 +82,7 @@ courseInstanceSchema.define({
   prof: userSchema,
   questions: arrayOf(questionSchema),
   pkgs: arrayOf(pkgSchema),
+  assignments: arrayOf(assignmentSchema),
 })
 
 questionSchema.define({
@@ -109,4 +119,13 @@ eventSchema.define({
   by: userSchema,
   question: questionSchema,
   answer: answerSchema,
+})
+
+assignmentSchema.define({
+  courseInstance: courseInstanceSchema,
+})
+
+solutionSchema.define({
+  assignment: assignmentSchema,
+  user: userSchema,
 })

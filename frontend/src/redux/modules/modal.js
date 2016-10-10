@@ -9,6 +9,8 @@ export const ADD_QUESTION_MODAL = 'ADD_QUESTION_MODAL'
 export const ADD_PACKAGE_MODAL = 'ADD_PACKAGE_MODAL'
 export const ADD_MATERIAL_MODAL = 'ADD_MATERIAL_MODAL'
 export const ADD_BOOKMARK_MODAL = 'ADD_BOOKMARK_MODAL'
+export const UPLOAD_SOLUTION_MODAL = 'UPLOAD_SOLUTION_MODAL'
+
 
 
 // ------------------------------------

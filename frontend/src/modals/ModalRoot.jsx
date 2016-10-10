@@ -6,7 +6,7 @@ import AddQuestionModal from './AddQuestionModal'
 import AddPackageModal from './AddPackageModal'
 import AddMaterialModal from './AddMaterialModal'
 import AddBookmarkModal from './AddBookmarkModal'
-
+import UploadSolutionModal from './UploadSolutionModal'
 /*
 Idea for the Modal hierarchy has been taken from this StackOverflow post:
 http://stackoverflow.com/questions/35623656/how-can-i-display-a-modal-dialog-in-redux-that-performs-asynchronous-actions
@@ -20,6 +20,7 @@ const MODAL_COMPONENTS = {
   ADD_PACKAGE_MODAL: AddPackageModal,
   ADD_MATERIAL_MODAL: AddMaterialModal,
   ADD_BOOKMARK_MODAL: AddBookmarkModal,
+  UPLOAD_SOLUTION_MODAL: UploadSolutionModal,
 }
 
 const propTypes = {

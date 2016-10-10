@@ -20,7 +20,8 @@ import * as selectors from '../../redux/selectors'
 import Feedback from '../../containers/Feedback'
 import {
   show, ADD_MATERIAL_MODAL as addMaterialModalAction,
-  ADD_BOOKMARK_MODAL as addBookmarkModalAction } from '../../redux/modules/modal'
+  ADD_BOOKMARK_MODAL as addBookmarkModalAction,
+  UPLOAD_SOLUTION_MODAL as uploadSolutionModalAction } from '../../redux/modules/modal'
 import { deleteBookmark } from '../../redux/modules/bookmark'
 import { deleteMaterial } from '../../redux/modules/materials'
 
@@ -89,10 +90,12 @@ export class Package extends React.Component {
     const styles = getStyles()
 
     const { user, pkg, courseInstance } = this.props
-    const errorType = 'POST_MATERIAL_ERR'
-    const okayType = 'POST_MATERIAL_OK'
+    const materialOkayType = 'POST_MATERIAL_OK'
+    const materialErrorType = 'POST_MATERIAL_ERR'
     const questionOkayType = 'ADD_QUESTION_OK'
     const questionErrorType = 'ADD_QUESTION_ERR'
+    const solutionOkayType = 'POST_SOLUTION_OK'
+    const solutionErrorType = 'POST_SOLUTION_ERR'
 
     let materialsNew = []
     let addMaterial
@@ -133,6 +136,8 @@ export class Package extends React.Component {
             shortInformation={courseInstance.description}
             participantsNum={courseInstance.participantsNum}
             pkgName={this.props.pkg.name}
+            modal={this.props.modal}
+            show={() => this.props.dispatch(show(uploadSolutionModalAction))}
           />
           <br />
           <Grid className="container-fluid">
@@ -163,8 +168,9 @@ export class Package extends React.Component {
           </Grid>
           <br />
         </div>
-        <Feedback errorType={errorType} okayType={okayType} />
+        <Feedback errorType={materialErrorType} okayType={materialOkayType} />
         <Feedback errorType={questionErrorType} okayType={questionOkayType} message="Frage Erstellt!" />
+        <Feedback errorType={solutionErrorType} okayType={solutionOkayType} message="Lösung Hochgeladen!" />
       </div>
     )
   }
