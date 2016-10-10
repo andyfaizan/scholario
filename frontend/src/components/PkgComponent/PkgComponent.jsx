@@ -6,9 +6,9 @@ import Paper from 'material-ui/Paper'
 import IconButton from 'material-ui/IconButton'
 import Delete from 'material-ui/svg-icons/action/delete'
 import FileDownload from 'material-ui/svg-icons/file/file-download'
-import UploadFile from 'material-ui/svg-icons/file/file-upload'
+// import UploadFile from 'material-ui/svg-icons/file/file-upload'
 
-import { White } from '../../styles/colors'
+// import { White } from '../../styles/colors'
 
 const propTypes = {
   pkgTitle: PropTypes.string,
@@ -63,9 +63,6 @@ function PkgComponent({
             <IconButton disableTouchRipple tooltip="Download-Paket">
               <FileDownload color="White" />
             </IconButton>
-            <IconButton disableTouchRipple tooltip="Upload-Assignment">
-              <UploadFile color="White" />
-            </IconButton>
           </div>
         </div>
       )
@@ -100,9 +97,6 @@ function PkgComponent({
             <IconButton disableTouchRipple tooltip="Download-Paket">
               <FileDownload color="White" />
             </IconButton>
-            // <IconButton disableTouchRipple tooltip="Upload-Assignment">
-            //   <UploadFile color="White" />
-            // </IconButton>
           </div>
         </div>
       )
