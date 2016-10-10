@@ -19,6 +19,7 @@ const propTypes = {
   user: PropTypes.object,
   owner: PropTypes.string,
   onClickDeletePkg: PropTypes.func,
+
 }
 
 function PkgComponent({

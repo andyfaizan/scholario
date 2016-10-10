@@ -28,7 +28,7 @@ export default () => (
     <IndexRoute component={LandingView} />
     <Route component={DashboardLayout}>
       <Route path="dashboard" component={DashboardView} />
-      <Route path="connects" component={DummyPageView} />
+      <Route path="connects" component={DashboardView} />
       <Route path="forgot-password" component={ForgotPasswordView} />
       <Route path="reset-password/:code" component={ForgotPasswordView} />
       <Route path="course/:id" component={CourseView} />
