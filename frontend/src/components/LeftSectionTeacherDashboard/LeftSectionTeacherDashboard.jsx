@@ -57,8 +57,8 @@ function LeftSectionTeacherDashboard({ role, courseInstances, location, connects
       <FriendsDisplayComponent
         key={following._id}
         fullName={`${following.firstname} ${following.lastname}`}
-        discipline={following.program}
-        universityName={following.university}
+        discipline={following.program.name}
+        universityName={following.university.name}
       />
     )
 
