@@ -33,11 +33,12 @@ const propTypes = {
   pkgName: PropTypes.string,
   modal: PropTypes.object,
   show: PropTypes.func,
+  location: PropTypes.Object,
 }
 
 function CourseInfoBar({
   courseTitle, teachersName, semesterInstance,
-  courseUrl, pkgName, modal, show }) {
+  courseUrl, pkgName, modal, show, location }) {
   const styles = getStyles()
 
   let labelForPkgName
@@ -58,6 +59,20 @@ function CourseInfoBar({
     courseName = courseTitle
   }
 
+  let uploadButton = <div />
+  if (location.pathname.includes('package')) {
+    uploadButton = (<div style={styles.actionPosition} >
+      <FlatButton
+        label={"Lösung Hochladen"}
+        backgroundColor="#446CB3"
+        hoverColor="#26A65B"
+        style={styles.buttonStyle}
+        rippleColor="#ffffff"
+        icon={<UploadFile />}
+        onTouchTap={show}
+      />
+    </div>)
+  }
   let uploadSolutionModal
   if (modal && modal.visible &&
       modal.modalType === uploadSolutionModalAction) {
@@ -91,17 +106,7 @@ function CourseInfoBar({
           </div>
         </CardText>*/}
         <CardActions >
-          <div style={styles.actionPosition} >
-            <FlatButton
-              label={"Upload Assignment"}
-              backgroundColor="#446CB3"
-              hoverColor="#26A65B"
-              style={styles.buttonStyle}
-              rippleColor="#ffffff"
-              icon={<UploadFile />}
-              onTouchTap={show}
-            />
-          </div>
+          {uploadButton}
           {uploadSolutionModal}
           {/*
           <FlatButton label="Bearbeiten Kurs"

@@ -138,6 +138,7 @@ export class Package extends React.Component {
             pkgName={this.props.pkg.name}
             modal={this.props.modal}
             show={() => this.props.dispatch(show(uploadSolutionModalAction))}
+            location={this.props.location}
           />
           <br />
           <Grid className="container-fluid">

@@ -34,6 +34,7 @@ const propTypes = {
   recentQuestions: PropTypes.array,
   popularQuestions: PropTypes.array,
   location: PropTypes.object,
+  latestAssignments: PropTypes.object,
 }
 
 export class Course extends React.Component {
@@ -50,6 +51,7 @@ export class Course extends React.Component {
     if (!this.props.userMetadata.fetchedData) {
       this.props.dispatch(getUser())
     }
+    console.log(this.props.latestAssignments)
   }
 
   shouldComponentUpdate(nextProps) {
@@ -140,6 +142,7 @@ export class Course extends React.Component {
             shortInformation={courseInstance.description}
             participantsNum={courseInstance.participantsNum}
             userRole={this.props.user ? this.props.user.role : ''}
+            location={this.props.location}
           />
           <br />
           <Grid className="container-fluid">
@@ -217,6 +220,7 @@ const mapStateToProps = (state) => ({
   studentPkgs: selectors.getCurCIStudentPkgs(state),
   recentQuestions: selectors.getCurQuestionsFactory('courseInstance', 'date')(state),
   popularQuestions: selectors.getCurQuestionsFactory('courseInstance', 'vote')(state),
+  latestAssignments: selectors.getAllAssignments(state),
   modal: state.modal,
 })
 
