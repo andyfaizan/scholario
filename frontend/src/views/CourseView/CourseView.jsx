@@ -11,12 +11,15 @@ import CourseInfoBar from '../../components/CourseInfoBar/CourseInfoBar'
 import PkgComponent from '../../components/PkgComponent/PkgComponent'
 import AddPkgComponent from '../../components/AddPkgComponent/AddPkgComponent'
 
+import FlatButton from 'material-ui/FlatButton'
+
 import Questions from '../../containers/Questions'
 import { getCourseInstance, setCurCourseInstance } from '../../redux/modules/course-instance'
 import { getQuestions, voteQuestion } from '../../redux/modules/question'
 import { getUser } from '../../redux/modules/user'
 import { deletePkg } from '../../redux/modules/pkg'
 import { show, ADD_PACKAGE_MODAL as addPackageModalAction } from '../../redux/modules/modal'
+import { getAssignment } from '../../redux/modules/assignments'
 import * as selectors from '../../redux/selectors'
 import Feedback from '../../containers/Feedback'
 
@@ -145,6 +148,14 @@ export class Course extends React.Component {
             location={this.props.location}
           />
           <br />
+          <FlatButton
+            label={"Lösung Hochladen"}
+            backgroundColor="#446CB3"
+            hoverColor="#26A65B"
+            style={styles.buttonStyle}
+            rippleColor="#ffffff"
+            onTouchTap={() => console.log(this.props.dispatch(getAssignment('574b3009acedc5586e142506')))}
+          />
           <Grid className="container-fluid">
             <Row >
               <Col xs={16} md={8}>

@@ -100,6 +100,15 @@ export const getRecommendedCourseInstances = createSelector(
   })
 )
 
+export const getAllAssignments = createSelector(
+  [getCourseInstances],
+  (courseInstances) => {
+    const instanceArray = _.values(courseInstances)
+    const assignArray = instanceArray.map((ci) => (ci.assignments))
+    return assignArray
+  }
+)
+
 export const getAnswers = createSelector(
   [getShallowAnswers, getUsers],
   (shallowAnswers, users) => {
@@ -292,3 +301,11 @@ export const getEvents = createSelector(
     return res
   }
 )
+
+// export const getCurAssignment = createSelector(
+//   [getLatestAssignments],
+//   (latestAssignments) => {
+//     const curAssignment = Object.assign({}, latestAssignments[latestAssignments.length - 1])
+//     return curAssignment
+//   }
+// )

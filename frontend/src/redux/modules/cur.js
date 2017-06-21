@@ -2,6 +2,7 @@ import { SET_CUR_PKG, GET_PKG_REQUEST } from './pkg'
 import { SET_CUR_COURSE_INSTANCE } from './course-instance'
 import { SET_CUR_MATERIAL } from './materials'
 import { SET_CUR_QUESTION } from './question'
+import { SET_CUR_ASSIGNMENT } from './assignments'
 
 export function curReducer(state = {}, action) {
   switch (action.type) {
@@ -37,6 +38,13 @@ export function curReducer(state = {}, action) {
     if (action.payload && action.payload.qid) {
       return Object.assign({}, state, {
         question: action.payload.qid,
+      })
+    }
+    return state
+  case SET_CUR_ASSIGNMENT:
+    if (action.payload && action.payload.aid) {
+      return Object.assign({}, state, {
+        assignment: action.payload.aid,
       })
     }
     return state

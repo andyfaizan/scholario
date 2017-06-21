@@ -19,9 +19,9 @@ export const GET_ASSIGNMENT_ERR = 'GET_ASSIGNMENT_ERR'
 // Actions
 // ------------------------------------
 
-export function getAssignments(aid) {
-  const endpoint = urlJoin(config.apiURL, 'assignments', aid)
-  const callP = request.post(endpoint)
+export function getAssignment(aid) {
+  const endpoint = urlJoin(config.apiURL, 'assignment', aid)
+  const callP = request.get(endpoint)
   return {
     types: [GET_ASSIGNMENT_REQUEST, GET_ASSIGNMENT_OK, GET_ASSIGNMENT_ERR],
     callAPI: () => callP,
